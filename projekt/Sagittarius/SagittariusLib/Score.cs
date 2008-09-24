@@ -4,18 +4,20 @@
  * Date: 2008-09-23
  * Time: 14:24
  */
+
 using System;
 
 namespace Sagittarius.Lib
 {
     /// <summary>
     /// Indicates the type of scoring used for this score record
-    /// 
+    /// <para>
     /// Available types are
     ///   None - represents an uninitialised value
     ///   Field - Field Shooting score record
     ///   Target - Target Shooting score record
     ///   PPC - PPC match score record
+    /// </para>
     /// </summary>
     public enum ScoreType
     {

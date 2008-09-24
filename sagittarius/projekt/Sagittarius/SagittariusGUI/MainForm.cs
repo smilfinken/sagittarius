@@ -10,14 +10,18 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Sagittarius.Lib;
 
-namespace SagittariusGUI
+namespace Sagittarius.GUI
 {
     /// <summary>
     /// Description of MainForm.
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Main program interface
+        /// </summary>
         public MainForm()
         {
             //

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0.015" errors="0" skipped="0" tests="3" name="se.sagittarius.model.UserTest">
+  <testcase classname="se.sagittarius.model.UserTest" name="testReadUserFromStorageUsingNamedQuery" time="0.005">
+      </testcase>
+  <testcase classname="se.sagittarius.model.UserTest" name="testDeleteUser" time="0.008">
+      </testcase>
+  <testcase classname="se.sagittarius.model.UserTest" name="testReadWriteUser" time="0.002">
+      </testcase>
+</testsuite>

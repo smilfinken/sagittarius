@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="14.38" errors="0" skipped="0" tests="2" name="se.sagittarius.model.CompetitorTest">
+  <testcase classname="se.sagittarius.model.CompetitorTest" name="testReadWriteCompetitor" time="14.294">
+      </testcase>
+  <testcase classname="se.sagittarius.model.CompetitorTest" name="updateCompetitor" time="0.086">
+      </testcase>
+</testsuite>

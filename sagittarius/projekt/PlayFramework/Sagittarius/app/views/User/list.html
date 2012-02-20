@@ -1,0 +1,22 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div class="contentMenu">
+    <ul>
+        <li><a href="@{User.add()}">Add user</a></li>
+        <li><a href="#">List users</a></li>
+    </ul>    
+</div>
+<div class="contentHeader">List users (${users.size ?: 0} user(s) found)</div>
+<div>
+    #{list items:users, as:'user'}
+        ${user.userName ?: 'N/A'}
+        ${user.firstName ?: 'N/A'}
+        ${user.lastName ?: 'N/A'}
+        ${user.eMail ?: 'N/A'}
+        <a href="@{User.edit(user.id)}">Edit</a>
+        <a href="@{User.delete(user.id)}">Delete</a>
+        <br/>
+     #{/list}
+</div>
+ 
+<a href="@{Application.index()}">Back to main</a>

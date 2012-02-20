@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div class="contentMenu">
+    <ul>
+        <li><a href="@{User.add()}">Add user</a></li>
+        <li><a href="@{User.list()}">List users</a></li>
+    </ul>    
+</div>
+<div class="contentHeader">Edit user</div>
+<div class="content">
+    <form id="addUser" action="@{User.edit(user.id)}" method="POST" accept-charset="${_response_encoding}">
+        <p>Username <input type="text" name="userName" value="${user.userName}" /></p>
+        <p>First name <input type="text" name="firstName" value="${user.firstName}" /></p>
+        <p>Last name <input type="text" name="lastName" value="${user.lastName}" /></p>
+        <p>E-mail <input type="text" name="eMail" value="${user.eMail}" /></p>
+        <p>
+            <input type="submit" value="Update user" id="postEditUser" /> 
+            or <a href="@{Application.index()}">Back to main</a>
+	</p>        
+    </form>
+</div>

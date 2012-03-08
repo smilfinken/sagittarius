@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div class="contentMenu">
+    <ul>
+        <li><a href="javascript:_post('/user')">Add user</a></li>
+        <li><a href="/user">List users</a></li>
+    </ul>    
+</div>
+<div class="contentHeader">Add user</div>
+<div class="content">
+    <form id="addUser" action="/user" method="POST" accept-charset="${_response_encoding}">
+        <p>Username <input type="text" name="userName" /></p>
+        <p>First name <input type="text" name="firstName" /></p>
+        <p>Last name <input type="text" name="lastName" /></p>
+        <p>E-mail <input type="text" name="eMail" /></p>
+        <p>
+            <input type="submit" value="Create user" id="postAddUser" /> 
+            or <a href="@{Application.index()}">Back to main</a>
+	</p>        
+    </form>
+</div>

@@ -5,8 +5,11 @@
 # Home page
 GET     /                                       Application.index
 
-GET     /user/add                               User.add
-GET     /user/edit                              User.edit
+POST    /user                                   User.create
+GET     /user                                   User.list
+GET     /user/{id}                              User.read
+PUT     /user/{id}                              User.update
+DELETE  /user/{id}                              User.delete
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

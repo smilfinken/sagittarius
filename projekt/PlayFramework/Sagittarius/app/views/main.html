@@ -7,7 +7,8 @@
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/jquery-1.7.1.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/ajax.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
@@ -15,7 +16,7 @@
         <div class="mainMenu">
             <ul>
                 <li><a href="@{Application.index()}">Start</a></li>
-                <li><a href="@{User.list()}">Handle users</a></li>
+                <li><a href="/user">Handle users</a></li>
             </ul>
         </div>
         <div class="mainBody">

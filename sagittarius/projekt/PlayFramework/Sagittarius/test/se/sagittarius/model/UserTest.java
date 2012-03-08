@@ -25,7 +25,8 @@ public class UserTest extends UnitTest {
     @Before
     public void setUp() {
         Fixtures.deleteDatabase();
-        user = new User("username", "first name", "last name", "address", "telephone number");
+        
+        user = new User("username", "first name", "last name", "an@email.address");
     }
     
     @Test

@@ -13,19 +13,24 @@ import play.db.jpa.Model;
  * @author johan
  */
 @Entity
-public class ResultEntry extends Model {
+public class Competitor extends Model {
 
-    public ResultEntry(String pName, String pClass, Set<Result> pResults) {
+    public Competitor(String pName, String pClass, List<Result> pResults) {
         competitorName = pName;
         competitorClass = pClass;
         competitorResults = pResults;
 
-        for (Result result : pResults) {
-            result.create();
+        if (pResults != null) {
+            for (Result result : pResults) {
+                result.create();
+            }
         }
     }
+//    @Id
+//    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    public long competitorID;
     public String competitorName;
     public String competitorClass;
     @OneToMany(cascade = CascadeType.ALL)
-    Set<Result> competitorResults;
+    List<Result> competitorResults;
 }

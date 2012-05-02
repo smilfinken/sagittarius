@@ -1,0 +1,19 @@
+            <ul>
+%{
+for(entry in results){
+}%
+                <li>
+                    ${entry.id} : ${entry.competitorName} (${entry.competitorClass}) [
+%{
+for(result in entry.competitorResults){
+}%
+${result.hits}/${result.targets},
+%{
+}
+}%
+]
+                </li>
+%{
+}
+}%
+            </ul>

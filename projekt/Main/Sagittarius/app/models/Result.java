@@ -4,7 +4,7 @@
  */
 package models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import play.db.jpa.Model;
 
 /**
@@ -13,11 +13,11 @@ import play.db.jpa.Model;
  */
 @Entity
 public class Result extends Model {
-    public Result(int pHits, int pTargets){
+
+    public Result(int pHits, int pTargets) {
         hits = pHits;
         targets = pTargets;
     }
-
     public int hits;
     public int targets;
 }

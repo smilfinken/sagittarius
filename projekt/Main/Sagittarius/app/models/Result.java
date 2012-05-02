@@ -4,7 +4,7 @@
  */
 package models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import play.db.jpa.Model;
 
 /**

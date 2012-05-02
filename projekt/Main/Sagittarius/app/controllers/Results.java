@@ -4,8 +4,7 @@
  */
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import play.mvc.Controller;
 import models.*;
 
@@ -21,13 +20,15 @@ public class Results extends Controller {
     private static void fakeResults() {
         String newName;
         String newClass;
-        ArrayList<Result> newResults = new ArrayList<Result>();
+        Set<String> newResults = null;
 
         ResultEntry.deleteAll();
         for (int i = 1; i < 10; i++) {
             newName = "test" + i;
             newClass = "A1";
-            newResults.add(new Result(i, 10 - i));
+            newResults = new HashSet<String>();
+            newResults.add("6/3");
+            newResults.add("5/4");
             ResultEntry newResult = new ResultEntry(newName, newClass, newResults);
             newResult.create();
         }
@@ -40,9 +41,9 @@ public class Results extends Controller {
         render(results);
     }
 
-    public static void addResult(String pName, String pClass, ArrayList<Result> pResults) {
-        ResultEntry newResult = new ResultEntry(pName, pClass, pResults);
+    public static void addResult(String pName, String pClass, Set<Result> pResults) {
+//        ResultEntry newResult = new ResultEntry(pName, pClass, pResults);
 
-        newResult.create();
+//        newResult.create();
     }
 }

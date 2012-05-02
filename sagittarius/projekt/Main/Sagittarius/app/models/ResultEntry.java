@@ -4,8 +4,9 @@
  */
 package models;
 
-import java.util.ArrayList;
+import java.util.*;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import play.db.jpa.Model;
 
 /**
@@ -13,15 +14,15 @@ import play.db.jpa.Model;
  * @author johan
  */
 @Entity
-public class ResultEntry extends Model{
-
-    public ResultEntry(String pName, String pClass, ArrayList<Result> pResults) {
+public class ResultEntry extends Model {
+    public ResultEntry(String pName, String pClass, Set<String> pResults) {
         competitorName = pName;
         competitorClass = pClass;
-//        competitorResults = pResults;
+        competitorResults = pResults;
     }
 
     public String competitorName;
     public String competitorClass;
-    public ArrayList<Result> competitorResults;
+    @OneToMany
+    Set<String> competitorResults;
 }

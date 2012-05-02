@@ -1,6 +1,7 @@
 %{
 int totalHits;
 int totalTargets;
+int totalPoints;
 int place = 1;
 String previousClass = results.first().competitorClass;
 }%
@@ -33,19 +34,26 @@ String previousClass = results.first().competitorClass;
             %{
             totalHits = 0;
             totalTargets = 0;
+            totalPoints = 0;
             for(result in entry.competitorResults){
             totalHits += result.hits;
             totalTargets += result.targets;
             }%
             ${result.hits}/${result.targets}&nbsp;
             %{
+            if (result.points > 0){
+            totalPoints += result.points;
+            }%
+            (${result.points})&nbsp;
+            %{
+            }
             }
             }%
         </td>
         <td>
             ${totalHits}/${totalTargets}
         <td style="font-weight: bold">
-            ${totalHits + totalTargets}
+            ${totalHits + totalTargets}&nbsp;(${totalPoints})
         </td>
         </td>
     </tr>

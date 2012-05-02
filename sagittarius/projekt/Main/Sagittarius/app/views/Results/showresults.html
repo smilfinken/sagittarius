@@ -1,27 +1,56 @@
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Namn</th>
-                    <th>Klass</th>
-                    <th>Resultat</th>
 %{
-for(entry in results){
+int totalHits;
+int totalTargets;
+int place = 1;
+String previousClass = results.first().competitorClass;
 }%
-                <tr>
-                    <td style="font-style: italic">${entry.id}</td>
-                    <td style="font-weight: bold">${entry.competitorName}</td>
-                    <td>${entry.competitorClass}</td>
-                    <td>
-%{
-for(result in entry.competitorResults){
-}%
-${result.hits}/${result.targets}&nbsp;
-%{
-}
-}%
-                    </td>
-                </tr>
-%{
-}
-}%
-            </table>
+<table style="text-align: left">
+    <tr>
+        <th>Placering</th>
+        <th style="">ID</th>
+        <th>Namn</th>
+        <th>Klass</th>
+        <th>Resultat</th>
+    </tr>
+    %{
+    for(entry in results){
+    }%
+    %{
+    if (!entry.competitorClass.equals(previousClass)){
+    place = 1;
+    }%
+    <tr><td colspan="5">&nbsp;</td></tr>
+    %{
+    }
+    previousClass = entry.competitorClass;
+    }%
+    <tr>
+        <td style="font-style: italic; font-weight: bold; text-align: right">${place}</td>
+        <td style="font-weight: lighter">${entry.id}</td>
+        <td style="font-weight: bold">${entry.competitorName}</td>
+        <td style="font-weight: bold">${entry.competitorClass}</td>
+        <td>
+            %{
+            totalHits = 0;
+            totalTargets = 0;
+            for(result in entry.competitorResults){
+            totalHits += result.hits;
+            totalTargets += result.targets;
+            }%
+            ${result.hits}/${result.targets}&nbsp;
+            %{
+            }
+            }%
+        </td>
+        <td>
+            ${totalHits}/${totalTargets}
+        <td style="font-weight: bold">
+            ${totalHits + totalTargets}
+        </td>
+        </td>
+    </tr>
+    %{
+    place++;
+    }
+    }%
+</table>

@@ -5,9 +5,13 @@
 package controllers;
 
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import models.Competitor;
+import models.Result;
 import play.mvc.Controller;
-import models.*;
 
 /**
  *
@@ -19,11 +23,13 @@ public class Results extends Controller {
         SecureRandom randomizer = new SecureRandom();
 
         for (int i = 1; i < 10; i++) {
-            String newName = "test" + (int) (randomizer.nextInt(10) + 1);
+            String newName = String.format("testperson%03d efternamnsson", randomizer.nextInt(1000) + 1);
             String newClass = String.format("%c%d", (65 + (randomizer.nextInt(3))), (1 + randomizer.nextInt(3)));
             List<Result> newResults = new ArrayList<Result>();
             for (int j = 1; j <= 6; j++) {
-                newResults.add(new Result(j, 7 - j));
+                int hits = 1 + randomizer.nextInt(6);
+                int targets = 1 + randomizer.nextInt(hits);
+                newResults.add(new Result(hits, targets));
             }
 
             addResult(newName, newClass, newResults);
@@ -35,12 +41,24 @@ public class Results extends Controller {
         newCompetitor.create();
     }
 
+    private static int sumResults(List<Result> pResults){
+        int hits = 0;
+        int targets = 0;
+
+        for (Result result : pResults){
+            hits += result.hits;
+            targets += result.targets;
+        }
+
+        return hits + targets;
+    }
+
     private static List<Competitor> sortResults(List<Competitor> pCompetitors) {
         class NameComparator implements Comparator<Competitor> {
 
             public int compare(Competitor A, Competitor B) {
                 if (A.competitorClass.equals(B.competitorClass)) {
-                    return (A.competitorName.compareTo(B.competitorName));
+                    return sumResults(B.competitorResults) - sumResults(A.competitorResults);
                 } else {
                     return (A.competitorClass.compareTo(B.competitorClass));
                 }

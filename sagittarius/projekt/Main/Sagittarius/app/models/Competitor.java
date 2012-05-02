@@ -32,5 +32,5 @@ public class Competitor extends Model {
     public String competitorName;
     public String competitorClass;
     @OneToMany(cascade = CascadeType.ALL)
-    List<Result> competitorResults;
+    public List<Result> competitorResults;
 }

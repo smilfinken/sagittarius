@@ -15,16 +15,14 @@ import models.*;
 public class Results extends Controller {
 
     private static void fakeResults() {
-        String newName;
-        String newClass;
-
         for (int i = 1; i < 10; i++) {
-            newName = "test" + i;
-            newClass = "A1";
+            String newName = "test" + i;
+            String newClass = "A1";
             List<Result> newResults = new ArrayList<Result>();
             for (int j = 1; j <= 6; j++) {
                 newResults.add(new Result(j, 7 - j));
             }
+
             addResult(newName, newClass, newResults);
         }
     }

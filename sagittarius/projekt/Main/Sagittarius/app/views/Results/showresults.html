@@ -1,0 +1,27 @@
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Namn</th>
+                    <th>Klass</th>
+                    <th>Resultat</th>
+%{
+for(entry in results){
+}%
+                <tr>
+                    <td style="font-style: italic">${entry.id}</td>
+                    <td style="font-weight: bold">${entry.competitorName}</td>
+                    <td>${entry.competitorClass}</td>
+                    <td>
+%{
+for(result in entry.competitorResults){
+}%
+${result.hits}/${result.targets}&nbsp;
+%{
+}
+}%
+                    </td>
+                </tr>
+%{
+}
+}%
+            </table>

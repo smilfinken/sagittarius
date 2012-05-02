@@ -4,11 +4,15 @@
  */
 package models;
 
+import javax.persistence.Entity;
+import play.db.jpa.Model;
+
 /**
  *
  * @author johan
  */
-public class Result {
+@Entity
+public class Result extends Model {
     public Result(int pHits, int pTargets){
         hits = pHits;
         targets = pTargets;

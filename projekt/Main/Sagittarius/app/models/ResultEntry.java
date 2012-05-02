@@ -5,8 +5,7 @@
 package models;
 
 import java.util.*;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import play.db.jpa.Model;
 
 /**
@@ -15,14 +14,18 @@ import play.db.jpa.Model;
  */
 @Entity
 public class ResultEntry extends Model {
-    public ResultEntry(String pName, String pClass, Set<String> pResults) {
+
+    public ResultEntry(String pName, String pClass, Set<Result> pResults) {
         competitorName = pName;
         competitorClass = pClass;
         competitorResults = pResults;
-    }
 
+        for (Result result : pResults) {
+            result.create();
+        }
+    }
     public String competitorName;
     public String competitorClass;
-    @OneToMany
-    Set<String> competitorResults;
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<Result> competitorResults;
 }

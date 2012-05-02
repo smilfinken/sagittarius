@@ -13,22 +13,19 @@ import models.*;
  * @author johan
  */
 public class Results extends Controller {
-
-    public Results() {
-    }
-
     private static void fakeResults() {
         String newName;
         String newClass;
-        Set<String> newResults = null;
+        Set<Result> newResults = null;
 
         ResultEntry.deleteAll();
         for (int i = 1; i < 10; i++) {
             newName = "test" + i;
             newClass = "A1";
-            newResults = new HashSet<String>();
-            newResults.add("6/3");
-            newResults.add("5/4");
+            newResults = new HashSet<Result>();
+            for (int j = 1; j <= 6; j++) {
+                newResults.add(new Result(j, 7-j));
+            }
             ResultEntry newResult = new ResultEntry(newName, newClass, newResults);
             newResult.create();
         }
@@ -42,8 +39,8 @@ public class Results extends Controller {
     }
 
     public static void addResult(String pName, String pClass, Set<Result> pResults) {
-//        ResultEntry newResult = new ResultEntry(pName, pClass, pResults);
+        ResultEntry newResult = new ResultEntry(pName, pClass, pResults);
 
-//        newResult.create();
+        newResult.create();
     }
 }

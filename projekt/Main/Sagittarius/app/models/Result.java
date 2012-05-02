@@ -5,8 +5,6 @@
 package models;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import play.db.jpa.Model;
 
 /**
@@ -15,14 +13,11 @@ import play.db.jpa.Model;
  */
 @Entity
 public class Result extends Model {
-    public Result(String pCompetitor, int pHits, int pTargets){
-        competitor = pCompetitor;
+    public Result(int pHits, int pTargets){
         hits = pHits;
         targets = pTargets;
     }
 
-    @ManyToOne
-    public String competitor;
     public int hits;
     public int targets;
 }

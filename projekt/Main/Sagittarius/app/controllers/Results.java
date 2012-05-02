@@ -25,11 +25,18 @@ public class Results extends Controller {
         for (int i = 1; i < 10; i++) {
             String newName = String.format("testperson%03d efternamnsson", randomizer.nextInt(1000) + 1);
             String newClass = String.format("%c%d", (65 + (randomizer.nextInt(3))), (1 + randomizer.nextInt(3)));
-            List<Result> newResults = new ArrayList<Result>();
+            List<Result> newResults = new ArrayList<>();
             for (int j = 1; j <= 6; j++) {
-                int hits = 1 + randomizer.nextInt(6);
-                int targets = 1 + randomizer.nextInt(hits);
-                newResults.add(new Result(hits, targets));
+                int hits = randomizer.nextInt(7);
+                int targets = 0;
+                if (hits > 0) {
+                    targets = 1 + randomizer.nextInt(hits);
+                }
+                int points = 0;
+                if (j % 3 == 0) {
+                    points = Math.round(randomizer.nextFloat() * (6 - targets) * hits);
+                }
+                newResults.add(new Result(hits, targets, points));
             }
 
             addResult(newName, newClass, newResults);
@@ -41,11 +48,21 @@ public class Results extends Controller {
         newCompetitor.create();
     }
 
-    private static int sumResults(List<Result> pResults){
+    private static int sumPoints(List<Result> pResults) {
+        int points = 0;
+
+        for (Result result : pResults) {
+            points += result.points;
+        }
+
+        return points;
+    }
+
+    private static int sumResults(List<Result> pResults) {
         int hits = 0;
         int targets = 0;
 
-        for (Result result : pResults){
+        for (Result result : pResults) {
             hits += result.hits;
             targets += result.targets;
         }
@@ -56,9 +73,14 @@ public class Results extends Controller {
     private static List<Competitor> sortResults(List<Competitor> pCompetitors) {
         class NameComparator implements Comparator<Competitor> {
 
+            @Override
             public int compare(Competitor A, Competitor B) {
                 if (A.competitorClass.equals(B.competitorClass)) {
-                    return sumResults(B.competitorResults) - sumResults(A.competitorResults);
+                    if (sumResults(B.competitorResults) == sumResults(A.competitorResults)) {
+                        return sumPoints(B.competitorResults) - sumResults(A.competitorResults);
+                    } else {
+                        return sumResults(B.competitorResults) - sumResults(A.competitorResults);
+                    }
                 } else {
                     return (A.competitorClass.compareTo(B.competitorClass));
                 }

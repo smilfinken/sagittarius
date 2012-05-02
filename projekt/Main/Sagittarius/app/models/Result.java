@@ -14,10 +14,12 @@ import play.db.jpa.Model;
 @Entity
 public class Result extends Model {
 
-    public Result(int pHits, int pTargets) {
+    public Result(int pHits, int pTargets, int pPoints) {
         hits = pHits;
         targets = pTargets;
+        points = pPoints;
     }
     public int hits;
     public int targets;
+    public int points;
 }

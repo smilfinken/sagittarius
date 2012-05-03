@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import models.Competitor;
 import models.Result;
+import play.db.jpa.JPABase;
 import play.mvc.Controller;
 
 /**
@@ -99,17 +100,35 @@ public class Results extends Controller {
         render(sortResults(results));
     }
 
+    private static void deleteEntry(long pID){
+        Competitor entry = Competitor.findById(pID);
+
+        if (entry != null){
+            entry.delete();
+        }
+    }
+
     public static void list() {
-        fakeResults();
+//        fakeResults();
         showResults();
     }
 
     public static void add(String pName, String pClass, List<Result> pResults) {
-        addResult(pName, pClass, pResults);
+        if (pName != null && pName.length() != 0) {
+            addResult(pName, pClass, pResults);
+        }
         showResults();
     }
 
-    public static void enter(){
+    public static void delete(long pID) {
+        if (pID > 0){
+            deleteEntry(pID);
+        }
+        showResults();
+        render();
+    }
+
+    public static void enter() {
         render();
     }
 }

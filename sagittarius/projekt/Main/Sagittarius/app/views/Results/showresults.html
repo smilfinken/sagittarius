@@ -3,17 +3,17 @@ int totalHits;
 int totalTargets;
 int totalPoints;
 int place = 1;
-String previousClass = results.first().competitorClass;
 }%
 <table style="text-align: left">
     <tr>
         <th>Placering</th>
-        <th style="">ID</th>
         <th>Namn</th>
         <th>Klass</th>
         <th>Resultat</th>
     </tr>
     %{
+    if (results.size() > 0) {
+    String previousClass = results.first().competitorClass;
     for(entry in results){
     }%
     %{
@@ -27,7 +27,6 @@ String previousClass = results.first().competitorClass;
     }%
     <tr>
         <td style="font-style: italic; font-weight: bold; text-align: right">${place}</td>
-        <td style="font-weight: lighter">${entry.id}</td>
         <td style="font-weight: bold">${entry.competitorName}</td>
         <td style="font-weight: bold">${entry.competitorClass}</td>
         <td>
@@ -55,10 +54,16 @@ String previousClass = results.first().competitorClass;
         <td style="font-weight: bold">
             ${totalHits + totalTargets}&nbsp;(${totalPoints})
         </td>
+        <td>
+            <form action="@{Results.delete()}" method="POST">
+                <input type="hidden" name="pID" value="${entry.id}" />
+                <input type="submit" class="delete" value="Ta bort" />
+            </form>
         </td>
     </tr>
     %{
     place++;
+    }
     }
     }%
 </table>

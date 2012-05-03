@@ -108,4 +108,8 @@ public class Results extends Controller {
         addResult(pName, pClass, pResults);
         showResults();
     }
+
+    public static void enter(){
+        render();
+    }
 }

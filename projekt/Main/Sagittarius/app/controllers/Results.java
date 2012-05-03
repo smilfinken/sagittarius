@@ -77,7 +77,7 @@ public class Results extends Controller {
             public int compare(Competitor A, Competitor B) {
                 if (A.competitorClass.equals(B.competitorClass)) {
                     if (sumResults(B.competitorResults) == sumResults(A.competitorResults)) {
-                        return sumPoints(B.competitorResults) - sumResults(A.competitorResults);
+                        return sumPoints(B.competitorResults) - sumPoints(A.competitorResults);
                     } else {
                         return sumResults(B.competitorResults) - sumResults(A.competitorResults);
                     }

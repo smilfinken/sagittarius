@@ -25,7 +25,7 @@ public class Results extends Controller {
         for (int i = 1; i < 10; i++) {
             String newName = String.format("testperson%03d efternamnsson", randomizer.nextInt(1000) + 1);
             String newClass = String.format("%c%d", (65 + (randomizer.nextInt(3))), (1 + randomizer.nextInt(3)));
-            List<Result> newResults = new ArrayList<Result>();
+            List<Result> newResults = new ArrayList<>();
             for (int j = 1; j <= 6; j++) {
                 int hits = randomizer.nextInt(7);
                 int targets = 0;

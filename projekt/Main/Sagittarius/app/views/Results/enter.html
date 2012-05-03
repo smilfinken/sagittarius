@@ -1,0 +1,42 @@
+#{extends "main.html" /}
+#{set title: "Resultat" /}
+<div>
+    <form action="@{Results.add()}" method="POST">
+        <table>
+            <tr>
+                <td colspan="6">
+                    <label for="pName">Namn</label>
+                    <input type="text" name="pName" />
+                    <label for="pClass">Klass</label>
+                    <input type="text" size="2" maxlength="2" name="pClass" />
+                </td>
+            </tr>
+            <tr>
+                %{
+                for (int i=0; i<6; i++)
+                {
+                }%
+                <td class="scoring">
+                    <div style="text-align: center; clear: all">Station ${i+1}</div>
+                    <label for="pResults[${i}].hits">Träff</label>
+                    <input class="scoring" type="text" size="2" maxlength="1" name="pResults[${i}].hits" />
+<br />
+                    <label for="pResults[${i}].targets">Figurer</label>
+                    <input class="scoring" type="text" size="2" maxlength="1" name="pResults[${i}].targets" />
+<br />
+                    <label for="pResults[${i}].points">Poäng</label>
+                    <input class="scoring" type="text" size="2" maxlength="2" name="pResults[${i}].points" />
+<br />
+                </td>
+                %{
+                }
+                }%
+            </tr>
+            <tr>
+                <td class="buttons" colspan="6">
+                    <input type="submit" value="L&auml;gg till" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

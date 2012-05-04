@@ -4,11 +4,9 @@
  */
 package controllers;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import models.Competitor;
 import models.Result;
 import play.mvc.Controller;
@@ -71,7 +69,9 @@ public class Results extends Controller {
     }
 
     private static List<Competitor> sortResults(List<Competitor> pCompetitors) {
-        class NameComparator implements Comparator<Competitor> {
+        final List<String> classOrder = Arrays.asList("C", "D", "V", "B", "A", "R");
+
+        class ResultListComparator implements Comparator<Competitor> {
 
             @Override
             public int compare(Competitor A, Competitor B) {
@@ -82,15 +82,28 @@ public class Results extends Controller {
                         return sumResults(B.competitorResults) - sumResults(A.competitorResults);
                     }
                 } else {
-                    return (A.competitorClass.compareTo(B.competitorClass));
+                    String classA = A.competitorClass.substring(0, A.competitorClass.length() - 1);
+                    String classB = B.competitorClass.substring(0, B.competitorClass.length() - 1);
+                    int classSort = classOrder.indexOf(classA) - classOrder.indexOf(classB);
+
+                    if (classSort != 0){
+                        return classSort;
+                    }
+                    else
+                    {
+                        String rankA = A.competitorClass.substring(A.competitorClass.length()-1);
+                        String rankB = B.competitorClass.substring(B.competitorClass.length()-1);
+
+                        return rankA.compareTo(rankB);
+                    }
                 }
             }
         }
 
         List<Competitor> out = pCompetitors;
 
-        NameComparator nc = new NameComparator();
-        Collections.sort(out, nc);
+        ResultListComparator c = new ResultListComparator();
+        Collections.sort(out, c);
         return out;
     }
 
@@ -99,10 +112,10 @@ public class Results extends Controller {
         render(sortResults(results));
     }
 
-    private static void deleteEntry(long pID){
+    private static void deleteEntry(long pID) {
         Competitor entry = Competitor.findById(pID);
 
-        if (entry != null){
+        if (entry != null) {
             entry.delete();
         }
     }
@@ -120,7 +133,7 @@ public class Results extends Controller {
     }
 
     public static void delete(long pID) {
-        if (pID > 0){
+        if (pID > 0) {
             deleteEntry(pID);
         }
         showResults();

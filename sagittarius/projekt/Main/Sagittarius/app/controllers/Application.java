@@ -1,12 +1,14 @@
 package controllers;
 
+import java.util.List;
+import models.Competition;
+import models.CompetitionType;
 import play.mvc.Controller;
-
 
 public class Application extends Controller {
 
     public static void index() {
-        render();
+        List<Competition> competitions = Competition.all().fetch();
+        render(competitions);
     }
-
 }

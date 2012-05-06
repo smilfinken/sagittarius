@@ -5,10 +5,10 @@
         <table>
             <tr>
                 <td colspan="6">
-                    <label for="pName">Namn</label>
-                    <input type="text" name="pName" />
-                    <label for="pClass">Klass</label>
-                    <input type="text" size="2" maxlength="2" name="pClass" />
+                    <label for="name">Namn</label>
+                    <input type="text" name="name" />
+                    <label for="class">Klass</label>
+                    <input type="text" size="2" maxlength="2" name="class" />
                 </td>
             </tr>
             <tr>
@@ -18,12 +18,12 @@
                 }%
                 <td class="scoring">
                     <div style="text-align: center; clear: all">Station ${i+1}</div>
-                    <label for="pResults[${i}].hits">Träff</label>
-                    <input class="scoring" type="text" size="2" maxlength="1" name="pResults[${i}].hits" /><br />
-                    <label for="pResults[${i}].targets">Figurer</label>
-                    <input class="scoring" type="text" size="2" maxlength="1" name="pResults[${i}].targets" /><br />
-                    <label for="pResults[${i}].points">Poäng</label>
-                    <input class="scoring" type="text" size="2" maxlength="2" name="pResults[${i}].points" /><br />
+                    <label for="results[${i}].hits">Tr&amul;ff</label>
+                    <input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
+                    <label for="results[${i}].targets">Figurer</label>
+                    <input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
+                    <label for="results[${i}].points">Po&auml;ng</label>
+                    <input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
                 </td>
                 %{
                 }

@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                                       Results.list
+GET     /                                       Application.index
 GET     /enter                                  Results.enter
 
 # Ignore favicon requests

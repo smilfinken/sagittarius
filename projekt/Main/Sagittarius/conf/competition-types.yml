@@ -1,0 +1,4 @@
+# predefined competition types
+
+CompetitionType(1):
+  name: Fältskjutning

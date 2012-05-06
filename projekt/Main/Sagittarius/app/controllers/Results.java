@@ -7,11 +7,13 @@ package controllers;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import models.Competitor;
 import models.Result;
-import org.apache.commons.io.output.FileWriterWithEncoding;
+import models.User;
 import play.mvc.Controller;
 
 /**
@@ -20,50 +22,26 @@ import play.mvc.Controller;
  */
 public class Results extends Controller {
 
-    private static void fakeResults() {
-        SecureRandom randomizer = new SecureRandom();
-
-        for (int i = 1; i < 10; i++) {
-            String newName = String.format("testperson%03d efternamnsson", randomizer.nextInt(1000) + 1);
-            String newClass = String.format("%c%d", (65 + (randomizer.nextInt(3))), (1 + randomizer.nextInt(3)));
-            List<Result> newResults = new ArrayList<>();
-            for (int j = 1; j <= 6; j++) {
-                int hits = randomizer.nextInt(7);
-                int targets = 0;
-                if (hits > 0) {
-                    targets = 1 + randomizer.nextInt(hits);
-                }
-                int points = 0;
-                if (j % 3 == 0) {
-                    points = Math.round(randomizer.nextFloat() * (6 - targets) * hits);
-                }
-                newResults.add(new Result(hits, targets, points));
-            }
-
-            addResult(newName, newClass, newResults);
-        }
-    }
-
-    private static void addResult(String pName, String pClass, List<Result> pResults) {
-        Competitor newCompetitor = new Competitor(pName, pClass, pResults);
+    private static void addResult(User user, List<Result> results) {
+        Competitor newCompetitor = new Competitor(user, results);
         newCompetitor.create();
     }
 
-    private static int sumPoints(List<Result> pResults) {
+    private static int sumPoints(List<Result> results) {
         int points = 0;
 
-        for (Result result : pResults) {
+        for (Result result : results) {
             points += result.points;
         }
 
         return points;
     }
 
-    private static int sumResults(List<Result> pResults) {
+    private static int sumResults(List<Result> results) {
         int hits = 0;
         int targets = 0;
 
-        for (Result result : pResults) {
+        for (Result result : results) {
             hits += result.hits;
             targets += result.targets;
         }
@@ -71,29 +49,29 @@ public class Results extends Controller {
         return hits + targets;
     }
 
-    private static List<Competitor> sortResults(List<Competitor> pCompetitors) {
+    private static List<Competitor> sortResults(List<Competitor> competitors) {
         final List<String> classOrder = Arrays.asList("C", "D", "V", "B", "A", "R", "S");
 
         class ResultListComparator implements Comparator<Competitor> {
 
             @Override
             public int compare(Competitor A, Competitor B) {
-                if (A.competitorClass.equals(B.competitorClass)) {
-                    if (sumResults(B.competitorResults) == sumResults(A.competitorResults)) {
-                        return sumPoints(B.competitorResults) - sumPoints(A.competitorResults);
+                if (A.getDivision().equals(B.getDivision())) {
+                    if (sumResults(B.results) == sumResults(A.results)) {
+                        return sumPoints(B.results) - sumPoints(A.results);
                     } else {
-                        return sumResults(B.competitorResults) - sumResults(A.competitorResults);
+                        return sumResults(B.results) - sumResults(A.results);
                     }
                 } else {
-                    String classA = A.competitorClass.substring(0, Math.max(1, A.competitorClass.length() - 1));
-                    String classB = B.competitorClass.substring(0, Math.max(1, B.competitorClass.length() - 1));
+                    String classA = A.getDivision().substring(0, Math.max(1, A.getDivision().length() - 1));
+                    String classB = B.getDivision().substring(0, Math.max(1, B.getDivision().length() - 1));
                     int classSort = classOrder.indexOf(classA) - classOrder.indexOf(classB);
 
                     if (classSort != 0) {
                         return classSort;
                     } else {
-                        String rankA = A.competitorClass.substring(A.competitorClass.length() - 1);
-                        String rankB = B.competitorClass.substring(B.competitorClass.length() - 1);
+                        String rankA = A.getDivision().substring(A.getDivision().length() - 1);
+                        String rankB = B.getDivision().substring(B.getDivision().length() - 1);
 
                         return rankA.compareTo(rankB);
                     }
@@ -101,7 +79,7 @@ public class Results extends Controller {
             }
         }
 
-        List<Competitor> out = pCompetitors;
+        List<Competitor> out = competitors;
 
         ResultListComparator c = new ResultListComparator();
         Collections.sort(out, c);
@@ -113,8 +91,8 @@ public class Results extends Controller {
         render(sortResults(results));
     }
 
-    private static void deleteEntry(long pID) {
-        Competitor entry = Competitor.findById(pID);
+    private static void deleteEntry(long competitorID) {
+        Competitor entry = Competitor.findById(competitorID);
 
         if (entry != null) {
             entry.delete();
@@ -122,13 +100,13 @@ public class Results extends Controller {
     }
 
     public static void list() {
-//        fakeResults();
         showResults();
     }
 
-    public static void add(String pName, String pClass, List<Result> pResults) {
-        if (pName != null && pName.length() != 0) {
-            addResult(pName, pClass, pResults);
+    public static void add(int userID, List<Result> results) {
+        User user = User.findById(userID);
+        if (user != null) {
+            addResult(user, results);
         }
         showResults();
     }
@@ -163,12 +141,12 @@ public class Results extends Controller {
             resultsWriter.write(header1 + header2);
 
             for (Competitor competitor : sortResults(results)) {
-                String line = String.format("\"%s\";\"%s\"", competitor.competitorName, competitor.competitorClass);
+                String line = String.format("\"%s\";\"%s\"", competitor.getFullName(), competitor.getDivision());
                 int totalHits = 0;
                 int totalTargets = 0;
                 int totalPoints = 0;
 
-                for (Result result : competitor.competitorResults) {
+                for (Result result : competitor.results) {
                     line += String.format(";%d;%d;%d", result.hits, result.targets, result.points);
                     totalHits += result.hits;
                     totalTargets += result.targets;

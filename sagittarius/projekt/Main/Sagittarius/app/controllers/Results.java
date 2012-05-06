@@ -85,8 +85,8 @@ public class Results extends Controller {
                         return sumResults(B.competitorResults) - sumResults(A.competitorResults);
                     }
                 } else {
-                    String classA = A.competitorClass.substring(0, A.competitorClass.length() - 1);
-                    String classB = B.competitorClass.substring(0, B.competitorClass.length() - 1);
+                    String classA = A.competitorClass.substring(0, Math.max(1, A.competitorClass.length() - 1));
+                    String classB = B.competitorClass.substring(0, Math.max(1, B.competitorClass.length() - 1));
                     int classSort = classOrder.indexOf(classA) - classOrder.indexOf(classB);
 
                     if (classSort != 0) {

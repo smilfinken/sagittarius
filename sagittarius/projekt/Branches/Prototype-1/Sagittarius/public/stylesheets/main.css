@@ -1,0 +1,33 @@
+td.scoring
+{
+    text-align: right;
+}
+
+td.buttons {
+    text-align: center;
+}
+
+fieldset {
+    float: left;
+    clear: left;
+    width: 100%;
+}
+
+input {
+    border: 1px solid blue;
+}
+
+input[type=submit].delete {
+    border: 1px solid red;
+}
+
+input[type=submit].enter {
+    border: 1px solid green;
+}
+
+input.scoring {
+    border: 1px solid gray;
+    size: 5;
+    width: 30px;
+    maxlength: 5;
+}

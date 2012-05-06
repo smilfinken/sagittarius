@@ -181,7 +181,7 @@ public class Results extends Controller {
         }
 
         response.setHeader("Content-Length", String.format("%d", resultsFile.length()));
-        response.setHeader("Content-Type", "text/csv; charset=iso-8859-1");
+        response.setHeader("Content-Type", "text/csv; charset=utf-8");
         response.setHeader("Content-Disposition", "attachment; filename=out.csv");
         renderBinary(resultsFile);
     }

@@ -12,7 +12,7 @@ public class Rank extends Model {
 
     public int rank;
 
-    public void Rank(int rank) {
+    public Rank(int rank) {
         this.rank = rank;
     }
 }

@@ -14,7 +14,7 @@ import play.db.jpa.Model;
 @Entity
 public class Competitor extends Model {
 
-    public void Competitor(User user) {
+    public Competitor(User user) {
         this.user = user;
         this.results = null;
     }

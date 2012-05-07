@@ -1,0 +1,31 @@
+# dummy users
+User(1):
+  name: Per Persson
+  category: 1
+  rank: 1
+
+User(2):
+  name: Oskar Oskarsson
+  category: 2
+  rank: 1
+
+User(3):
+  name: Jan Jansson
+  category: 2
+  rank: 2
+
+User(4):
+  name: Nils Nilsson
+  category: 4
+  rank: 2
+
+User(5):
+  name: Sigrid Sigridsdotter
+  category: 3
+  rank: 1
+
+User(6):
+  name: Malin Malinsdotter
+  category: 3
+  category: 5
+  rank: 3

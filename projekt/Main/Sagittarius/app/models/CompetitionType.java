@@ -12,7 +12,7 @@ public class CompetitionType extends Model {
 
     public String name;
 
-    public void CompetitionType(String name){
+    public CompetitionType(String name) {
         this.name = name;
     }
 }

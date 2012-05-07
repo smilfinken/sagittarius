@@ -9,8 +9,13 @@ import play.mvc.Controller;
  */
 public class Competitions extends Controller {
 
-    public static void display(long competitionID) {
+    public static void select(long competitionID) {
         Competition competition = Competition.findById(competitionID);
+        render(competition);
+    }
+
+    public static void add(String name) {
+        Competition competition = new Competition(name);
         render(competition);
     }
 

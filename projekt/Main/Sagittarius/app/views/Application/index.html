@@ -1,23 +1,30 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<form action="@{Competitions.Display()}" method="POST">
-    <table>
-        <tr>
-            <td>
-                <label for="competitionID">V&auml;lj en t&auml;vling</label>
-                <select name="competitionID">
-                    %{
-                    for (competition in competitions){
-                    }%
-                    <option value="${competition.id}">${competition.name}</option>
-                    %{
-                    }
-                    }%
-                </select>
-            </td>
-            <td>
-                <input type="submit" value="V&auml;lj" />
-            </td>
-    </table>
-</form>
+<table>
+    <tr>
+        <td>
+    <form action="@{Competitions.select()}" method="POST">
+            <label for="competitionID">V&auml;lj en t&auml;vling</label>
+            <select name="competitionID">
+                %{
+                for (competition in competitions){
+                }%
+                <option value="${competition.id}">${competition.name}</option>
+                %{
+                }
+                }%
+            </select>
+            <input type="submit" value="V&auml;lj" />
+    </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <form action="@{Competitions.add()}" method="POST">
+               <label for="name">Ny t&auml;vling</label>
+               <input type="text" name="name" />
+               <input type="submit" value="Skapa" />
+           </form>
+        </td>
+</table>

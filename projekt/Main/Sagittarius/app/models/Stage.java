@@ -14,7 +14,7 @@ import play.db.jpa.Model;
 @Entity
 public class Stage extends Model {
 
-    public void Stage(int targets, boolean hasPoints) {
+    public Stage(int targets, boolean hasPoints) {
         this.targets = targets;
         this.hasPoints = hasPoints;
     }

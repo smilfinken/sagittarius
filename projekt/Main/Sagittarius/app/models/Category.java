@@ -12,7 +12,7 @@ public class Category extends Model {
 
     public String name;
 
-    public void Category(String name){
+    public Category(String name) {
         this.name = name;
     }
 }

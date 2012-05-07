@@ -3,22 +3,31 @@
 <div>
     <table>
         <tr>
-            <td>
+            <td colspan="4">
                 Hej och v&auml;lkommen till t&auml;vlingen ${competition.name} (${competition.type.name})!
-<!--
-                <form>
-                    <label for="competitionTypeID">V&auml;lj en t&auml;vlingstyp</label>
-                    <select name="competitionTypeID">
-                        %{
-                        for (type in types){
-                        }%
-                        <option value="${type.id}">${type.name}</option>
-                        %{
-                        }
-                        }%
-                    </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                V&auml;lj en aktivitet:
+            </td>
+            <td>
+                <form action="@{Results.list()}" method="POST">
+                    <input type="hidden" name="competitionID" value="${competition.id}" />
+                    <input type="submit" value="Visa resultat" />
                 </form>
--->
+            </td>
+            <td>
+                <form action="@{Competitions.listCompetitors()}" method="POST">
+                    <input type="hidden" name="competitionID" value="${competition.id}" />
+                    <input type="submit" value="Visa deltagare" />
+                </form>
+            </td>
+            <td>
+                <form action="@{Competitions.enroll()}" method="POST">
+                    <input type="hidden" name="competitionID" value="${competition.id}" />
+                    <input type="submit" value="T&auml;vlingsanm&auml;lan" />
+                </form>
             </td>
         </tr>
     </table>

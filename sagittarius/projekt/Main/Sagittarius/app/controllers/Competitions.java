@@ -1,8 +1,6 @@
 package controllers;
 
-import java.util.List;
 import models.Competition;
-import models.CompetitionType;
 import play.mvc.Controller;
 
 /**
@@ -11,9 +9,14 @@ import play.mvc.Controller;
  */
 public class Competitions extends Controller {
 
-    public static void Display(long competitionID) {
-        List<CompetitionType> types = CompetitionType.all().fetch();
+    public static void display(long competitionID) {
         Competition competition = Competition.findById(competitionID);
-        render(competition, types);
+        render(competition);
+    }
+
+    public static void listCompetitors(long competitionID) {
+    }
+
+    public static void enroll(long competitionID) {
     }
 }

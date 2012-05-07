@@ -30,4 +30,6 @@ public class Competition extends Model {
     public CompetitionType type;
     @OneToMany(cascade = CascadeType.ALL)
     public List<Stage> stages;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Competitor> competitors;
 }

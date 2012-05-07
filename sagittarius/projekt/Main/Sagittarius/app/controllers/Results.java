@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import models.Competition;
 import models.Competitor;
 import models.Result;
 import models.User;
@@ -22,9 +23,8 @@ import play.mvc.Controller;
  */
 public class Results extends Controller {
 
-    private static void addResult(User user, List<Result> results) {
-        Competitor newCompetitor = new Competitor(user, results);
-        newCompetitor.create();
+    private static void addResult(Competitor competitor, List<Result> results) {
+//        newCompetitor.create();
     }
 
     private static int sumPoints(List<Result> results) {
@@ -86,8 +86,9 @@ public class Results extends Controller {
         return out;
     }
 
-    private static void showResults() {
-        List<Competitor> results = Competitor.all().fetch();
+    private static void showResults(long competitionID) {
+        Competition competition = Competition.findById(competitionID);
+        List<Competitor> results = competition.competitors;
         render(sortResults(results));
     }
 
@@ -99,23 +100,23 @@ public class Results extends Controller {
         }
     }
 
-    public static void list() {
-        showResults();
+    public static void list(int competitionID) {
+        showResults(competitionID);
     }
 
-    public static void add(int userID, List<Result> results) {
-        User user = User.findById(userID);
-        if (user != null) {
-            addResult(user, results);
+    public static void add(int competitionID, int competitorID, List<Result> results) {
+        Competitor competitor = User.findById(competitorID);
+        if (competitor != null) {
+            addResult(competitor, results);
         }
-        showResults();
+        showResults(competitionID);
     }
 
-    public static void delete(long pID) {
-        if (pID > 0) {
-            deleteEntry(pID);
+    public static void delete(long competitionID, long competitorID) {
+        if (competitorID > 0) {
+            deleteEntry(competitorID);
         }
-        showResults();
+        showResults(competitionID);
         render();
     }
 

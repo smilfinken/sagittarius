@@ -1,34 +1,26 @@
 
 import models.*;
 import play.jobs.Job;
+import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 
 /**
  *
  * @author johan
  */
-//@OnApplicationStart
+@OnApplicationStart
 public class Bootstrap extends Job {
 
     @Override
     public void doJob() {
-        // load default data
-        if (CompetitionType.count() == 0) {
-            Fixtures.loadModels("Defaults/competition-types.yml");
-        }
-        if (Category.count() == 0) {
-            Fixtures.loadModels("Defaults/categories.yml");
-        }
-        if (Rank.count() == 0) {
-            Fixtures.loadModels("Defaults/ranks.yml");
-        }
+        // clean up default data
+        Fixtures.deleteDatabase();
+        Fixtures.loadModels("Defaults/competition-types.yml");
+        Fixtures.loadModels("Defaults/categories.yml");
+        Fixtures.loadModels("Defaults/ranks.yml");
 
         // load dummy data
-        if (Competition.count() == 0) {
-            Fixtures.loadModels("Testdata/dummy-competition.yml");
-        }
-        if (User.count() == 0) {
-            Fixtures.loadModels("Testdata/dummy-users.yml");
-        }
+        Fixtures.loadModels("Testdata/dummy-competition.yml");
+        Fixtures.loadModels("Testdata/dummy-users.yml");
     }
 }

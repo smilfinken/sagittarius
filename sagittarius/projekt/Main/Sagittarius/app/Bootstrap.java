@@ -1,14 +1,13 @@
 
 import models.*;
 import play.jobs.Job;
-import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 
 /**
  *
  * @author johan
  */
-@OnApplicationStart
+//@OnApplicationStart
 public class Bootstrap extends Job {
 
     @Override

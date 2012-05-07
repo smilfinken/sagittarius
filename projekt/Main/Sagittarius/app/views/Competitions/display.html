@@ -4,7 +4,21 @@
     <table>
         <tr>
             <td>
-                Hej och v&auml;lkommen till t&auml;vlingen ${competition.name}!
+                Hej och v&auml;lkommen till t&auml;vlingen ${competition.name} (${competition.type.name})!
+<!--
+                <form>
+                    <label for="competitionTypeID">V&auml;lj en t&auml;vlingstyp</label>
+                    <select name="competitionTypeID">
+                        %{
+                        for (type in types){
+                        }%
+                        <option value="${type.id}">${type.name}</option>
+                        %{
+                        }
+                        }%
+                    </select>
+                </form>
+-->
             </td>
         </tr>
     </table>

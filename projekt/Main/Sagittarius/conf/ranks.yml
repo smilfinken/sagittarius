@@ -1,0 +1,9 @@
+# predefined user ranks
+Rank(1):
+  rank: 1
+
+Rank(2):
+  rank: 2
+
+Rank(3):
+  rank: 3

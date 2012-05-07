@@ -10,9 +10,9 @@ import play.db.jpa.Model;
 @Entity
 public class Category extends Model {
 
-    public String label;
+    public String name;
 
-    public void Category(String label){
-        this.label = label;
+    public void Category(String name){
+        this.name = name;
     }
 }

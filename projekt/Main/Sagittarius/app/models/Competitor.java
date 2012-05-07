@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import play.db.jpa.Model;
 
 /**
@@ -28,6 +29,7 @@ public class Competitor extends Model {
             }
         }
     }
+    @OneToOne
     public User user;
     @OneToMany(cascade = CascadeType.ALL)
     public List<Result> results;

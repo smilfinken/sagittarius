@@ -13,20 +13,23 @@ public class Bootstrap extends Job {
 
     @Override
     public void doJob() {
+        // load default data
         if (CompetitionType.count() == 0) {
-            Fixtures.loadModels("competition-types.yml");
-        }
-        if (Competition.count() == 0) {
-            Fixtures.loadModels("dummy-competition.yml");
+            Fixtures.loadModels("Defaults/competition-types.yml");
         }
         if (Category.count() == 0) {
-            Fixtures.loadModels("categories.yml");
+            Fixtures.loadModels("Defaults/categories.yml");
         }
         if (Rank.count() == 0) {
-            Fixtures.loadModels("ranks.yml");
+            Fixtures.loadModels("Defaults/ranks.yml");
+        }
+
+        // load dummy data
+        if (Competition.count() == 0) {
+            Fixtures.loadModels("Testdata/dummy-competition.yml");
         }
         if (User.count() == 0) {
-            Fixtures.loadModels("dummy-users.yml");
+            Fixtures.loadModels("Testdata/dummy-users.yml");
         }
     }
 }

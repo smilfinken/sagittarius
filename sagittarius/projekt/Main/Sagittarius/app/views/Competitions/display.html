@@ -16,7 +16,7 @@
                 </form>
             </td>
             <td>
-                <form action="@{Competitions.listCompetitors()}" method="POST">
+                <form action="@{Competitions.competitors()}" method="POST">
                     <input type="hidden" name="competitionID" value="${competition.id}" />
                     <input type="submit" value="Visa deltagare" />
                 </form>
@@ -27,6 +27,11 @@
                     <input type="submit" value="T&auml;vlingsanm&auml;lan" />
                 </form>
             </td>
+            <td>
+                <form action="@{Competitions.edit()}" method="POST">
+                    <input type="hidden" name="competitionID" value="${competition.id}" />
+                    <input type="submit" value="&Auml;ndra" />
+                </form>
         </tr>
     </table>
 </div>

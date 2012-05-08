@@ -1,6 +1,10 @@
 package controllers;
 
+import java.util.List;
 import models.Competition;
+import models.CompetitionType;
+import models.Competitor;
+import models.Stage;
 import play.mvc.Controller;
 
 /**
@@ -19,9 +23,26 @@ public class Competitions extends Controller {
         render(competition);
     }
 
-    public static void listCompetitors(long competitionID) {
+    public static void edit(long competitionID) {
+        Competition competition = Competition.findById(competitionID);
+        List<Stage> stages = competition.stages;
+        List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+        render(competition, stages, competitionTypes);
+    }
+
+    public static void list() {
+        List<Competition> competitions = Competition.all().fetch();
+        render(competitions);
+    }
+
+    public static void competitors(long competitionID) {
+        Competition competition = Competition.findById(competitionID);
+        List<Competitor> competitors = competition.competitors;
+        render(competition, competitors);
     }
 
     public static void enroll(long competitionID) {
+        Competition competition = Competition.findById(competitionID);
+        render(competition);
     }
 }

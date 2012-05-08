@@ -1,0 +1,70 @@
+#{extends "main.html" /}
+#{set title: "Ändra tävling" /}
+<div>
+    <table>
+        <tr>
+            <td>
+                ${competition.name}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="category">Typ</label>
+                <select name="category">
+                    %{
+                    String selected = "foo";
+                    for (competitionType in competitionTypes) {
+                    if (competitionType.name == competition.type){
+                    selected = "selected";
+                    }
+                    else
+                    {
+                    selected = "";
+                    }
+                    }%
+                    <option ${selected} value="${competitionType.id}">${competitionType.name}</option>
+                    %{
+                    }
+                    }%
+                </select>
+            </td>
+        </tr>
+    </table>
+    %{
+    if (competition.type == "Fältskjutning"){
+    }%
+    <table>
+        <tr>
+            <th>
+                Station
+            </th>
+            <th>
+                Poäng
+            </th>
+        </tr>
+        %{
+        int i = 0;
+        for (stage in stages){
+        i++;
+        }%
+        <tr>
+            <td>
+                ${i}
+            </td>
+            <td>
+                %{
+                if (stage.hasPoints()){
+                print("X");
+                }
+                }%
+            </td>
+        </tr>
+        %{
+        }
+        }%
+        </tr>
+    </table>
+    %{
+    }
+    }%
+</div>

@@ -1,0 +1,48 @@
+# dummy competition data
+
+Competitor(1):
+  user: 1
+
+Competitor(2):
+  user: 3
+
+Competitor(3):
+  user: 3
+
+Competitor(4):
+  user: 6
+
+Target(1):
+  hasPoints: false
+
+Target(2):
+  hasPoints: true
+
+Stage(1):
+  targets: [1,1,1,1]
+
+Stage(2):
+  targets: [2]
+
+Stage(3):
+  targets: [1,1,1,1,1]
+
+Stage(4):
+  targets: [2,1,1]
+
+Stage(5):
+  targets: [1,1,1]
+
+Stage(6):
+  targets: [1,1,1,1,1,1]
+
+Competition(1):
+  name: Tävling 1
+  type: 1
+  stages: [1,2,3,4,5,6]
+  competitors: [1,2]
+
+Competition(2):
+  name: Tävling 2
+  type: 2
+  competitors: [3,4]

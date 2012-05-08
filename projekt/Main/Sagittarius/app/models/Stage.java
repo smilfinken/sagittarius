@@ -4,7 +4,10 @@
  */
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import play.db.jpa.Model;
 
 /**
@@ -14,10 +17,26 @@ import play.db.jpa.Model;
 @Entity
 public class Stage extends Model {
 
-    public Stage(int targets, boolean hasPoints) {
-        this.targets = targets;
-        this.hasPoints = hasPoints;
+    public Stage(int targets) {
+        this.targets = new ArrayList<>(targets);
     }
-    public int targets;
-    public boolean hasPoints;
+    @ManyToMany
+    public List<Target> targets;
+
+    public int targetCount() {
+        if (targets != null) {
+            return targets.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public boolean hasPoints() {
+        for (Target target : targets) {
+            if (target.hasPoints) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

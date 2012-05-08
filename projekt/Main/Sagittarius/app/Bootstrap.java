@@ -1,5 +1,4 @@
 
-import models.*;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
@@ -20,7 +19,7 @@ public class Bootstrap extends Job {
         Fixtures.loadModels("Defaults/ranks.yml");
 
         // load dummy data
-        Fixtures.loadModels("Testdata/dummy-competition.yml");
         Fixtures.loadModels("Testdata/dummy-users.yml");
+        Fixtures.loadModels("Testdata/dummy-competitions.yml");
     }
 }

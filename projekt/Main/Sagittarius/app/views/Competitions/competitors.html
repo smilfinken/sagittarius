@@ -1,0 +1,28 @@
+#{extends "main.html" /}
+#{set title: "Deltagare" /}
+<div>
+    <table>
+        <tr>
+            <th>
+                Namn
+            </th>
+            <th>
+                Klass
+            </th>
+        </tr>
+        %{
+        for (competitor in competitors){
+        }%
+        <tr>
+            <td>
+                ${competitor.getFullName()}
+            </td>
+            <td>
+                ${competitor.getDivision()}
+            </td>
+        </tr>
+        %{
+        }
+        }%
+    </table>
+</div>

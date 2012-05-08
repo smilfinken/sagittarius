@@ -2,3 +2,6 @@
 
 CompetitionType(1):
   name: Fältskjutning
+
+CompetitionType(2):
+  name: Precision

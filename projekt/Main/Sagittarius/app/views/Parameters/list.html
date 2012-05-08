@@ -1,0 +1,64 @@
+#{extends "main.html" /}
+#{set title: "Parametrar" /}
+<div>
+    <table>
+        <tr>
+            <th>
+                Kategori
+            </th>
+        </tr>
+        %{
+        for (category in categories){
+        }%
+        <tr>
+            <td>
+                ${category.name}
+            </td>
+        </tr>
+        %{
+        }
+        }%
+    </table>
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>
+                Klass
+            </th>
+        </tr>
+        %{
+        for (rank in ranks){
+        }%
+        <tr>
+            <td>
+                ${rank.rank}
+            </td>
+        </tr>
+        %{
+        }
+        }%
+    </table>
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>
+                Tävlingstyp
+            </th>
+        </tr>
+        %{
+        for (competitionType in competitionTypes){
+        }%
+        <tr>
+            <td>
+                ${competitionType.name}
+            </td>
+        </tr>
+        %{
+        }
+        }%
+    </table>
+</div>

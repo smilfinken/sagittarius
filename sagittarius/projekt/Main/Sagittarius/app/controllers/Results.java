@@ -49,7 +49,7 @@ public class Results extends Controller {
         return hits + targets;
     }
 
-    private static List<Competitor> sortResults(List<Competitor> competitors) {
+    static List<Competitor> sortResults(List<Competitor> competitors) {
         final List<String> classOrder = Arrays.asList("C", "D", "V", "B", "A", "R", "S");
 
         class ResultListComparator implements Comparator<Competitor> {

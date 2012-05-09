@@ -1,39 +1,46 @@
 #{extends "main.html" /}
 #{set title: "Resultat" /}
 <div>
-    <form action="@{Results.add()}" method="POST">
-        <table>
-            <tr>
-                <td colspan="6">
-                    <label for="name">Namn</label>
-                    <input type="text" name="name" />
-                    <label for="class">Klass</label>
-                    <input type="text" size="2" maxlength="2" name="class" />
-                </td>
-            </tr>
-            <tr>
-                %{
-                for (int i=0; i<6; i++)
-                {
-                }%
-                <td class="scoring">
-                    <div style="text-align: center; clear: all">Station ${i+1}</div>
-                    <label for="results[${i}].hits">Tr&auml;ff</label>
-                    <input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
-                    <label for="results[${i}].targets">Figurer</label>
-                    <input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
-                    <label for="results[${i}].points">Po&auml;ng</label>
-                    <input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
-                </td>
-                %{
-                }
-                }%
-            </tr>
-            <tr>
-                <td class="buttons" colspan="6">
-                    <input type="submit" class="enter" value="L&auml;gg till" />
-                </td>
-            </tr>
-        </table>
-    </form>
+	<form action="@{Results.add()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<table>
+			<tr>
+				<td colspan="6">
+					<label for="competitorID">Namn</label>
+					<select name="competitorID">
+						%{
+						for (competitor in competition.competitors) {
+						}%
+						<option value="${competitor.id}">${competitor.getFullName()}</option>
+						%{
+						}
+						}%
+					</select>
+				</td>
+			</tr>
+			<tr>
+				%{
+				for (int i=0; i<competition.stages.size(); i++)
+				{
+				}%
+				<td class="scoring">
+					<div style="text-align: center; clear: all">Station ${i+1}</div>
+					<label for="results[${i}].hits">Tr&auml;ff</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
+					<label for="results[${i}].targets">Figurer</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
+					<label for="results[${i}].points">Po&auml;ng</label>
+					<input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
+				</td>
+				%{
+				}
+				}%
+			</tr>
+			<tr>
+				<td class="buttons" colspan="6">
+					<input type="submit" class="enter" value="L&auml;gg till" />
+				</td>
+			</tr>
+		</table>
+	</form>
 </div>

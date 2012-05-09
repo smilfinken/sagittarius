@@ -23,20 +23,20 @@ public class ResultTest extends UnitTest {
 		User userSecond = new User("Second", "Shooter");
 		User userThird = new User("Third", "Shooter");
 		User userFourth = new User("Fourth", "Shooter");
-		
-		userFirst.category = new Category("J", "Junior");
-		userSecond.category = new Category("J", "Junior");
-		userThird.category = new Category("J", "Junior");
-		userFourth.category = new Category("J", "Junior");
-		
+
+		userFirst.category = new Category("J");
+		userSecond.category = new Category("J");
+		userThird.category = new Category("J");
+		userFourth.category = new Category("J");
+
 		userFirst.rank = new Rank(1);
 		userSecond.rank = new Rank(1);
 		userThird.rank = new Rank(1);
 		userFourth.rank = new Rank(1);
-		
+
 		Competitor competitorFirst = new Competitor(userFirst, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
-		Competitor competitorSecond = new Competitor(userSecond, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14})); 
-		Competitor competitorThird = new Competitor(userThird, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15})); 
+		Competitor competitorSecond = new Competitor(userSecond, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
+		Competitor competitorThird = new Competitor(userThird, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
 		Competitor competitorFourth = new Competitor(userFourth, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
 		List<Competitor> competitors = new ArrayList<Competitor>(4);
 		competitors.add(competitorFourth);
@@ -48,15 +48,15 @@ public class ResultTest extends UnitTest {
 		assertTrue(sortedCompetitors.indexOf(competitorSecond) == 1);
 		assertTrue(sortedCompetitors.indexOf(competitorThird) == 2);
 		assertTrue(sortedCompetitors.indexOf(competitorFourth) == 3);
-	}	
-	
+	}
+
 
 	private List<Result> mockResults(int[] hits, int[] targets, int[] points) {
 		assertTrue(
 				"Failed due to array length discrepancy, result-target-points must be of equal length",
 				hits.length == targets.length
 						&& targets.length == points.length);
-		List<Result> results = new ArrayList<Result>();
+		List<Result> results = new ArrayList<>();
 		for (int i = 0; i < hits.length; i++) {
 			results.add(new Result(hits[i], targets[i], points[i]));
 		}

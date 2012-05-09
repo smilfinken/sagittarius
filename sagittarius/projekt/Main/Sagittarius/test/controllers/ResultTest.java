@@ -5,7 +5,9 @@ import static junit.framework.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Category;
 import models.Competitor;
+import models.Rank;
 import models.Result;
 import models.User;
 
@@ -21,7 +23,18 @@ public class ResultTest extends UnitTest {
 		User userSecond = new User("Second", "Shooter");
 		User userThird = new User("Third", "Shooter");
 		User userFourth = new User("Fourth", "Shooter");
-		Competitor competitorFirst = new Competitor(userFirst, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15})); 
+		
+		userFirst.category = new Category("J", "Junior");
+		userSecond.category = new Category("J", "Junior");
+		userThird.category = new Category("J", "Junior");
+		userFourth.category = new Category("J", "Junior");
+		
+		userFirst.rank = new Rank(1);
+		userSecond.rank = new Rank(1);
+		userThird.rank = new Rank(1);
+		userFourth.rank = new Rank(1);
+		
+		Competitor competitorFirst = new Competitor(userFirst, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
 		Competitor competitorSecond = new Competitor(userSecond, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14})); 
 		Competitor competitorThird = new Competitor(userThird, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15})); 
 		Competitor competitorFourth = new Competitor(userFourth, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));

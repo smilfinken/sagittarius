@@ -39,6 +39,6 @@ public class Competitor extends Model {
     }
 
     public String getDivision() {
-        return String.format("%s%s", user.category.shortName, user.rank.rank);
+        return String.format("%s", user.rank.rank);
     }
 }

@@ -5,72 +5,76 @@ int totalPoints;
 int place = 1;
 }%
 <table style="text-align: left">
-    <tr>
-        <th>Placering</th>
-        <th>Namn</th>
-        <th>Klass</th>
-        <th>Resultat</th>
-    </tr>
-    %{
-    if (results.size() > 0) {
-    String previousClass = results.first().competitorClass;
-    for(entry in results){
-    }%
-    %{
-    if (!entry.competitorClass.equals(previousClass)){
-    place = 1;
-    }%
-    <tr><td colspan="5">&nbsp;</td></tr>
-    %{
-    }
-    previousClass = entry.competitorClass;
-    }%
-    <tr>
-        <td style="font-style: italic; font-weight: bold; text-align: right">${place}</td>
-        <td style="font-weight: bold">${entry.competitorName}</td>
-        <td style="font-weight: bold">${entry.competitorClass}</td>
-        <td>
-            %{
-            totalHits = 0;
-            totalTargets = 0;
-            totalPoints = 0;
-            for(result in entry.competitorResults){
-            totalHits += result.hits;
-            totalTargets += result.targets;
-            }%
-            ${result.hits}/${result.targets}&nbsp;
-            %{
-            if (result.points > 0){
-            totalPoints += result.points;
-            }%
-            (${result.points})&nbsp;
-            %{
-            }
-            }
-            }%
-        </td>
-        <td>
-            ${totalHits}/${totalTargets}
-        <td style="font-weight: bold">
-            ${totalHits + totalTargets}&nbsp;(${totalPoints})
-        </td>
-        <td>
-            <form action="@{Results.delete()}" method="POST">
-                <input type="hidden" name="competitorID" value="${entry.id}" />
-                <input type="submit" class="delete" value="Ta bort" />
-            </form>
-        </td>
-    </tr>
-    %{
-    place++;
-    }
-    }
-    }%
-    <tr>
-        <td colspan="5">
-            <form action="@{Results.export()}" method="POST">
-                <input type="submit" class="enter" value="Exportera resultatlistan">
-            </form>
-        </td>
-    </tr>
+	<tr>
+		<th>Placering</th>
+		<th>Namn</th>
+		<th>Klass</th>
+		<th>Resultat</th>
+	</tr>
+	%{
+	if (results.size() > 0) {
+	String previousClass = results.first().getDivision();
+	for(entry in results){
+	if (entry.results.size() == competition.stages.size()) {
+	}%
+	%{
+	if (!entry.getDivision().equals(previousClass)){
+	place = 1;
+	}%
+	<tr><td colspan="5">&nbsp;</td></tr>
+	%{
+	}
+	previousClass = entry.getDivision();
+	}%
+	<tr>
+		<td style="font-style: italic; font-weight: bold; text-align: right">${place}</td>
+		<td style="font-weight: bold">${entry.getFullName()}</td>
+		<td style="font-weight: bold">${entry.getDivision()}</td>
+		<td>
+			%{
+			totalHits = 0;
+			totalTargets = 0;
+			totalPoints = 0;
+			for(result in entry.results){
+			totalHits += result.hits;
+			totalTargets += result.targets;
+			}%
+			${result.hits}/${result.targets}&nbsp;
+			%{
+			if (result.points > 0){
+			totalPoints += result.points;
+			}%
+			(${result.points})&nbsp;
+			%{
+			}
+			}
+			}%
+		</td>
+		<td>
+			${totalHits}/${totalTargets}
+		<td style="font-weight: bold">
+			${totalHits + totalTargets}&nbsp;(${totalPoints})
+		</td>
+		<td>
+			<form action="@{Results.delete()}" method="POST">
+				<input type="hidden" name="competitionID" value="${competition.id}" />
+				<input type="hidden" name="competitorID" value="${entry.id}" />
+				<input type="submit" class="delete" value="Ta bort" />
+			</form>
+		</td>
+	</tr>
+	%{
+	place++;
+	}
+	}
+	}
+	}%
+	<tr>
+		<td colspan="5">
+			<form action="@{Results.export()}" method="POST">
+				<input type="hidden" name="competitionID" value="${competition.id}" />
+				<input type="submit" class="enter" value="Exportera resultatlistan">
+			</form>
+		</td>
+	</tr>
 </table>

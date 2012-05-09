@@ -1,21 +1,16 @@
 # pre-defined user categories
 
 Category(1):
-  shortName: J
   name: Junior
 
 Category(2):
-  shortName: X
   name: Senior
 
 Category(3):
-  shortName: D
   name: Lady
 
 Category(4):
-  shortName: Y
   name: Supersenior
 
 Category(5):
-  shortName: Ä
   name: Ancient

@@ -50,11 +50,7 @@ public class ResultTest extends UnitTest {
 		assertTrue(sortedCompetitors.indexOf(competitorFourth) == 3);
 	}	
 	
-	@Test
-	public void FailingTest(){
-		assertTrue(false);
-	}
-	
+
 	private List<Result> mockResults(int[] hits, int[] targets, int[] points) {
 		assertTrue(
 				"Failed due to array length discrepancy, result-target-points must be of equal length",

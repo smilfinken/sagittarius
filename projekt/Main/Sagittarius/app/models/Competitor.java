@@ -41,4 +41,8 @@ public class Competitor extends Model {
     public String getDivision() {
         return String.format("%s", user.rank.rank);
     }
+
+    public boolean isScored() {
+	    return (results.size() > 0);
+    }
 }

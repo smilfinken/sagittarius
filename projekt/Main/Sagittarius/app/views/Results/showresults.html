@@ -62,6 +62,13 @@ int place = 1;
 				<input type="submit" class="delete" value="Ta bort" />
 			</form>
 		</td>
+		<td>
+			<form action="@{Results.edit()}" method="POST">
+				<input type="hidden" name="competitionID" value="${competition.id}" />
+				<input type="hidden" name="competitorID" value="${entry.id}" />
+				<input type="submit" class="edit" value="&Auml;ndra" />
+			</form>
+		</td>
 	</tr>
 	%{
 	place++;

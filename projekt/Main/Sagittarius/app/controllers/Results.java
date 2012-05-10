@@ -114,6 +114,11 @@ public class Results extends Controller {
 		render();
 	}
 
+	public static void edit(long competitionID,long competitorID) {
+		showResults(competitionID);
+		render();
+	}
+
 	public static void enter() {
 		render();
 	}

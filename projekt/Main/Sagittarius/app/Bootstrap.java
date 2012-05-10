@@ -16,6 +16,7 @@ public class Bootstrap extends Job {
         Fixtures.deleteDatabase();
         Fixtures.loadModels("Defaults/competition-types.yml");
         Fixtures.loadModels("Defaults/categories.yml");
+        Fixtures.loadModels("Defaults/divisions.yml");
         Fixtures.loadModels("Defaults/ranks.yml");
 
         // load dummy data

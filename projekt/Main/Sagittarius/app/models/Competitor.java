@@ -14,35 +14,42 @@ import play.db.jpa.Model;
 @Entity
 public class Competitor extends Model {
 
-    public Competitor(User user) {
-        this.user = user;
-        this.results = null;
-    }
+	@OneToOne
+	public User user;
+	@OneToOne
+	public Division division;
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<Result> results;
 
-    public Competitor(User user, List<Result> results) {
-        this.user = user;
-        this.results = results;
+	public Competitor(User user) {
+		this.user = user;
+		this.results = null;
+	}
 
-        if (results != null) {
-            for (Result result : results) {
-                result.create();
-            }
-        }
-    }
-    @OneToOne
-    public User user;
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<Result> results;
+	public Competitor(User user, List<Result> results) {
+		this.user = user;
+		this.results = results;
 
-    public String getFullName() {
-        return String.format("%s %s", user.firstName, user.surname);
-    }
+		if (results != null) {
+			for (Result result : results) {
+				result.create();
+			}
+		}
+	}
 
-    public String getDivision() {
-        return String.format("%s", user.rank.rank);
-    }
+	public String getFullName() {
+		return String.format("%s %s", user.firstName, user.surname);
+	}
 
-    public boolean isScored() {
-	    return (results.size() > 0);
-    }
+	public String getDivision() {
+		if (division.ranks) {
+			return String.format("%s%s", division.division, user.rank.rank);
+		} else {
+			return String.format("%s", division.division);
+		}
+	}
+
+	public boolean isScored() {
+		return (results.size() > 0);
+	}
 }

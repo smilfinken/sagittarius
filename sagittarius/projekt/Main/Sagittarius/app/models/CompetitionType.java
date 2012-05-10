@@ -10,9 +10,9 @@ import play.db.jpa.Model;
 @Entity
 public class CompetitionType extends Model {
 
-    public String name;
+	public String name;
 
-    public CompetitionType(String name) {
-        this.name = name;
-    }
+	public CompetitionType(String name) {
+		this.name = name;
+	}
 }

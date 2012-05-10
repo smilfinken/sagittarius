@@ -11,14 +11,15 @@ import play.db.jpa.Model;
 @Entity
 public class User extends Model {
 
-    public User(String firstName, String surname) {
-        this.firstName = firstName;
-        this.surname = surname;
-    }
-    public String firstName;
-    public String surname;
-    @OneToOne
-    public Rank rank;
-    @OneToOne
-    public Category category;
+	public String firstName;
+	public String surname;
+	@OneToOne
+	public Rank rank;
+	@OneToOne
+	public Category category;
+
+	public User(String firstName, String surname) {
+		this.firstName = firstName;
+		this.surname = surname;
+	}
 }

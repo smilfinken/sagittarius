@@ -10,8 +10,11 @@ import play.db.jpa.Model;
 @Entity
 public class Target extends Model {
 
-    public Target() {
-        hasPoints = false;
-    }
-    public boolean hasPoints;
+	public boolean hasPoints;
+	public String model;
+
+	public Target() {
+		hasPoints = false;
+		model = "";
+	}
 }

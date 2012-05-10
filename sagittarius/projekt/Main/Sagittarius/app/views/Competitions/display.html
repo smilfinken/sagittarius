@@ -1,37 +1,33 @@
 <div>
-    <table>
-        <tr>
-            <td colspan="4">
-                Hej och v&auml;lkommen till t&auml;vlingen ${competition.name} (${competition.getType()})!
-            </td>
-        </tr>
-        <tr>
-            <td>
-                V&auml;lj en aktivitet:
-            </td>
-            <td>
-                <form action="@{Results.list()}" method="POST">
-                    <input type="hidden" name="competitionID" value="${competition.id}" />
-                    <input type="submit" value="Visa resultat" />
-                </form>
-            </td>
-            <td>
-                <form action="@{Competitions.competitors()}" method="POST">
-                    <input type="hidden" name="competitionID" value="${competition.id}" />
-                    <input type="submit" value="Visa deltagare" />
-                </form>
-            </td>
-            <td>
-                <form action="@{Competitions.enroll()}" method="POST">
-                    <input type="hidden" name="competitionID" value="${competition.id}" />
-                    <input type="submit" value="T&auml;vlingsanm&auml;lan" />
-                </form>
-            </td>
-            <td>
-                <form action="@{Competitions.edit()}" method="POST">
-                    <input type="hidden" name="competitionID" value="${competition.id}" />
-                    <input type="submit" value="Detaljer" />
-                </form>
-        </tr>
-    </table>
+	<h2>Hej och v&auml;lkommen till ${competition.name}!</h2>
+	<table>
+		<tr>
+			<td>
+				V&auml;lj en aktivitet:
+			</td>
+			<td>
+				<form action="@{Results.list()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="Visa resultat" />
+				</form>
+			</td>
+			<td>
+				<form action="@{Competitions.competitors()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="Visa deltagare" />
+				</form>
+			</td>
+			<td>
+				<form action="@{Competitions.enroll()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="T&auml;vlingsanm&auml;lan" />
+				</form>
+			</td>
+			<td>
+				<form action="@{Competitions.edit()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="Detaljer" />
+				</form>
+		</tr>
+	</table>
 </div>

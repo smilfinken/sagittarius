@@ -5,11 +5,7 @@ import static junit.framework.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Category;
-import models.Competitor;
-import models.Rank;
-import models.Result;
-import models.User;
+import models.*;
 
 import org.junit.Test;
 
@@ -34,10 +30,10 @@ public class ResultTest extends UnitTest {
 		userThird.rank = new Rank(1);
 		userFourth.rank = new Rank(1);
 
-		Competitor competitorFirst = new Competitor(userFirst, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
-		Competitor competitorSecond = new Competitor(userSecond, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
-		Competitor competitorThird = new Competitor(userThird, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
-		Competitor competitorFourth = new Competitor(userFourth, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
+		Competitor competitorFirst = new Competitor(userFirst, new Division("J"), mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
+		Competitor competitorSecond = new Competitor(userSecond, new Division("J"), mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
+		Competitor competitorThird = new Competitor(userThird, new Division("J"), mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
+		Competitor competitorFourth = new Competitor(userFourth, new Division("J"), mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
 		List<Competitor> competitors = new ArrayList<>(4);
 		competitors.add(competitorFourth);
 		competitors.add(competitorThird);
@@ -50,12 +46,11 @@ public class ResultTest extends UnitTest {
 		assertTrue(sortedCompetitors.indexOf(competitorFourth) == 3);
 	}
 
-
 	private List<Result> mockResults(int[] hits, int[] targets, int[] points) {
 		assertTrue(
-				"Failed due to array length discrepancy, result-target-points must be of equal length",
-				hits.length == targets.length
-						&& targets.length == points.length);
+			"Failed due to array length discrepancy, result-target-points must be of equal length",
+			hits.length == targets.length
+			&& targets.length == points.length);
 		List<Result> results = new ArrayList<>();
 		for (int i = 0; i < hits.length; i++) {
 			results.add(new Result(hits[i], targets[i], points[i]));

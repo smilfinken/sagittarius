@@ -26,8 +26,15 @@ public class Competitor extends Model {
 		this.results = null;
 	}
 
-	public Competitor(User user, List<Result> results) {
+	public Competitor(User user, Division division) {
 		this.user = user;
+		this.division = division;
+		this.results = null;
+	}
+
+	public Competitor(User user, Division division, List<Result> results) {
+		this.user = user;
+		this.division = division;
 		this.results = results;
 
 		if (results != null) {
@@ -42,10 +49,14 @@ public class Competitor extends Model {
 	}
 
 	public String getDivision() {
-		if (division != null && division.ranks) {
-			return String.format("%s%s", division.division, user.rank.rank);
+		if (division != null) {
+			if (division.ranks) {
+				return String.format("%s%s", division.division, user.rank.rank);
+			} else {
+				return String.format("%s", division.division);
+			}
 		} else {
-			return String.format("%s", division.division);
+			return "";
 		}
 	}
 

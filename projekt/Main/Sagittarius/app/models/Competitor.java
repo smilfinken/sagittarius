@@ -42,7 +42,7 @@ public class Competitor extends Model {
 	}
 
 	public String getDivision() {
-		if (division.ranks) {
+		if (division != null && division.ranks) {
 			return String.format("%s%s", division.division, user.rank.rank);
 		} else {
 			return String.format("%s", division.division);

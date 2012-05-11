@@ -1,14 +1,10 @@
 package controllers;
 
-import static junit.framework.Assert.assertTrue;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import models.*;
-
 import org.junit.Test;
-
 import play.test.UnitTest;
 
 public class ResultTest extends UnitTest {
@@ -20,25 +16,30 @@ public class ResultTest extends UnitTest {
 		User userThird = new User("Third", "Shooter");
 		User userFourth = new User("Fourth", "Shooter");
 
-		userFirst.category = new Category("J");
-		userSecond.category = new Category("J");
-		userThird.category = new Category("J");
-		userFourth.category = new Category("J");
+		Category category = new Category("J");
+		userFirst.categories = Arrays.asList(category);
+		userSecond.categories = Arrays.asList(category);
+		userThird.categories = Arrays.asList(category);
+		userFourth.categories = Arrays.asList(category);
 
-		userFirst.rank = new Rank(1);
-		userSecond.rank = new Rank(1);
-		userThird.rank = new Rank(1);
-		userFourth.rank = new Rank(1);
+		Rank rank = new Rank(1);
+		userFirst.rank = rank;
+		userSecond.rank = rank;
+		userThird.rank = rank;
+		userFourth.rank = rank;
 
-		Competitor competitorFirst = new Competitor(userFirst, new Division("J"), mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
-		Competitor competitorSecond = new Competitor(userSecond, new Division("J"), mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
-		Competitor competitorThird = new Competitor(userThird, new Division("J"), mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
-		Competitor competitorFourth = new Competitor(userFourth, new Division("J"), mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
+		Division division = new Division(Arrays.asList(new CompetitionType("Testtävling")), "J", Arrays.asList(category), false);
+		Competitor competitorFirst = new Competitor(userFirst, division, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
+		Competitor competitorSecond = new Competitor(userSecond, division, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
+		Competitor competitorThird = new Competitor(userThird, division, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
+		Competitor competitorFourth = new Competitor(userFourth, division, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
+
 		List<Competitor> competitors = new ArrayList<>(4);
 		competitors.add(competitorFourth);
 		competitors.add(competitorThird);
 		competitors.add(competitorSecond);
 		competitors.add(competitorFirst);
+
 		List<Competitor> sortedCompetitors = Results.sortResults(competitors);
 		assertTrue(sortedCompetitors.indexOf(competitorFirst) == 0);
 		assertTrue(sortedCompetitors.indexOf(competitorSecond) == 1);

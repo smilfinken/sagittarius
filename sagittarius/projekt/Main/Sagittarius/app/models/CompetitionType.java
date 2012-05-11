@@ -15,4 +15,8 @@ public class CompetitionType extends Model {
 	public CompetitionType(String name) {
 		this.name = name;
 	}
+
+	public boolean hasStages(){
+		return true;
+	}
 }

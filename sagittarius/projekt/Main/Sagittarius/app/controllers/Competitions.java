@@ -18,8 +18,10 @@ public class Competitions extends Controller {
 		render(competition);
 	}
 
-	public static void add(String name) {
+	public static void add(String name, long competitionTypeID) {
 		Competition competition = new Competition(name);
+		competition.willBeSaved = true;
+		competition.competitionType = CompetitionType.findById(competitionTypeID);
 		render(competition);
 	}
 
@@ -30,9 +32,14 @@ public class Competitions extends Controller {
 		render(competition, stages, competitionTypes);
 	}
 
-	public static void save(long competitionID) {
+	public static void save(long competitionID, String name) {
 		Competition competition = Competition.findById(competitionID);
-		render(competition);
+		competition.willBeSaved = true;
+		competition.name = name;
+
+		List<Stage> stages = competition.stages;
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		render(competition, stages, competitionTypes);
 	}
 
 	public static void list() {
@@ -51,13 +58,24 @@ public class Competitions extends Controller {
 		render(competition);
 	}
 
-	public static void deleteStage(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-		render(competition);
-	}
-
 	public static void addStage(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		render(competition);
+		List<Stage> stages = competition.stages;
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		render(competition, stages, competitionTypes);
+	}
+
+	public static void editStage(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Stage> stages = competition.stages;
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		render(competition, stages, competitionTypes);
+	}
+
+	public static void deleteStage(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Stage> stages = competition.stages;
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		render(competition, stages, competitionTypes);
 	}
 }

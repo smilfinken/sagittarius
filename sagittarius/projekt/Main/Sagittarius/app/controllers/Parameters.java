@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 import models.Category;
 import models.CompetitionType;
+import models.Division;
 import models.Rank;
 import play.mvc.Controller;
 
@@ -16,6 +17,8 @@ public class Parameters extends Controller {
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		render(categories, ranks, competitionTypes);
+		List<Division> divisions = Division.all().fetch();
+
+		render(categories, ranks, competitionTypes, divisions);
 	}
 }

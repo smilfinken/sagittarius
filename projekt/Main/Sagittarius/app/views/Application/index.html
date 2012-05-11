@@ -1,30 +1,47 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Sagittarius' /}
 
 <table>
-    <tr>
-        <td>
-    <form action="@{Competitions.select()}" method="POST">
-            <label for="competitionID">V&auml;lj en t&auml;vling</label>
-            <select name="competitionID">
-                %{
-                for (competition in competitions){
-                }%
-                <option value="${competition.id}">${competition.name}</option>
-                %{
-                }
-                }%
-            </select>
-            <input type="submit" value="V&auml;lj" />
-    </form>
-        </td>
-    </tr>
-    <tr>
-        <td>
-           <form action="@{Competitions.add()}" method="POST">
-               <label for="name">Ny t&auml;vling</label>
-               <input type="text" name="name" />
-               <input type="submit" value="Skapa" />
-           </form>
-        </td>
+	<tr>
+		<td>
+			<form action="@{Competitions.select()}" method="POST">
+				<div style="float: left">
+					<label for="competitionID">V&auml;lj en t&auml;vling</label>
+					<select name="competitionID">
+						%{
+						for (competition in competitions){
+						}%
+						<option value="${competition.id}">${competition.name}</option>
+						%{
+						}
+						}%
+					</select>
+				</div>
+				<div style="float: right">
+					<input type="submit" value="V&auml;lj" />
+				</div>
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<form action="@{Competitions.add()}" method="POST">
+				<div style="float: left">
+					<label for="name">Ny t&auml;vling</label>
+					<input type="text" name="name" />
+					<select name="competitionTypeID">
+						%{
+						for (type in competitionTypes) {
+						}%
+						<option value="${type.id}">${type.name}</option>
+						%{
+						}
+						}%
+					</select>
+				</div>
+				<div style="float: right">
+					<input type="submit" value="Skapa" />
+				</div>
+			</form>
+		</td>
 </table>

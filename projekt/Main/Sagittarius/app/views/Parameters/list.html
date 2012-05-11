@@ -1,64 +1,97 @@
 #{extends "main.html" /}
 #{set title: "Parametrar" /}
 <div>
-    <table>
-        <tr>
-            <th>
-                Kategori
-            </th>
-        </tr>
-        %{
-        for (category in categories){
-        }%
-        <tr>
-            <td>
-                ${category.name}
-            </td>
-        </tr>
-        %{
-        }
-        }%
-    </table>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Kategori
+			</th>
+		</tr>
+		%{
+		for (category in categories){
+		}%
+		<tr>
+			<td style="text-align: left">
+				${category.category}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
 </div>
 
 <div>
-    <table>
-        <tr>
-            <th>
-                Klass
-            </th>
-        </tr>
-        %{
-        for (rank in ranks){
-        }%
-        <tr>
-            <td>
-                ${rank.rank}
-            </td>
-        </tr>
-        %{
-        }
-        }%
-    </table>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Klass
+			</th>
+		</tr>
+		%{
+		for (rank in ranks){
+		}%
+		<tr>
+			<td style="text-align: left">
+				${rank.rank}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
 </div>
 
 <div>
-    <table>
-        <tr>
-            <th>
-                Tävlingstyp
-            </th>
-        </tr>
-        %{
-        for (competitionType in competitionTypes){
-        }%
-        <tr>
-            <td>
-                ${competitionType.name}
-            </td>
-        </tr>
-        %{
-        }
-        }%
-    </table>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Tävlingstyp
+			</th>
+		</tr>
+		%{
+		for (competitionType in competitionTypes){
+		}%
+		<tr>
+			<td style="text-align: left">
+				${competitionType.name}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Divisioner
+			</th>
+			<th style="text-align: left">
+				Ranking
+			</th>
+		</tr>
+		%{
+		for (division in divisions){
+		}%
+		<tr>
+			<td style="text-align: left">
+				${division.division}
+			</td>
+			<td style="text-align: center">
+				%{
+				String checked = "";
+				if (division.ranks) {
+				checked = "checked";
+				}
+				}%
+				<input type="checkbox" ${checked} disabled />
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
 </div>

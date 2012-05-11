@@ -1,37 +1,37 @@
 # dummy users
+
 User(1):
   firstName: Per
   surname: Persson
-  category: 1
+  categories: [1]
   rank: 1
 
 User(2):
   firstName: Oskar
   surname: Oskarsson
-  category: 2
+  categories: [2]
   rank: 1
 
 User(3):
   firstName: Jan
   surname: Jansson
-  category: 2
+  categories: [2]
   rank: 2
 
 User(4):
   firstName: Nils
   surname: Nilsson
-  category: 4
+  categories: [4]
   rank: 2
 
 User(5):
   firstName: Sigrid
   surname: Sigridsdotter
-  category: 3
+  categories: [3]
   rank: 1
 
 User(6):
   firstName: Malin
   surname: Malinsdotter
-  category: 3
-  category: 5
+  categories: [3,5]
   rank: 3

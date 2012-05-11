@@ -1,0 +1,113 @@
+#{extends "main.html" /}
+#{set title: "${competition.name}" /}
+<form action="@{competitions.save()}" method="POST">
+	<input type="hidden" name="competitionID" value="${competition.id}" />
+	<table>
+		<tr>
+			<td>
+				<label for="name">T&auml;vlingens namn</label>
+				<input type="text" name="name" value="${competition.name}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				${competition.type}
+			</td>
+		</tr>
+	</table>
+	%{
+	if (competition.hasStages()){
+	}%
+	<table>
+		<tr>
+			<th style="text-align: right">
+				Station
+			</th>
+			<th style="text-align: left">
+				Namn
+			</th>
+			<th style="text-align: center">
+				Poäng
+			</th>
+		</tr>
+		%{
+		int i = 0;
+		for (stage in stages){
+		i++;
+		}%
+		<tr>
+			<td style="text-align: right">
+				<input type="hidden" name="stages[${i}].id" value="${stage.id}" />
+				${i}
+			</td>
+			<td style="text-align: left">
+				${stage.name}
+			</td>
+			<td style="text-align: center">
+				%{
+				String checked = "";
+				if (stage.hasPoints()){
+				checked = "checked";
+				}
+				}%
+				<input type="checkbox" name="stages[${i}}.checked" ${checked} disabled />
+			</td>
+			<td>
+				<div style="float: left">
+					<form action="@{competitions.deleteStage()}" method="POST">
+						<input type="hidden" name="competitionID" value="${competition.id}" />
+						<input type="hidden" name="stageID" value="${stage.id}" />
+						<input class="delete" type="submit" value="Ta bort" />
+					</form>
+				</div>
+				<div style="float: left">
+					<form action="@{competitions.editStage()}" method="POST">
+						<input type="hidden" name="competitionID" value="${competition.id}" />
+						<input type="hidden" name="stageID" value="${stage.id}" />
+						<input class="edit" type="submit" value="&Auml;ndra" />
+					</form>
+				</div>
+			</td>
+		</tr>
+		%{
+		}
+		}%
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<form action="@{competitions.addStage()}" method="POST">
+			<tr>
+				<td style="text-align: right">
+					<!-- <i>${competition.stages.size()+1}</i> -->
+					&nbsp;
+				</td>
+				<td style="text-align: left">
+					<input type="text" />
+				</td>
+				<td style="text-align: center">
+					<!-- <input type="checkbox" /> -->
+				</td>
+				<td>
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" class="enter" value="L&auml;gg till station" />
+				</td>
+			</tr>
+		</form>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input class="enter" type="submit" value="Spara" />
+			</td>
+		</tr>
+	</table>
+	%{
+	}
+	}%
+</form>

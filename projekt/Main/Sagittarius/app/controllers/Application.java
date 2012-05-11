@@ -9,6 +9,7 @@ public class Application extends Controller {
 
     public static void index() {
         List<Competition> competitions = Competition.all().fetch();
-        render(competitions);
+	List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+        render(competitions, competitionTypes);
     }
 }

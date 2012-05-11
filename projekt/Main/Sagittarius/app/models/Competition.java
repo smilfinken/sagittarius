@@ -16,7 +16,7 @@ public class Competition extends Model {
 
 	public String name;
 	@OneToOne
-	public CompetitionType type;
+	public CompetitionType competitionType;
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Stage> stages;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -24,30 +24,38 @@ public class Competition extends Model {
 
 	public Competition(String name) {
 		this.name = name;
-		this.type = null;
+		this.competitionType = null;
 		this.stages = null;
 		this.save();
 	}
 
 	public Competition(String name, CompetitionType type) {
 		this.name = name;
-		this.type = type;
+		this.competitionType = type;
 		this.stages = null;
 		this.save();
 	}
 
 	public Competition(String name, CompetitionType type, List<Stage> stages) {
 		this.name = name;
-		this.type = type;
+		this.competitionType = type;
 		this.stages = stages;
 		this.save();
 	}
 
 	public String getType() {
-		if (type != null) {
-			return type.name;
+		if (competitionType != null) {
+			return competitionType.name;
 		} else {
 			return "";
+		}
+	}
+
+	public boolean hasStages() {
+		if (competitionType != null) {
+			return competitionType.hasStages();
+		} else {
+			return false;
 		}
 	}
 }

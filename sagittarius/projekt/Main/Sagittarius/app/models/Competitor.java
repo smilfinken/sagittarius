@@ -19,7 +19,7 @@ public class Competitor extends Model {
 	public User user;
 	@OneToOne
 	public Division division;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade= CascadeType.ALL)
 	public List<Result> results;
 
 	public Competitor(User user) {

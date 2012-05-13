@@ -14,11 +14,9 @@
 					<select name="competitorID">
 						%{
 						for (competitor in competitors) {
-						if (!competitor.isScored()) {
 						}%
 						<option value="${competitor.id}">${competitor.getFullName()}, ${competitor.getDivision()}</option>
 						%{
-						}
 						}
 						}%
 					</select>

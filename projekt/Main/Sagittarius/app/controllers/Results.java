@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import models.Competition;
-import models.Competitor;
-import models.Result;
+import models.*;
 import play.mvc.Controller;
 
 /**
@@ -40,6 +38,22 @@ public class Results extends Controller {
 		}
 
 		return hits + targets;
+	}
+
+	static List<Competitor> sortCompetitors(List<Competitor> competitors) {
+		class CompetitorListComparator implements Comparator<Competitor> {
+
+			@Override
+			public int compare(Competitor A, Competitor B) {
+				return A.getFullName().compareToIgnoreCase(B.getFullName());
+			}
+		}
+
+		List<Competitor> out = competitors;
+		CompetitorListComparator c = new CompetitorListComparator();
+
+		Collections.sort(out, c);
+		return out;
 	}
 
 	static List<Competitor> sortResults(List<Competitor> competitors) {
@@ -81,8 +95,9 @@ public class Results extends Controller {
 
 	private static void showResults(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> results = competition.competitors;
-		render(competition, sortResults(results));
+		List<Competitor> results = sortResults(competition.competitors);
+		List<Competitor> competitors = sortCompetitors(competition.competitors);
+		render(competition, results, competitors);
 	}
 
 	private static void deleteEntry(long competitorID) {
@@ -114,7 +129,7 @@ public class Results extends Controller {
 		render();
 	}
 
-	public static void edit(long competitionID,long competitorID) {
+	public static void edit(long competitionID, long competitorID) {
 		showResults(competitionID);
 		render();
 	}
@@ -165,5 +180,32 @@ public class Results extends Controller {
 			response.setHeader("Content-Disposition", "attachment; filename=out.csv");
 			renderBinary(resultsFile);
 		}
+	}
+
+	public static void newUser(long competitionID) {
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+		List<Division> divisions = Division.all().fetch();
+
+		render(competitionID, categories, ranks, divisions);
+	}
+
+	public static void addUser(long competitionID, String firstName, String surname, long rankID, long categoryID, long divisionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Competitor> results = sortResults(competition.competitors);
+		List<Competitor> competitors = sortCompetitors(competition.competitors);
+
+		Rank rank = Rank.findById(rankID);
+		Category category = Category.findById(categoryID);
+		User user = new User(firstName, surname, rank, Arrays.asList(category));
+		user.save();
+
+		Division division = Division.findById(divisionID);
+		Competitor competitor = new Competitor(user, division);
+		competitor.willBeSaved = true;
+		competition.competitors.add(competitor);
+		competition.save();
+
+		render(competition, results, competitors);
 	}
 }

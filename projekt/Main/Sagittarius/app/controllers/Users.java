@@ -1,7 +1,8 @@
 package controllers;
 
+import java.util.Arrays;
 import java.util.List;
-import models.User;
+import models.*;
 import play.mvc.Controller;
 
 /**
@@ -10,9 +11,9 @@ import play.mvc.Controller;
  */
 public class Users extends Controller {
 
-    public static void list() {
-        List<User> users = User.all().fetch();
+	public static void list() {
+		List<User> users = User.all().fetch();
 
-        render(users);
-    }
+		render(users);
+	}
 }

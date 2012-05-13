@@ -15,13 +15,11 @@ int place = 1;
 	if (results.size() > 0) {
 	String previousClass = results.first().getDivision();
 	for(entry in results){
-	if (entry.results.size() == competition.stages.size()) {
-	}%
-	%{
+	if (entry.results != null && entry.results.size() == competition.stages.size()) {
 	if (!entry.getDivision().equals(previousClass)){
 	place = 1;
 	}%
-	<tr><td colspan="5">&nbsp;</td></tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
 	%{
 	}
 	previousClass = entry.getDivision();
@@ -77,10 +75,10 @@ int place = 1;
 	}
 	}%
 	<tr>
-		<td colspan="5">
+		<td colspan="4">
 			<form action="@{Results.export()}" method="POST">
 				<input type="hidden" name="competitionID" value="${competition.id}" />
-				<input type="submit" class="enter" value="Exportera resultatlistan">
+				<input type="submit" class="enter" value="Exportera resultatlistan" />
 			</form>
 		</td>
 	</tr>

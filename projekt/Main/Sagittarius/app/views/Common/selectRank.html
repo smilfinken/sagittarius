@@ -1,0 +1,10 @@
+<label for="rankID">Klass</label>
+<select name="rankID">
+	%{
+	for (rank in ranks) {
+	}%
+	<option value="${rank.id}">${rank.rank}</option>
+	%{
+	}
+	}%
+</select>

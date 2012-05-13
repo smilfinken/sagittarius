@@ -57,7 +57,7 @@ public class Results extends Controller {
 	}
 
 	static List<Competitor> sortResults(List<Competitor> competitors) {
-		final List<String> classOrder = Arrays.asList("C", "D", "V", "B", "A", "R", "S");
+		final List<String> classOrder = Arrays.asList("J", "C", "D", "V", "B", "A", "R", "S");
 
 		class ResultListComparator implements Comparator<Competitor> {
 
@@ -96,8 +96,14 @@ public class Results extends Controller {
 	private static void showResults(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> results = sortResults(competition.competitors);
-		List<Competitor> competitors = sortCompetitors(competition.competitors);
-		render(competition, results, competitors);
+		List<Competitor> competitors = new ArrayList<>();
+		for (Competitor competitor : results) {
+			if (!competitor.isScored()) {
+				competitors.add(competitor);
+			}
+		}
+
+		render(competition, results, sortCompetitors(competitors));
 	}
 
 	private static void deleteEntry(long competitorID) {
@@ -124,14 +130,13 @@ public class Results extends Controller {
 		Competitor competitor = Competitor.findById(competitorID);
 		if (competitor != null) {
 			competitor.results = new ArrayList<>();
+			competitor.save();
 		}
 		showResults(competitionID);
-		render();
 	}
 
 	public static void edit(long competitionID, long competitorID) {
 		showResults(competitionID);
-		render();
 	}
 
 	public static void enter() {
@@ -206,6 +211,6 @@ public class Results extends Controller {
 		competition.competitors.add(competitor);
 		competition.save();
 
-		render(competition, results, competitors);
+		showResults(competitionID);
 	}
 }

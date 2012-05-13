@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -23,13 +24,13 @@ public class Competitor extends Model {
 
 	public Competitor(User user) {
 		this.user = user;
-		this.results = null;
+		this.results = new ArrayList<>();
 	}
 
 	public Competitor(User user, Division division) {
 		this.user = user;
 		this.division = division;
-		this.results = null;
+		this.results = new ArrayList<>();
 	}
 
 	public Competitor(User user, Division division, List<Result> results) {
@@ -61,6 +62,10 @@ public class Competitor extends Model {
 	}
 
 	public boolean isScored() {
-		return (results.size() > 0);
+		if (results != null) {
+			return (results.size() > 0);
+		} else {
+			return false;
+		}
 	}
 }

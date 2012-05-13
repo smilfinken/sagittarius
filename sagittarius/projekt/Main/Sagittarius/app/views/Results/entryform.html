@@ -1,6 +1,10 @@
 #{extends "main.html" /}
 #{set title: "Resultat" /}
 <div>
+	<form action="@{Results.newUser()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input style="float:right" type="submit" value="Ny deltagare" />
+	</form>
 	<form action="@{Results.add()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
@@ -9,10 +13,10 @@
 					<label for="competitorID">Namn</label>
 					<select name="competitorID">
 						%{
-						for (competitor in competition.competitors) {
+						for (competitor in competitors) {
 						if (!competitor.isScored()) {
 						}%
-						<option value="${competitor.id}">${competitor.getFullName()}</option>
+						<option value="${competitor.id}">${competitor.getFullName()}, ${competitor.getDivision()}</option>
 						%{
 						}
 						}

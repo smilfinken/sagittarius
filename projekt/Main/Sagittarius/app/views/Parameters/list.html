@@ -95,3 +95,24 @@
 		}%
 	</table>
 </div>
+
+<div>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Användare
+			</th>
+		</tr>
+		%{
+		for (user in users){
+		}%
+		<tr>
+			<td style="text-align: left">
+				${user.firstName} ${user.surname}, ${user.email}, ${user.password}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>

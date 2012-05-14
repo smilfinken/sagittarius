@@ -15,6 +15,9 @@ public class User extends Model {
 
 	public String firstName;
 	public String surname;
+	public String cardNumber;
+	public String email;
+	public String password;
 	@OneToOne
 	public Rank rank;
 	@ManyToMany
@@ -25,10 +28,25 @@ public class User extends Model {
 		this.surname = surname;
 	}
 
+	public User(String firstName, String surname, String cardNumber,
+			String email, String password) {
+		this.firstName = firstName;
+		this.surname = surname;
+		this.cardNumber = cardNumber;
+		this.email = email;
+		this.password = password;
+	}
+
 	public User(String firstName, String surname, Rank rank, List<Category> categories){
 		this.firstName = firstName;
 		this.surname = surname;
 		this.rank = rank;
 		this.categories = categories;
+	}
+	public static User connect(String username, String password) {
+		return find("byEmailAndPassword", username, password).first();
+	}
+	public String toString(){
+		return email;
 	}
 }

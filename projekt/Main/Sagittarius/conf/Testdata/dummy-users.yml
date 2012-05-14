@@ -3,6 +3,8 @@
 User(1):
   firstName: Per
   surname: Persson
+  email: per@pelle.se
+  password: 123
   categories: [1]
   rank: 1
 

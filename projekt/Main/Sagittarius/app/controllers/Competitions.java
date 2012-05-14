@@ -6,11 +6,13 @@ import models.CompetitionType;
 import models.Competitor;
 import models.Stage;
 import play.mvc.Controller;
+import play.mvc.With;
 
 /**
  *
  * @author johan
  */
+@With(Secure.class)
 public class Competitions extends Controller {
 
 	public static void select(long competitionID) {

@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.util.*;
 import models.*;
 import play.mvc.Controller;
+import play.mvc.With;
 
 /**
  *
  * @author johan
  */
+@With(Secure.class)
 public class Results extends Controller {
 
 	private static void addResult(Competitor competitor, List<Result> results) {
@@ -106,6 +108,7 @@ public class Results extends Controller {
 		render(competition, results, sortCompetitors(competitors));
 	}
 
+	@SuppressWarnings("unused")
 	private static void deleteEntry(long competitorID) {
 		Competitor entry = Competitor.findById(competitorID);
 
@@ -197,7 +200,9 @@ public class Results extends Controller {
 
 	public static void addUser(long competitionID, String firstName, String surname, long rankID, long categoryID, long divisionID) {
 		Competition competition = Competition.findById(competitionID);
+		@SuppressWarnings("unused")
 		List<Competitor> results = sortResults(competition.competitors);
+		@SuppressWarnings("unused")
 		List<Competitor> competitors = sortCompetitors(competition.competitors);
 
 		Rank rank = Rank.findById(rankID);

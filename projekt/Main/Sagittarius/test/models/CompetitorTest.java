@@ -10,7 +10,8 @@ import play.test.UnitTest;
  * @author johan
  */
 public class CompetitorTest extends UnitTest {
-		List<Competitor> competitors;
+
+	List<Competitor> competitors;
 
 	public CompetitorTest() {
 		Fixtures.deleteDatabase();

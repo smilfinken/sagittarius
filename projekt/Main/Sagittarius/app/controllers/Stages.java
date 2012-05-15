@@ -3,7 +3,6 @@ package controllers;
 import java.util.List;
 import models.Competition;
 import models.Stage;
-import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 import play.mvc.With;
 

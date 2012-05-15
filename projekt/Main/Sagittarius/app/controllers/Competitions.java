@@ -1,10 +1,8 @@
 package controllers;
 
 import java.util.List;
-import models.Competition;
-import models.CompetitionType;
-import models.Competitor;
-import models.Stage;
+import models.*;
+import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -60,18 +58,29 @@ public class Competitions extends Controller {
 		render(competition);
 	}
 
-	public static void addStage(long competitionID) {
+	public static void addStage(long competitionID, String name) {
 		Competition competition = Competition.findById(competitionID);
+		competition.willBeSaved = true;
+		Stage stage = new Stage(1, name);
+		stage.willBeSaved = true;
 		List<Stage> stages = competition.stages;
+		stages.add(stage);
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
 		render(competition, stages, competitionTypes);
 	}
 
-	public static void editStage(long competitionID) {
+	public static void editStage(long competitionID, long stageID, int stageIndex) {
 		Competition competition = Competition.findById(competitionID);
-		List<Stage> stages = competition.stages;
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		render(competition, stages, competitionTypes);
+		Stage stage = Stage.findById(stageID);
+		List<Target> targets = Target.all().fetch();
+		render(competition, stage, targets, stageIndex);
+	}
+
+	public static void updateStage(long competitionID, long stageID, int stageIndex, long targetGroupID) {
+		Competition competition = Competition.findById(competitionID);
+		Stage stage = Stage.findById(stageID);
+		List<Target> targets = Target.all().fetch();
+		render(competition, stage, targets, stageIndex);
 	}
 
 	public static void deleteStage(long competitionID) {

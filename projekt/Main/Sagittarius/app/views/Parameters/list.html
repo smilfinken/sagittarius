@@ -1,5 +1,8 @@
 #{extends "main.html" /}
 #{set title: "Parametrar" /}
+%{
+int i = 0;
+}%
 <div>
 	<table>
 		<tr>
@@ -100,7 +103,111 @@
 	<table>
 		<tr>
 			<th style="text-align: left">
-				Anv�ndare
+				Stationer
+			</th>
+		</tr>
+		%{
+		i = 1;
+		for (stage in stages) {
+		}%
+		<tr>
+			<td>
+				${i++}
+			</td>
+			<td style="text-align: left">
+				${stage.name}
+			</td>
+			<td style="text-align: left">
+				%{
+				if (stage.targetGroups != null) {
+				}%
+				${stage.targetGroups.size()}
+				%{
+				} else {
+				}%
+				Inga målgrupper
+				%{
+				}
+				}%
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Målgrupper
+			</th>
+		</tr>
+		%{
+		i = 1;
+		for (group in targetGroups){
+		}%
+		<tr>
+			<td>
+				${i++}
+			</td>
+			<td style="text-align: left">
+				${group.description}
+			</td>
+			<td style="text-align: left">
+				%{
+				if (group.targets != null) {
+				}%
+				${group.targets.size()}
+				%{
+				} else {
+				}%
+				Inga figurer
+				%{
+				}
+				}%
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Figurer
+			</th>
+		</tr>
+		%{
+		i = 1;
+		for (target in targets){
+		}%
+		<tr>
+			<td>
+				${i++}
+			</td>
+			<td style="text-align: left">
+				${target.model}
+			</td>
+			<td style="text-align: left">
+				${target.hasPoints}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Användare
 			</th>
 		</tr>
 		%{

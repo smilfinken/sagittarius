@@ -15,30 +15,40 @@ public class Stage extends Model {
 
 	public String name;
 	@ManyToMany
-	public List<Target> targets;
+	public List<TargetGroup> targetGroups;
 
-	public Stage(int targets) {
-		this.targets = new ArrayList<>(targets);
+	public Stage(int targetGroups) {
+		this.targetGroups = new ArrayList<>(targetGroups);
 		this.name = "";
 	}
 
-	public Stage(int targets, String name) {
-		this.targets = new ArrayList<>(targets);
+	public Stage(int targetGroups, String name) {
+		this.targetGroups = new ArrayList<>(targetGroups);
 		this.name = name;
 	}
 
 	public int targetCount() {
-		if (targets != null) {
-			return targets.size();
-		} else {
-			return 0;
+		int targets = 0;
+		if (targetGroups != null) {
+			for (TargetGroup group : targetGroups) {
+				if (group.targets != null) {
+					targets += group.targets.size();
+				}
+			}
 		}
+		return targets;
 	}
 
 	public boolean hasPoints() {
-		for (Target target : targets) {
-			if (target.hasPoints) {
-				return true;
+		if (targetGroups != null) {
+			for (TargetGroup group : targetGroups) {
+				if (group.targets != null) {
+					for (Target target : group.targets) {
+						if (target.hasPoints) {
+							return true;
+						}
+					}
+				}
 			}
 		}
 		return false;

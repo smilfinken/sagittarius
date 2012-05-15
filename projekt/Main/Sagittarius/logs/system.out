@@ -1,0 +1,11 @@
+Listening for transport dt_socket at address: 8000
+08:07:30,224 INFO  ~ Starting C:\Documents\Dev\Projects\Sagittarius\projekt\Main\Sagittarius
+08:07:30,229 INFO  ~ Module secure is available (c:\Program Files (x86)\Dev\Play-1.2.4\modules\secure)
+08:07:30,843 WARN  ~ You're running Play! in DEV mode
+~
+~ Go to http://localhost:9000/@tests to run the tests
+~
+08:07:30,909 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+08:07:33,360 INFO  ~ Connected to jdbc:h2:mem:play;MODE=HSQLDB;LOCK_MODE=0
+08:07:34,077 INFO  ~ Application 'Sagittarius' is now started !
+@KILLED

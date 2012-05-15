@@ -46,6 +46,8 @@ public class User extends Model {
 	public static User connect(String username, String password) {
 		return find("byEmailAndPassword", username, password).first();
 	}
+
+	@Override
 	public String toString(){
 		return email;
 	}

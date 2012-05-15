@@ -18,12 +18,12 @@ public class Stage extends Model {
 	public List<Target> targets;
 
 	public Stage(int targets) {
-		this.targets = new ArrayList<Target>(targets);
+		this.targets = new ArrayList<>(targets);
 		this.name = "";
 	}
 
 	public Stage(int targets, String name) {
-		this.targets = new ArrayList<Target>(targets);
+		this.targets = new ArrayList<>(targets);
 		this.name = name;
 	}
 

@@ -98,7 +98,7 @@ public class Results extends Controller {
 	private static void showResults(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> results = sortResults(competition.competitors);
-		List<Competitor> competitors = new ArrayList<>();
+		List<Competitor> competitors = new ArrayList<Competitor>();
 		for (Competitor competitor : results) {
 			if (!competitor.isScored()) {
 				competitors.add(competitor);
@@ -132,7 +132,7 @@ public class Results extends Controller {
 	public static void delete(long competitionID, long competitorID) {
 		Competitor competitor = Competitor.findById(competitorID);
 		if (competitor != null) {
-			competitor.results = new ArrayList<>();
+			competitor.results = new ArrayList<Result>();
 			competitor.save();
 		}
 		showResults(competitionID);
@@ -154,7 +154,8 @@ public class Results extends Controller {
 			File resultsFile = File.createTempFile("sgt", "csv");
 			resultsFile.deleteOnExit();
 
-			try (FileWriter resultsWriter = new FileWriter(resultsFile)) {
+			try {
+				FileWriter resultsWriter = new FileWriter(resultsFile);
 				String header1 = ";";
 				String header2 = "Namn;Klass";
 				for (int i = 1; i <= 6; i++) {
@@ -181,6 +182,7 @@ public class Results extends Controller {
 					line += String.format(";%d;%d;%d;%d\n", totalHits, totalTargets, totalHits + totalTargets, totalPoints);
 					resultsWriter.write(line);
 				}
+			} catch (IOException e) {
 			}
 
 			response.setHeader("Content-Length", String.format("%d", resultsFile.length()));

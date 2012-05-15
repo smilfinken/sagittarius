@@ -34,7 +34,7 @@ public class ResultTest extends UnitTest {
 		Competitor competitorThird = new Competitor(userThird, division, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
 		Competitor competitorFourth = new Competitor(userFourth, division, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{3, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
 
-		List<Competitor> competitors = new ArrayList<>(4);
+		List<Competitor> competitors = new ArrayList<Competitor>(4);
 		competitors.add(competitorFourth);
 		competitors.add(competitorThird);
 		competitors.add(competitorSecond);
@@ -52,7 +52,7 @@ public class ResultTest extends UnitTest {
 			"Failed due to array length discrepancy, result-target-points must be of equal length",
 			hits.length == targets.length
 			&& targets.length == points.length);
-		List<Result> results = new ArrayList<>();
+		List<Result> results = new ArrayList<Result>();
 		for (int i = 0; i < hits.length; i++) {
 			results.add(new Result(hits[i], targets[i], points[i]));
 		}

@@ -98,7 +98,7 @@ public class Results extends Controller {
 	private static void showResults(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> results = sortResults(competition.competitors);
-		List<Competitor> competitors = new ArrayList<Competitor>();
+		List<Competitor> competitors = new ArrayList<>();
 		for (Competitor competitor : results) {
 			if (!competitor.isScored()) {
 				competitors.add(competitor);
@@ -132,7 +132,7 @@ public class Results extends Controller {
 	public static void delete(long competitionID, long competitorID) {
 		Competitor competitor = Competitor.findById(competitorID);
 		if (competitor != null) {
-			competitor.results = new ArrayList<Result>();
+			competitor.results = new ArrayList<>();
 			competitor.save();
 		}
 		showResults(competitionID);

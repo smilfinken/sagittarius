@@ -24,13 +24,13 @@ public class Competitor extends Model {
 
 	public Competitor(User user) {
 		this.user = user;
-		this.results = new ArrayList<Result>();
+		this.results = new ArrayList<>();
 	}
 
 	public Competitor(User user, Division division) {
 		this.user = user;
 		this.division = division;
-		this.results = new ArrayList<Result>();
+		this.results = new ArrayList<>();
 	}
 
 	public Competitor(User user, Division division, List<Result> results) {

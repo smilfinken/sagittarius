@@ -1,3 +1,4 @@
+
 import org.junit.Ignore;
 import org.junit.Test;
 import play.mvc.Http.Response;
@@ -11,5 +12,10 @@ public class ApplicationTest extends FunctionalTest {
 		assertIsOk(response);
 		assertContentType("text/html", response);
 		assertCharset(play.Play.defaultWebEncoding, response);
+	}
+
+	@Test
+	public void dummyTest() {
+		assertTrue(true);
 	}
 }

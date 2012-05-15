@@ -64,6 +64,7 @@
 					<form action="@{competitions.editStage()}" method="POST">
 						<input type="hidden" name="competitionID" value="${competition.id}" />
 						<input type="hidden" name="stageID" value="${stage.id}" />
+						<input type="hidden" name="stageIndex" value="${i}" />
 						<input class="edit" type="submit" value="&Auml;ndra" />
 					</form>
 				</div>
@@ -85,7 +86,7 @@
 					&nbsp;
 				</td>
 				<td style="text-align: left">
-					<input type="text" />
+					<input type="text" name="name" />
 				</td>
 				<td style="text-align: center">
 					<!-- <input type="checkbox" /> -->

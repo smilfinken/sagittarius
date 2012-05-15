@@ -27,7 +27,7 @@ Result(6):
         targets: 6
 
 Competitor(1):
-  user: 1
+  user: 2
   division: 1
   results: [1,2,3,4,5,6]
 
@@ -49,28 +49,52 @@ Target(1):
 Target(2):
   hasPoints: true
 
+TargetGroup(1):
+    targets: [1,1,1,1]
+
+TargetGroup(2):
+    targets: [2]
+
+TargetGroup(3):
+    targets: [1,1,1,1,1]
+
+TargetGroup(4):
+    targets: [2]
+
+TargetGroup(5):
+    targets: [1,1]
+
+TargetGroup(6):
+    targets: [1,1,1]
+
+TargetGroup(7):
+    targets: [1,1]
+
+TargetGroup(8):
+    targets: [1,1,1,1]
+
 Stage(1):
-  targets: [1,1,1,1]
+  targetGroups: [1]
   name: Inskjutning
 
 Stage(2):
-  targets: [2]
+  targetGroups: [2]
   name: Snabbskytte
 
 Stage(3):
-  targets: [1,1,1,1,1]
+  targetGroups: [3]
   name: Vändställ
 
 Stage(4):
-  targets: [2,1,1]
+  targetGroups: [4,5]
   name: Kort och brett
 
 Stage(5):
-  targets: [1,1,1]
+  targetGroups: [6]
   name: Långt och smalt
 
 Stage(6):
-  targets: [1,1,1,1,1,1]
+  targetGroups: [7,8]
   name: Långt och brett
 
 Competition(1):

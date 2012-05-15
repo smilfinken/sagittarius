@@ -13,9 +13,13 @@ import play.mvc.With;
 @With(Secure.class)
 public class Stages extends Controller {
 
-    public static void list(int competitionID) {
-        Competition competition = Competition.findById(competitionID);
-        List<Stage> stages = competition.stages;
-        render(stages);
-    }
+	public static void list(int competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Stage> stages = competition.stages;
+		render(stages);
+	}
+
+	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID) {
+		render();
+	}
 }

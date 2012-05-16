@@ -12,16 +12,32 @@ int j = 1;
 	}%
 	<table>
 		<tr>
-			<th colspan=2>
+			<th colspan=4 style="text-align: left">
 		<form action="@{Stages.deleteTargetGroup()}" method="POST">
 			<input type="hidden" name="competitionID" value="${competition.id}" />
 			<input type="hidden" name="stageID" value="${stage.id}" />
+			<input type="hidden" name="stageIndex" value="${stageIndex}" />
 			<input type="hidden" name="targetGroupID" value="${group.id}" />
 			Målgrupp ${i++}
-			<input type="submit" value="Ta bort" />
+			<input class="delete" type="submit" value="Ta bort" />
 		</form>
 		</th>
 		</tr>
+		<tr>
+			<th style="text-align: left">
+				Figur
+			</th>
+			<th style="text-align: left">
+				Typ
+			</th>
+			<th style="text-align: left">
+				Färg
+			</th>
+			<th style="text-align: center">
+				Poängmål
+			</th>
+		</tr>
+
 		<form action="@{Competitions.updateStage()}" method="POST">
 			<input type="hidden" name="competitionID" value="${competition.id}" />
 			<input type="hidden" name="targetGroupID" value="${group.id}" />
@@ -36,13 +52,15 @@ int j = 1;
 			}%
 			<input type="hidden" name="targetID" value="${target.id}" />
 			<tr>
-				<td>
+				<td style="text-align: left">
 					Figur ${j++}
 				</td>
-				<td>
+				<td style="text-align: left">
 					${target.model}
 				</td>
-				<td>
+				<td style="text-align: left">
+				</td>
+				<td style="text-align: center">
 					<input type="checkbox" ${checked} />
 				</td>
 			</tr>
@@ -53,6 +71,6 @@ int j = 1;
 			}
 			}%
 	</table>
-	<input type="submit" value="Uppdatera" />
+	<input class="enter" type="submit" value="Uppdatera" />
 </form>
 </div>

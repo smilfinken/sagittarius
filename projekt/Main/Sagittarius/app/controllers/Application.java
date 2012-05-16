@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.List;
-
 import models.Competition;
 import models.CompetitionType;
 import play.mvc.Before;

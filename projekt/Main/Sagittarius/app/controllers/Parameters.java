@@ -1,11 +1,6 @@
 package controllers;
 
 import java.util.List;
-import models.Category;
-import models.CompetitionType;
-import models.Division;
-import models.Rank;
-import models.VerifiedUser;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -25,8 +20,8 @@ public class Parameters extends Controller {
 		List<Stage> stages = Stage.all().fetch();
 		List<TargetGroup> targetGroups = TargetGroup.all().fetch();
 		List<Target> targets = Target.all().fetch();
-		List<Users> users = VerifiedUser.all().fetch();
+		List<Users> users = User.all().fetch();
 
-		render(categories, ranks, competitionTypes, divisions, users);
+		render(categories, ranks, competitionTypes, divisions, stages, targetGroups, targets, users);
 	}
 }

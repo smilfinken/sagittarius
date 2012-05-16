@@ -2,7 +2,7 @@
 
 import java.util.List;
 
-import models.User;
+import models.VerifiedUser;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -14,7 +14,7 @@ import play.mvc.With;
 public class Users extends Controller {
 
 	public static void list() {
-		List<User> users = User.all().fetch();
+		List<VerifiedUser> users = VerifiedUser.all().fetch();
 
 		render(users);
 	}

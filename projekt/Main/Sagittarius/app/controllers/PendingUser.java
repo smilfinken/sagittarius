@@ -1,7 +1,7 @@
 	package controllers;
 
 import java.util.List;
-import models.User;
+import models.VerifiedUser;
 import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -21,7 +21,7 @@ public class PendingUser extends Controller {
     		/*TODO: Store in flash and redirect to posting page*/
     		signup();
     	}
-    	User user = new User( firstname,  surname,  cardnumber, email,  password);
+    	VerifiedUser user = new VerifiedUser( firstname,  surname,  cardnumber, email,  password);
     	user.create();
     	Security.authenticate(email, password);
     	Application.index();

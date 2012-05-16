@@ -16,24 +16,24 @@ import play.db.jpa.Model;
 public class Competitor extends Model {
 
 	@OneToOne
-	public User user;
+	public VerifiedUser user;
 	@OneToOne
 	public Division division;
 	@OneToMany(cascade= CascadeType.ALL)
 	public List<Result> results;
 
-	public Competitor(User user) {
+	public Competitor(VerifiedUser user) {
 		this.user = user;
 		this.results = new ArrayList<>();
 	}
 
-	public Competitor(User user, Division division) {
+	public Competitor(VerifiedUser user, Division division) {
 		this.user = user;
 		this.division = division;
 		this.results = new ArrayList<>();
 	}
 
-	public Competitor(User user, Division division, List<Result> results) {
+	public Competitor(VerifiedUser user, Division division, List<Result> results) {
 		this.user = user;
 		this.division = division;
 		this.results = results;

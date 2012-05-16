@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import models.*;
 import play.db.jpa.GenericModel;
@@ -22,7 +24,7 @@ public class Competitions extends Controller {
 		Competition competition = new Competition(name);
 		competition.willBeSaved = true;
 		competition.competitionType = CompetitionType.findById(competitionTypeID);
-		render(competition);
+		renderTemplate("Competitions/select.html", competition);
 	}
 
 	public static void edit(long competitionID) {
@@ -39,7 +41,7 @@ public class Competitions extends Controller {
 
 		List<Stage> stages = competition.stages;
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		render(competition, stages, competitionTypes);
+		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 
 	public static void list() {
@@ -55,7 +57,7 @@ public class Competitions extends Controller {
 
 	public static void enroll(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		render(competition);
+		renderTemplate("Competitions/select.html", competition);
 	}
 
 	public static void addStage(long competitionID, String name) {
@@ -66,27 +68,28 @@ public class Competitions extends Controller {
 		List<Stage> stages = competition.stages;
 		stages.add(stage);
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		render(competition, stages, competitionTypes);
+		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 
-	public static void editStage(long competitionID, long stageID, int stageIndex) {
+	public static void deleteStage(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
+
+		// TODO: fix this so that data is properly removed from db on deletion
 		Stage stage = Stage.findById(stageID);
-		List<Target> targets = Target.all().fetch();
-		render(competition, stage, targets, stageIndex);
-	}
+		if (stage != null) {
+			for (TargetGroup targetGroup : stage.targetGroups) {
+				targetGroup.targets = null;
+				targetGroup.save();
+			}
+			stage.targetGroups = null;
+			stage.save();
+			competition.stages.remove(stage);
+			competition.save();
+			stage.delete();
+		}
 
-	public static void updateStage(long competitionID, long stageID, int stageIndex, long targetGroupID) {
-		Competition competition = Competition.findById(competitionID);
-		Stage stage = Stage.findById(stageID);
-		List<Target> targets = Target.all().fetch();
-		render(competition, stage, targets, stageIndex);
-	}
-
-	public static void deleteStage(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
 		List<Stage> stages = competition.stages;
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		render(competition, stages, competitionTypes);
+		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 }

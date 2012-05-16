@@ -95,7 +95,7 @@ public class Results extends Controller {
 		return out;
 	}
 
-	private static void showResults(long competitionID) {
+	public static void list(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> results = sortResults(competition.competitors);
 		List<Competitor> competitors = new ArrayList<>();
@@ -105,20 +105,7 @@ public class Results extends Controller {
 			}
 		}
 
-		render(competition, results, sortCompetitors(competitors));
-	}
-
-	@SuppressWarnings("unused")
-	private static void deleteEntry(long competitorID) {
-		Competitor entry = Competitor.findById(competitorID);
-
-		if (entry != null) {
-			entry.delete();
-		}
-	}
-
-	public static void list(int competitionID) {
-		showResults(competitionID);
+		renderTemplate("Results/list.html", competition, results, sortCompetitors(competitors));
 	}
 
 	public static void add(long competitionID, long competitorID, List<Result> results) {
@@ -126,7 +113,7 @@ public class Results extends Controller {
 		if (competitor != null) {
 			addResult(competitor, results);
 		}
-		showResults(competitionID);
+		list(competitionID);
 	}
 
 	public static void delete(long competitionID, long competitorID) {
@@ -135,11 +122,11 @@ public class Results extends Controller {
 			competitor.results = new ArrayList<>();
 			competitor.save();
 		}
-		showResults(competitionID);
+		list(competitionID);
 	}
 
 	public static void edit(long competitionID, long competitorID) {
-		showResults(competitionID);
+		list(competitionID);
 	}
 
 	public static void enter() {
@@ -202,22 +189,20 @@ public class Results extends Controller {
 
 	public static void addUser(long competitionID, String firstName, String surname, long rankID, long categoryID, long divisionID) {
 		Competition competition = Competition.findById(competitionID);
-		@SuppressWarnings("unused")
-		List<Competitor> results = sortResults(competition.competitors);
-		@SuppressWarnings("unused")
-		List<Competitor> competitors = sortCompetitors(competition.competitors);
 
-		Rank rank = Rank.findById(rankID);
-		Category category = Category.findById(categoryID);
-		User user = new User(firstName, surname, rank, Arrays.asList(category));
-		user.save();
+		if (firstName.length() > 0 && surname.length() > 0) {
+			competition.willBeSaved = true;
+			Rank rank = Rank.findById(rankID);
+			Category category = Category.findById(categoryID);
+			User user = new User(firstName, surname, rank, Arrays.asList(category));
+			user.save();
 
-		Division division = Division.findById(divisionID);
-		Competitor competitor = new Competitor(user, division);
-		competitor.willBeSaved = true;
-		competition.competitors.add(competitor);
-		competition.save();
+			Division division = Division.findById(divisionID);
+			Competitor competitor = new Competitor(user, division);
+			competitor.willBeSaved = true;
+			competition.competitors.add(competitor);
+		}
 
-		showResults(competitionID);
+		list(competitionID);
 	}
 }

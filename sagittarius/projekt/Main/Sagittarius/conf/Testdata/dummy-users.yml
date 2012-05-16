@@ -1,6 +1,6 @@
-# dummy VerifiedUsers
+# dummy users
 
-VerifiedUser(1):
+User(1):
   firstName: Per
   surname: Persson
   email: per@pelle.se
@@ -8,7 +8,7 @@ VerifiedUser(1):
   categories: [1]
   rank: 1
 
-VerifiedUser(2):
+User(2):
   firstName: Oskar
   surname: Oskarsson
   email: oskar@oskarsson.se
@@ -16,7 +16,7 @@ VerifiedUser(2):
   categories: [2]
   rank: 1
 
-VerifiedUser(3):
+User(3):
   firstName: Jan
   surname: Jansson
   email: jan@jansson.se
@@ -24,7 +24,7 @@ VerifiedUser(3):
   categories: [2]
   rank: 2
 
-VerifiedUser(4):
+User(4):
   firstName: Nils
   surname: Nilsson
   email: nils@nilsson.se
@@ -32,7 +32,7 @@ VerifiedUser(4):
   categories: [4]
   rank: 2
 
-VerifiedUser(5):
+User(5):
   firstName: Sigrid
   surname: Sigridsdotter
   email: sigrid@sigridsdotter.se
@@ -40,7 +40,7 @@ VerifiedUser(5):
   categories: [3]
   rank: 1
 
-VerifiedUser(6):
+User(6):
   firstName: Malin
   surname: Malinsdotter
   email: malin@malinsdotter.se

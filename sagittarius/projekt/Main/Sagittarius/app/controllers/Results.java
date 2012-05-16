@@ -209,7 +209,7 @@ public class Results extends Controller {
 
 		Rank rank = Rank.findById(rankID);
 		Category category = Category.findById(categoryID);
-		VerifiedUser user = new VerifiedUser(firstName, surname, rank, Arrays.asList(category));
+		User user = new User(firstName, surname, rank, Arrays.asList(category));
 		user.save();
 
 		Division division = Division.findById(divisionID);

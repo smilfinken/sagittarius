@@ -24,25 +24,25 @@ Rank(rank2):
 Rank(rank3):
         rank: 3
 
-VerifiedUser(VerifiedUserJunior):
+User(userJunior):
         firstName: Young
         surname: Shooter
         rank: rank1
         category: categoryJunior
 
-VerifiedUser(VerifiedUserAdult):
+User(userAdult):
         firstName: Sharp
         surname: Shooter
         rank: rank2
         category: categoryAdult
 
-VerifiedUser(VerifiedUserLady):
+User(userLady):
         firstName: Girl
         surname: Shooter
         rank: rank3
         category: categoryLady
 
-VerifiedUser(VerifiedUserSenior):
+User(userSenior):
         firstName: Old
         surname: Shooter
         rank: rank3
@@ -79,37 +79,37 @@ Division(divisionVY):
         ranks: false
 
 Competitor(competitorJuniorJ):
-        VerifiedUser: VerifiedUserJunior
+        user: userJunior
         division: divisionJ
 
 Competitor(competitorJuniorA):
-        VerifiedUser: VerifiedUserJunior
+        user: userJunior
         division: divisionA
 
 Competitor(competitorAdultC):
-        VerifiedUser: VerifiedUserAdult
+        user: userAdult
         division: divisionC
 
 Competitor(competitorAdultA):
-        VerifiedUser: VerifiedUserAdult
+        user: userAdult
         division: divisionA
 
 Competitor(competitorLadyD):
-        VerifiedUser: VerifiedUserLady
+        user: userLady
         division: divisionD
 
 Competitor(competitorLadyA):
-        VerifiedUser: VerifiedUserLady
+        user: userLady
         division: divisionA
 
 Competitor(competitorLadySeniorV):
-        VerifiedUser: VerifiedUserLady
+        user: userLady
         division: divisionVY
 
 Competitor(competitorSeniorV):
-        VerifiedUser: VerifiedUserSenior
+        user: userSenior
         division: divisionVY
 
 Competitor(competitorSeniorA):
-        VerifiedUser: VerifiedUserSenior
+        user: userSenior
         division: divisionA

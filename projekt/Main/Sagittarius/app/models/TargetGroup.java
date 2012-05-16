@@ -2,8 +2,9 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import play.db.jpa.Model;
 
 /**
@@ -14,7 +15,7 @@ import play.db.jpa.Model;
 public class TargetGroup extends Model {
 
 	public String description;
-	@ManyToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<Target> targets;
 
 	public TargetGroup() {

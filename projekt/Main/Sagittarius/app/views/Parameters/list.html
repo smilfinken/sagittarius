@@ -6,6 +6,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Kategori
 			</th>
@@ -14,6 +15,9 @@ int i = 0;
 		for (category in categories){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${category.id}
+			</td>
 			<td style="text-align: left">
 				${category.category}
 			</td>
@@ -27,6 +31,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Klass
 			</th>
@@ -35,6 +40,9 @@ int i = 0;
 		for (rank in ranks){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${rank.id}
+			<td>
 			<td style="text-align: left">
 				${rank.rank}
 			</td>
@@ -48,6 +56,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Tävlingstyp
 			</th>
@@ -56,6 +65,9 @@ int i = 0;
 		for (competitionType in competitionTypes){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${competitionType.id}
+			<td>
 			<td style="text-align: left">
 				${competitionType.name}
 			</td>
@@ -69,6 +81,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Division
 			</th>
@@ -80,6 +93,9 @@ int i = 0;
 		for (division in divisions){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${division.id}
+			<td>
 			<td style="text-align: left">
 				${division.division}
 			</td>
@@ -102,6 +118,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Stationer
 			</th>
@@ -111,6 +128,9 @@ int i = 0;
 		for (stage in stages) {
 		}%
 		<tr>
+			<td style="text-align: right">
+				${stage.id}
+			<td>
 			<td>
 				${i++}
 			</td>
@@ -140,6 +160,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Målgrupper
 			</th>
@@ -149,6 +170,9 @@ int i = 0;
 		for (group in targetGroups){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${group.id}
+			<td>
 			<td>
 				${i++}
 			</td>
@@ -178,6 +202,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Figurer
 			</th>
@@ -187,6 +212,8 @@ int i = 0;
 		for (target in targets){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${target.id}
 			<td>
 				${i++}
 			</td>
@@ -206,6 +233,7 @@ int i = 0;
 <div>
 	<table>
 		<tr>
+			<th />
 			<th style="text-align: left">
 				Användare
 			</th>
@@ -214,6 +242,9 @@ int i = 0;
 		for (user in users){
 		}%
 		<tr>
+			<td style="text-align: right">
+				${user.id}
+			</td>
 			<td style="text-align: left">
 				${user.firstName} ${user.surname}, ${user.email}, ${user.password}
 			</td>

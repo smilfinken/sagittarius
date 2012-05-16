@@ -1,60 +1,22 @@
 package models;
 
-import java.util.List;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.InheritanceType;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Inheritance;
+
 import play.db.jpa.Model;
-
-/**
- *
- * @author johan
- */
 @Entity
-@DiscriminatorValue("VERIFIED") 
-public class User extends UserAttr {
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING, name="status")
+public abstract class User extends Model {
 
-	@OneToOne
-	public Rank rank;
-	@ManyToMany
-	public List<Category> categories;
+	public String firstName;
+	public String surname;
+	public String cardNumber;
+	public String email;
+	public String password;
 
-	public User(String firstName, String surname) {
-		this.firstName = firstName;
-		this.surname = surname;
-	}
-
-	public User(String firstName, String surname, String cardNumber,
-			String email, String password) {
-		this.firstName = firstName;
-		this.surname = surname;
-		this.cardNumber = cardNumber;
-		this.email = email;
-		this.password = password;
-	}
-	
-	public User(String firstName, String surname, String cardNumber,
-			String email, String password, Rank rank, List<Category> categories) {
-		this.firstName = firstName;
-		this.surname = surname;
-		this.cardNumber = cardNumber;
-		this.email = email;
-		this.password = password;
-		this.rank = rank;
-		this.categories = categories;		
-	}
-
-	public User(String firstName, String surname, Rank rank, List<Category> categories){
-		this.firstName = firstName;
-		this.surname = surname;
-		this.rank = rank;
-		this.categories = categories;
-	}
-	public static UserAttr connect(String username, String password) {
-		return find("byEmailAndPassword", username, password).first();
-	}
-	public String toString(){
-		return email;
-	}
 }

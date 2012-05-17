@@ -12,8 +12,15 @@ import play.mvc.With;
 @With(Secure.class)
 public class Competitions extends Controller {
 
+	public static void list() {
+		List<Competition> competitions = Competition.all().fetch();
+
+		render(competitions);
+	}
+
 	public static void select(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
+
 		render(competition);
 	}
 
@@ -21,6 +28,7 @@ public class Competitions extends Controller {
 		Competition competition = new Competition(name);
 		competition.willBeSaved = true;
 		competition.competitionType = CompetitionType.findById(competitionTypeID);
+
 		renderTemplate("Competitions/select.html", competition);
 	}
 
@@ -28,22 +36,35 @@ public class Competitions extends Controller {
 		Competition competition = Competition.findById(competitionID);
 		List<Stage> stages = competition.stages;
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+
 		render(competition, stages, competitionTypes);
 	}
 
 	public static void save(long competitionID, String name) {
 		Competition competition = Competition.findById(competitionID);
-		competition.willBeSaved = true;
-		competition.name = name;
+
+		if (competition != null) {
+			competition.name = name;
+			competition.save();
+		}
 
 		List<Stage> stages = competition.stages;
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+
 		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 
-	public static void list() {
-		List<Competition> competitions = Competition.all().fetch();
-		render(competitions);
+	// TODO: fix this so that data is properly removed from db on deletion
+	public static void delete(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+
+		if (competition != null) {
+			competition.competitors = null;
+			competition.stages = null;
+			competition.delete();
+		}
+
+		renderTemplate("Application/index.html");
 	}
 
 	public static void competitors(long competitionID) {
@@ -56,6 +77,7 @@ public class Competitions extends Controller {
 
 	public static void enroll(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
+
 		renderTemplate("Competitions/select.html", competition);
 	}
 

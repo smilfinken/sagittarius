@@ -1,13 +1,10 @@
 #{extends "Competitions/main.html" /}
 #{set title: "Resultat" /}
 
-<div>
-	<form action="@{Results.newUser()}" method="POST">
-		<input type="hidden" name="competitionID" value="${competition.id}" />
-		<input style="float:right" type="submit" value="Ny deltagare" />
-	</form>
+<hr />
 
-	<form action="@{Results.add()}" method="POST">
+<div>
+	<form method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
 			<tr>
@@ -22,7 +19,6 @@
 						}
 						}%
 					</select>
-					<input type="button" value="Avregistrera deltagare" />
 				</td>
 			</tr>
 			<tr class="scoring">
@@ -51,13 +47,21 @@
 				</tr>
 				<tr>
 					<td class="buttons" colspan="6">
-						<input type="submit" class="enter" value="L&auml;gg till" />
+						<input class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" value="Registrera resultat" />
+						<input class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST" value="Avregistrera deltagare" />
+					</td>
+				</tr>
+				<tr>
+					<td class="buttons" colspan="6">
+						<input class="navigate" type="submit" formaction="@{Results.registerUser()}" formmethod="POST" value="Registrera en ny deltagare" />
 					</td>
 				</tr>
 		</table>
 	</form>
 </div>
+
 <hr />
+
 <div>
 	%{
 	int totalHits;

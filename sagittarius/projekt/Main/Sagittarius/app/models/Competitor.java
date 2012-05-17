@@ -46,7 +46,7 @@ public class Competitor extends Model {
 	}
 
 	public String getFullName() {
-		return String.format("%s %s", user.firstName, user.surname);
+		return user.getFullName();
 	}
 
 	public String getDivision() {

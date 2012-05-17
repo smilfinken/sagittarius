@@ -129,10 +129,6 @@ public class Results extends Controller {
 		list(competitionID);
 	}
 
-	public static void enter() {
-		render();
-	}
-
 	public static void export(long competitionID) throws IOException {
 		Competition competition = Competition.findById(competitionID);
 		if (competition != null) {
@@ -179,12 +175,30 @@ public class Results extends Controller {
 		}
 	}
 
-	public static void newUser(long competitionID) {
-		List<Category> categories = Category.all().fetch();
-		List<Rank> ranks = Rank.all().fetch();
+	public static void registerUser(long competitionID, long userID) {
+		Competition competition = Competition.findById(competitionID);
+		List<User> users = User.all().fetch();
 		List<Division> divisions = Division.all().fetch();
 
-		render(competitionID, categories, ranks, divisions);
+		renderTemplate("Competitors/registration.html", competition, userID, users, divisions);
+	}
+
+	public static void unregisterUser(long competitionID, long competitorID) {
+		Competition competition = Competition.findById(competitionID);
+		Competitor competitor = Competitor.findById(competitorID);
+
+		// TODO: fix this so that data is properly removed from db on deletion
+		if (competitor != null) {
+			competition.competitors.remove(competitor);
+			competition.save();
+			competitor.results = null;
+			competitor.delete();
+		}
+
+		List<Competitor> competitors = competition.competitors;
+		List<User> users = User.all().fetch();
+
+		list(competitionID);
 	}
 
 	public static void addUser(long competitionID, String firstName, String surname, long rankID, long categoryID, long divisionID) {

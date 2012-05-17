@@ -1,6 +1,11 @@
+table, tr, td {
+	width: auto;
+}
+
 td,tr,table {
 	border: 0px solid gray;
 }
+
 tr.scoring {
 	vertical-align: text-top;
 }
@@ -10,7 +15,7 @@ td.scoring {
 }
 
 td.buttons {
-	text-align: center;
+	text-align: left;
 }
 
 fieldset {

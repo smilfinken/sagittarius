@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import models.Competition;
 import models.Stage;
@@ -21,13 +22,15 @@ public class Stages extends Controller {
 		render(competition, stage, stageIndex);
 	}
 
-	public static void update(long competitionID, long stageID, int stageIndex, long targetGroupID, String name) {
+	public static void update(long competitionID, long stageID, int stageIndex, String name) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
+
 		if (stage != null) {
-			stage.willBeSaved = true;
 			stage.name = name;
+			stage.save();
 		}
+
 		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
 	}
 
@@ -35,22 +38,11 @@ public class Stages extends Controller {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
-	}
-
-	public static void updateTargetGroup(long competitionID, long stageID, int stageIndex, long targetGroupID, List<Target> targets) {
-		Competition competition = Competition.findById(competitionID);
-		Stage stage = Stage.findById(stageID);
-
-		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
-		if (targetGroup != null) {
-			for (Target t : targets) {
-				Target target = Target.findById(t.id);
-				if (target != null) {
-					target.willBeSaved = true;
-					target.hasPoints = t.hasPoints;
-				}
-			}
+		if (stage != null) {
+			TargetGroup targetGroup = new TargetGroup("Målgrupp", new ArrayList<Target>());
+			targetGroup.save();
+			stage.targetGroups.add(targetGroup);
+			stage.save();
 		}
 
 		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
@@ -59,18 +51,59 @@ public class Stages extends Controller {
 	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID, int stageIndex) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
-
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
+		// TODO: fix this so that data is properly removed from db on deletion
 		if (stage != null && targetGroup != null) {
-			stage.willBeSaved = true;
-			targetGroup.willBeSaved = true;
-			for (Target target : targetGroup.targets) {
-				targetGroup.targets.remove(target);
-				target.delete();
-			}
+			targetGroup.targets = null;
+			targetGroup.save();
 			stage.targetGroups.remove(targetGroup);
-			targetGroup.delete();
+			stage.save();
+		}
+
+		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+	}
+
+	public static void addTarget(long competitionID, long stageID, long stageIndex, long targetGroupID, String hasPoints) {
+		Competition competition = Competition.findById(competitionID);
+		Stage stage = Stage.findById(stageID);
+		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
+
+		if (targetGroup != null) {
+			Target target = new Target();
+			target.hasPoints = (hasPoints != null);
+			target.save();
+			targetGroup.targets.add(target);
+			targetGroup.save();
+		}
+
+		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+	}
+
+	public static void updateTarget(long competitionID, long stageID, int stageIndex, long targetID, String hasPoints, String model) {
+		Competition competition = Competition.findById(competitionID);
+		Stage stage = Stage.findById(stageID);
+		Target target = Target.findById(targetID);
+
+		if (target != null) {
+			target.willBeSaved = true;
+			target.hasPoints = (hasPoints != null);
+			target.model = model;
+		}
+
+		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+	}
+
+	public static void deleteTarget(long competitionID, long stageID, int stageIndex, long targetGroupID, long targetID, String hasPoints, String model) {
+		Competition competition = Competition.findById(competitionID);
+		Stage stage = Stage.findById(stageID);
+		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
+		Target target = Target.findById(targetID);
+
+		if (targetGroup != null && target != null) {
+			targetGroup.targets.remove(target);
+			targetGroup.save();
+			target.delete();
 		}
 
 		renderTemplate("Stages/edit.html", competition, stage, stageIndex);

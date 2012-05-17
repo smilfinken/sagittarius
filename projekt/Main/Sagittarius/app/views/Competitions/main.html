@@ -6,18 +6,15 @@
 	<table>
 		<tr>
 			<td>
-				V&auml;lj en aktivitet:
-			</td>
-			<td>
 				<form action="@{Results.list()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" value="Visa resultat" />
+					<input type="submit" value="Resultat" />
 				</form>
 			</td>
 			<td>
 				<form action="@{Competitions.competitors()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" value="Visa deltagare" />
+					<input type="submit" value="Deltagare" />
 				</form>
 			</td>
 			<td>
@@ -34,7 +31,5 @@
 		</tr>
 	</table>
 </div>
-
-<hr />
 
 #{doLayout /}

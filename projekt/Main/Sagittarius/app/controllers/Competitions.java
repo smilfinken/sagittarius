@@ -1,10 +1,7 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import models.*;
-import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -52,7 +49,9 @@ public class Competitions extends Controller {
 	public static void competitors(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> competitors = competition.competitors;
-		render(competition, competitors);
+		List<User> users = User.all().fetch();
+
+		render(competition, competitors, users);
 	}
 
 	public static void enroll(long competitionID) {
@@ -62,12 +61,17 @@ public class Competitions extends Controller {
 
 	public static void addStage(long competitionID, String name) {
 		Competition competition = Competition.findById(competitionID);
-		competition.willBeSaved = true;
-		Stage stage = new Stage(1, name);
-		stage.willBeSaved = true;
+
+		if (competition != null) {
+			Stage stage = new Stage(1, name);
+			stage.save();
+			competition.stages.add(stage);
+			competition.save();
+		}
+
 		List<Stage> stages = competition.stages;
-		stages.add(stage);
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+
 		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 
@@ -90,6 +94,51 @@ public class Competitions extends Controller {
 
 		List<Stage> stages = competition.stages;
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+
 		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
+	}
+
+	public static void registerUser(long competitionID, long userID, long divisionID) {
+		Competition competition = Competition.findById(competitionID);
+		User user = User.findById(userID);
+		Division division = Division.findById(divisionID);
+
+		if (user != null && division != null) {
+			Competitor competitor = new Competitor(user, division);
+			competitor.save();
+			competition.competitors.add(competitor);
+			competition.save();
+		}
+
+		List<Competitor> competitors = competition.competitors;
+		List<User> users = User.all().fetch();
+
+		renderTemplate("Competitions/competitors.html", competition, competitors, users);
+	}
+
+	public static void unregisterUser(long competitionID, long competitorID) {
+		Competition competition = Competition.findById(competitionID);
+		Competitor competitor = Competitor.findById(competitorID);
+
+		// TODO: fix this so that data is properly removed from db on deletion
+		if (competitor != null) {
+			competition.competitors.remove(competitor);
+			competition.save();
+			competitor.results = null;
+			competitor.delete();
+		}
+
+		List<Competitor> competitors = competition.competitors;
+		List<User> users = User.all().fetch();
+
+		renderTemplate("Competitions/competitors.html", competition, competitors, users);
+	}
+
+	public static void newCompetitor(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Competitor> competitors = competition.competitors;
+		List<User> users = User.all().fetch();
+
+		renderTemplate("Competitions/competitors.html", competition, competitors, users);
 	}
 }

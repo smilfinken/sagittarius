@@ -1,15 +1,20 @@
 #{extends "main.html" /}
 #{set title: "${competition.name}, station ${stageIndex}" /}
+
 %{
 int i = 1;
 int j = 1;
 %}
+
 <div>
 	<h2>${competition.name}, station ${stageIndex}</h2>
 	<form action="@{Stages.update}" method="POST">
 		<table>
 			<tr>
 				<td>
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="hidden" name="stageID" value="${stage.id}" />
+					<input type="hidden" name="stageIndex" value="${stageIndex}" />
 					<input type="text" name="name" value="${stage.name}" />
 					<input class="enter" type="submit" value="Ändra" />
 				</td>
@@ -36,70 +41,97 @@ int j = 1;
 		</table>
 	</form>
 
-	<form action="@{Stages.updateTargetGroup()}" method="POST">
-		<table>
-			<tr>
-				<th style="text-align: left">
-					Figur
-				</th>
-				<th style="text-align: left">
-					Typ
-				</th>
-				<th style="text-align: left">
-					Färg
-				</th>
-				<th style="text-align: center">
-					Poängmål
-				</th>
-			</tr>
-			<input type="hidden" name="competitionID" value="${competition.id}" />
-			<input type="hidden" name="stageID" value="${stage.id}" />
-			<input type="hidden" name="stageIndex" value="${stageIndex}" />
-			<input type="hidden" name="targetGroupID" value="${group.id}" />
-			%{
-			j = 1;
-			String checked = "";
-			for (target in group.targets) {
-			if (target.hasPoints) {
-			checked = "checked";
-			}
-			}%
-			<input type="hidden" name="targets[${j}].id" value="${target.id}" />
-			<tr>
-				<td style="text-align: left">
-					${j}
-				</td>
-				<td style="text-align: left">
-					<input type="hidden" name="targets[${j}].model" value="${target.model}" />
-					${target.model}
-				</td>
-				<td style="text-align: left">
-				</td>
-				<td style="text-align: center">
-					<input type="checkbox" ${checked} name="targets[${j}].checked" />
-				</td>
-			</tr>
-			%{
-			j++;
-			}
-			}%
-		</table>
-		<input class="enter" type="submit" value="Uppdatera" />
-	</form>
+	<table>
+		<tr>
+			<th style="text-align: left">
+				Figur
+			</th>
+			<th style="text-align: left">
+				Typ
+			</th>
+			<th style="text-align: left">
+				Färg
+			</th>
+			<th style="text-align: left">
+				Poängmål
+			</th>
+		</tr>
+		%{
+		j = 1;
+		String checked = "";
+		for (target in group.targets) {
+		if (target.hasPoints) {
+		checked = "checked";
+		} else{
+		checked = "";
+		}
+		}%
+		<tr>
+			<td style="text-align: left">
+				${j}
+			</td>
+			<td style="text-align: left">
+				<input form="updateTarget_${target.id}" type="hidden" name="model" value="${target.model}" />
+				${target.model}
+			</td>
+			<td style="text-align: left">
+			</td>
+			<td style="text-align: left">
+				<form name="updateTarget_${target.id}" method="POST">
+					<input type="checkbox" ${checked} name="hasPoints" />
+					       <input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="hidden" name="stageID" value="${stage.id}" />
+					<input type="hidden" name="stageIndex" value="${stageIndex}" />
+					<input type="hidden" name="targetGroupID" value="${group.id}" />
+					<input type="hidden" name="targetID" value="${target.id}" />
+					<input class="enter" type="submit" formaction="@{Stages.updateTarget()}" value="Uppdatera" />
+					<input class="delete" type="submit" formaction="@{Stages.deleteTarget()}" value="Ta bort" />
+				</form>
+			</td>
+		</tr>
+		%{
+		j++;
+		}
+		}%
+		<tr>
+			<td style="text-align: left">
+			</td>
+			<td style="text-align: left">
+			</td>
+			<td style="text-align: left">
+			</td>
+			<td style="text-align: left">
+				<form action="@{Stages.addTarget()}" method="POST">
+					<input type="checkbox" name="hasPoints" />
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="hidden" name="stageID" value="${stage.id}" />
+					<input type="hidden" name="stageIndex" value="${stageIndex}" />
+					<input type="hidden" name="targetGroupID" value="${group.id}" />
+					<input class="enter" type="submit" value="Ny figur" />
+				</form>
+			</td>
+		</tr>
+	</table>
 	%{
 	}
 	}%
 
-	<form action="@{Stages.addTargetGroup()}" method="POST">
-		<table>
-			<tr>
-				<td style="text-align: left">
+	<table>
+		<tr>
+			<td style="text-align: left">
+				<form action="@{Stages.addTargetGroup()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="stageIndex" value="${stageIndex}" />
 					<input class="enter" type="submit" value="Ny målgrupp" />
-				</td>
-			</tr>
-		</table>
-	</form>
+				</form>
+			</td>
+			<td style="text-align: left">
+				<form action="@{Competitions.edit()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input class="enter" type="submit" value="Tillbaks till t&auml;vlingen" />
+				</form>
+			</td>
+		</tr>
+	</table>
 </div>

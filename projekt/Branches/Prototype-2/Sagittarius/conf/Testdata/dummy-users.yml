@@ -1,49 +1,9 @@
 # dummy users
 
 User(1):
-  firstName: Per
-  surname: Persson
-  email: per@pelle.se
-  password: 123
+  firstName: Molndals
+  surname: Skytteforening
+  email: msf@molndalsskytte.com
+  password: x45acp
   categories: [1]
   rank: 1
-
-User(2):
-  firstName: Oskar
-  surname: Oskarsson
-  email: oskar@oskarsson.se
-  password: 123
-  categories: [2]
-  rank: 1
-
-User(3):
-  firstName: Jan
-  surname: Jansson
-  email: jan@jansson.se
-  password: 123
-  categories: [2]
-  rank: 2
-
-User(4):
-  firstName: Nils
-  surname: Nilsson
-  email: nils@nilsson.se
-  password: 123
-  categories: [4]
-  rank: 2
-
-User(5):
-  firstName: Sigrid
-  surname: Sigridsdotter
-  email: sigrid@sigridsdotter.se
-  password: 123
-  categories: [3]
-  rank: 1
-
-User(6):
-  firstName: Malin
-  surname: Malinsdotter
-  email: malin@malinsdotter.se
-  password: 123
-  categories: [3,5]
-  rank: 3

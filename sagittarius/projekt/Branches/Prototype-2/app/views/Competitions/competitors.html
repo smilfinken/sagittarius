@@ -1,0 +1,55 @@
+#{extends "Competitions/main.html" /}
+#{set title: "Deltagare" /}
+
+<hr />
+
+<div>
+	<form method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<table>
+			<tr>
+				<th>
+					Namn
+				</th>
+				<th>
+					Klass
+				</th>
+				<th>
+				</th>
+			</tr>
+			%{
+			for (competitor in competitors){
+			}%
+			<tr>
+				<td>
+					${competitor.getFullName()}
+				</td>
+				<td>
+					${competitor.getDivision()}
+				</td>
+				<td>
+					<input type="hidden" name="competitorID" value="${competitor.id}" />
+					<input class="delete" type="submit" formaction="@{Competitions.unregisterUser()}" value="Avregistrera" />
+				</td>
+			</tr>
+			%{
+			}
+			}%
+			<tr>
+				<td colspan="2">
+					<select name="userID">
+						%{
+						for (user in users) {
+						}%
+						<option value="${user.id}">${user.getFullName()}</option>
+						%{
+						}
+						}%
+					</select>
+				</td>
+				<td>
+					<input class="enter" type="submit" formaction="@{Results.registerUser()}" value="Registrera" />
+				</td>
+		</table>
+	</form>
+</div>

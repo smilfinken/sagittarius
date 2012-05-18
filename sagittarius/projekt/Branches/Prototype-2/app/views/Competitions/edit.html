@@ -1,0 +1,101 @@
+#{extends "Competitions/main.html" /}
+#{set title: "${competition.name}" /}
+
+<hr />
+
+<div>
+	<form method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<table>
+			<tr>
+				<td>
+					<label for="name">T&auml;vlingens namn</label>
+					<input type="text" name="name" value="${competition.name}" />
+					<input class="enter" type="submit" formaction="@{Competitions.save()}" value="&Auml;ndra" />
+					<input class="enter" type="submit" formaction="@{Competitions.delete()}" value="Ta bort" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${competition.type}
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	%{
+	if (competition.hasStages()){
+	}%
+	<table>
+		<tr>
+			<th style="text-align: right">
+				Station
+			</th>
+			<th style="text-align: left">
+				Namn
+			</th>
+			<th style="text-align: center">
+				Poäng
+			</th>
+		</tr>
+		%{
+		int i = 0;
+		for (stage in stages){
+		i++;
+		}%
+		<tr>
+			<td style="text-align: right">
+				${i}
+			</td>
+			<td style="text-align: left">
+				${stage.name}
+			</td>
+			<td style="text-align: center">
+				%{
+				String checked = "";
+				if (stage.hasPoints()){
+				checked = "checked";
+				}
+				}%
+				<input type="checkbox" ${checked} disabled />
+			</td>
+			<td>
+				<div style="float: left">
+					<form method="POST">
+						<input type="hidden" name="competitionID" value="${competition.id}" />
+						<input type="hidden" name="stageID" value="${stage.id}" />
+						<input class="delete" type="submit" formaction="@{Competitions.deleteStage()}" value="Ta bort" />
+					</form>
+				</div>
+				<div style="float: left">
+					<form method="POST">
+						<input type="hidden" name="competitionID" value="${competition.id}" />
+						<input type="hidden" name="stageID" value="${stage.id}" />
+						<input type="hidden" name="stageIndex" value="${i}" />
+						<input class="edit" type="submit" formaction="@{Stages.edit()}" value="&Auml;ndra" />
+					</form>
+				</div>
+			</td>
+		</tr>
+		%{
+		}
+		}%
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: left" colspan="3">
+				<form method="POST">
+					<input type="text" name="name" />
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" class="enter" formaction="@{Competitions.addStage()}" value="L&auml;gg till station" />
+				</form>
+			</td>
+		</tr>
+	</table>
+	%{
+	}
+	}%
+</div>

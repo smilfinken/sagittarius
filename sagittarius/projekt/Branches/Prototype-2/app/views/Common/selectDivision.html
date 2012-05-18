@@ -1,0 +1,10 @@
+<label for="divisionID">Vapengrupp</label>
+<select name="divisionID">
+	%{
+	for (division in divisions) {
+	}%
+	<option value="${division.id}">${division.division}</option>
+	%{
+	}
+	}%
+</select>

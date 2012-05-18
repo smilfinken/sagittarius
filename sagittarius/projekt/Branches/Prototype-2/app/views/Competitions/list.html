@@ -1,0 +1,23 @@
+#{extends "main.html" /}
+#{set title: "Tävlingar" /}
+
+<hr />
+
+<div>
+    <table>
+%{
+        for (competition in competitions){
+}%
+<tr>
+    <td>
+        ${competition.name}
+    </td>
+    <td>
+        ${competition.getType()}
+    </td>
+</tr>
+%{
+        }
+}%
+    </table>
+</div>

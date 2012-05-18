@@ -1,0 +1,169 @@
+# dummy competition data
+
+Result(1):
+        hits: 5
+        targets: 4
+
+Result(2):
+        hits: 6
+        targets: 1
+        points: 23
+
+Result(3):
+        hits: 5
+        targets: 4
+
+Result(4):
+        hits: 6
+        targets: 2
+        points: 5
+
+Result(5):
+        hits: 4
+        targets: 3
+
+Result(6):
+        hits: 6
+        targets: 6
+
+Competitor(1):
+  user: 2
+  division: 1
+  results: [1,2,3,4,5,6]
+
+Competitor(2):
+  user: 3
+  division: 2
+
+Competitor(3):
+  user: 3
+  division: 2
+
+Competitor(4):
+  user: 6
+  division: 3
+
+Target(1):
+  hasPoints: false
+
+Target(2):
+  hasPoints: false
+
+Target(3):
+  hasPoints: false
+
+Target(4):
+  hasPoints: false
+
+Target(5):
+  hasPoints: false
+
+Target(6):
+  hasPoints: false
+
+Target(7):
+  hasPoints: false
+
+Target(8):
+  hasPoints: false
+
+Target(9):
+  hasPoints: false
+
+Target(10):
+  hasPoints: false
+
+Target(11):
+  hasPoints: false
+
+Target(12):
+  hasPoints: false
+
+Target(13):
+  hasPoints: false
+
+Target(14):
+  hasPoints: false
+
+Target(15):
+  hasPoints: false
+
+Target(16):
+  hasPoints: false
+
+Target(17):
+  hasPoints: false
+
+Target(18):
+  hasPoints: false
+
+Target(19):
+  hasPoints: false
+
+Target(20):
+  hasPoints: false
+
+Target(21):
+  hasPoints: true
+
+Target(22):
+  hasPoints: true
+
+TargetGroup(1):
+    targets: [1,2,3,4]
+
+TargetGroup(2):
+    targets: [21]
+
+TargetGroup(3):
+    targets: [5,6,7,8,9]
+
+TargetGroup(4):
+    targets: [22]
+
+TargetGroup(5):
+    targets: [10,11]
+
+TargetGroup(6):
+    targets: [12,13,14]
+
+TargetGroup(7):
+    targets: [15,16]
+
+TargetGroup(8):
+    targets: [17,18,19,20]
+
+Stage(1):
+  targetGroups: [1]
+  name: Inskjutning
+
+Stage(2):
+  targetGroups: [2]
+  name: Snabbskytte
+
+Stage(3):
+  targetGroups: [3]
+  name: Vändställ
+
+Stage(4):
+  targetGroups: [4,5]
+  name: Kort och brett
+
+Stage(5):
+  targetGroups: [6]
+  name: Långt och smalt
+
+Stage(6):
+  targetGroups: [7,8]
+  name: Långt och brett
+
+Competition(1):
+  name: Tävling 1
+  competitionType: 1
+  stages: [1,2,3,4,5,6]
+  competitors: [1,2]
+
+Competition(2):
+  name: Tävling 2
+  competitionType: 2
+  competitors: [3,4]

@@ -1,0 +1,35 @@
+#{extends "main.html" /}
+#{set title: "Tävling" /}
+
+<div>
+	<h2>Hej och v&auml;lkommen till ${competition.name}!</h2>
+	<table>
+		<tr>
+			<td>
+				<form action="@{Results.list()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="Resultat" />
+				</form>
+			</td>
+			<td>
+				<form action="@{Competitions.competitors()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="Deltagare" />
+				</form>
+			</td>
+			<td>
+				<form action="@{Competitions.enroll()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="T&auml;vlingsanm&auml;lan" />
+				</form>
+			</td>
+			<td>
+				<form action="@{Competitions.edit()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="submit" value="Detaljer" />
+				</form>
+		</tr>
+	</table>
+</div>
+
+#{doLayout /}

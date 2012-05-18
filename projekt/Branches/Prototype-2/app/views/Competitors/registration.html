@@ -1,0 +1,24 @@
+#{extends "main.html" /}
+#{set title: "Registrera deltagare" /}
+
+<div>
+	<form method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<table>
+			<tr>
+				<td>
+					#{include "Common/selectUser.html" /}
+				</td>
+				<td>
+					#{include "Common/selectDivision.html" /}
+					<input class="enter" type="submit" formaction="@{Competitions.registerUser}" value="Registrera" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input class="navigate" type="submit" formaction="@{Users.registration()}" value="Skapa en ny anv&auml;ndare" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

@@ -1,0 +1,16 @@
+# pre-defined user categories
+
+Category(1):
+  category: Junior
+
+Category(2):
+  category: Adult
+
+Category(3):
+  category: Lady
+
+Category(4):
+  category: Senior
+
+Category(5):
+  category: Supersenior

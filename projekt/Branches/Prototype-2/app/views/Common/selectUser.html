@@ -1,0 +1,16 @@
+<label for="userID">Person</label>
+<select name="userID">
+	%{
+	String selected = "";
+	for (user in users) {
+	if (user.id == userID) {
+	selected = "selected";
+	} else {
+	selected = "";
+	}
+	}%
+	<option value="${user.id}" ${selected}>${user.getFullName()}</option>
+	%{
+	}
+	}%
+</select>

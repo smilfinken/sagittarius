@@ -1,0 +1,256 @@
+#{extends "main.html" /}
+#{set title: "Parametrar" /}
+%{
+int i = 0;
+}%
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Kategori
+			</th>
+		</tr>
+		%{
+		for (category in categories){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${category.id}
+			</td>
+			<td style="text-align: left">
+				${category.category}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Klass
+			</th>
+		</tr>
+		%{
+		for (rank in ranks){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${rank.id}
+			<td>
+			<td style="text-align: left">
+				${rank.rank}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Tävlingstyp
+			</th>
+		</tr>
+		%{
+		for (competitionType in competitionTypes){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${competitionType.id}
+			<td>
+			<td style="text-align: left">
+				${competitionType.name}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Division
+			</th>
+			<th style="text-align: left">
+				Ranking
+			</th>
+		</tr>
+		%{
+		for (division in divisions){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${division.id}
+			<td>
+			<td style="text-align: left">
+				${division.division}
+			</td>
+			<td style="text-align: center">
+				%{
+				String checked = "";
+				if (division.ranks) {
+				checked = "checked";
+				}
+				}%
+				<input type="checkbox" ${checked} disabled />
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Stationer
+			</th>
+		</tr>
+		%{
+		i = 1;
+		for (stage in stages) {
+		}%
+		<tr>
+			<td style="text-align: right">
+				${stage.id}
+			<td>
+			<td>
+				${i++}
+			</td>
+			<td style="text-align: left">
+				${stage.name}
+			</td>
+			<td style="text-align: left">
+				%{
+				if (stage.targetGroups != null) {
+				}%
+				${stage.targetGroups.size()}
+				%{
+				} else {
+				}%
+				Inga målgrupper
+				%{
+				}
+				}%
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Målgrupper
+			</th>
+		</tr>
+		%{
+		i = 1;
+		for (group in targetGroups){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${group.id}
+			<td>
+			<td>
+				${i++}
+			</td>
+			<td style="text-align: left">
+				${group.description}
+			</td>
+			<td style="text-align: left">
+				%{
+				if (group.targets != null) {
+				}%
+				${group.targets.size()}
+				%{
+				} else {
+				}%
+				Inga figurer
+				%{
+				}
+				}%
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Figurer
+			</th>
+		</tr>
+		%{
+		i = 1;
+		for (target in targets){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${target.id}
+			<td>
+				${i++}
+			</td>
+			<td style="text-align: left">
+				${target.model}
+			</td>
+			<td style="text-align: left">
+				${target.hasPoints}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th />
+			<th style="text-align: left">
+				Användare
+			</th>
+		</tr>
+		%{
+		for (user in users){
+		}%
+		<tr>
+			<td style="text-align: right">
+				${user.id}
+			</td>
+			<td style="text-align: left">
+				${user.firstName} ${user.surname}, ${user.email}, ${user.password}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>

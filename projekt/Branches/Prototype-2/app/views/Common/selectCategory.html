@@ -1,0 +1,10 @@
+<label for="categoryID">Kategori</label>
+<select name="categoryID">
+	%{
+	for (category in categories) {
+	}%
+	<option value="${category.id}">${category.category}</option>
+	%{
+	}
+	}%
+</select>

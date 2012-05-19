@@ -137,8 +137,7 @@ public class Results extends Controller {
 			File resultsFile = File.createTempFile("sgt", "csv");
 			resultsFile.deleteOnExit();
 
-			try {
-				FileWriter resultsWriter = new FileWriter(resultsFile);
+			try (FileWriter resultsWriter = new FileWriter(resultsFile)) {
 				String header1 = ";";
 				String header2 = "Namn;Klass";
 				for (int i = 1; i <= 6; i++) {

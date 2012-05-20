@@ -11,8 +11,10 @@
 				<td>
 					<label for="name">T&auml;vlingens namn</label>
 					<input type="text" name="name" value="${competition.name}" />
+					<label for="date">T&auml;vlingsdatum</label>
+					<input type="text" name="date" value="${competition.date}" />
 					<input class="enter" type="submit" formaction="@{Competitions.save()}" value="&Auml;ndra" />
-					<input class="enter" type="submit" formaction="@{Competitions.delete()}" value="Ta bort" />
+					<input class="delete" type="submit" formaction="@{Competitions.delete()}" value="Ta bort" />
 				</td>
 			</tr>
 			<tr>
@@ -64,15 +66,15 @@
 					<form method="POST">
 						<input type="hidden" name="competitionID" value="${competition.id}" />
 						<input type="hidden" name="stageID" value="${stage.id}" />
-						<input class="delete" type="submit" formaction="@{Competitions.deleteStage()}" value="Ta bort" />
+						<input type="hidden" name="stageIndex" value="${i}" />
+						<input class="edit" type="submit" formaction="@{Stages.edit()}" value="&Auml;ndra" />
 					</form>
 				</div>
 				<div style="float: left">
 					<form method="POST">
 						<input type="hidden" name="competitionID" value="${competition.id}" />
 						<input type="hidden" name="stageID" value="${stage.id}" />
-						<input type="hidden" name="stageIndex" value="${i}" />
-						<input class="edit" type="submit" formaction="@{Stages.edit()}" value="&Auml;ndra" />
+						<input class="delete" type="submit" formaction="@{Competitions.deleteStage()}" value="Ta bort" />
 					</form>
 				</div>
 			</td>

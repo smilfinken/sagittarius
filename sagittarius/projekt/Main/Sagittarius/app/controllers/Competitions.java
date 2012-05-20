@@ -1,5 +1,8 @@
 package controllers;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.util.Date;
 import java.util.List;
 import models.*;
 import play.mvc.Controller;
@@ -24,10 +27,18 @@ public class Competitions extends Controller {
 		render(competition);
 	}
 
-	public static void add(String name, long competitionTypeID) {
+	public static void add(String name, long competitionTypeID, String date) {
 		Competition competition = new Competition(name);
-		competition.willBeSaved = true;
+
+		if (date != null) {
+			try {
+				DateFormat shortDate = DateFormat.getDateInstance(DateFormat.SHORT);
+				competition.date = shortDate.parse(date);
+			} catch (Exception e) {
+			}
+		}
 		competition.competitionType = CompetitionType.findById(competitionTypeID);
+		competition.save();
 
 		renderTemplate("Competitions/select.html", competition);
 	}
@@ -40,11 +51,20 @@ public class Competitions extends Controller {
 		render(competition, stages, competitionTypes);
 	}
 
-	public static void save(long competitionID, String name) {
+	public static void save(long competitionID, String name, String date) {
 		Competition competition = Competition.findById(competitionID);
 
 		if (competition != null) {
-			competition.name = name;
+			if (name.length() > 0) {
+				competition.name = name;
+			}
+			if (date.length() > 0) {
+				try {
+					DateFormat shortDate = DateFormat.getDateInstance(DateFormat.SHORT);
+					competition.date = shortDate.parse(date);
+				} catch (Exception e) {
+				}
+			}
 			competition.save();
 		}
 

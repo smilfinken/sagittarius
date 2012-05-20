@@ -25,12 +25,13 @@ public class CompetitionTest extends UnitTest {
 		int competitionCount = competitions.size();
 
 		Competition competition = new Competition("Testtävling 1");
+		competition.save();
 		competitions = Competition.all().fetch();
-		assertEquals(String.format("Number of competitions after adding one (%d) is incorrect.", competitions.size()), competitions.size(), competitionCount + 1);
+		assertEquals(String.format("Number of competitions after adding one (%d) is incorrect.", competitions.size()), competitionCount + 1, competitions.size());
 
 		competition.delete();
 		competitions = Competition.all().fetch();
-		assertEquals(String.format("Number of competitions after deleting one (%d) is incorrect.", competitions.size()), competitions.size(), competitionCount);
+		assertEquals(String.format("Number of competitions after deleting one (%d) is incorrect.", competitions.size()), competitionCount, competitions.size());
 	}
 
 	@Test
@@ -38,14 +39,14 @@ public class CompetitionTest extends UnitTest {
 		CompetitionType competitionType = CompetitionType.all().first();
 
 		Competition competition = new Competition("Testtävling 1", competitionType);
-		assertEquals(String.format("Competition type is not correctly set after 'new Competition()'"), competition.competitionType, competitionType);
+		assertEquals(String.format("Competition type is not correctly set after 'new Competition()'"), competitionType, competition.competitionType);
 
 		competition.delete();
 		competition = new Competition("Testtävling 2");
-		assertEquals(String.format("Competition type is not unset after 'new Competition()'"), competition.competitionType, null);
+		assertEquals(String.format("Competition type is not unset after 'new Competition()'"), null, competition.competitionType);
 
 		competition.competitionType = competitionType;
 		assertEquals(String.format("Competition type is not correctly set after setting competitionType"), competition.competitionType, competitionType);
-		assertEquals(String.format("Competition type name is not correctly reported by getType()"), competition.getType(), competitionType.name);
+		assertEquals(String.format("Competition type name is not correctly reported by getType()"), competitionType.name, competition.getType());
 	}
 }

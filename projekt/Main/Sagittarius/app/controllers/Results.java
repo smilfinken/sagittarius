@@ -137,8 +137,7 @@ public class Results extends Controller {
 			File resultsFile = File.createTempFile("sgt", "csv");
 			resultsFile.deleteOnExit();
 
-			try {
-				FileWriter resultsWriter = new FileWriter(resultsFile);
+			try (FileWriter resultsWriter = new FileWriter(resultsFile)) {
 				String header1 = ";";
 				String header2 = "Namn;Klass";
 				for (int i = 1; i <= 6; i++) {
@@ -165,6 +164,40 @@ public class Results extends Controller {
 					line += String.format(";%d;%d;%d;%d\n", totalHits, totalTargets, totalHits + totalTargets, totalPoints);
 					resultsWriter.write(line);
 				}
+				resultsWriter.close();
+			} catch (IOException e) {
+			}
+
+			response.setHeader("Content-Length", String.format("%d", resultsFile.length()));
+			response.setHeader("Content-Type", "text/csv; charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=out.csv");
+			renderBinary(resultsFile);
+		}
+	}
+
+	//('NAMN_PÅ_TÄVLING',MAX_TRÄFF,'KLASS','SKYTTENS_NAMN',TRÄFF,'DATUM',PLACERING,0)
+	public static void exportToShooter(long competitionID) throws IOException {
+		Competition competition = Competition.findById(competitionID);
+		if (competition != null) {
+			List<Competitor> results = competition.competitors;
+
+			File resultsFile = File.createTempFile("sgt", "csv");
+			resultsFile.deleteOnExit();
+
+			try (FileWriter resultsWriter = new FileWriter(resultsFile)) {
+				int place = 1;
+				String division = "";
+				for (Competitor competitor : sortResults(results)) {
+					if (!competitor.getDivision().equals(division)) {
+						place = 1;
+					} else {
+						place++;
+					}
+					String line = String.format("'%s',%d,'%s','%s',%d,'%s',%d,%d\r\n", competition.name, competition.getMaxScore(), competitor.getDivision(), competitor.getFullName(), competitor.getScore(), competition.getDate(), place, 0);
+					resultsWriter.write(line);
+					division = competitor.getDivision();
+				}
+				resultsWriter.close();
 			} catch (IOException e) {
 			}
 

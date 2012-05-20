@@ -19,6 +19,8 @@
 						}
 						}%
 					</select>
+					<input class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST" value="Avregistrera deltagare" />
+					<input class="navigate" type="submit" formaction="@{Results.registerUser()}" formmethod="POST" value="Registrera en ny deltagare" />
 				</td>
 			</tr>
 			<tr class="scoring">
@@ -46,14 +48,8 @@
 				}%
 				</tr>
 				<tr>
-					<td class="buttons" colspan="6">
+					<td class="buttons" colspan="7">
 						<input class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" value="Registrera resultat" />
-						<input class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST" value="Avregistrera deltagare" />
-					</td>
-				</tr>
-				<tr>
-					<td class="buttons" colspan="6">
-						<input class="navigate" type="submit" formaction="@{Results.registerUser()}" formmethod="POST" value="Registrera en ny deltagare" />
 					</td>
 				</tr>
 		</table>
@@ -74,7 +70,7 @@
 			<th>Placering</th>
 			<th>Namn</th>
 			<th>Klass</th>
-			<th>Resultat</th>
+			<th colspan="4">Resultat</th>
 		</tr>
 		%{
 		if (results.size() > 0) {
@@ -115,21 +111,16 @@
 			</td>
 			<td>
 				${totalHits}/${totalTargets}
+			</td>
 			<td style="font-weight: bold">
 				${totalHits + totalTargets}&nbsp;(${totalPoints})
 			</td>
 			<td>
-				<form action="@{Results.delete()}" method="POST">
+				<form method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="competitorID" value="${entry.id}" />
-					<input type="submit" class="delete" value="Ta bort" />
-				</form>
-			</td>
-			<td>
-				<form action="@{Results.edit()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="competitorID" value="${entry.id}" />
-					<input type="submit" class="edit" value="&Auml;ndra" />
+					<input class="edit" type="submit" formaction="@{Results.edit()}" value="&Auml;ndra" />
+					<input class="delete" type="submit" action="@{Results.delete()}" value="Ta bort" />
 				</form>
 			</td>
 		</tr>
@@ -140,10 +131,11 @@
 		}
 		}%
 		<tr>
-			<td colspan="4">
-				<form action="@{Results.export()}" method="POST">
+			<td colspan="7">
+				<form method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" class="enter" value="Exportera resultatlistan" />
+					<input class="enter" type="submit" formaction="@{Results.export()}" value="Exportera resultatlistan" />
+					<input class="enter" type="submit" formaction="@{Results.exportToShooter()}" value="Generera importfil till Claes" />
 				</form>
 			</td>
 		</tr>

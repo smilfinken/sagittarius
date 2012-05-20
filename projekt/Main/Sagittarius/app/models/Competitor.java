@@ -19,7 +19,7 @@ public class Competitor extends Model {
 	public User user;
 	@OneToOne
 	public Division division;
-	@OneToMany(cascade= CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<Result> results;
 
 	public Competitor(User user) {
@@ -67,5 +67,15 @@ public class Competitor extends Model {
 		} else {
 			return false;
 		}
+	}
+
+	public int getScore() {
+		int score = 0;
+
+		for (Result result : results) {
+			score += result.hits + result.targets;
+		}
+
+		return score;
 	}
 }

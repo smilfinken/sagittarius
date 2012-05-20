@@ -1,0 +1,16 @@
+#{extends "main.html" /}
+#{set title: "Administration" /}
+
+<div>
+	<table>
+		<tr>
+			<td>
+				<form action="@{Users.list()}" method="POST">
+					<input class="navigate" type="submit" formaction="@{Users.list()}" value="Anv&auml;ndare" />
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>
+
+#{doLayout /}

@@ -1,5 +1,7 @@
 package models;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import play.db.jpa.Model;
 public class Competition extends Model {
 
 	public String name;
+	public Date date;
 	@OneToOne
 	public CompetitionType competitionType;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -24,23 +27,30 @@ public class Competition extends Model {
 
 	public Competition(String name) {
 		this.name = name;
+		this.date = new Date();
 		this.competitionType = null;
 		this.stages = null;
-		this.save();
 	}
 
 	public Competition(String name, CompetitionType type) {
 		this.name = name;
+		this.date = new Date();
 		this.competitionType = type;
 		this.stages = null;
-		this.save();
 	}
 
 	public Competition(String name, CompetitionType type, List<Stage> stages) {
 		this.name = name;
+		this.date = new Date();
 		this.competitionType = type;
 		this.stages = stages;
-		this.save();
+	}
+
+	public Competition(String name, Date date, CompetitionType type, List<Stage> stages) {
+		this.name = name;
+		this.date = date;
+		this.competitionType = type;
+		this.stages = stages;
 	}
 
 	public String getType() {
@@ -57,5 +67,28 @@ public class Competition extends Model {
 		} else {
 			return false;
 		}
+	}
+
+	public int getMaxScore() {
+		int maxScore = 0;
+		if (stages != null) {
+			int targets = 0;
+			for (Stage stage : stages) {
+				for (TargetGroup targetGroup : stage.targetGroups) {
+					targets += targetGroup.targets.size();
+				}
+			}
+			maxScore = targets + stages.size() * 6;
+		}
+		return maxScore;
+	}
+
+	public String getDate() {
+		String shortDate = "";
+
+		if (date != null) {
+			shortDate = DateFormat.getDateInstance(DateFormat.SHORT).format(date);
+		}
+		return shortDate;
 	}
 }

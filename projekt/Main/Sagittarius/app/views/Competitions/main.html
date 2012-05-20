@@ -6,27 +6,12 @@
 	<table>
 		<tr>
 			<td>
-				<form action="@{Results.list()}" method="POST">
+				<form method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" value="Resultat" />
-				</form>
-			</td>
-			<td>
-				<form action="@{Competitions.competitors()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" value="Deltagare" />
-				</form>
-			</td>
-			<td>
-				<form action="@{Competitions.enroll()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" value="T&auml;vlingsanm&auml;lan" />
-				</form>
-			</td>
-			<td>
-				<form action="@{Competitions.edit()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" value="Detaljer" />
+					<input class="navigate" type="submit" formaction="@{Results.list()}" value="Resultat" />
+					<input class="navigate" type="submit" formaction="@{Competitions.competitors()}" value="Deltagare" />
+					<input class="navigate" type="submit" formaction="@{Competitions.enroll()}" value="T&auml;vlingsanm&auml;lan" />
+					<input class="navigate" type="submit" formaction="@{Competitions.edit()}" value="Detaljer" />
 				</form>
 		</tr>
 	</table>

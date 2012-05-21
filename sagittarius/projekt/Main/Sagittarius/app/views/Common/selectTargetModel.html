@@ -1,0 +1,16 @@
+<label for="modelID">Typ</label>
+<select name="userID">
+	%{
+	String selected = "";
+	for (targetModel in targetModels) {
+	if (targetModel.id == modelID) {
+	selected = "selected";
+	} else {
+	selected = "";
+	}
+	}%
+	<option value="${targetModel.id}" ${selected}>${targetModel.getModel()}</option>
+	%{
+	}
+	}%
+</select>

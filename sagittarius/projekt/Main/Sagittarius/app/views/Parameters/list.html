@@ -1,18 +1,15 @@
 #{extends "main.html" /}
 #{set title: "Parametrar" /}
-%{
-int i = 0;
-}%
+
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Kategori
+			<th colspan="2" style="text-align: left">
+				${categories.size()} kategorier
 			</th>
 		</tr>
 		%{
-		for (category in categories){
+		for (category in categories) {
 		}%
 		<tr>
 			<td style="text-align: right">
@@ -31,18 +28,17 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Klass
+			<th colspan="2" style="text-align: left">
+				${ranks.size()} t&auml;vlingsklasser
 			</th>
 		</tr>
 		%{
-		for (rank in ranks){
+		for (rank in ranks) {
 		}%
 		<tr>
 			<td style="text-align: right">
 				${rank.id}
-			<td>
+			</td>
 			<td style="text-align: left">
 				${rank.rank}
 			</td>
@@ -56,18 +52,17 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Tävlingstyp
+			<th colspan="2" style="text-align: left">
+				${competitionTypes.size()} t&auml;vlingstyper
 			</th>
 		</tr>
 		%{
-		for (competitionType in competitionTypes){
+		for (competitionType in competitionTypes) {
 		}%
 		<tr>
 			<td style="text-align: right">
 				${competitionType.id}
-			<td>
+			</td>
 			<td style="text-align: left">
 				${competitionType.name}
 			</td>
@@ -81,21 +76,20 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Division
+			<th colspan="2" style="text-align: left">
+				${divisions.size()} divisoner
 			</th>
-			<th style="text-align: left">
-				Ranking
+			<th style="text-align: center">
+				ranking?
 			</th>
 		</tr>
 		%{
-		for (division in divisions){
+		for (division in divisions) {
 		}%
 		<tr>
 			<td style="text-align: right">
 				${division.id}
-			<td>
+			</td>
 			<td style="text-align: left">
 				${division.division}
 			</td>
@@ -118,21 +112,19 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Stationer
+			<th colspan="2" style="text-align: left">
+				${stages.size()} stationer
+			</th>
+			<th>
+				m&aring;lgrupper
 			</th>
 		</tr>
 		%{
-		i = 1;
 		for (stage in stages) {
 		}%
 		<tr>
 			<td style="text-align: right">
 				${stage.id}
-			<td>
-			<td>
-				${i++}
 			</td>
 			<td style="text-align: left">
 				${stage.name}
@@ -145,7 +137,7 @@ int i = 0;
 				%{
 				} else {
 				}%
-				Inga målgrupper
+				Inga m&aring;lgrupper
 				%{
 				}
 				}%
@@ -160,21 +152,19 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Målgrupper
+			<th colspan="2" style="text-align: left">
+				${targetGroups.size()} m&aring;lgrupper
+			</th>
+			<th>
+				figurer
 			</th>
 		</tr>
 		%{
-		i = 1;
-		for (group in targetGroups){
+		for (group in targetGroups) {
 		}%
 		<tr>
 			<td style="text-align: right">
 				${group.id}
-			<td>
-			<td>
-				${i++}
 			</td>
 			<td style="text-align: left">
 				${group.description}
@@ -202,20 +192,49 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Figurer
+			<th colspan="3" style="text-align: left">
+				${targetModels.size()} figurtyper
 			</th>
 		</tr>
 		%{
-		i = 1;
-		for (target in targets){
+		for (targetModel in targetModels) {
+		}%
+		<tr>
+			<td style="text-align: right">
+				${targetModel.id}
+			</td>
+			<td style="text-align: left">
+				${targetModel.name}
+			</td>
+			<td style="text-align: left">
+				${targetModel.colour}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th colspan="1" style="text-align: left">
+				${targets.size()} figurer
+			</th>
+			<th>
+				typ
+			</th>
+			<th>
+				poäng?
+			</th>
+		</tr>
+		%{
+		for (target in targets) {
 		}%
 		<tr>
 			<td style="text-align: right">
 				${target.id}
-			<td>
-				${i++}
 			</td>
 			<td style="text-align: left">
 				${target.model}
@@ -233,13 +252,96 @@ int i = 0;
 <div>
 	<table>
 		<tr>
-			<th />
-			<th style="text-align: left">
-				Användare
+			<th colspan="2" style="text-align: left">
+				${competitions.size()} t&auml;vlingar
+			</th>
+			<th>
+				datum
 			</th>
 		</tr>
 		%{
-		for (user in users){
+		for (competition in competitions) {
+		}%
+		<tr>
+			<td style="text-align: right">
+				${competition.id}
+			</td>
+			<td style="text-align: left">
+				${competition.name}
+			</td>
+			<td style="text-align: left">
+				${competition.date}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th colspan="3" style="text-align: left">
+				${squads.size()} patruller
+			</th>
+		</tr>
+		%{
+		for (squad in squads) {
+		}%
+		<tr>
+			<td style="text-align: right">
+				${squad.id}
+			</td>
+			<td style="text-align: left">
+				${squad.number}
+			</td>
+			<td style="text-align: left">
+				${squad.slots}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th colspan="3" style="text-align: left">
+				${competitors.size()} t&auml;vlingsdeltagare
+			</th>
+		</tr>
+		%{
+		for (competitor in competitors) {
+		}%
+		<tr>
+			<td style="text-align: right">
+				${competitor.id}
+			</td>
+			<td style="text-align: left">
+				${competitor.getFullName()}
+			</td>
+			<td style="text-align: left">
+				${competitor.getDivision()}
+			</td>
+		</tr>
+		%{
+		}
+		}%
+	</table>
+</div>
+
+<div>
+	<table>
+		<tr>
+			<th colspan="2" style="text-align: left">
+				${users.size()} anv&auml;ndare
+			</th>
+		</tr>
+		%{
+		for (user in users) {
 		}%
 		<tr>
 			<td style="text-align: right">

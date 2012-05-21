@@ -42,6 +42,24 @@ public class Results extends Controller {
 		return hits + targets;
 	}
 
+	// TODO: fix comparison on equal scores
+	private static int compareStages(Competitor A, Competitor B) {
+		if (A != null && B != null) {
+			if (A.results != null && B.results != null && A.results.size() == B.results.size()) {
+				for (int i = A.results.size() - 1; i >= 0; i--) {
+					Result a = A.results.get(i);
+					Result b = B.results.get(i);
+
+					if (a.hits + a.targets != b.hits + a.targets) {
+						return (b.hits + b.targets) - (a.hits + a.targets);
+					}
+				}
+			}
+		}
+
+		return 0;
+	}
+
 	static List<Competitor> sortCompetitors(List<Competitor> competitors) {
 		class CompetitorListComparator implements Comparator<Competitor> {
 
@@ -67,7 +85,11 @@ public class Results extends Controller {
 			public int compare(Competitor A, Competitor B) {
 				if (A.getDivision().equals(B.getDivision())) {
 					if (sumResults(B.results) == sumResults(A.results)) {
-						return sumPoints(B.results) - sumPoints(A.results);
+						if (sumPoints(B.results) == sumPoints(A.results)) {
+							return compareStages(A, B);
+						} else {
+							return sumPoints(B.results) - sumPoints(A.results);
+						}
 					} else {
 						return sumResults(B.results) - sumResults(A.results);
 					}

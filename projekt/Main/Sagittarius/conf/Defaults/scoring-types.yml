@@ -1,0 +1,9 @@
+# pre-defined scoring types
+
+ScoringType(1):
+  type: 1
+  label: Poängfält
+
+ScoringType(2):
+  type: 2
+  label: Traditionell

@@ -45,93 +45,115 @@ Competitor(4):
 
 Target(1):
   hasPoints: false
+  targetModel: 1
 
 Target(2):
   hasPoints: false
+  targetModel: 1
 
 Target(3):
   hasPoints: false
+  targetModel: 1
 
 Target(4):
   hasPoints: false
+  targetModel: 1
 
 Target(5):
   hasPoints: false
+  targetModel: 1
 
 Target(6):
   hasPoints: false
+  targetModel: 1
 
 Target(7):
   hasPoints: false
+  targetModel: 1
 
 Target(8):
   hasPoints: false
+  targetModel: 1
 
 Target(9):
   hasPoints: false
+  targetModel: 1
 
 Target(10):
   hasPoints: false
+  targetModel: 1
 
 Target(11):
   hasPoints: false
+  targetModel: 1
 
 Target(12):
   hasPoints: false
+  targetModel: 1
 
 Target(13):
   hasPoints: false
+  targetModel: 1
 
 Target(14):
   hasPoints: false
+  targetModel: 1
 
 Target(15):
   hasPoints: false
+  targetModel: 1
 
 Target(16):
   hasPoints: false
+  targetModel: 1
 
 Target(17):
   hasPoints: false
+  targetModel: 1
 
 Target(18):
   hasPoints: false
+  targetModel: 1
 
 Target(19):
   hasPoints: false
+  targetModel: 1
 
 Target(20):
   hasPoints: false
+  targetModel: 1
 
 Target(21):
   hasPoints: true
+  targetModel: 1
 
 Target(22):
   hasPoints: true
+  targetModel: 1
 
 TargetGroup(1):
-    targets: [1,2,3,4]
+  targets: [1,2,3,4]
 
 TargetGroup(2):
-    targets: [21]
+  targets: [21]
 
 TargetGroup(3):
-    targets: [5,6,7,8,9]
+  targets: [5,6,7,8,9]
 
 TargetGroup(4):
-    targets: [22]
+  targets: [22]
 
 TargetGroup(5):
-    targets: [10,11]
+  targets: [10,11]
 
 TargetGroup(6):
-    targets: [12,13,14]
+  targets: [12,13,14]
 
 TargetGroup(7):
-    targets: [15,16]
+  targets: [15,16]
 
 TargetGroup(8):
-    targets: [17,18,19,20]
+  targets: [17,18,19,20]
 
 Stage(1):
   targetGroups: [1]
@@ -158,12 +180,17 @@ Stage(6):
   name: Långt och brett
 
 Competition(1):
-  name: Tävling 1
+  name: Fältskjutning 1
   competitionType: 1
   stages: [1,2,3,4,5,6]
   competitors: [1,2]
+  scoringType: 1
 
 Competition(2):
-  name: Tävling 2
+  name: Fältskjutning 2
+  competitionType: 1
+  scoringType: 2
+
+Competition(3):
+  name: Precision 1
   competitionType: 2
-  competitors: [3,4]

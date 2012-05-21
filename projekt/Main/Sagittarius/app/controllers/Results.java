@@ -42,7 +42,6 @@ public class Results extends Controller {
 		return hits + targets;
 	}
 
-	// TODO: fix comparison on equal scores
 	private static int compareStages(Competitor A, Competitor B) {
 		if (A != null && B != null) {
 			if (A.results != null && B.results != null && A.results.size() == B.results.size()) {

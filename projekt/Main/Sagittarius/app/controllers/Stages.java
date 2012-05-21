@@ -2,10 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.Competition;
-import models.Stage;
-import models.Target;
-import models.TargetGroup;
+import models.*;
+import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -19,11 +17,12 @@ public class Stages extends Controller {
 	public static void edit(long competitionID, long stageID, int stageIndex) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
-		render(competition, stage, stageIndex);
+		List<TargetModel> targetModels = TargetModel.all().fetch();
+
+		renderTemplate("Stages/edit.html", competition, stage, stageIndex, targetModels);
 	}
 
 	public static void update(long competitionID, long stageID, int stageIndex, String name) {
-		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
@@ -31,11 +30,10 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+		edit(competitionID, stageID, stageIndex);
 	}
 
 	public static void addTargetGroup(long competitionID, long stageID, int stageIndex) {
-		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
@@ -45,11 +43,10 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+		edit(competitionID, stageID, stageIndex);
 	}
 
 	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID, int stageIndex) {
-		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
@@ -61,12 +58,10 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+		edit(competitionID, stageID, stageIndex);
 	}
 
-	public static void addTarget(long competitionID, long stageID, long stageIndex, long targetGroupID, String hasPoints) {
-		Competition competition = Competition.findById(competitionID);
-		Stage stage = Stage.findById(stageID);
+	public static void addTarget(long competitionID, long stageID, int stageIndex, long targetGroupID, String hasPoints) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
 		if (targetGroup != null) {
@@ -77,26 +72,22 @@ public class Stages extends Controller {
 			targetGroup.save();
 		}
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+		edit(competitionID, stageID, stageIndex);
 	}
 
-	public static void updateTarget(long competitionID, long stageID, int stageIndex, long targetID, String hasPoints, String model) {
-		Competition competition = Competition.findById(competitionID);
-		Stage stage = Stage.findById(stageID);
+	public static void updateTarget(long competitionID, long stageID, int stageIndex, long targetID, String hasPoints, long modelID) {
 		Target target = Target.findById(targetID);
 
 		if (target != null) {
 			target.willBeSaved = true;
 			target.hasPoints = (hasPoints != null);
-			target.model = model;
+			target.targetModel = TargetModel.findById(modelID);
 		}
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+		edit(competitionID, stageID, stageIndex);
 	}
 
 	public static void deleteTarget(long competitionID, long stageID, int stageIndex, long targetGroupID, long targetID, String hasPoints, String model) {
-		Competition competition = Competition.findById(competitionID);
-		Stage stage = Stage.findById(stageID);
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 		Target target = Target.findById(targetID);
 
@@ -106,6 +97,6 @@ public class Stages extends Controller {
 			target.delete();
 		}
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex);
+		edit(competitionID, stageID, stageIndex);
 	}
 }

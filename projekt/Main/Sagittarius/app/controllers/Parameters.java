@@ -19,9 +19,13 @@ public class Parameters extends Controller {
 		List<Division> divisions = Division.all().fetch();
 		List<Stage> stages = Stage.all().fetch();
 		List<TargetGroup> targetGroups = TargetGroup.all().fetch();
+		List<TargetModel> targetModels = TargetModel.all().fetch();
 		List<Target> targets = Target.all().fetch();
+		List<Competition> competitions = Competition.all().fetch();
+		List<Squad> squads = Squad.all().fetch();
+		List<Competitor> competitors = Competitor.all().fetch();
 		List<Users> users = User.all().fetch();
 
-		render(categories, ranks, competitionTypes, divisions, stages, targetGroups, targets, users);
+		render(categories, ranks, competitionTypes, divisions, stages, targetGroups, targetModels, targets, competitions, squads, competitors, users);
 	}
 }

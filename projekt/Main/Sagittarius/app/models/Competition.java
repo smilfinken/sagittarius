@@ -20,6 +20,8 @@ public class Competition extends Model {
 	public Date date;
 	@OneToOne
 	public CompetitionType competitionType;
+	@OneToOne
+	public ScoringType scoringType;
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Stage> stages;
 	@OneToMany(cascade = CascadeType.ALL)

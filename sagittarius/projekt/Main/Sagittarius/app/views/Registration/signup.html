@@ -6,29 +6,29 @@
    	</div>
 #{/ifErrors}	
 <div>
-	<form action="@{pendingUser.doSignup()}" method="POST">
+	<form action="@{registration.doSignup()}" method="POST">
 		<span class="error">#{error 'firstname' /}</span>
-		<label for="firstname">F&ouml;rnamn</label>
+		<label for="firstname">&{'models.user.firstName'}</label>
 		<input type="text" name="firstname" value="${flash.firstname}"/><br/>
 		
 		<span class="error">#{error 'surname' /}</span>
-		<label for="surname">Efternamn</label>
+		<label for="surname">&{'models.user.surname'}</label>
 		<input type="text" name="surname" value="${flash.surname}"/><br/>
 		
 		<span class="error">#{error 'cardnumber' /}</span>
-		<label for="cardnumber">Skyttekortsnummer</label>
+		<label for="cardnumber">&{'models.user.cardNumber'}</label>
 		<input type="text" name="cardnumber" value="${flash.cardnumber}"/><br/>
 		
 		<span class="error">#{error 'email' /}</span>
-		<label for="email">Email</label>
+		<label for="email">&{'models.user.email'}</label>
 		<input type="text" name="email" value="${flash.email}"/><br/>
 		
 		<span class="error">#{error 'password' /}</span>
-		<label for="email">L&ouml;senord</label>
+		<label for="email">&{'models.user.password'}</label>
 		<input type="password" name="password""/><br/>
 		
 		<span class="error">#{error 'passwordVerification' /}</span>		
-		<label for="email">Upprepa l&ouml;senord</label>
+		<label for="email">&{'controller.registration.passwordVerification'}</label>
 		<input type="password" name="passwordVerification" /><br/>
 		<input type="submit" value="Skapa konto"/>
 	</form>

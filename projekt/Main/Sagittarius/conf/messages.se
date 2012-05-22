@@ -1,0 +1,11 @@
+validation.required=Obligatoriskt
+validation.error=Fel i inmatad data
+
+# Validation messages
+validation.required=Obligatoriskt fält
+validation.equals=Måste matcha &{%2$s}
+validation.email=Ogiltig e-postadress
+
+# Application properties
+controller.pendinguser.password=Lösenord
+controller.pendinguser.passwordVerification=Bekräfta lösenord

@@ -18,6 +18,7 @@ public class User extends Model {
 	public String cardNumber;
 	public String email;
 	public String password;
+	public boolean pending;
 	@OneToOne
 	public Rank rank;
 	@ManyToMany

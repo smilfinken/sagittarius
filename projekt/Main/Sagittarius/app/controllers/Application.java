@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 import models.Competition;
 import models.CompetitionType;
+import play.i18n.Lang;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -10,12 +11,15 @@ import play.mvc.With;
 @With(Secure.class)
 public class Application extends Controller {
 
-    @Before
-    static void addDefaults() {
-        renderArgs.put("connected", Security.connected());
-    }
+//    @Before
+//    static void addDefaults() {
+//        renderArgs.put("connected", Security.connected());
+//    }
 
     public static void index() {
+    	
+    	System.out.println(Lang.get());
+    	
         List<Competition> competitions = Competition.all().fetch();
         List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
         render(competitions, competitionTypes);

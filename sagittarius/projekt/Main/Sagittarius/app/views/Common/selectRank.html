@@ -1,9 +1,10 @@
-<label for="rankID">Klass</label>
+<label for="rankID">&{'models.user.rank'}</label>
 <select name="rankID">
+	<option value="-1"></option>
 	%{
 	for (rank in ranks) {
 	}%
-	<option value="${rank.id}">${rank.rank}</option>
+	<option #{if (flash.rankID == rank.id.toString())}selected#{/if} value="${rank.id}">${rank.rank}</option>
 	%{
 	}
 	}%

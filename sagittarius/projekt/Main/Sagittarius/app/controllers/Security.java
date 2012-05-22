@@ -13,14 +13,7 @@ import models.User;
 public class Security extends Secure.Security {
 
 	static boolean authenticate(String username, String password) {
-		boolean result = false;
-
-		User user = User.find("byEmail", username).first();
-		if (user != null) {
-			result = validate(password, user.password);
-		}
-
-		return result;
+		return User.connect(username, password);
 	}
 
 	static boolean check(String profile) {
@@ -66,7 +59,7 @@ public class Security extends Secure.Security {
 		boolean result = false;
 
 		try {
-			byte[] salt = DatatypeConverter.parseHexBinary(passwordHash.substring(0,32));
+			byte[] salt = DatatypeConverter.parseHexBinary(passwordHash.substring(0, 32));
 
 			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 2048, 160);

@@ -6,6 +6,7 @@ User(1):
   surname: Persson
   email: per@pelle.se
   password: 1e2dc5b58f18d30d006b65a9c2c1cabc20b80733ac82db25d19e3185b4fd706b114555c2
+  cardNumber: 12345678
   categories: [1]
   rank: 1
   pending: false
@@ -15,6 +16,7 @@ User(2):
   surname: Oskarsson
   email: oskar@oskarsson.se
   password: 1e2dc5b58f18d30d006b65a9c2c1cabc20b80733ac82db25d19e3185b4fd706b114555c2
+  cardNumber: 23456789
   categories: [2]
   rank: 1
   pending: false
@@ -24,6 +26,7 @@ User(3):
   surname: Jansson
   email: jan@jansson.se
   password: 1e2dc5b58f18d30d006b65a9c2c1cabc20b80733ac82db25d19e3185b4fd706b114555c2
+  cardNumber: 34567891
   categories: [2]
   rank: 2
   pending: false
@@ -33,6 +36,7 @@ User(4):
   surname: Nilsson
   email: nils@nilsson.se
   password: 1e2dc5b58f18d30d006b65a9c2c1cabc20b80733ac82db25d19e3185b4fd706b114555c2
+  cardNumber: 45678912
   categories: [4]
   rank: 2
   pending: false
@@ -42,6 +46,7 @@ User(5):
   surname: Sigridsdotter
   email: sigrid@sigridsdotter.se
   password: 1e2dc5b58f18d30d006b65a9c2c1cabc20b80733ac82db25d19e3185b4fd706b114555c2
+  cardNumber: 56789123
   categories: [3]
   rank: 1
   pending: false
@@ -51,6 +56,7 @@ User(6):
   surname: Malinsdotter
   email: malin@malinsdotter.se
   password: 1e2dc5b58f18d30d006b65a9c2c1cabc20b80733ac82db25d19e3185b4fd706b114555c2
+  cardNumber: 67891234
   categories: [3,5]
   rank: 3
   pending: false

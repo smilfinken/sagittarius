@@ -7,6 +7,7 @@ User(1):
   password: 123
   categories: [1]
   rank: 1
+  pending: false
 
 User(2):
   firstName: Oskar
@@ -15,6 +16,7 @@ User(2):
   password: 123
   categories: [2]
   rank: 1
+  pending: false
 
 User(3):
   firstName: Jan
@@ -23,6 +25,7 @@ User(3):
   password: 123
   categories: [2]
   rank: 2
+  pending: false
 
 User(4):
   firstName: Nils
@@ -31,6 +34,7 @@ User(4):
   password: 123
   categories: [4]
   rank: 2
+  pending: false
 
 User(5):
   firstName: Sigrid
@@ -39,6 +43,7 @@ User(5):
   password: 123
   categories: [3]
   rank: 1
+  pending: false
 
 User(6):
   firstName: Malin
@@ -47,3 +52,4 @@ User(6):
   password: 123
   categories: [3,5]
   rank: 3
+  pending: false

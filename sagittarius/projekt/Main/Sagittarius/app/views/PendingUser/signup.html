@@ -1,17 +1,33 @@
 #{extends "mainExt.html" /}
 #{set title: "Skapa konto" /}
+#{ifErrors}
+	<div class="error">
+   		<h1><h1>&{'validation.error'}</h1></h1>
+   	</div>
+#{/ifErrors}	
 <div>
 	<form action="@{pendingUser.doSignup()}" method="POST">
+		<span class="error">#{error 'firstname' /}</span>
 		<label for="firstname">F&ouml;rnamn</label>
-		<input type="text" name="firstname" /><br/>
+		<input type="text" name="firstname" value="${flash.firstname}"/><br/>
+		
+		<span class="error">#{error 'surname' /}</span>
 		<label for="surname">Efternamn</label>
-		<input type="text" name="surname" /><br/>
+		<input type="text" name="surname" value="${flash.surname}"/><br/>
+		
+		<span class="error">#{error 'cardnumber' /}</span>
 		<label for="cardnumber">Skyttekortsnummer</label>
-		<input type="text" name="cardnumber" /><br/>
+		<input type="text" name="cardnumber" value="${flash.cardnumber}"/><br/>
+		
+		<span class="error">#{error 'email' /}</span>
 		<label for="email">Email</label>
-		<input type="text" name="email" /><br/>
+		<input type="text" name="email" value="${flash.email}"/><br/>
+		
+		<span class="error">#{error 'password' /}</span>
 		<label for="email">L&ouml;senord</label>
-		<input type="password" name="password" /><br/>
+		<input type="password" name="password""/><br/>
+		
+		<span class="error">#{error 'passwordVerification' /}</span>		
 		<label for="email">Upprepa l&ouml;senord</label>
 		<input type="password" name="passwordVerification" /><br/>
 		<input type="submit" value="Skapa konto"/>

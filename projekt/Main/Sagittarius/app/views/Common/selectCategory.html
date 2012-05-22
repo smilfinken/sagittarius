@@ -1,9 +1,10 @@
-<label for="categoryID">Kategori</label>
+<label for="categoryID">&{'models.user.category'}</label>
 <select name="categoryID">
+	<option value="-1"></option>
 	%{
 	for (category in categories) {
 	}%
-	<option value="${category.id}">${category.category}</option>
+	<option #{if (flash.categoryID == category.id.toString())}selected#{/if} value="${category.id}">${category.category}</option>
 	%{
 	}
 	}%

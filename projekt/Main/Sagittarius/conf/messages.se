@@ -1,10 +1,9 @@
-validation.required=Obligatoriskt
-validation.error=Fel i inmatad data
-
 # Validation messages
+validation.error=Fel i inmatad data
 validation.required=Obligatoriskt fält
 validation.equals=Måste matcha &{%2$s}
 validation.email=Ogiltig e-postadress
+validation.min=Värde måste anges
 
 # Application properties
 controller.registration.password=Lösenord
@@ -13,6 +12,8 @@ controller.registration.passwordVerification=Bekräfta lösenord
 models.user.firstName=Förnamn
 models.user.surname=Efternamn
 models.user.cardNumber=Skyttekortsnummer
+models.user.rank=Klass
+models.user.category=Kategori
 models.user.email=E-post
 models.user.password=Lösenord
 

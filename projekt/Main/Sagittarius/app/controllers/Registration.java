@@ -1,8 +1,14 @@
-	package controllers;
+package controllers;
 
+import java.util.Arrays;
+import java.util.List;
+import models.Category;
+import models.Rank;
 import models.User;
 import play.data.validation.Email;
+import play.data.validation.Min;
 import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.mvc.Controller;
 
@@ -12,23 +18,28 @@ import play.mvc.Controller;
  */
 public class Registration extends Controller {
 
-    public static void signup() {
-    	render();
-    }
+	public static void signup() {
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
 
-    public static void doSignup(@Required String firstname, @Required String surname, String cardnumber, @Required @Email String email, @Required String password, @Required String passwordVerification) {
-    	validation.equals(Messages.get("controller.registration.password"), password, Messages.get("controller.registration.passwordVerification"), passwordVerification);
-    	if(validation.hasErrors()) {
-    	       params.flash(); // add http parameters to the flash scope
-    	       validation.keep(); // keep the errors for the next request
-    	       signup();
-    	}
-    	
-    	User user = new User( firstname,  surname,  cardnumber, email,  password);
-    	if (user.create()) {
-    		user.sendRegistration();
-    		Security.authenticate(email, password);
-    		Application.index();
-    	}
-    }
+		render(categories, ranks);
+	}
+
+	public static void doSignup(@Required String firstname, @Required String surname, String cardnumber, @Min(0) long categoryID, @Min(0) long rankID, @Required @Email String email, @Required String password, @Required String passwordVerification) {
+		Validation.equals(Messages.get("controller.registration.password"), password, Messages.get("controller.registration.passwordVerification"), passwordVerification);
+		if (Validation.hasErrors()) {
+			params.flash(); // add http parameters to the flash scope
+			Validation.keep(); // keep the errors for the next request
+			signup();
+		}
+
+		Rank rank = Rank.findById(rankID);
+		Category category = Category.findById(categoryID);
+		User user = new User(firstname, surname, cardnumber, rank, Arrays.asList(category), email, password);
+		if (user.create()) {
+			user.sendRegistration();
+			Security.authenticate(email, password);
+			Application.index();
+		}
+	}
 }

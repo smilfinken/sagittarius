@@ -31,11 +31,12 @@ public class User extends Model {
 		this.surname = surname;
 	}
 
-	public User(String firstName, String surname, String cardNumber,
-		String email, String password) {
+	public User(String firstName, String surname, String cardNumber, Rank rank, List<Category> categories, String email, String password) {
 		this.firstName = firstName;
 		this.surname = surname;
 		this.cardNumber = cardNumber;
+		this.rank = rank;
+		this.categories = categories;
 		this.email = email;
 		this.password = Security.hash(password);
 	}
@@ -47,8 +48,15 @@ public class User extends Model {
 		this.categories = categories;
 	}
 
-	public static User connect(String username, String password) {
-		return find("byEmailAndPassword", username, password).first();
+	public static boolean connect(String username, String password) {
+		boolean result = false;
+		User user = User.find("byEmail", username).first();
+
+		if (user != null) {
+			result = Security.validate(password, user.password);
+		}
+
+		return result;
 	}
 
 	@Override

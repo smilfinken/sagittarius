@@ -9,9 +9,9 @@ validation.min=Värde måste anges
 controller.registration.password=Lösenord
 controller.registration.passwordVerification=Bekräfta lösenord
 
-models.user.firstName=Förnamn
+models.user.firstname=Förnamn
 models.user.surname=Efternamn
-models.user.cardNumber=Skyttekortsnummer
+models.user.cardnumber=Skyttekortsnummer
 models.user.rank=Klass
 models.user.category=Kategori
 models.user.email=E-post

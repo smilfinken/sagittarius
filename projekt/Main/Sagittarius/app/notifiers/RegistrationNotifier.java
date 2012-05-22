@@ -7,8 +7,8 @@ import play.mvc.Mailer;
 public class RegistrationNotifier extends Mailer {
 
 	public static void welcome(User user) {
-		setSubject(Messages.get("notifiers.RegistrationNotifier.welcome.subject"));
-		addRecipient(user.email);
+		setSubject(Messages.get("notifiers.registrationnotifier.welcome.subject"));
+		addRecipient(String.format("%s %s <%s>", user.firstName, user.surname, user.email));
 		setFrom("no-reply@sagittarius.net");
 		send(user);
 	}

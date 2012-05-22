@@ -8,7 +8,7 @@
 <div>
 	<form action="@{registration.doSignup()}" method="POST">
 		<span class="error">#{error 'firstname' /}</span>
-		<label for="firstname">&{'models.user.firstName'}</label>
+		<label for="firstname">&{'models.user.firstname'}</label>
 		<input type="text" name="firstname" value="${flash.firstname}"/><br/>
 
 		<span class="error">#{error 'surname' /}</span>
@@ -16,7 +16,7 @@
 		<input type="text" name="surname" value="${flash.surname}"/><br/>
 
 		<span class="error">#{error 'cardnumber' /}</span>
-		<label for="cardnumber">&{'models.user.cardNumber'}</label>
+		<label for="cardnumber">&{'models.user.cardnumber'}</label>
 		<input type="text" name="cardnumber" value="${flash.cardnumber}"/><br/>
 
 		<span class="error">#{error 'email' /}</span>

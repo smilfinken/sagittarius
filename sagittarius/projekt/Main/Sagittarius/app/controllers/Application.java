@@ -17,9 +17,6 @@ public class Application extends Controller {
 //    }
 
     public static void index() {
-    	
-    	System.out.println(Lang.get());
-    	
         List<Competition> competitions = Competition.all().fetch();
         List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
         render(competitions, competitionTypes);

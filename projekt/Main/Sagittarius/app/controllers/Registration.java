@@ -10,14 +10,14 @@ import play.mvc.Controller;
  *
  * @author johan
  */
-public class PendingUser extends Controller {
+public class Registration extends Controller {
 
     public static void signup() {
     	render();
     }
 
     public static void doSignup(@Required String firstname, @Required String surname, String cardnumber, @Required @Email String email, @Required String password, @Required String passwordVerification) {
-    	validation.equals(Messages.get("controller.pendinguser.password"), password, Messages.get("controller.pendinguser.passwordVerification"), passwordVerification);
+    	validation.equals(Messages.get("controller.registration.password"), password, Messages.get("controller.registration.passwordVerification"), passwordVerification);
     	if(validation.hasErrors()) {
     	       params.flash(); // add http parameters to the flash scope
     	       validation.keep(); // keep the errors for the next request
@@ -25,8 +25,10 @@ public class PendingUser extends Controller {
     	}
     	
     	User user = new User( firstname,  surname,  cardnumber, email,  password);
-    	user.create();
-    	Security.authenticate(email, password);
-    	Application.index();
+    	if (user.create()) {
+    		user.sendRegistration();
+    		Security.authenticate(email, password);
+    		Application.index();
+    	}
     }
 }

@@ -4,7 +4,15 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
+import notifiers.RegistrationNotifier;
+
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
 import play.db.jpa.Model;
+import play.i18n.Messages;
+import play.libs.Mail;
 
 /**
  *
@@ -56,5 +64,9 @@ public class User extends Model {
 
 	public String getFullName() {
 		return String.format("%s %s", firstName, surname);
+	}
+	
+	public void sendRegistration() {
+		RegistrationNotifier.welcome(this);
 	}
 }

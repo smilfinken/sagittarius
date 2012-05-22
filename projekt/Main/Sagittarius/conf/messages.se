@@ -7,5 +7,15 @@ validation.equals=Måste matcha &{%2$s}
 validation.email=Ogiltig e-postadress
 
 # Application properties
-controller.pendinguser.password=Lösenord
-controller.pendinguser.passwordVerification=Bekräfta lösenord
+controller.registration.password=Lösenord
+controller.registration.passwordVerification=Bekräfta lösenord
+
+models.user.firstName=Förnamn
+models.user.surname=Efternamn
+models.user.cardNumber=Skyttekortsnummer
+models.user.email=E-post
+models.user.password=Lösenord
+
+notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
+notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
+notifiers.registrationnotifier.welcome.link=Gå till inloggningssidan

@@ -31,47 +31,40 @@ public class Security extends Secure.Security {
 		Application.index();
 	}
 
-	public static String hash(String password) {
+	static byte[] generateHash(byte[] salt, String password) {
+		try {
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 2048, 160);
+
+			return factory.generateSecret(spec).getEncoded();
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			return null;
+		}
+	}
+
+	static String toHex(byte[] salt, byte[] hash) {
+		String salt16 = String.format("%1$32x", new BigInteger(1, salt)).replace(" ", "0");
+		String hash16 = String.format("%1$40x", new BigInteger(1, hash)).replace(" ", "0");
+
+		return String.format("%s%s", salt16, hash16);
+	}
+
+	public static String hashPassword(String password) {
 		String hashedPassword = "";
 
 		if (password != null) {
-			try {
-				Random random = new Random();
-				byte[] salt = new byte[16];
-				random.nextBytes(salt);
-
-				SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-				KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 2048, 160);
-				byte[] hash = factory.generateSecret(spec).getEncoded();
-
-				String salt16 = String.format("%1$32x", new BigInteger(1, salt)).replace(" ", "0");
-				String hash16 = String.format("%1$40x", new BigInteger(1, hash)).replace(" ", "0");
-
-				hashedPassword = String.format("%s%s", salt16, hash16);
-			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			}
+			Random random = new Random();
+			byte[] salt = new byte[16];
+			random.nextBytes(salt);
+			hashedPassword = toHex(salt, generateHash(salt, password));
 		}
 
 		return hashedPassword;
 	}
 
-	public static boolean validate(String password, String passwordHash) {
-		boolean result = false;
+	public static boolean validatePassword(String password, String passwordHash) {
+		byte[] salt = DatatypeConverter.parseHexBinary(passwordHash.substring(0, 32));
 
-		try {
-			byte[] salt = DatatypeConverter.parseHexBinary(passwordHash.substring(0, 32));
-
-			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 2048, 160);
-			byte[] hash = factory.generateSecret(spec).getEncoded();
-
-			String salt16 = String.format("%1$32x", new BigInteger(1, salt)).replace(" ", "0");
-			String hash16 = String.format("%1$40x", new BigInteger(1, hash)).replace(" ", "0");
-
-			result = passwordHash.equals(String.format("%s%s", salt16, hash16));
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-		}
-
-		return result;
+		return passwordHash.equals(toHex(salt, generateHash(salt, password)));
 	}
 }

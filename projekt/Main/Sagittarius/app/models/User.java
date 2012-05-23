@@ -38,7 +38,7 @@ public class User extends Model {
 		this.rank = rank;
 		this.categories = categories;
 		this.email = email;
-		this.password = Security.hash(password);
+		this.password = Security.hashPassword(password);
 	}
 
 	public User(String firstName, String surname, Rank rank, List<Category> categories) {
@@ -53,7 +53,7 @@ public class User extends Model {
 		User user = User.find("byEmail", username).first();
 
 		if (user != null) {
-			result = Security.validate(password, user.password);
+			result = Security.validatePassword(password, user.password);
 		}
 
 		return result;

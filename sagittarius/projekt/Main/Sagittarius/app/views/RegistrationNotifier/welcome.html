@@ -12,7 +12,7 @@
 	&{'models.user.email'}: ${user.email}<br />
 </p>
 
-<a href="@@{application.index}">&{'notifiers.registrationnotifier.welcome.link'}</a><br />
+<a href="@@{registration.confirm}?hash=${hash}&email=${user.email}">&{'notifiers.registrationnotifier.welcome.link'}</a>
 
 </body>
 </html>

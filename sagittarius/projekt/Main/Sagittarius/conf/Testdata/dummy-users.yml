@@ -10,6 +10,8 @@ User(1):
   categories: [1]
   rank: 1
   pending: false
+  registrationDate: 2012-05-23 07:01:51.476
+  confirmationDate: 2012-05-24 07:01:51.476
 
 User(2):
   firstName: Oskar
@@ -20,6 +22,8 @@ User(2):
   categories: [2]
   rank: 1
   pending: false
+  registrationDate: 2012-05-23 07:01:51.476
+  confirmationDate: 2012-05-24 07:01:51.476  
 
 User(3):
   firstName: Jan
@@ -30,6 +34,8 @@ User(3):
   categories: [2]
   rank: 2
   pending: false
+  registrationDate: 2012-05-23 07:01:51.476
+  confirmationDate: 2012-05-24 07:01:51.476  
 
 User(4):
   firstName: Nils
@@ -40,6 +46,8 @@ User(4):
   categories: [4]
   rank: 2
   pending: false
+  registrationDate: 2012-05-23 07:01:51.476
+  confirmationDate: 2012-05-24 07:01:51.476  
 
 User(5):
   firstName: Sigrid
@@ -50,6 +58,8 @@ User(5):
   categories: [3]
   rank: 1
   pending: false
+  registrationDate: 2012-05-23 07:01:51.476
+  confirmationDate: 2012-05-24 07:01:51.476  
 
 User(6):
   firstName: Malin
@@ -60,3 +70,5 @@ User(6):
   categories: [3,5]
   rank: 3
   pending: false
+  registrationDate: 2012-05-23 07:01:51.476
+  confirmationDate: 2012-05-24 07:01:51.476  

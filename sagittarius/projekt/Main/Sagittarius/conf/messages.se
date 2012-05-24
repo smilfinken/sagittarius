@@ -19,4 +19,12 @@ models.user.password=Lösenord
 
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
-notifiers.registrationnotifier.welcome.link=Gå till inloggningssidan
+notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
+
+registration.initiated.heading=Din registrering behandlas!
+registration.initiated.body=Vi har skickat ett mail till den E-postadress du angav. Där framgår hur du ska göra för att aktivera ditt konto.
+registration.failed.heading=Tyvärr kunde vi inte hitta din registrering!
+registration.failed.body=Vänligen kontakta oss på <a href="mailto:registrering@sagittarius.se">registrering@sagittarius.se</a> för hjälp med ditt konto!
+registration.successful.heading=Registreringen slutförd!
+registration.successful.body=Nu har du slutfört din registrering. Vi hoppas att du kommer ha stor nytta av tjänsten och att du hör av dig med önskemål och kommentarer till <a href="mailto:feedback@sagittarius.se">feedback@sagittarius.se</a>.
+registration.link=Fortsätt till inloggningssidan

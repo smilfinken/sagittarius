@@ -1,12 +1,15 @@
 package models;
 
-import controllers.Security;
+import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
 import notifiers.RegistrationNotifier;
 import play.db.jpa.Model;
+import controllers.Security;
 
 /**
  *
@@ -20,7 +23,8 @@ public class User extends Model {
 	public String cardNumber;
 	public String email;
 	public String password;
-	public boolean pending;
+	public Date registrationDate;
+	public Date confirmationDate;
 	@OneToOne
 	public Rank rank;
 	@ManyToMany
@@ -52,7 +56,7 @@ public class User extends Model {
 		boolean result = false;
 		User user = User.find("byEmail", username).first();
 
-		if (user != null) {
+		if (user != null && user.confirmationDate != null) {
 			result = Security.validatePassword(password, user.password);
 		}
 
@@ -63,12 +67,31 @@ public class User extends Model {
 	public String toString() {
 		return email;
 	}
+	
+	@Override
+	public boolean create() {
+		this.registrationDate = new Date();
+		return super.create();
+	}
 
 	public String getFullName() {
 		return String.format("%s %s", firstName, surname);
 	}
 
 	public void sendRegistration() {
-		RegistrationNotifier.welcome(this);
+		RegistrationNotifier.welcome(this, generateRegistrationHash());
+	}
+
+	private String generateRegistrationHash() {
+		return Security.staticHash(this.registrationDate.toString());
+	}
+
+	public boolean confirmRegistration(String hash) {
+		boolean ok = hash.equals(Security.staticHash(this.registrationDate.toString()));
+		if (ok) {
+			this.confirmationDate = new Date();
+			save();
+		}
+		return ok;
 	}
 }

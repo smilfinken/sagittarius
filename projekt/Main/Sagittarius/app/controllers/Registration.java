@@ -38,8 +38,24 @@ public class Registration extends Controller {
 		User user = new User(firstname, surname, cardnumber, rank, Arrays.asList(category), email, password);
 		if (user.create()) {
 			user.sendRegistration();
-			Security.authenticate(email, password);
-			Application.index();
+			render();
 		}
+	}
+	
+	public static void confirm(@Required String hash, @Required String email) {
+		User user = User.find("byEmail", email).first();
+		if (user.confirmRegistration(hash)) {
+			confirmed();
+		} else {
+			failed();
+		}
+	}
+
+	public static void failed() {
+		render();
+	}
+
+	public static void confirmed() {
+		render();
 	}
 }

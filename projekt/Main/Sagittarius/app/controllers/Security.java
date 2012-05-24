@@ -1,11 +1,13 @@
 package controllers;
 
 import java.math.BigInteger;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Random;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import models.User;
@@ -30,6 +32,23 @@ public class Security extends Secure.Security {
 	static void onAuthenticated() {
 		Application.index();
 	}
+	
+	public static String staticHash(String text) {
+		String hashedText = "";
+		
+		if (text != null) {
+			try {
+				SecretKeyFactory factory = SecretKeyFactory.getInstance("DES");
+				KeySpec spec = new DESKeySpec("ARandomString".getBytes());
+				byte[] hash = factory.generateSecret(spec).getEncoded();
+				hashedText = String.format("%1$40x", new BigInteger(1, hash)).replace(" ", "0");
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return hashedText;
+	}	
 
 	static byte[] generateHash(byte[] salt, String password) {
 		try {

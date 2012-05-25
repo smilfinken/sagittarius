@@ -1,5 +1,5 @@
 #{extends "main.html" /}
-#{set title: "Registrera deltagare" /}
+#{set title: message.get("competitions.registerparticipant") /}
 
 <div>
 	<form method="POST">
@@ -11,12 +11,12 @@
 				</td>
 				<td>
 					#{include "Common/selectDivision.html" /}
-					<input class="enter" type="submit" formaction="@{Competitions.registerUser}" value="Registrera" />
+					<input class="enter" type="submit" formaction="@{Competitions.registerUser}" value="&{'common.register'}" />
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input class="navigate" type="submit" formaction="@{Users.registration()}" value="Skapa en ny anv&auml;ndare" />
+					<input class="navigate" type="submit" formaction="@{Users.registration()}" value="&{'competitors.createuser'}" />
 				</td>
 			</tr>
 		</table>

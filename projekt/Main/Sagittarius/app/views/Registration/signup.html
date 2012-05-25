@@ -1,5 +1,5 @@
 #{extends "mainExt.html" /}
-#{set title: "Skapa konto" /}
+#{set title: messages.get("registration.title") /}
 #{ifErrors}
 	<div class="error">
    		<h1>&{'validation.error'}</h1>
@@ -38,6 +38,6 @@
 		<span class="error">#{error 'passwordVerification' /}</span>
 		<label for="email">&{'controller.registration.passwordVerification'}</label>
 		<input type="password" name="passwordVerification" /><br/>
-		<input type="submit" value="Skapa konto"/>
+		<input type="submit" value="&{'registration.submit'}"/>
 	</form>
 </div>

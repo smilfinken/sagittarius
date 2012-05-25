@@ -1,5 +1,5 @@
 #{extends "Competitions/main.html" /}
-#{set title: "${competition.name}" /}
+#{set title: messages.get("common.changeobject", ${competition.name})  /}
 
 <hr />
 
@@ -9,12 +9,12 @@
 		<table>
 			<tr>
 				<td>
-					<label for="name">T&auml;vlingens namn</label>
+					<label for="name">&{'competitions.competitionname'}</label>
 					<input type="text" name="name" value="${competition.name}" />
-					<label for="date">T&auml;vlingsdatum</label>
+					<label for="date">&{'competitions.competitiondate'}</label>
 					<input type="text" name="date" value="${competition.date}" />
-					<input class="enter" type="submit" formaction="@{Competitions.save()}" value="&Auml;ndra" />
-					<input class="delete" type="submit" formaction="@{Competitions.delete()}" value="Ta bort" />
+					<input class="enter" type="submit" formaction="@{Competitions.save()}" value="&{'common.change'}" />
+					<input class="delete" type="submit" formaction="@{Competitions.delete()}" value="&{'common.delete'}" />
 				</td>
 			</tr>
 			<tr>
@@ -31,13 +31,13 @@
 	<table>
 		<tr>
 			<th style="text-align: right">
-				Station
+				&{'competitions.stage'}
 			</th>
 			<th style="text-align: left">
-				Namn
+				&{'common.name'}
 			</th>
 			<th style="text-align: center">
-				Poäng
+				&{'competitions.points'}
 			</th>
 		</tr>
 		%{
@@ -67,14 +67,14 @@
 						<input type="hidden" name="competitionID" value="${competition.id}" />
 						<input type="hidden" name="stageID" value="${stage.id}" />
 						<input type="hidden" name="stageIndex" value="${i}" />
-						<input class="edit" type="submit" formaction="@{Stages.edit()}" value="&Auml;ndra" />
+						<input class="edit" type="submit" formaction="@{Stages.edit()}" value="&{'common.change'}" />
 					</form>
 				</div>
 				<div style="float: left">
 					<form method="POST">
 						<input type="hidden" name="competitionID" value="${competition.id}" />
 						<input type="hidden" name="stageID" value="${stage.id}" />
-						<input class="delete" type="submit" formaction="@{Competitions.deleteStage()}" value="Ta bort" />
+						<input class="delete" type="submit" formaction="@{Competitions.deleteStage()}" value="&{'common.delete'}" />
 					</form>
 				</div>
 			</td>
@@ -92,7 +92,7 @@
 				<form method="POST">
 					<input type="text" name="name" />
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" class="enter" formaction="@{Competitions.addStage()}" value="L&auml;gg till station" />
+					<input type="submit" class="enter" formaction="@{Competitions.addStage()}" value="&{'competitions.addstage'}" />
 				</form>
 			</td>
 		</tr>

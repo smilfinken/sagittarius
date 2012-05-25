@@ -1,12 +1,12 @@
 #{extends "main.html" /}
-#{set title: "Administration" /}
+#{set title: messages.get("adminstration.title") /}
 
 <div>
 	<table>
 		<tr>
 			<td>
 				<form action="@{Users.list()}" method="POST">
-					<input class="navigate" type="submit" formaction="@{Users.list()}" value="Anv&auml;ndare" />
+					<input class="navigate" type="submit" formaction="@{Users.list()}" value="&{'administration.users'}" />
 				</form>
 			</td>
 		</tr>

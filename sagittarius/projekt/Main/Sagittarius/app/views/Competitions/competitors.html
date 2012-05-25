@@ -1,5 +1,5 @@
 #{extends "Competitions/main.html" /}
-#{set title: "Deltagare" /}
+#{set title: messages.get("competitions.participants") /}
 
 <hr />
 
@@ -20,7 +20,7 @@
 					</select>
 				</td>
 				<td>
-					<input class="enter" type="submit" formaction="@{Results.registerUser()}" value="Registrera" />
+					<input class="enter" type="submit" formaction="@{Results.registerUser()}" value="&{'common.register'}" />
 				</td>
 			</tr>
 		</table>
@@ -48,7 +48,7 @@
 				</td>
 				<td>
 					<input type="hidden" name="competitorID" value="${competitor.id}" />
-					<input class="delete" type="submit" formaction="@{Competitions.unregisterUser()}" value="Avregistrera" />
+					<input class="delete" type="submit" formaction="@{Competitions.unregisterUser()}" value="&{'common.unregister'}" />
 				</td>
 			</tr>
 			%{

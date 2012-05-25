@@ -1,11 +1,16 @@
-# Validation messages
-validation.error=Fel i inmatad data
-validation.required=Obligatoriskt fält
-validation.equals=Måste matcha &{%2$s}
-validation.email=Ogiltig e-postadress
-validation.min=Värde måste anges
+application.name=Sagittarius
 
 # Application properties
+adminstration.title=Administration
+administration.users=Användare
+
+common.person=Person
+common.type=Typ
+common.crestgroup=Vapengroupp
+
+competitions.competition=Tävling
+competitions.greeting=Hej och välkommen till %s!
+
 controller.registration.password=Lösenord
 controller.registration.passwordVerification=Bekräfta lösenord
 
@@ -28,3 +33,10 @@ registration.failed.body=Vänligen kontakta oss på <a href="mailto:registrering
 registration.successful.heading=Registreringen slutförd!
 registration.successful.body=Nu har du slutfört din registrering. Vi hoppas att du kommer ha stor nytta av tjänsten och att du hör av dig med önskemål och kommentarer till <a href="mailto:feedback@sagittarius.se">feedback@sagittarius.se</a>.
 registration.link=Fortsätt till inloggningssidan
+
+# Validation messages
+validation.error=Fel i inmatad data
+validation.required=Obligatoriskt fält
+validation.equals=Måste matcha &{%2$s}
+validation.email=Ogiltig e-postadress
+validation.min=Värde måste anges

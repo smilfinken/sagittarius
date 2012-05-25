@@ -1,8 +1,8 @@
 #{extends "main.html" /}
-#{set title: "Tävling" /}
+#{set title: messages.get("competitions.competition") /}
 
 <div>
-	<h2>Hej och v&auml;lkommen till ${competition.name}!</h2>
+	<h2>&{'competitions.greeting', competition.name}</h2>
 	<table>
 		<tr>
 			<td>

@@ -336,7 +336,7 @@
 <div>
 	<table>
 		<tr>
-			<th colspan="2" style="text-align: left">
+			<th colspan="3" style="text-align: left">
 				${users.size()} anv&auml;ndare
 			</th>
 		</tr>
@@ -348,7 +348,10 @@
 				${user.id}
 			</td>
 			<td style="text-align: left">
-				${user.firstName} ${user.surname}, ${user.email}, ${user.password}
+				${user.firstName} ${user.surname}
+			</td>
+			<td style="text-align: left">
+				${user.email}
 			</td>
 		</tr>
 		%{

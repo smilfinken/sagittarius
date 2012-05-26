@@ -153,6 +153,7 @@ public class Results extends Controller {
 	public static void export(long competitionID) throws IOException {
 		Competition competition = Competition.findById(competitionID);
 		if (competition != null) {
+			// TODO: create a method that only returns competitors with complete scores
 			List<Competitor> results = competition.competitors;
 
 			File resultsFile = File.createTempFile("sgt", "csv");

@@ -134,7 +134,8 @@
 			<td colspan="7">
 				<form method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input class="enter" type="submit" formaction="@{Results.export()}" value="Exportera resultatlistan" />
+					<input class="enter" type="submit" formaction="@{Results.exportPrintable()}" value="Utskrift" />
+					<input class="enter" type="submit" formaction="@{Results.export()}" value="Exportera" />
 					<input class="enter" type="submit" formaction="@{Results.exportToShooter()}" value="Generera importfil till Claes" />
 				</form>
 			</td>

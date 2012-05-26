@@ -1,6 +1,7 @@
 package models;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -83,6 +84,18 @@ public class Competition extends Model {
 			maxScore = targets + stages.size() * 6;
 		}
 		return maxScore;
+	}
+
+	public List<Competitor> getScoredCompetitors() {
+		List<Competitor> scoredCompetitors = new ArrayList<>();
+
+		for (Competitor competitor : competitors){
+			if (competitor.isScored()){
+				scoredCompetitors.add(competitor);
+			}
+		}
+
+		return scoredCompetitors;
 	}
 
 	public String getDate() {

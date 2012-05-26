@@ -153,9 +153,6 @@ public class Results extends Controller {
 	public static void export(long competitionID) throws IOException {
 		Competition competition = Competition.findById(competitionID);
 		if (competition != null) {
-			// TODO: create a method that only returns competitors with complete scores
-			List<Competitor> results = competition.competitors;
-
 			File resultsFile = File.createTempFile("sgt", "csv");
 			resultsFile.deleteOnExit();
 
@@ -170,7 +167,7 @@ public class Results extends Controller {
 				header2 += ";\"Träff\";\"Figurer\";\"Totalt\";\"Poäng\"\n";
 				resultsWriter.write(header1 + header2);
 
-				for (Competitor competitor : sortResults(results)) {
+				for (Competitor competitor : sortResults(competition.getScoredCompetitors())) {
 					String line = String.format("\"%s\";\"%s\"", competitor.getFullName(), competitor.getDivision());
 					int totalHits = 0;
 					int totalTargets = 0;
@@ -228,6 +225,19 @@ public class Results extends Controller {
 			response.setHeader("Content-Disposition", "attachment; filename=out.csv");
 			renderBinary(resultsFile);
 		}
+	}
+
+	public static void exportPrintable(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Competitor> results = sortResults(competition.competitors);
+		List<Competitor> competitors = new ArrayList<>();
+		for (Competitor competitor : results) {
+			if (!competitor.isScored()) {
+				competitors.add(competitor);
+			}
+		}
+
+		renderTemplate("Results/print.html", competition, results, sortCompetitors(competitors));
 	}
 
 	public static void registerUser(long competitionID, long userID) {

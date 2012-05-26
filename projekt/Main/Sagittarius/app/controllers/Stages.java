@@ -67,6 +67,7 @@ public class Stages extends Controller {
 		if (targetGroup != null) {
 			Target target = new Target();
 			target.hasPoints = (hasPoints != null);
+			target.targetModel = null;
 			target.save();
 			targetGroup.targets.add(target);
 			targetGroup.save();

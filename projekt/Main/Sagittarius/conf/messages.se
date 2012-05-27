@@ -60,3 +60,9 @@ validation.required=Obligatoriskt fält
 validation.equals=Måste matcha &{%2$s}
 validation.email=Ogiltig e-postadress
 validation.min=Värde måste anges
+
+# Module overrides
+secure.title=Inloggning
+secure.username=E-postadress
+secure.password=Lösenord
+secure.remember=Kom ihåg lösenord

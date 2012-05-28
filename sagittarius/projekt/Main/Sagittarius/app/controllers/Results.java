@@ -7,6 +7,7 @@ import java.util.*;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.With;
+import static play.modules.pdf.PDF.*;
 
 /**
  *
@@ -237,7 +238,7 @@ public class Results extends Controller {
 			}
 		}
 
-		renderTemplate("Results/print.html", competition, results, sortCompetitors(competitors));
+		renderPDF("Results/print.html", competition, results, sortCompetitors(competitors));
 	}
 
 	public static void registerUser(long competitionID, long userID) {

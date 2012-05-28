@@ -3,3 +3,4 @@
 require:
     - play
     - play -> secure
+    - play -> pdf 0.7

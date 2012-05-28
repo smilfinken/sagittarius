@@ -89,8 +89,8 @@ public class Competition extends Model {
 	public List<Competitor> getScoredCompetitors() {
 		List<Competitor> scoredCompetitors = new ArrayList<>();
 
-		for (Competitor competitor : competitors){
-			if (competitor.isScored()){
+		for (Competitor competitor : competitors) {
+			if (competitor.isScored()) {
 				scoredCompetitors.add(competitor);
 			}
 		}

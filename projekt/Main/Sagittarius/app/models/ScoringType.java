@@ -17,4 +17,13 @@ public class ScoringType extends Model {
 		this.type = type;
 		this.label = label;
 	}
+
+	@Override
+	public String toString() {
+		return label;
+	}
+
+	public boolean sumPointsAndTargets() {
+		return true;
+	}
 }

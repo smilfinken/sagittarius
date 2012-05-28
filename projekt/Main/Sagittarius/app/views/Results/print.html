@@ -1,20 +1,23 @@
-#{set title: "Resultat från competition.name" /}
+<link media="print" type="text/css" rel="stylesheet" href="/public/stylesheets/results.css"/>
 
 <div>
-	<h2 style="float: left; width: 49%; text-align: left">
+	<h2 class="left">
 		${competition.name}
 	</h2>
-	<h2 style="float: right; width: 49%; text-align: right">
+</div>
+<div>
+	<h2 class="right">
 		${competition.getDate()}
 	</h2>
 </div>
 
-<div style="clear: both">
+<div class="content">
 	%{
 	int totalHits;
 	int totalTargets;
 	int totalPoints;
 	int place = 1;
+	int count = 1;
 	}%
 	<table>
 		%{
@@ -25,54 +28,51 @@
 		if (!entry.getDivision().equals(previousClass)){
 		place = 1;
 		}%
-		<tr style="padding-top: 1 em">
-			<td>
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2" style="text-align: left; width: 20%">
-				Klass ${entry.getDivision()}
-			</th>
-			<th colspan="${competition.stages.size()}" style="text-align: left; width: 40%">
-				Stationer
-			</th>
-			<th colspan="2" style="text-align: left; width: 20%">
-				Totalt
-			</th>
-		</tr>
+		<thead>
+		<th class="left">
+			Klass ${entry.getDivision()}
+		</th>
+		<th class="center">
+			Stationer
+		</th>
+		<th class="right">
+			Totalt
+		</th>
+		</thead>
 		%{
 		}
 		previousClass = entry.getDivision();
 		}%
 		<tr>
-			<td style="font-style: italic; font-weight: bold; text-align: right">${place}</td>
-			<td style="font-weight: bold">${entry.getFullName()}</td>
-			%{
-			totalHits = 0;
-			totalTargets = 0;
-			totalPoints = 0;
-			for(result in entry.results){
-			totalHits += result.hits;
-			totalTargets += result.targets;
-			totalPoints += result.points;
-			}%
+			<td class="competitor">
+				${place++} ${entry.getFullName()}
+			</td>
 			<td>
-				${result.hits}/${result.targets}
-				#{if result.points > 0}(${result.points})#{/if}
+				%{
+				totalHits = 0;
+				totalTargets = 0;
+				totalPoints = 0;
+				count = 1;
+				for(result in entry.results){
+				totalHits += result.hits;
+				totalTargets += result.targets;
+				totalPoints += result.points;
+				}%
+				${result.hits}/${result.targets}#{if result.points > 0} (${result.points})#{/if}#{if count++ < entry.results.size()}, #{/if}
+				%{
+				}
+				}%
 			</td>
-			%{
-			}
-			}%
-			<td style="font-weight: bold">
-				${totalHits}/${totalTargets}
-			</td>
-			<td style="font-weight: bold">
-				${totalHits + totalTargets}&nbsp;(${totalPoints})
+			<td>
+				#{if competition.scoringType.sumPointsAndTargets() == true}
+				<span class="sum">${totalHits + totalTargets}</span> (${totalPoints})
+				#{/if}
+				#{else}
+				<span class="sum">${totalHits}/${totalTargets}</span> (${totalPoints})
+				#{/else}
 			</td>
 		</tr>
 		%{
-		place++;
 		}
 		}
 		}

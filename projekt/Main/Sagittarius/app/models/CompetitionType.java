@@ -16,7 +16,7 @@ public class CompetitionType extends Model {
 		this.name = name;
 	}
 
-	public boolean hasStages(){
+	public boolean hasStages() {
 		return true;
 	}
 }

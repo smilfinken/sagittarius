@@ -26,7 +26,7 @@ public class Registration extends Controller {
 	}
 
 	public static void doSignup(@Required String firstname, @Required String surname, String cardnumber, @Min(0) long categoryID, @Min(0) long rankID, @Required @Email String email, @Required String password, @Required String passwordVerification) {
-		Validation.equals(Messages.get("controller.registration.password"), password, Messages.get("controller.registration.passwordVerification"), passwordVerification);
+		Validation.equals("passwordVerification", password, Messages.get("controller.registration.password"), passwordVerification);
 		if (Validation.hasErrors()) {
 			params.flash(); // add http parameters to the flash scope
 			Validation.keep(); // keep the errors for the next request

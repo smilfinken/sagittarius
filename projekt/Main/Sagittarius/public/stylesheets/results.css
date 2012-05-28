@@ -51,9 +51,15 @@ th.right {
 }
 
 td.competitor {
-	font-style: italic;
-	font-weight: bold;
 	text-align: left;
+}
+
+.place {
+	font-style: italic;
+}
+
+.name {
+	font-weight: bold;
 }
 
 .content {

@@ -44,7 +44,7 @@ public class Registration extends Controller {
 	
 	public static void confirm(@Required String hash, @Required String email) {
 		User user = User.find("byEmail", email).first();
-		if (user.confirmRegistration(hash)) {
+		if (user != null && user.confirmRegistration(hash)) {
 			confirmed();
 		} else {
 			failed();

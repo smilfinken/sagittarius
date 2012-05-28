@@ -238,7 +238,10 @@ public class Results extends Controller {
 			}
 		}
 
-		renderPDF("Results/print.html", competition, results, sortCompetitors(competitors));
+		//TODO: figure out how to create a proper page header and footer
+		Options options = new Options();
+		options.filename = String.format("%s-%s", competition.name, competition.getDate());
+		renderPDF("results/print.html", options, competition, results, sortCompetitors(competitors));
 	}
 
 	public static void registerUser(long competitionID, long userID) {

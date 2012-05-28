@@ -38,11 +38,11 @@
 			<label for="remember">&{'secure.remember'}</label>
 		</p>
 		<p id="signin-field">
-			<input type="submit" id="signin" value="Logga in" />
+			<input type="submit" id="signin" value="&{'secure.login'}" />
 		</p>
 	#{/form}
 	
-	<p>Har du inget konto? <a href="@{Registration.signup()}">Skapa ett h&auml;r</a></p>
+	<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
 	
 	<p>Har du ingen koll? <a href="javascript:loginAs('per@pelle.se', '123');"> Testa per@pelle.se:123</a></p>
 	

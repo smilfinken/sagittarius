@@ -62,7 +62,12 @@ validation.email=Ogiltig e-postadress
 validation.min=Värde måste anges
 
 # Module overrides
-secure.title=Inloggning
-secure.username=E-postadress
+secure.error=Okänt användarnamn eller lösenord
+secure.login=Logga in
+secure.logout=Du har blivit utloggad
+secure.noaccount=Har du inget konto?
+secure.noaccount.create=Skapa ett här
 secure.password=Lösenord
 secure.remember=Kom ihåg lösenord
+secure.title=
+secure.username=E-postadress

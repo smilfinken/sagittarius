@@ -3,18 +3,12 @@
 
 <div>
 	<h2>&{'competitions.greeting', competition.name}</h2>
-	<table>
-		<tr>
-			<td>
-				<form method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input class="navigate" type="submit" formaction="@{Results.list()}" value="Resultat" />
-					<input class="navigate" type="submit" formaction="@{Competitions.competitors()}" value="Deltagare" />
-					<input class="navigate" type="submit" formaction="@{Competitions.enroll()}" value="T&auml;vlingsanm&auml;lan" />
-					<input class="navigate" type="submit" formaction="@{Competitions.edit()}" value="Detaljer" />
-				</form>
-		</tr>
-	</table>
+	<div class="">
+		<a class="navigate" href="@{Results.list(competition.id)}" />&{'results'}</a>
+		<a class="navigate" href="@{Competitions.competitors(competition.id)}" />&{'competitions.participants'}</a>
+		<a class="navigate" href="@{Competitions.enroll(competition.id)}" />&{'competitions.application'}</a>
+		<a class="navigate" href="@{Competitions.edit(competition.id)}"/>&{'competitions.details'}</a>
+	</div>
 </div>
 
 #{doLayout /}

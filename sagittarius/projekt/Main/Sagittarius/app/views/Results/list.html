@@ -4,7 +4,7 @@
 <hr />
 
 <div>
-	<form method="POST">
+	<form id="competitor" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
 			<tr>
@@ -19,8 +19,8 @@
 						}
 						}%
 					</select>
-					<input class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST" value="Avregistrera deltagare" />
-					<input class="navigate" type="submit" formaction="@{Results.registerUser()}" formmethod="POST" value="Registrera en ny deltagare" />
+					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>Avregistrera deltagare</button>
+					<button class="navigate" type="submit" formaction="@{Results.registerUser()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.registerUser()}"'#{/if}>Registrera en ny deltagare</button>
 				</td>
 			</tr>
 			<tr class="scoring">
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<td class="buttons" colspan="7">
-						<input class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" value="Registrera resultat" />
+						<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>Registrera resultat</button>
 					</td>
 				</tr>
 		</table>
@@ -115,11 +115,11 @@
 				${totalHits + totalTargets}&nbsp;(${totalPoints})
 			</td>
 			<td>
-				<form method="POST">
+				<form id="result_${entry.id}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="competitorID" value="${entry.id}" />
-					<input class="edit" type="submit" formaction="@{Results.edit()}" value="&Auml;ndra" />
-					<input class="delete" type="submit" action="@{Results.delete()}" value="Ta bort" />
+					<button class="edit" type="submit" formaction="@{Results.edit()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.edit()}"'#{/if}>&Auml;ndra</button>
+					<button class="delete" type="submit" action="@{Results.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.delete()}"'#{/if}>Ta bort</button>
 				</form>
 			</td>
 		</tr>
@@ -131,11 +131,11 @@
 		}%
 		<tr>
 			<td colspan="7">
-				<form method="POST">
+				<form id="export" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input formtarget="_blank" class="enter" type="submit" formaction="@{Results.generatePDF()}" value="Utskrift" />
-					<input class="enter" type="submit" formaction="@{Results.export()}" value="Exportera" />
-					<input class="enter" type="submit" formaction="@{Results.exportToShooter()}" value="Generera importfil till Claes" />
+					<button formtarget="_blank" class="enter" type="submit" formaction="@{Results.generatePDF()}"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.generatePDF()}"; document.getElementById("export").target="_blank"'#{/if}>Utskrift</button>
+					<button class="enter" type="submit" formaction="@{Results.export()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.export()}"'#{/if}>Exportera</button>
+					<button class="enter" type="submit" formaction="@{Results.exportToShooter()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.exportToShooter()}"'#{/if}>Generera importfil till Claes</button>
 				</form>
 			</td>
 		</tr>

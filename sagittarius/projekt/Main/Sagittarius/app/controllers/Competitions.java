@@ -82,7 +82,9 @@ public class Competitions extends Controller {
 			competition.delete();
 		}
 
-		renderTemplate("Application/index.html");
+		List<Competition> competitions = Competition.all().fetch();
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		renderTemplate("Application/index.html", competitions, competitionTypes);
 	}
 
 	public static void competitors(long competitionID) {

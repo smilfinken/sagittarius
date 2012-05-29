@@ -3,8 +3,6 @@ package controllers;
 import java.util.List;
 import models.Competition;
 import models.CompetitionType;
-import play.i18n.Lang;
-import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 

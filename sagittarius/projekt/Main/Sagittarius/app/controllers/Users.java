@@ -41,7 +41,26 @@ public class Users extends Controller {
 		}
 
 		List<User> users = User.all().fetch();
+		List<Competitor> competitors = Competitor.all().fetch();
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
-		renderTemplate("Competitors/registration.html", competition, users, divisions, userID);
+		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
+	}
+
+	public static void delete(long competitionID, long userID){
+		Competition competition = Competition.findById(competitionID);
+		User user = User.findById(userID);
+
+		if (user != null){
+			user.delete();
+		}
+
+		List<User> users = User.all().fetch();
+		List<Competitor> competitors = Competitor.all().fetch();
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+		List<Division> divisions = Division.all().fetch();
+		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
 	}
 }

@@ -1,5 +1,6 @@
-package controllers;
+package common;
 
+import controllers.Secure;
 import play.mvc.Controller;
 import play.mvc.Http.Header;
 import play.mvc.With;

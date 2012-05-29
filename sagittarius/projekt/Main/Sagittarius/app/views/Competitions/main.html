@@ -4,7 +4,7 @@
 <div>
 	<h2>&{'competitions.greeting', competition.name}</h2>
 	<div class="">
-		<a class="navigate" href="@{Results.list(competition.id)}" />&{'results'}</a>
+		<a class="navigate" href="@{Results.list(competition.id)}" />&{'results.title'}</a>
 		<a class="navigate" href="@{Competitions.competitors(competition.id)}" />&{'competitions.participants'}</a>
 		<a class="navigate" href="@{Competitions.enroll(competition.id)}" />&{'competitions.application'}</a>
 		<a class="navigate" href="@{Competitions.edit(competition.id)}"/>&{'competitions.details'}</a>

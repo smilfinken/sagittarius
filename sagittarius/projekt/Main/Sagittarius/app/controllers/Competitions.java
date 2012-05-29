@@ -19,12 +19,6 @@ public class Competitions extends Controller {
 		render(competitions);
 	}
 
-	public static void select(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-
-		render(competition);
-	}
-
 	public static void add(String name, long competitionTypeID, String date) {
 		Competition competition = new Competition(name);
 
@@ -91,8 +85,11 @@ public class Competitions extends Controller {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> competitors = competition.competitors;
 		List<User> users = User.all().fetch();
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+		List<Division> divisions = Division.all().fetch();
 
-		render(competition, competitors, users);
+		render(competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users), categories, ranks, divisions);
 	}
 
 	public static void enroll(long competitionID) {
@@ -152,10 +149,12 @@ public class Competitions extends Controller {
 			competition.save();
 		}
 
-		List<Competitor> competitors = competition.competitors;
 		List<User> users = User.all().fetch();
-
-		renderTemplate("Competitions/competitors.html", competition, competitors, users);
+		List<Competitor> competitors = Competitor.all().fetch();
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+		List<Division> divisions = Division.all().fetch();
+		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
 	}
 
 	public static void unregisterUser(long competitionID, long competitorID) {
@@ -163,17 +162,19 @@ public class Competitions extends Controller {
 		Competitor competitor = Competitor.findById(competitorID);
 
 		// TODO: fix this so that data is properly removed from db on deletion
-		if (competitor != null) {
+		if (competition != null && competitor != null) {
 			competition.competitors.remove(competitor);
 			competition.save();
 			competitor.results = null;
 			competitor.delete();
 		}
 
-		List<Competitor> competitors = competition.competitors;
 		List<User> users = User.all().fetch();
-
-		renderTemplate("Competitions/competitors.html", competition, competitors, users);
+		List<Competitor> competitors = Competitor.all().fetch();
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+		List<Division> divisions = Division.all().fetch();
+		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions);
 	}
 
 	public static void newCompetitor(long competitionID) {
@@ -181,6 +182,6 @@ public class Competitions extends Controller {
 		List<Competitor> competitors = competition.competitors;
 		List<User> users = User.all().fetch();
 
-		renderTemplate("Competitions/competitors.html", competition, competitors, users);
+		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users));
 	}
 }

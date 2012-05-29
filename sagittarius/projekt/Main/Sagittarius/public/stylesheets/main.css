@@ -29,15 +29,15 @@ fieldset {
 	width:				100%;
 }
 
-input {
+button, input {
 	border: 			1px solid blue;
 }
 
-input[type=submit].delete {
+button[type=submit].delete {
 	border: 			1px solid red;
 }
 
-input[type=submit].enter {
+button[type=submit].enter {
 	border: 			1px solid green;
 }
 

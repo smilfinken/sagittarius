@@ -1,6 +1,7 @@
 #{extends "Competitions/main.html" /}
 #{set title: "Resultat" /}
 
+#{if (competitors?.size() > 0)}
 <hr />
 
 <div>
@@ -19,8 +20,7 @@
 						}
 						}%
 					</select>
-					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>Avregistrera deltagare</button>
-					<button class="navigate" type="submit" formaction="@{Results.registerUser()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.registerUser()}"'#{/if}>Registrera en ny deltagare</button>
+					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>&{'competitors.unregister'}</button>
 				</td>
 			</tr>
 			<tr class="scoring">
@@ -37,7 +37,7 @@
 					%{
 					if (competition.stages[i].hasPoints()) {
 					}%
-					<label for="results[${i}].points">Po&auml;ng</label>
+					<label for="results[${i}].points">&{'competitions.points'}</label>
 					<input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
 					%{
 					}
@@ -49,11 +49,29 @@
 				</tr>
 				<tr>
 					<td class="buttons" colspan="7">
-						<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>Registrera resultat</button>
+						<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>&{'results.register'}</button>
 					</td>
 				</tr>
 		</table>
 	</form>
+</div>
+#{/if}
+
+<hr />
+
+<div>
+	<table>
+		<tr>
+			<td>
+				<form id="export" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<button formtarget="_blank" class="enter" type="submit" formaction="@{Results.generatePDF()}"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.generatePDF()}"; document.getElementById("export").target="_blank"'#{/if}>&{'export.print'}</button>
+					<button class="enter" type="submit" formaction="@{Results.export()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.export()}"'#{/if}>&{'export'}</button>
+					<button class="enter" type="submit" formaction="@{Results.exportToShooter()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.exportToShooter()}"'#{/if}>&{'export.integration'}</button>
+				</form>
+			</td>
+		</tr>
+	</table>
 </div>
 
 <hr />
@@ -67,9 +85,9 @@
 	}%
 	<table>
 		<tr>
-			<th colspan="2" style="text-align: left">Namn</th>
-			<th>Klass</th>
-			<th colspan="4">Resultat</th>
+			<th colspan="2" style="text-align: left">&{'common.name'}</th>
+			<th>&{'common.division'}</th>
+			<th colspan="4">&{'results.title'}</th>
 		</tr>
 		%{
 		if (results.size() > 0) {
@@ -118,8 +136,8 @@
 				<form id="result_${entry.id}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="competitorID" value="${entry.id}" />
-					<button class="edit" type="submit" formaction="@{Results.edit()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.edit()}"'#{/if}>&Auml;ndra</button>
-					<button class="delete" type="submit" action="@{Results.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.delete()}"'#{/if}>Ta bort</button>
+					<button class="edit" type="submit" formaction="@{Results.edit()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.edit()}"'#{/if}>&{'common.change'}</button>
+					<button class="delete" type="submit" formaction="@{Results.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.delete()}"'#{/if}>&{'common.delete'}</button>
 				</form>
 			</td>
 		</tr>
@@ -129,15 +147,5 @@
 		}
 		}
 		}%
-		<tr>
-			<td colspan="7">
-				<form id="export" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<button formtarget="_blank" class="enter" type="submit" formaction="@{Results.generatePDF()}"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.generatePDF()}"; document.getElementById("export").target="_blank"'#{/if}>Utskrift</button>
-					<button class="enter" type="submit" formaction="@{Results.export()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.export()}"'#{/if}>Exportera</button>
-					<button class="enter" type="submit" formaction="@{Results.exportToShooter()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("export").action="@{Results.exportToShooter()}"'#{/if}>Generera importfil till Claes</button>
-				</form>
-			</td>
-		</tr>
 	</table>
 </div>

@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
 import models.*;
+import play.modules.pdf.PDF.Options;
+import static play.modules.pdf.PDF.renderPDF;
 import play.mvc.Controller;
 import play.mvc.With;
-import static play.modules.pdf.PDF.*;
 
 /**
  *
@@ -17,49 +18,11 @@ import static play.modules.pdf.PDF.*;
 @With(Secure.class)
 public class Results extends Controller {
 
-	private static void addResult(Competitor competitor, List<Result> results) {
+	static void addResult(Competitor competitor, List<Result> results) {
 		competitor.results = results;
 		competitor.save();
 	}
 
-	private static int sumPoints(List<Result> results) {
-		int points = 0;
-
-		for (Result result : results) {
-			points += result.points;
-		}
-
-		return points;
-	}
-
-	private static int sumResults(List<Result> results) {
-		int hits = 0;
-		int targets = 0;
-
-		for (Result result : results) {
-			hits += result.hits;
-			targets += result.targets;
-		}
-
-		return hits + targets;
-	}
-
-	private static int compareStages(Competitor A, Competitor B) {
-		if (A != null && B != null) {
-			if (A.results != null && B.results != null && A.results.size() == B.results.size()) {
-				for (int i = A.results.size() - 1; i >= 0; i--) {
-					Result a = A.results.get(i);
-					Result b = B.results.get(i);
-
-					if (a.hits + a.targets != b.hits + a.targets) {
-						return (b.hits + b.targets) - (a.hits + a.targets);
-					}
-				}
-			}
-		}
-
-		return 0;
-	}
 
 	static List<Competitor> sortCompetitors(List<Competitor> competitors) {
 		class CompetitorListComparator implements Comparator<Competitor> {
@@ -77,50 +40,9 @@ public class Results extends Controller {
 		return out;
 	}
 
-	static List<Competitor> sortResults(List<Competitor> competitors) {
-		final List<String> classOrder = Arrays.asList("J", "C", "D", "V", "B", "A", "R", "S");
-
-		class ResultListComparator implements Comparator<Competitor> {
-
-			@Override
-			public int compare(Competitor A, Competitor B) {
-				if (A.getDivision().equals(B.getDivision())) {
-					if (sumResults(B.results) == sumResults(A.results)) {
-						if (sumPoints(B.results) == sumPoints(A.results)) {
-							return compareStages(A, B);
-						} else {
-							return sumPoints(B.results) - sumPoints(A.results);
-						}
-					} else {
-						return sumResults(B.results) - sumResults(A.results);
-					}
-				} else {
-					String classA = A.getDivision().substring(0, Math.max(1, A.getDivision().length() - 1));
-					String classB = B.getDivision().substring(0, Math.max(1, B.getDivision().length() - 1));
-					int classSort = classOrder.indexOf(classA) - classOrder.indexOf(classB);
-
-					if (classSort != 0) {
-						return classSort;
-					} else {
-						String rankA = A.getDivision().substring(A.getDivision().length() - 1);
-						String rankB = B.getDivision().substring(B.getDivision().length() - 1);
-
-						return rankA.compareTo(rankB);
-					}
-				}
-			}
-		}
-
-		List<Competitor> out = competitors;
-
-		ResultListComparator c = new ResultListComparator();
-		Collections.sort(out, c);
-		return out;
-	}
-
 	public static void list(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> results = sortResults(competition.competitors);
+		List<Competitor> results = common.Sorting.sortResults(competition.competitors);
 		List<Competitor> competitors = new ArrayList<>();
 		for (Competitor competitor : results) {
 			if (!competitor.isScored()) {
@@ -169,7 +91,7 @@ public class Results extends Controller {
 				header2 += ";\"Träff\";\"Figurer\";\"Totalt\";\"Poäng\"\n";
 				resultsWriter.write(header1 + header2);
 
-				for (Competitor competitor : sortResults(competition.getScoredCompetitors())) {
+				for (Competitor competitor : common.Sorting.sortResults(competition.getScoredCompetitors())) {
 					String line = String.format("\"%s\";\"%s\"", competitor.getFullName(), competitor.getDivision());
 					int totalHits = 0;
 					int totalTargets = 0;
@@ -208,7 +130,7 @@ public class Results extends Controller {
 			try (FileWriter resultsWriter = new FileWriter(resultsFile)) {
 				int place = 1;
 				String division = "";
-				for (Competitor competitor : sortResults(results)) {
+				for (Competitor competitor : common.Sorting.sortResults(results)) {
 					if (!competitor.getDivision().equals(division)) {
 						place = 1;
 					} else {
@@ -231,7 +153,7 @@ public class Results extends Controller {
 
 	public static void generatePDF(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> results = sortResults(competition.competitors);
+		List<Competitor> results = common.Sorting.sortResults(competition.competitors);
 		List<Competitor> competitors = new ArrayList<>();
 		for (Competitor competitor : results) {
 			if (!competitor.isScored()) {
@@ -250,28 +172,17 @@ public class Results extends Controller {
 		renderPDF("Results/print.html", options, competition, results, sortCompetitors(competitors), timeStamp);
 	}
 
-	public static void registerUser(long competitionID, long userID) {
-		Competition competition = Competition.findById(competitionID);
-		List<User> users = User.all().fetch();
-		List<Division> divisions = Division.all().fetch();
-
-		renderTemplate("Competitors/registration.html", competition, userID, users, divisions);
-	}
-
 	public static void unregisterUser(long competitionID, long competitorID) {
 		Competition competition = Competition.findById(competitionID);
 		Competitor competitor = Competitor.findById(competitorID);
 
 		// TODO: fix this so that data is properly removed from db on deletion
-		if (competitor != null) {
+		if (competition != null && competitor != null) {
 			competition.competitors.remove(competitor);
 			competition.save();
 			competitor.results = null;
 			competitor.delete();
 		}
-
-		List<Competitor> competitors = competition.competitors;
-		List<User> users = User.all().fetch();
 
 		list(competitionID);
 	}

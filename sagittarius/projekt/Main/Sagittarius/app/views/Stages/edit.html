@@ -7,7 +7,7 @@ int j = 1;
 %}
 
 <div>
-	<h2>${competition.name}, station ${stageIndex}</h2>
+	<h2>${competition.name}, &{'competitions.stage'} ${stageIndex}</h2>
 	<form action="@{Stages.update}" method="POST">
 		<table>
 			<tr>
@@ -16,7 +16,7 @@ int j = 1;
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="stageIndex" value="${stageIndex}" />
 					<input type="text" name="name" value="${stage.name}" />
-					<input class="enter" type="submit" value="Ändra" />
+					<button class="enter" type="submit">&{'common.change'}</button>
 				</td>
 			</tr>
 		</table>
@@ -35,7 +35,7 @@ int j = 1;
 					<input type="hidden" name="stageIndex" value="${stageIndex}" />
 					<input type="hidden" name="targetGroupID" value="${group.id}" />
 					Målgrupp ${i++}
-					<input class="delete" type="submit" value="Ta bort" />
+					<button class="delete" type="submit">&{'common.delete'}</button>
 				</th>
 			</tr>
 		</table>
@@ -43,28 +43,20 @@ int j = 1;
 
 	<table>
 		<tr>
+			<th style="text-align: left" />
 			<th style="text-align: left">
-				Figur
+				&{'common.type'}
 			</th>
 			<th style="text-align: left">
-				Typ
+				&{'common.colour'}
 			</th>
 			<th style="text-align: left">
-				Färg
-			</th>
-			<th style="text-align: left">
-				Poängmål
+				&{'target.scoreable'}
 			</th>
 		</tr>
 		%{
 		j = 1;
-		String checked = "";
 		for (target in group.targets) {
-		if (target.hasPoints) {
-		checked = "checked";
-		} else{
-		checked = "";
-		}
 		}%
 		<tr>
 			<td style="text-align: left">
@@ -73,15 +65,9 @@ int j = 1;
 			<td style="text-align: left">
 				<select form="updateTarget_${target.id}" name="modelID">
 					%{
-					String selected = "";
 					for (targetModel in targetModels) {
-					if (targetModel.id == target.getModelID()) {
-					selected = "selected";
-					} else {
-					selected = "";
-					}
 					}%
-					<option value="${targetModel.id}" ${selected}>${targetModel.getModel()}</option>
+					<option value="${targetModel.id}" #{if (targetModel.id == target.getModelID())}selected#{/if}>${targetModel.getModel()}</option>
 					%{
 					}
 					}%
@@ -91,14 +77,14 @@ int j = 1;
 			</td>
 			<td style="text-align: left">
 				<form id="updateTarget_${target.id}" method="POST">
-					<input type="checkbox" ${checked} name="hasPoints" />
+					<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />
 					       <input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="stageIndex" value="${stageIndex}" />
 					<input type="hidden" name="targetGroupID" value="${group.id}" />
 					<input type="hidden" name="targetID" value="${target.id}" />
-					<input class="enter" type="submit" formaction="@{Stages.updateTarget()}" value="Uppdatera" />
-					<input class="delete" type="submit" formaction="@{Stages.deleteTarget()}" value="Ta bort" />
+					<button class="enter" type="submit" formaction="@{Stages.updateTarget()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("updateTarget_${target.id}").action="@{Stages.updateTarget()}"'#{/if}>&{'common.update'}</button>
+					<button class="delete" type="submit" formaction="@{Stages.deleteTarget()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("updateTarget_${target.id}").action="@{Stages.deleteTarget()}"'#{/if}>&{'common.delete'}</button>
 				</form>
 			</td>
 		</tr>
@@ -120,7 +106,7 @@ int j = 1;
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="stageIndex" value="${stageIndex}" />
 					<input type="hidden" name="targetGroupID" value="${group.id}" />
-					<input class="enter" type="submit" value="Ny figur" />
+					<button class="enter" type="submit">&{'target.new'}</button>
 				</form>
 			</td>
 		</tr>
@@ -136,13 +122,13 @@ int j = 1;
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="stageIndex" value="${stageIndex}" />
-					<input class="enter" type="submit" value="Ny målgrupp" />
+					<button class="enter" type="submit">&{'targetgroup.new'}</button>
 				</form>
 			</td>
 			<td style="text-align: left">
 				<form action="@{Competitions.edit()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input class="enter" type="submit" value="Tillbaks till t&auml;vlingen" />
+					<button class="enter" type="submit">&{'competitions.return'}</button>
 				</form>
 			</td>
 		</tr>

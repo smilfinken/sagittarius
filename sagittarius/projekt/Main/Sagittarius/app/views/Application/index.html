@@ -4,9 +4,9 @@
 <table>
 	<tr>
 		<td>
-			<form action="@{Competitions.select()}" method="POST">
+			<form action="@{Results.list()}" method="POST">
 				<div style="float: left">
-					<label for="competitionID">V&auml;lj en t&auml;vling</label>
+					<label for="competitionID">&{'competitions.selectlabel'}</label>
 					<select name="competitionID">
 						%{
 						for (competition in competitions){
@@ -18,7 +18,7 @@
 					</select>
 				</div>
 				<div style="float: right">
-					<input type="submit" value="V&auml;lj" />
+					<button type="submit">&{'competitions.select'}</button>
 				</div>
 			</form>
 		</td>
@@ -27,7 +27,7 @@
 		<td>
 			<form action="@{Competitions.add()}" method="POST">
 				<div style="float: left">
-					<label for="name">Ny t&auml;vling</label>
+					<label for="name">&{'competitions.createlabel'}</label>
 					<input type="text" name="name" />
 					<select name="competitionTypeID">
 						%{
@@ -40,8 +40,9 @@
 					</select>
 				</div>
 				<div style="float: right">
-					<input type="submit" value="Skapa" />
+					<button type="submit">&{'competitions.create'}</button>
 				</div>
 			</form>
 		</td>
+	</tr>
 </table>

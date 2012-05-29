@@ -1,15 +1,10 @@
-<label for="userID">&{'common.person'}</label>
+<label for="userID">&{'users.user'}</label>
 <select name="userID">
+	<option value="-1"></option>
 	%{
-	String selected = "";
 	for (user in users) {
-	if (user.id == userID) {
-	selected = "selected";
-	} else {
-	selected = "";
-	}
 	}%
-	<option value="${user.id}" ${selected}>${user.getFullName()}</option>
+	<option value="${user.id}" #{if (user.id == userID)}selected#{/if}>${user.getFullName()}</option>
 	%{
 	}
 	}%

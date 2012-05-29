@@ -15,15 +15,18 @@ common.register=Registrera
 common.unregister=Avregistrera
 
 competitions.addstage=Lägg till station
+competitions.application=Tävlingsanmälan
 competitions.competition=Tävling
 competitions.competitionname=Tävlingens namn
 competitions.competitiondate=Tävlingsdatum
+competitions.details=Detaljer
 competitions.greeting=Hej och välkommen till %s!
 competitions.participants=Deltagare
 competitions.points=Poäng
 competitions.registerparticipant=Registrera deltagare
 competitions.stage=Station
 competitions.unregister=Avregistrera
+
 
 competitors.createuser=Skapa ny användare
 
@@ -53,6 +56,8 @@ registration.successful.heading=Registreringen slutförd!
 registration.successful.body=Nu har du slutfört din registrering. Vi hoppas att du kommer ha stor nytta av tjänsten och att du hör av dig med önskemål och kommentarer till <a href="mailto:feedback@sagittarius.se">feedback@sagittarius.se</a>.
 registration.title=Skapa konto
 registration.submit=Skapa konto
+
+results=Resultat
 
 # Validation messages
 validation.error=Fel i inmatad data

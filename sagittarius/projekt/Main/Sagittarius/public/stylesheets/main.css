@@ -1,6 +1,10 @@
-.error {
-	color:				red;
-}
+@IMPORT url("reset.css");
+
+/* DEFAULTS */
+h1 {font-size: 20pt;font-weight: bold;}
+h2 {font-size: 14pt;font-weight: bold;}
+h3 {font-size: 12pt;font-weight: bold;}
+h4 {font-size: 10pt;font-weight: bold;}
 
 table, tr, td {
 	width: 				auto;
@@ -41,4 +45,22 @@ input.scoring {
 	border: 			1px solid gray;
 	size: 				5;
 	width: 				30px;
+}
+
+/* CLASSES */
+.error {
+	color:				red;
+}
+.container {
+	width:				100%;
+	display:			block;
+}
+.left {
+	float:				left;
+}
+.right {
+	float:				right;
+}
+.clear {
+	clear:				both !important;
 }

@@ -13,20 +13,18 @@ common.delete=Ta bort
 common.name=Namn
 common.register=Registrera
 common.unregister=Avregistrera
+common.selectcategory=Välj kategori
 
 competitions.addstage=Lägg till station
-competitions.application=Tävlingsanmälan
 competitions.competition=Tävling
 competitions.competitionname=Tävlingens namn
 competitions.competitiondate=Tävlingsdatum
-competitions.details=Detaljer
 competitions.greeting=Hej och välkommen till %s!
 competitions.participants=Deltagare
 competitions.points=Poäng
 competitions.registerparticipant=Registrera deltagare
 competitions.stage=Station
 competitions.unregister=Avregistrera
-
 
 competitors.createuser=Skapa ny användare
 
@@ -45,6 +43,7 @@ notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
 notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 
+registration.cancel=Avbryt
 registration.failed.title=Registrering misslyckades
 registration.failed.heading=Tyvärr kunde vi inte hitta din registrering!
 registration.failed.body=Vänligen kontakta oss på <a href="mailto:registrering@sagittarius.se">registrering@sagittarius.se</a> för hjälp med ditt konto!
@@ -57,8 +56,6 @@ registration.successful.body=Nu har du slutfört din registrering. Vi hoppas att
 registration.title=Skapa konto
 registration.submit=Skapa konto
 
-results=Resultat
-
 # Validation messages
 validation.error=Fel i inmatad data
 validation.required=Obligatoriskt fält
@@ -67,12 +64,7 @@ validation.email=Ogiltig e-postadress
 validation.min=Värde måste anges
 
 # Module overrides
-secure.error=Okänt användarnamn eller lösenord
-secure.login=Logga in
-secure.logout=Du har blivit utloggad
-secure.noaccount=Har du inget konto?
-secure.noaccount.create=Skapa ett här
+secure.title=Inloggning
+secure.username=E-postadress
 secure.password=Lösenord
 secure.remember=Kom ihåg lösenord
-secure.title=
-secure.username=E-postadress

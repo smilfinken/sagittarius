@@ -1,15 +1,10 @@
 <label for="modelID">&{'common.type'}</label>
 <select name="userID">
+	<option value="-1"></option>
 	%{
-	String selected = "";
 	for (targetModel in targetModels) {
-	if (targetModel.id == modelID) {
-	selected = "selected";
-	} else {
-	selected = "";
-	}
 	}%
-	<option value="${targetModel.id}" ${selected}>${targetModel.getModel()}</option>
+	<option value="${targetModel.id}" #{if (targetModel.id == modelID)}selected#{/if}>${targetModel.getModel()}</option>
 	%{
 	}
 	}%

@@ -40,7 +40,7 @@ public class ResultTest extends UnitTest {
 		competitors.add(competitorSecond);
 		competitors.add(competitorFirst);
 
-		List<Competitor> sortedCompetitors = Results.sortResults(competitors);
+		List<Competitor> sortedCompetitors = common.Sorting.sortResults(competitors);
 		assertTrue(sortedCompetitors.indexOf(competitorFirst) == 0);
 		assertTrue(sortedCompetitors.indexOf(competitorSecond) == 1);
 		assertTrue(sortedCompetitors.indexOf(competitorThird) == 2);

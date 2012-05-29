@@ -1,67 +1,93 @@
 application.name=Sagittarius
 
 # Application properties
-adminstration.title=Administration
+administration.title=Administration
 administration.users=Användare
 
-common.person=Person
-common.type=Typ
 common.crestgroup=Vapengrupp
 common.change=Ändra
 common.changeobject=Ändra %s
+common.colour=Färg
 common.delete=Ta bort
+common.division=Klass
 common.name=Namn
+common.person=Person
 common.register=Registrera
-common.unregister=Avregistrera
 common.selectcategory=Välj kategori
+common.type=Typ
+common.unregister=Avregistrera
+common.update=Uppdatera
 
 competitions.addstage=Lägg till station
+competitions.application=Tävlingsanmälan
+competitions.create=Skapa
+competitions.createlabel=Ny tävling
 competitions.competition=Tävling
 competitions.competitionname=Tävlingens namn
 competitions.competitiondate=Tävlingsdatum
+competitions.details=Detaljer
 competitions.greeting=Hej och välkommen till %s!
 competitions.participants=Deltagare
 competitions.points=Poäng
 competitions.registerparticipant=Registrera deltagare
+competitions.return=Tillbaks till tävlingen
+competitions.select=Välj
+competitions.selectlabel=Välj en tävling
 competitions.stage=Station
-competitions.unregister=Avregistrera
 
 competitors.createuser=Skapa ny användare
+competitors.registernew=Registrera en ny deltagare
+competitors.unregister=Avregistrera deltagare
 
 controller.registration.password=Lösenord
 controller.registration.passwordVerification=Bekräfta lösenord
 
-models.user.firstname=Förnamn
-models.user.surname=Efternamn
+export=Exportera
+export.print=Utskrift
+export.integration=Exportera till annat system
+
 models.user.cardnumber=Skyttekortsnummer
-models.user.rank=Klass
 models.user.category=Kategori
 models.user.email=E-post
+models.user.firstname=Förnamn
 models.user.password=Lösenord
+models.user.rank=Klass
+models.user.surname=Efternamn
 
+notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
-notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 
 registration.cancel=Avbryt
 registration.failed.title=Registrering misslyckades
-registration.failed.heading=Tyvärr kunde vi inte hitta din registrering!
-registration.failed.body=Vänligen kontakta oss på <a href="mailto:registrering@sagittarius.se">registrering@sagittarius.se</a> för hjälp med ditt konto!
-registration.initiated.heading=Din registrering behandlas!
 registration.initiated.body=Vi har skickat ett mail till den E-postadress du angav. Där framgår hur du ska göra för att aktivera ditt konto.
+registration.initiated.heading=Din registrering behandlas!
 registration.link=Fortsätt till inloggningssidan
-registration.successful.title=Registrering lyckades
-registration.successful.heading=Registreringen slutförd!
 registration.successful.body=Nu har du slutfört din registrering. Vi hoppas att du kommer ha stor nytta av tjänsten och att du hör av dig med önskemål och kommentarer till <a href="mailto:feedback@sagittarius.se">feedback@sagittarius.se</a>.
-registration.title=Skapa konto
+registration.successful.heading=Registreringen slutförd!
+registration.successful.title=Registrering lyckades
 registration.submit=Skapa konto
+registration.title=Skapa konto
+
+results.title=Resultat
+results.register=Registrera resultat
+
+target.target=Mål
+target.shape=Figur
+target.scoreable=Poängmål
+target.new=Ny figur
+
+targetgroup.new=Ny målgrupp
+
+users.delete=Radera användare
+users.user= Användare
 
 # Validation messages
-validation.error=Fel i inmatad data
-validation.required=Obligatoriskt fält
-validation.equals=Måste matcha &{%2$s}
 validation.email=Ogiltig e-postadress
+validation.error=Fel i inmatad data
+validation.equals=Måste matcha &{%2$s}
 validation.min=Värde måste anges
+validation.required=Obligatoriskt fält
 
 # Module overrides
 secure.title=Inloggning

@@ -65,10 +65,9 @@
 	int totalPoints;
 	int place = 1;
 	}%
-	<table style="text-align: left">
+	<table>
 		<tr>
-			<th>Placering</th>
-			<th>Namn</th>
+			<th colspan="2" style="text-align: left">Namn</th>
 			<th>Klass</th>
 			<th colspan="4">Resultat</th>
 		</tr>
@@ -86,7 +85,7 @@
 		previousClass = entry.getDivision();
 		}%
 		<tr>
-			<td style="font-style: italic; font-weight: bold; text-align: right">${place}</td>
+			<td style="font-style: italic; font-weight: bold; text-align: left">${place}</td>
 			<td style="font-weight: bold">${entry.getFullName()}</td>
 			<td style="font-weight: bold">${entry.getDivision()}</td>
 			<td>
@@ -134,7 +133,7 @@
 			<td colspan="7">
 				<form method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input class="enter" type="submit" formaction="@{Results.exportPrintable()}" value="Utskrift" />
+					<input formtarget="_blank" class="enter" type="submit" formaction="@{Results.generatePDF()}" value="Utskrift" />
 					<input class="enter" type="submit" formaction="@{Results.export()}" value="Exportera" />
 					<input class="enter" type="submit" formaction="@{Results.exportToShooter()}" value="Generera importfil till Claes" />
 				</form>

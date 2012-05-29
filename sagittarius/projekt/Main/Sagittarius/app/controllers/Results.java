@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.*;
 import models.*;
 import play.mvc.Controller;
@@ -228,7 +229,7 @@ public class Results extends Controller {
 		}
 	}
 
-	public static void exportPrintable(long competitionID) {
+	public static void generatePDF(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> results = sortResults(competition.competitors);
 		List<Competitor> competitors = new ArrayList<>();
@@ -238,10 +239,15 @@ public class Results extends Controller {
 			}
 		}
 
-		//TODO: figure out how to create a proper page header and footer
+		Date currentDate = new Date();
+		String timeStamp = String.format("%s %s", DateFormat.getDateInstance(DateFormat.LONG).format(currentDate), DateFormat.getTimeInstance(DateFormat.SHORT).format(currentDate));
 		Options options = new Options();
-		options.filename = String.format("%s-%s", competition.name, competition.getDate());
-		renderPDF("Results/print.html", options, competition, results, sortCompetitors(competitors));
+		options.filename = String.format("%s - %s.pdf", competition.name, competition.getDate());
+		//TODO: figure out why css classes do not work in the header and footer
+		options.HEADER_TEMPLATE = "Results/header.html";
+		options.FOOTER_TEMPLATE = "Results/footer.html";
+		options.FOOTER = "public/stylesheets/results.css";
+		renderPDF("Results/print.html", options, competition, results, sortCompetitors(competitors), timeStamp);
 	}
 
 	public static void registerUser(long competitionID, long userID) {

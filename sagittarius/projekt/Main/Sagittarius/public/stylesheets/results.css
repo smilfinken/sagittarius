@@ -9,49 +9,68 @@ root {
 	display: block;
 }
 
-h2 {
-	padding: 0em;
-	padding-bottom: 0.5em;
-	margin: 0em;
-	width: 40%;
-}
-
-h2.left {
-	float: left;
-	text-align: left;
-}
-
-h2.right {
-	float: right;
-	text-align: right;
+hr {
+	border: 1px solid #ff9600;
 }
 
 table {
 	-fs-table-paginate: paginate;
 	width: 100%;
+	border: none;
+	padding-top: 1em;
+}
+
+tr.spacer {
+	height: 1em;
+}
+
+tr.header {
+	background-color: #ffe0b3;
 }
 
 th {
 	text-align: left;
-	padding-top: 1em;
-	padding-left: 0em;
-	background-color: #f0f0f0;
 }
 
-th.left {
+th.competitor {
 	width: 30%;
 }
 
-th.center {
+th.stages {
 	width: 60%;
 }
 
-th.right {
+th.totals {
 	width: 10%;
 }
 
 td.competitor {
 	text-align: left;
+	width: 30%;
+}
+
+td.stages {
+	text-align: left;
+	width: 60%;
+}
+
+td.totals {
+	text-align: left;
+	width: 10%;
+}
+
+.footitle {
+	float: left;
+	width: 50%;
+	text-align: left;
+	font-size: larger;
+}
+
+.date {
+	float: right;
+	width: 50%;
+	text-align: right;
+	font-size: larger;
 }
 
 .place {
@@ -63,7 +82,6 @@ td.competitor {
 }
 
 .content {
-	clear: both;
 }
 
 .sum {

@@ -1,53 +1,47 @@
 <link media="print" type="text/css" rel="stylesheet" href="/public/stylesheets/results.css"/>
 
-<div>
-	<h2 class="left">
-		${competition.name}
-	</h2>
-</div>
-<div>
-	<h2 class="right">
-		${competition.getDate()}
-	</h2>
-</div>
-
 <div class="content">
 	%{
+	boolean tableOpen = false;
 	int totalHits;
 	int totalTargets;
 	int totalPoints;
 	int place = 1;
 	int count = 1;
 	}%
+	%{
+	if (results.size() > 0) {
+	String previousClass = "";
+	for(entry in results){
+	if (entry.results != null && entry.results.size() == competition.stages.size()) {
+	if (!entry.getDivision().equals(previousClass)){
+	place = 1;
+	}%
+	#{if (tableOpen == true)}</table>#{/if}
 	<table>
-		%{
-		if (results.size() > 0) {
-		String previousClass = "";
-		for(entry in results){
-		if (entry.results != null && entry.results.size() == competition.stages.size()) {
-		if (!entry.getDivision().equals(previousClass)){
-		place = 1;
-		}%
 		<thead>
-		<th class="left">
-			Klass ${entry.getDivision()}
-		</th>
-		<th class="center">
-			Stationer
-		</th>
-		<th class="right">
-			Totalt
-		</th>
+			<tr class="header">
+				<th class="competitor">
+					Klass ${entry.getDivision()}
+				</th>
+				<th class="stages">
+					Stationer
+				</th>
+				<th class="totals">
+					Totalt
+				</th>
+			</tr>
 		</thead>
 		%{
 		}
+		tableOpen = true;
 		previousClass = entry.getDivision();
 		}%
 		<tr>
 			<td class="competitor">
 				<span class="place">${place++}</span> <span class="name">${entry.getFullName()}</span>
 			</td>
-			<td>
+			<td class="stages">
 				%{
 				totalHits = 0;
 				totalTargets = 0;
@@ -63,19 +57,14 @@
 				}
 				}%
 			</td>
-			<td>
-				#{if competition.scoringType.sumPointsAndTargets() == true}
+			<td class="totals">
 				<span class="sum">${totalHits + totalTargets}</span> (${totalPoints})
-				#{/if}
-				#{else}
-				<span class="sum">${totalHits}/${totalTargets}</span> (${totalPoints})
-				#{/else}
 			</td>
 		</tr>
-		%{
-		}
-		}
-		}
-		}%
+	%{
+	}
+	}
+	}
+	}%
 	</table>
 </div>

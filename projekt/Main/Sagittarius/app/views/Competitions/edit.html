@@ -4,7 +4,7 @@
 <hr />
 
 <div>
-	<form method="POST">
+	<form id="competition" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
 			<tr>
@@ -13,8 +13,8 @@
 					<input type="text" name="name" value="${competition.name}" />
 					<label for="date">&{'competitions.competitiondate'}</label>
 					<input type="text" name="date" value="${competition.date}" />
-					<input class="enter" type="submit" formaction="@{Competitions.save()}" value="&{'common.change'}" />
-					<input class="delete" type="submit" formaction="@{Competitions.delete()}" value="&{'common.delete'}" />
+					<button class="enter" type="submit" formaction="@{Competitions.save()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competition").action="@{Competitions.save()}"'#{/if}>&{'common.change'}</button>
+					<button class="delete" type="submit" formaction="@{Competitions.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competition").action="@{Competitions.delete()}"'#{/if}>&{'common.delete'}</button>
 				</td>
 			</tr>
 			<tr>
@@ -62,21 +62,17 @@
 				<input type="checkbox" ${checked} disabled />
 			</td>
 			<td>
-				<div style="float: left">
-					<form method="POST">
-						<input type="hidden" name="competitionID" value="${competition.id}" />
-						<input type="hidden" name="stageID" value="${stage.id}" />
-						<input type="hidden" name="stageIndex" value="${i}" />
-						<input class="edit" type="submit" formaction="@{Stages.edit()}" value="&{'common.change'}" />
-					</form>
-				</div>
-				<div style="float: left">
-					<form method="POST">
-						<input type="hidden" name="competitionID" value="${competition.id}" />
-						<input type="hidden" name="stageID" value="${stage.id}" />
-						<input class="delete" type="submit" formaction="@{Competitions.deleteStage()}" value="&{'common.delete'}" />
-					</form>
-				</div>
+				<form id="stage_${i}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="hidden" name="stageID" value="${stage.id}" />
+					<input type="hidden" name="stageIndex" value="${i}" />
+					<div style="float: left">
+						<button class="edit" type="submit" formaction="@{Stages.edit()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("stage_${i}").action="@{Stages.edit()}"'#{/if}>&{'common.change'}</button>
+					</div>
+					<div style="float: left">
+						<button class="delete" type="submit" formaction="@{Competitions.deleteStage()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("stage_${i}").action="@{Competitions.deleteStage()}"'#{/if}>&{'common.delete'}</button>
+					</div>
+				</form>
 			</td>
 		</tr>
 		%{
@@ -89,10 +85,10 @@
 		</tr>
 		<tr>
 			<td style="text-align: left" colspan="3">
-				<form method="POST">
+				<form action="@{Competitions.addStage()}" method="POST">
 					<input type="text" name="name" />
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="submit" class="enter" formaction="@{Competitions.addStage()}" value="&{'competitions.addstage'}" />
+					<button type="submit" class="enter" formaction="@{Competitions.addStage()}">&{'competitions.addstage'}</button>
 				</form>
 			</td>
 		</tr>

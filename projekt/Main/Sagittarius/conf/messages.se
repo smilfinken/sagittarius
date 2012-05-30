@@ -90,12 +90,12 @@ validation.min=Värde måste anges
 validation.required=Obligatoriskt fält
 
 # Module overrides
-secure.error=OkÃ¤nt anvÃ¤ndarnamn eller lÃ¶senord
+secure.error=Okänt användarnamn eller lösenord
 secure.login=Logga in
 secure.logout=Du har blivit utloggad
 secure.noaccount=Har du inget konto?
-secure.noaccount.create=Skapa ett hÃ¤r
-secure.password=LÃ¶senord
-secure.remember=Kom ihÃ¥g lÃ¶senord
+secure.noaccount.create=Skapa ett här
+secure.password=Lösenord
+secure.remember=Kom ihåg lösenord
 secure.title=
 secure.username=E-postadress

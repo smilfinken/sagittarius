@@ -34,7 +34,9 @@ public class Security extends Secure.Security {
 	}
 	
 	public static String staticHash(String text) {
-		String hashedText = "";
+
+		// currentTimeMillis - To ensure a failing hashing algoritm does not allow for registration check fall through
+		String hashedText = String.valueOf(System.currentTimeMillis());
 		
 		if (text != null) {
 			try {

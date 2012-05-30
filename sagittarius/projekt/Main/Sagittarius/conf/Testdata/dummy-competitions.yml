@@ -157,26 +157,32 @@ TargetGroup(8):
 
 Stage(1):
   targetGroups: [1]
+  stageIndex: 1
   name: Inskjutning
 
 Stage(2):
   targetGroups: [2]
+  stageIndex: 2
   name: Snabbskytte
 
 Stage(3):
   targetGroups: [3]
+  stageIndex: 3
   name: Vändställ
 
 Stage(4):
   targetGroups: [4,5]
+  stageIndex: 4
   name: Kort och brett
 
 Stage(5):
   targetGroups: [6]
+  stageIndex: 5
   name: Långt och smalt
 
 Stage(6):
   targetGroups: [7,8]
+  stageIndex: 6
   name: Långt och brett
 
 Competition(1):

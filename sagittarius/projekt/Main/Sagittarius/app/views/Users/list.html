@@ -1,20 +1,8 @@
-#{extends "main.html" /}
+#{extends "Administration/main.html" /}
 #{set title: "Användare" /}
+
 <div>
-    <table>
-%{
-        for (user in users){
-}%
-<tr>
-    <td>
-        ${user.firstName}
-    </td>
-    <td>
-        ${user.surname}
-    </td>
-</tr>
-%{
-        }
-}%
-    </table>
+	#{list users}
+	${_.firstName} ${_.surname}
+	#{/list}
 </div>

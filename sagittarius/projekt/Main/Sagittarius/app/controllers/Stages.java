@@ -14,15 +14,15 @@ import play.mvc.With;
 @With(Secure.class)
 public class Stages extends Controller {
 
-	public static void edit(long competitionID, long stageID, int stageIndex) {
+	public static void edit(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 		List<TargetModel> targetModels = TargetModel.all().fetch();
 
-		renderTemplate("Stages/edit.html", competition, stage, stageIndex, targetModels);
+		renderTemplate("Stages/edit.html", competition, stage, targetModels);
 	}
 
-	public static void update(long competitionID, long stageID, int stageIndex, String name) {
+	public static void update(long competitionID, long stageID, String name) {
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
@@ -30,10 +30,10 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		edit(competitionID, stageID, stageIndex);
+		edit(competitionID, stageID);
 	}
 
-	public static void addTargetGroup(long competitionID, long stageID, int stageIndex) {
+	public static void addTargetGroup(long competitionID, long stageID) {
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
@@ -43,10 +43,10 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		edit(competitionID, stageID, stageIndex);
+		edit(competitionID, stageID);
 	}
 
-	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID, int stageIndex) {
+	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID) {
 		Stage stage = Stage.findById(stageID);
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
@@ -58,10 +58,10 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		edit(competitionID, stageID, stageIndex);
+		edit(competitionID, stageID);
 	}
 
-	public static void addTarget(long competitionID, long stageID, int stageIndex, long targetGroupID, String hasPoints) {
+	public static void addTarget(long competitionID, long stageID, long targetGroupID, String hasPoints) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
 		if (targetGroup != null) {
@@ -73,10 +73,10 @@ public class Stages extends Controller {
 			targetGroup.save();
 		}
 
-		edit(competitionID, stageID, stageIndex);
+		edit(competitionID, stageID);
 	}
 
-	public static void updateTarget(long competitionID, long stageID, int stageIndex, long targetID, String hasPoints, long modelID) {
+	public static void updateTarget(long competitionID, long stageID, long targetID, String hasPoints, long modelID) {
 		Target target = Target.findById(targetID);
 
 		if (target != null) {
@@ -85,10 +85,10 @@ public class Stages extends Controller {
 			target.targetModel = TargetModel.findById(modelID);
 		}
 
-		edit(competitionID, stageID, stageIndex);
+		edit(competitionID, stageID);
 	}
 
-	public static void deleteTarget(long competitionID, long stageID, int stageIndex, long targetGroupID, long targetID, String hasPoints, String model) {
+	public static void deleteTarget(long competitionID, long stageID, long targetGroupID, long targetID, String hasPoints, String model) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 		Target target = Target.findById(targetID);
 
@@ -98,6 +98,6 @@ public class Stages extends Controller {
 			target.delete();
 		}
 
-		edit(competitionID, stageID, stageIndex);
+		edit(competitionID, stageID);
 	}
 }

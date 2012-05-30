@@ -1,48 +1,19 @@
 #{extends 'main.html' /}
 #{set title: messages.get("application.name") /}
 
-<table>
-	<tr>
-		<td>
-			<form action="@{Results.list()}" method="POST">
-				<div style="float: left">
-					<label for="competitionID">&{'competitions.selectlabel'}</label>
-					<select name="competitionID">
-						%{
-						for (competition in competitions){
-						}%
-						<option value="${competition.id}">${competition.name}</option>
-						%{
-						}
-						}%
-					</select>
-				</div>
-				<div style="float: right">
-					<button type="submit">&{'competitions.select'}</button>
-				</div>
-			</form>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<form action="@{Competitions.add()}" method="POST">
-				<div style="float: left">
-					<label for="name">&{'competitions.createlabel'}</label>
-					<input type="text" name="name" />
-					<select name="competitionTypeID">
-						%{
-						for (type in competitionTypes) {
-						}%
-						<option value="${type.id}">${type.name}</option>
-						%{
-						}
-						}%
-					</select>
-				</div>
-				<div style="float: right">
-					<button type="submit">&{'competitions.create'}</button>
-				</div>
-			</form>
-		</td>
-	</tr>
-</table>
+<form action="@{Results.list()}" method="POST">
+	#{include "Common/selectCompetition.html" /}
+	<button type="submit">&{'competitions.select'}</button>
+</form>
+
+<hr />
+
+<form action="@{Competitions.add()}" method="POST">
+	&{'competitions.createnew'}<br />
+	<label for="name">&{'common.name'}</label>
+	<input type="text" name="name" />
+	#{include "Common/selectCompetitionType.html" /}
+	<label for="date">&{'competitions.competitiondate'}</label>
+	<input type="text" name="date" />
+	<button type="submit">&{'competitions.create'}</button>
+</form>

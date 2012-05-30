@@ -13,12 +13,6 @@ import play.mvc.With;
 @With(Secure.class)
 public class Competitions extends Controller {
 
-	public static void list() {
-		List<Competition> competitions = Competition.all().fetch();
-
-		render(competitions);
-	}
-
 	public static void add(String name, long competitionTypeID, String date) {
 		Competition competition = new Competition(name);
 
@@ -32,7 +26,8 @@ public class Competitions extends Controller {
 		competition.competitionType = CompetitionType.findById(competitionTypeID);
 		competition.save();
 
-		renderTemplate("Competitions/select.html", competition);
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		renderTemplate("Competitions/edit.html", competition, competitionTypes);
 	}
 
 	public static void edit(long competitionID) {
@@ -93,16 +88,14 @@ public class Competitions extends Controller {
 	}
 
 	public static void enroll(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-
-		renderTemplate("Competitions/select.html", competition);
+		Results.list(competitionID);
 	}
 
 	public static void addStage(long competitionID, String name) {
 		Competition competition = Competition.findById(competitionID);
 
 		if (competition != null) {
-			Stage stage = new Stage(1, name);
+			Stage stage = new Stage(1, name, competition.stages.size() + 1);
 			stage.save();
 			competition.stages.add(stage);
 			competition.save();
@@ -118,6 +111,7 @@ public class Competitions extends Controller {
 		Competition competition = Competition.findById(competitionID);
 
 		// TODO: fix this so that data is properly removed from db on deletion
+		// TODO: fix index when deleting a stage
 		Stage stage = Stage.findById(stageID);
 		if (stage != null) {
 			for (TargetGroup targetGroup : stage.targetGroups) {
@@ -150,7 +144,7 @@ public class Competitions extends Controller {
 		}
 
 		List<User> users = User.all().fetch();
-		List<Competitor> competitors = Competitor.all().fetch();
+		List<Competitor> competitors = competition.competitors;
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
@@ -170,7 +164,7 @@ public class Competitions extends Controller {
 		}
 
 		List<User> users = User.all().fetch();
-		List<Competitor> competitors = Competitor.all().fetch();
+		List<Competitor> competitors = competition.competitors;
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();

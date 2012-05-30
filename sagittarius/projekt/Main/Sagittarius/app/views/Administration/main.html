@@ -2,15 +2,9 @@
 #{set title: messages.get("adminstration.title") /}
 
 <div>
-	<table>
-		<tr>
-			<td>
-				<form action="@{Users.list()}" method="POST">
-					<input class="navigate" type="submit" formaction="@{Users.list()}" value="&{'administration.users'}" />
-				</form>
-			</td>
-		</tr>
-	</table>
+	#{a @Users.list()}&{'administration.users'}#{/a}
 </div>
+
+<hr />
 
 #{doLayout /}

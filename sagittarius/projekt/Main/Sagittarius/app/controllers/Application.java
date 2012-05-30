@@ -14,9 +14,9 @@ public class Application extends Controller {
 //        renderArgs.put("connected", Security.connected());
 //    }
 
-    public static void index() {
-        List<Competition> competitions = Competition.all().fetch();
-        List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-        render(competitions, competitionTypes);
-    }
+	public static void index() {
+		List<Competition> competitions = Competition.all().fetch();
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+		render(competitions, competitionTypes);
+	}
 }

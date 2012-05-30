@@ -1,11 +1,7 @@
 <label for="modelID">&{'common.type'}</label>
-<select name="userID">
-	<option value="-1"></option>
-	%{
-	for (targetModel in targetModels) {
-	}%
-	<option value="${targetModel.id}" #{if (targetModel.id == modelID)}selected#{/if}>${targetModel.getModel()}</option>
-	%{
-	}
-	}%
-</select>
+#{select 'modelID', value:target?.getModelID()}
+#{option -1}#{/option}
+#{list targetModels}
+#{option _.id}${_.getModel()}#{/option}
+#{/list}
+#{/select}

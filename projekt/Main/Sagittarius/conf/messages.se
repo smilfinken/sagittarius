@@ -8,10 +8,12 @@ common.crestgroup=Vapengrupp
 common.change=Ändra
 common.changeobject=Ändra %s
 common.colour=Färg
+common.competitor=Tävlande
 common.delete=Ta bort
 common.division=Klass
 common.name=Namn
 common.person=Person
+common.participant=Deltagare
 common.register=Registrera
 common.selectcategory=Välj kategori
 common.type=Typ
@@ -21,12 +23,13 @@ common.update=Uppdatera
 competitions.addstage=Lägg till station
 competitions.application=Tävlingsanmälan
 competitions.create=Skapa
-competitions.createlabel=Ny tävling
+competitions.createnew=Skapa en ny tävling
 competitions.competition=Tävling
 competitions.competitionname=Tävlingens namn
 competitions.competitiondate=Tävlingsdatum
 competitions.details=Detaljer
 competitions.greeting=Hej och välkommen till %s!
+competitions.participant=Deltagare
 competitions.participants=Deltagare
 competitions.points=Poäng
 competitions.registerparticipant=Registrera deltagare
@@ -36,6 +39,7 @@ competitions.selectlabel=Välj en tävling
 competitions.stage=Station
 
 competitors.createuser=Skapa ny användare
+competitors.nocompetitors=Inga deltagare finns att registrera resultat på.
 competitors.registernew=Registrera en ny deltagare
 competitors.unregister=Avregistrera deltagare
 
@@ -69,15 +73,17 @@ registration.successful.title=Registrering lyckades
 registration.submit=Skapa konto
 registration.title=Skapa konto
 
-results.title=Resultat
+results.noresults=Inga resultat har registrerats.
 results.register=Registrera resultat
+results.title=Resultat
 
-target.target=Mål
-target.shape=Figur
-target.scoreable=Poängmål
-target.new=Ny figur
+targets.target=Mål
+targets.shape=Figur
+targets.scoreable=Poängmål
+targets.new=Ny figur
 
-targetgroup.new=Ny målgrupp
+targetgroups.new=Ny målgrupp
+targetgroups.targetgroup=Målgrupp
 
 users.delete=Radera användare
 users.user= Användare

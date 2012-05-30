@@ -23,34 +23,21 @@ public class Results extends Controller {
 		competitor.save();
 	}
 
-
-	static List<Competitor> sortCompetitors(List<Competitor> competitors) {
-		class CompetitorListComparator implements Comparator<Competitor> {
-
-			@Override
-			public int compare(Competitor A, Competitor B) {
-				return A.getFullName().compareToIgnoreCase(B.getFullName());
-			}
-		}
-
-		List<Competitor> out = competitors;
-		CompetitorListComparator c = new CompetitorListComparator();
-
-		Collections.sort(out, c);
-		return out;
-	}
-
 	public static void list(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> results = common.Sorting.sortResults(competition.competitors);
+		List<Competitor> allcompetitors = competition.competitors;
+
 		List<Competitor> competitors = new ArrayList<>();
-		for (Competitor competitor : results) {
+		List<Competitor> results = new ArrayList<>();
+		for (Competitor competitor : allcompetitors) {
 			if (!competitor.isScored()) {
 				competitors.add(competitor);
+			} else {
+				results.add(competitor);
 			}
 		}
 
-		renderTemplate("Results/list.html", competition, results, sortCompetitors(competitors));
+		renderTemplate("Results/list.html", competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
 	}
 
 	public static void add(long competitionID, long competitorID, List<Result> results) {
@@ -169,7 +156,7 @@ public class Results extends Controller {
 		options.HEADER_TEMPLATE = "Results/header.html";
 		options.FOOTER_TEMPLATE = "Results/footer.html";
 		options.FOOTER = "public/stylesheets/results.css";
-		renderPDF("Results/print.html", options, competition, results, sortCompetitors(competitors), timeStamp);
+		renderPDF("Results/print.html", options, competition, results, common.Sorting.sortCompetitors(competitors), timeStamp);
 	}
 
 	public static void unregisterUser(long competitionID, long competitorID) {

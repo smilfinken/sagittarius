@@ -3,7 +3,6 @@ package controllers;
 import java.util.Arrays;
 import java.util.List;
 import models.*;
-import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -41,7 +40,7 @@ public class Users extends Controller {
 		}
 
 		List<User> users = User.all().fetch();
-		List<Competitor> competitors = Competitor.all().fetch();
+		List<Competitor> competitors = competition.competitors;
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
@@ -57,7 +56,7 @@ public class Users extends Controller {
 		}
 
 		List<User> users = User.all().fetch();
-		List<Competitor> competitors = Competitor.all().fetch();
+		List<Competitor> competitors = competition.competitors;
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();

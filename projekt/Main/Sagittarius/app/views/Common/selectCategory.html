@@ -1,11 +1,4 @@
 <label for="categoryID">&{'models.user.category'}</label>
-<select name="categoryID">
-	<option value="-1"></option>
-	%{
-	for (category in categories) {
-	}%
-	<option #{if (flash.categoryID == category.id.toString())}selected#{/if} value="${category.id}">${category.category}</option>
-	%{
-	}
-	}%
-</select>
+#{select 'categoryID', items: categories, value:flash.categoryID, valueProperty:'id', labelProperty:'category'}
+#{option -1}#{/option}
+#{/select}

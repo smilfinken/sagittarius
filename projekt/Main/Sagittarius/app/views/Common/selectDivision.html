@@ -1,11 +1,4 @@
 <label for="divisionID">&{'common.crestgroup'}</label>
-<select name="divisionID">
-	<option value="-1"></option>
-	%{
-	for (division in divisions) {
-	}%
-	<option value="${division.id}">${division.division}</option>
-	%{
-	}
-	}%
-</select>
+#{select 'divisionID', items:divisions, value:flash.divisionID, valueProperty:'id', labelProperty:'division'}
+#{option -1}#{/option}
+#{/select}

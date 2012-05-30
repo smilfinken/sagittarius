@@ -2,360 +2,107 @@
 #{set title: "Parametrar" /}
 
 <div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${categories.size()} kategorier
-			</th>
-		</tr>
-		%{
-		for (category in categories) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${category.id}
-			</td>
-			<td style="text-align: left">
-				${category.category}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${categories.size()} kategorier<br />
+	#{list categories}
+	[${_.id}] ${_.category}<br />
+	#{/list}
 </div>
 
-<div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${ranks.size()} t&auml;vlingsklasser
-			</th>
-		</tr>
-		%{
-		for (rank in ranks) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${rank.id}
-			</td>
-			<td style="text-align: left">
-				${rank.rank}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
-</div>
+<hr />
 
 <div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${competitionTypes.size()} t&auml;vlingstyper
-			</th>
-		</tr>
-		%{
-		for (competitionType in competitionTypes) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${competitionType.id}
-			</td>
-			<td style="text-align: left">
-				${competitionType.name}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${ranks.size()} t&auml;vlingsklasser<br />
+	#{list ranks}
+	[${_.id}] ${_.rank} ${_.label}<br />
+	#{/list}
 </div>
 
-<div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${divisions.size()} divisoner
-			</th>
-			<th style="text-align: center">
-				ranking?
-			</th>
-		</tr>
-		%{
-		for (division in divisions) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${division.id}
-			</td>
-			<td style="text-align: left">
-				${division.division}
-			</td>
-			<td style="text-align: center">
-				%{
-				String checked = "";
-				if (division.ranks) {
-				checked = "checked";
-				}
-				}%
-				<input type="checkbox" ${checked} disabled />
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
-</div>
+<hr />
 
 <div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${stages.size()} stationer
-			</th>
-			<th>
-				m&aring;lgrupper
-			</th>
-		</tr>
-		%{
-		for (stage in stages) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${stage.id}
-			</td>
-			<td style="text-align: left">
-				${stage.name}
-			</td>
-			<td style="text-align: left">
-				%{
-				if (stage.targetGroups != null) {
-				}%
-				${stage.targetGroups.size()}
-				%{
-				} else {
-				}%
-				Inga m&aring;lgrupper
-				%{
-				}
-				}%
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${competitionTypes.size()} t&auml;vlingstyper<br />
+	#{list competitionTypes}
+	[${_.id}] ${_.name}<br />
+	#{/list}
 </div>
 
-<div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${targetGroups.size()} m&aring;lgrupper
-			</th>
-			<th>
-				figurer
-			</th>
-		</tr>
-		%{
-		for (group in targetGroups) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${group.id}
-			</td>
-			<td style="text-align: left">
-				${group.description}
-			</td>
-			<td style="text-align: left">
-				%{
-				if (group.targets != null) {
-				}%
-				${group.targets.size()}
-				%{
-				} else {
-				}%
-				Inga figurer
-				%{
-				}
-				}%
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
-</div>
+<hr />
 
 <div>
-	<table>
-		<tr>
-			<th colspan="3" style="text-align: left">
-				${targetModels.size()} figurtyper
-			</th>
-		</tr>
-		%{
-		for (targetModel in targetModels) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${targetModel.id}
-			</td>
-			<td style="text-align: left">
-				${targetModel.name}
-			</td>
-			<td style="text-align: left">
-				${targetModel.colour}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${divisions.size()} divisoner<br />
+	#{list divisions}
+	[${_.id}] ${_.division} <input type="checkbox" disabled #{if (_.ranks)}checked#{/if}/><br />
+	#{/list}
 </div>
 
-<div>
-	<table>
-		<tr>
-			<th colspan="1" style="text-align: left">
-				${targets.size()} figurer
-			</th>
-			<th>
-				typ
-			</th>
-			<th>
-				poäng?
-			</th>
-		</tr>
-		%{
-		for (target in targets) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${target.id}
-			</td>
-			<td style="text-align: left">
-				${target.model}
-			</td>
-			<td style="text-align: left">
-				${target.hasPoints}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
-</div>
+<hr />
 
 <div>
-	<table>
-		<tr>
-			<th colspan="2" style="text-align: left">
-				${competitions.size()} t&auml;vlingar
-			</th>
-			<th>
-				datum
-			</th>
-		</tr>
-		%{
-		for (competition in competitions) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${competition.id}
-			</td>
-			<td style="text-align: left">
-				${competition.name}
-			</td>
-			<td style="text-align: left">
-				${competition.date}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${stages.size()} stationer<br />
+	#{list stages}
+	[${_.id}] ${_.stageIndex} ${_.name} #{if (_.targetGroups != null)}${_.targetGroups.size()}#{/if}#{else}Inga m&aring;lgrupper#{/else}<br />
+	#{/list}
 </div>
 
-<div>
-	<table>
-		<tr>
-			<th colspan="3" style="text-align: left">
-				${squads.size()} patruller
-			</th>
-		</tr>
-		%{
-		for (squad in squads) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${squad.id}
-			</td>
-			<td style="text-align: left">
-				${squad.number}
-			</td>
-			<td style="text-align: left">
-				${squad.slots}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
-</div>
+<hr />
 
 <div>
-	<table>
-		<tr>
-			<th colspan="3" style="text-align: left">
-				${competitors.size()} t&auml;vlingsdeltagare
-			</th>
-		</tr>
-		%{
-		for (competitor in competitors) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${competitor.id}
-			</td>
-			<td style="text-align: left">
-				${competitor.getFullName()}
-			</td>
-			<td style="text-align: left">
-				${competitor.getDivision()}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${targetGroups.size()} m&aring;lgrupper<br />
+	#{list targetGroups}
+	[${_.id}] ${_.description} #{if (_.targets != null)}${_.targets.size()}#{/if}#{else}Inga figurer#{/else}<br />
+	#{/list}
 </div>
 
+<hr />
+
 <div>
-	<table>
-		<tr>
-			<th colspan="3" style="text-align: left">
-				${users.size()} anv&auml;ndare
-			</th>
-		</tr>
-		%{
-		for (user in users) {
-		}%
-		<tr>
-			<td style="text-align: right">
-				${user.id}
-			</td>
-			<td style="text-align: left">
-				${user.firstName} ${user.surname}
-			</td>
-			<td style="text-align: left">
-				${user.email}
-			</td>
-		</tr>
-		%{
-		}
-		}%
-	</table>
+	${targetModels.size()} figurtyper<br />
+	#{list targetModels}
+	[${_.id}] ${_.name} ${_.colour}<br />
+	#{/list}
+</div>
+
+<hr />
+
+<div>
+	${targets.size()} figurer<br />
+	#{list targets}
+	[${_.id}] ${_.model} ${_.hasPoints}<br />
+	#{/list}
+</div>
+
+<hr />
+
+<div>
+	${competitions.size()} t&auml;vlingar<br />
+	#{list competitions}
+	[${_.id}] ${_.name} ${_.date}<br />
+	#{/list}
+</div>
+
+<hr />
+
+<div>
+	${squads.size()} patruller<br />
+	#{list squads}
+	[${_.id}] ${_.number} ${_.slots}<br />
+	#{/list}
+</div>
+
+<hr />
+
+<div>
+	${competitors.size()} t&auml;vlingsdeltagare<br />
+	#{list competitors}
+	[${_.id}] ${_.getFullName()} ${_.getDivision()}<br />
+	#{/list}
+</div>
+
+<hr />
+
+<div>
+	${users.size()} anv&auml;ndare<br />
+	#{list users}
+	[${_.id}] ${_.getFullName()} ${_.email}<br />
+	#{/list}
 </div>

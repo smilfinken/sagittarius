@@ -3,76 +3,49 @@
 
 <hr />
 
-<div>
-	<form id="register" method="POST">
+<form id="register" method="POST">
+	<div>
 		<input type="hidden" name="competitionID" value="${competition.id}" />
+		#{include "Common/selectUser.html" /}
+		#{include "Common/selectDivision.html" /}
+		<button class="enter" type="submit" formaction="@{Competitions.registerUser()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Competitions.registerUser()}"'#{/if}>&{'common.register'}</button>
+		<button class="delete" type="submit" formaction="@{Users.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Users.delete()}"'#{/if}>&{'users.delete'}</button>
+	</div>
+
+	<hr />
+
+	<div>
+		<label for="firstName">&{'models.user.firstname'}</label>
+		<input type="text" name="firstName" />
+		<label for="surname">&{'models.user.surname'}</label>
+		<input type="text" name="surname" />
+		#{include "Common/selectCategory.html" /}
+		#{include "Common/selectRank.html" /}
+		<button class="enter" type="submit" formaction="@{Users.add}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("user").action="@{Users.add()}"'#{/if}>&{'competitors.createuser'}</button>
+	</div>
+
+	<hr />
+
+	<div>
 		<table>
 			<tr>
-				<td>
-					#{include "Common/selectUser.html" /}
-				</td>
-				<td>
-					#{include "Common/selectDivision.html" /}
-					<button class="enter" type="submit" formaction="@{Competitions.registerUser()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Competitions.registerUser()}"'#{/if}>&{'common.register'}</button>
-					<button class="delete" type="submit" formaction="@{Users.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Users.delete()}"'#{/if}>&{'users.delete'}</button>
-				</td>
-			</tr>
-		</table>
-
-		<hr />
-
-		<table>
-			<tr>
-				<td>
-
-					<label for="firstName">&{'models.user.firstname'}</label>
-					<input type="text" name="firstName" />
-				</td>
-				<td>
-					<label for="surname">&{'models.user.surname'}</label>
-					<input type="text" name="surname" />
-				</td>
-				<td>
-					#{include "Common/selectCategory.html" /}
-				</td>
-				<td>
-					#{include "Common/selectRank.html" /}
-				</td>
-				<td>
-					<button class="enter" type="submit" formaction="@{Users.add}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("user").action="@{Users.add()}"'#{/if}>&{'competitors.createuser'}</button>
-				</td>
-			</tr>
-		</table>
-
-		<hr />
-
-		<table>
-			<tr>
-				<th style="text-align: left">
-					&{'common.name'}
+				<th>
+					&{'common.competitor'}
 				</th>
-				<th style="text-align: left" colspan="2">
+				<th>
 					&{'common.division'}
 				</th>
 			</tr>
-			%{
-			for (competitor in competitors){
-			}%
+			#{list competitors}
 			<tr>
 				<td>
-					${competitor.getFullName()}
+					${_.getFullName()}
 				</td>
 				<td>
-					${competitor.getDivision()}
-				</td>
-				<td>
-					<input type="hidden" name="competitorID" value="${competitor.id}" />
-					<button class="delete" type="submit" formaction="@{Competitions.unregisterUser()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Competitions.unregisterUser()}"'#{/if}>&{'common.unregister'}</button>
+					${_.getDivision()}
 				</td>
 			</tr>
-			%{
-			}
-			}%
+			#{/list}
 		</table>
-	</form>
-</div>
+	</div>
+</form>

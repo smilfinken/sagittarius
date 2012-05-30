@@ -1,25 +1,16 @@
 #{extends "Competitions/main.html" /}
 #{set title: "Resultat" /}
 
-#{if (competitors?.size() > 0)}
 <hr />
 
+#{if (competitors?.size() > 0)}
 <div>
 	<form id="competitor" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
 			<tr>
 				<td colspan="6">
-					<label for="competitorID">Namn</label>
-					<select name="competitorID">
-						%{
-						for (competitor in competitors) {
-						}%
-						<option value="${competitor.id}">${competitor.getFullName()}, ${competitor.getDivision()}</option>
-						%{
-						}
-						}%
-					</select>
+					#{include "Common/selectCompetitor.html" /}
 					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>&{'competitors.unregister'}</button>
 				</td>
 			</tr>
@@ -56,9 +47,15 @@
 	</form>
 </div>
 #{/if}
+#{else}
+<div>
+	&{'competitors.nocompetitors'}
+</div>
+#{/else}
 
 <hr />
 
+#{if (results?.size() > 0)}
 <div>
 	<table>
 		<tr>
@@ -133,11 +130,10 @@
 				${totalHits + totalTargets}&nbsp;(${totalPoints})
 			</td>
 			<td>
-				<form id="result_${entry.id}" method="POST">
+				<form action="@{Results.delete()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="competitorID" value="${entry.id}" />
-					<button class="edit" type="submit" formaction="@{Results.edit()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.edit()}"'#{/if}>&{'common.change'}</button>
-					<button class="delete" type="submit" formaction="@{Results.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("result_${entry.id}").action="@{Results.delete()}"'#{/if}>&{'common.delete'}</button>
+					<button class="delete" type="submit">&{'common.delete'}</button>
 				</form>
 			</td>
 		</tr>
@@ -149,3 +145,9 @@
 		}%
 	</table>
 </div>
+#{/if}
+#{else}
+<div>
+	&{'results.noresults'}
+</div>
+#{/else}

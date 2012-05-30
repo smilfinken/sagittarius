@@ -1,11 +1,7 @@
 <label for="userID">&{'users.user'}</label>
-<select name="userID">
-	<option value="-1"></option>
-	%{
-	for (user in users) {
-	}%
-	<option value="${user.id}" #{if (user.id == userID)}selected#{/if}>${user.getFullName()}</option>
-	%{
-	}
-	}%
-</select>
+#{select 'userID', value:userID}
+#{option -1}#{/option}
+#{list users}
+#{option _.id}${_.getFullName()}#{/option}
+#{/list}
+#{/select}

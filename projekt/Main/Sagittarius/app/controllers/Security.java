@@ -41,7 +41,7 @@ public class Security extends Secure.Security {
 				SecretKeyFactory factory = SecretKeyFactory.getInstance("DES");
 				KeySpec spec = new DESKeySpec("ARandomString".getBytes());
 				byte[] hash = factory.generateSecret(spec).getEncoded();
-				hashedText = String.format("%1$40x", new BigInteger(1, hash)).replace(" ", "0");
+				hashedText = String.format("%1$16x", new BigInteger(1, hash)).replace(" ", "0");
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException e) {
 				e.printStackTrace();
 			}

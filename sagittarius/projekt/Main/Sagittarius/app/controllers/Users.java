@@ -3,6 +3,7 @@ package controllers;
 import java.util.Arrays;
 import java.util.List;
 import models.*;
+import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -27,6 +28,7 @@ public class Users extends Controller {
 		render(competition, categories, ranks);
 	}
 
+	@Check("admin")
 	public static void add(long competitionID, String firstName, String surname, long categoryID, long rankID) {
 		Competition competition = Competition.findById(competitionID);
 		Category category = Category.findById(categoryID);
@@ -47,12 +49,40 @@ public class Users extends Controller {
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
 	}
 
-	public static void edit(long userID){
+	@Check("admin")
+	public static void edit(long userID, String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, boolean admin, String useraction) {
 		User user = User.findById(userID);
 
-		render(user);
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "save":
+					user.firstName = firstName;
+					user.surname = surname;
+					user.cardNumber = cardNumber;
+					user.email = email;
+					user.rank = (Rank) Rank.findById(rankID);
+					user.categories = Arrays.asList((Category) Category.findById(categoryID));
+					user.admin = admin;
+					user.save();
+					break;
+				case "delete":
+					user.delete();
+					list();
+					break;
+			}
+
+		}
+
+		flash.put("categoryID", user.categories.get(0).id);
+		flash.put("rankID", user.rank.id);
+
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+
+		render(user, categories, ranks);
 	}
 
+	@Check("admin")
 	public static void delete(long competitionID, long userID) {
 		Competition competition = Competition.findById(competitionID);
 		User user = User.findById(userID);

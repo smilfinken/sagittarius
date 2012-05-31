@@ -19,6 +19,7 @@ common.name=Namn
 common.person=Person
 common.participant=Deltagare
 common.register=Registrera
+common.save=Spara
 common.selectcategory=Välj kategori
 common.type=Typ
 common.unregister=Avregistrera
@@ -55,6 +56,7 @@ export=Exportera
 export.print=Utskrift
 export.integration=Exportera till annat system
 
+models.user.admin=Administratör
 models.user.cardnumber=Skyttekortsnummer
 models.user.category=Kategori
 models.user.email=E-post

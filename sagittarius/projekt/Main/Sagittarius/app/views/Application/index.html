@@ -1,12 +1,15 @@
 #{extends 'main.html' /}
 #{set title: messages.get("application.name") /}
 
+#{secure.check "basic"}
 <form action="@{Results.list()}" method="POST">
 	#{include "Common/selectCompetition.html" /}
 	<button type="submit">&{'competitions.select'}</button>
 </form>
+#{/secure.check}
 
 <hr />
+
 #{secure.check "admin"}
 <form action="@{Competitions.add()}" method="POST">
 	&{'competitions.createnew'}<br />

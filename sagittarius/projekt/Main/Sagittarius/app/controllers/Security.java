@@ -19,7 +19,7 @@ public class Security extends Secure.Security {
 	}
 
 	static boolean check(String profile) {
-		if ("admin".equals(profile)) {
+		if (profile != null && !"".equals(profile)) {
 			return User.check(connected(), profile);
 		}
 		return false;

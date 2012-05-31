@@ -3,9 +3,10 @@
 
 <hr />
 
+#{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
 <div>
-	<form id="competitor" method="POST">
+	<form id="competitor" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
 			<tr>
@@ -15,34 +16,25 @@
 				</td>
 			</tr>
 			<tr class="scoring">
-				%{
-				for (int i=0; i<competition.stages.size(); i++)
-				{
-				}%
+				#{list items:0..competition.stages.size()-1, as:'i'}
 				<td class="scoring">
 					<div style="text-align: center; clear: all">Station ${i+1}</div>
 					<label for="results[${i}].hits">Tr&auml;ff</label>
 					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
 					<label for="results[${i}].targets">Figurer</label>
 					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
-					%{
-					if (competition.stages[i].hasPoints()) {
-					}%
+					#{if (competition.stages[i].hasPoints())}
 					<label for="results[${i}].points">&{'competitions.points'}</label>
 					<input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
-					%{
-					}
-					}%
+					#{/if}
 				</td>
-				%{
-				}
-				}%
-				</tr>
-				<tr>
-					<td class="buttons" colspan="7">
-						<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>&{'results.register'}</button>
-					</td>
-				</tr>
+				#{/list}
+			</tr>
+			<tr>
+				<td class="buttons" colspan="7">
+					<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>&{'results.register'}</button>
+				</td>
+			</tr>
 		</table>
 	</form>
 </div>
@@ -149,5 +141,11 @@
 #{else}
 <div>
 	&{'results.noresults'}
+</div>
+#{/else}
+#{/if}
+#{else}
+<div>
+	&{'competitions.nostages'}
 </div>
 #{/else}

@@ -67,7 +67,7 @@ public class User extends Model {
 	public String toString() {
 		return email;
 	}
-	
+
 	@Override
 	public boolean create() {
 		this.registrationDate = new Date();
@@ -75,7 +75,15 @@ public class User extends Model {
 	}
 
 	public String getFullName() {
-		return String.format("%s %s", firstName, surname);
+		return this.getFullName(false);
+	}
+
+	public String getFullName(boolean reverse) {
+		if (reverse) {
+			return String.format("%s, %s", surname, firstName);
+		} else {
+			return String.format("%s %s", firstName, surname);
+		}
 	}
 
 	public void sendRegistration() {

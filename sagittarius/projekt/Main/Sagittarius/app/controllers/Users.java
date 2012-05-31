@@ -16,7 +16,7 @@ public class Users extends Controller {
 	public static void list() {
 		List<User> users = User.all().fetch();
 
-		render(users);
+		render(common.Sorting.sortUsers(users));
 	}
 
 	public static void registration(long competitionID) {
@@ -47,11 +47,17 @@ public class Users extends Controller {
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
 	}
 
-	public static void delete(long competitionID, long userID){
+	public static void edit(long userID){
+		User user = User.findById(userID);
+
+		render(user);
+	}
+
+	public static void delete(long competitionID, long userID) {
 		Competition competition = Competition.findById(competitionID);
 		User user = User.findById(userID);
 
-		if (user != null){
+		if (user != null) {
 			user.delete();
 		}
 

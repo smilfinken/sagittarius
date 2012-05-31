@@ -2,6 +2,10 @@ application.name=Sagittarius
 
 # Application properties
 administration.title=Administration
+administration.categories=Deltagarkategorier
+administration.competitiontypes=Tävlingstyper
+administration.divisions=Divisioner
+administration.ranks=Tävlingsklasser
 administration.users=Användare
 
 common.crestgroup=Vapengrupp
@@ -29,6 +33,7 @@ competitions.competitionname=Tävlingens namn
 competitions.competitiondate=Tävlingsdatum
 competitions.details=Detaljer
 competitions.greeting=Hej och välkommen till %s!
+competitions.nostages=Tävlingen har inga stationer.
 competitions.participant=Deltagare
 competitions.participants=Deltagare
 competitions.points=Poäng
@@ -57,6 +62,10 @@ models.user.firstname=Förnamn
 models.user.password=Lösenord
 models.user.rank=Klass
 models.user.surname=Efternamn
+
+navigation.administration=Administration
+navigation.logout=Logga ut
+navigation.parameters=Parametrar (debug)
 
 notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!

@@ -11,18 +11,17 @@
 		#{get 'moreScripts' /}
 	</head>
 	<body>
-		<h1>Sagittarius</h1>
+		<h1>#{a @Application.index()}&{'application.name'}#{/a}</h1>
 		<hr />
 		<div class="container">
 			<div class="left">
-				<a href="@{Application.index}">Hem</a>
-				<a href="@{Administration.index}">Administration</a>
-				<a href="@{Parameters.list}">Parametrar</a>
+				#{a @Administration.index()}&{'navigation.administration'}#{/a}
+				#{a @Parameters.list()}&{'navigation.parameters'}#{/a}
 			</div>
 			<div class="right">
 				[
-					Inloggad som: ${session.username}
-					<a href="@{Secure.logout}">Logga ut</a>
+				Inloggad som: ${session.username}
+				#{a @Secure.logout()}&{'navigation.logout'}#{/a}
 				]
 			</div>
 		</div>

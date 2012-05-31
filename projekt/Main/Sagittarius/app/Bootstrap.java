@@ -36,7 +36,7 @@ public class Bootstrap extends Job {
 			// try to fix missing labels on existing ranks
 			List<Rank> ranks = Rank.all().fetch();
 			for (Rank rank : ranks) {
-				if (rank.label != null) {
+				if (rank.label == null || rank.label == "") {
 					rank.label = String.format("%d", rank.rank);
 					rank.save();
 				}

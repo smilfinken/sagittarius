@@ -26,26 +26,12 @@
 
 	<hr />
 
-	<div>
-		<table>
-			<tr>
-				<th>
-					&{'common.competitor'}
-				</th>
-				<th>
-					&{'common.division'}
-				</th>
-			</tr>
-			#{list competitors}
-			<tr>
-				<td>
-					${_.getFullName()}
-				</td>
-				<td>
-					${_.getDivision()}
-				</td>
-			</tr>
-			#{/list}
-		</table>
+	<div class="multicolumn-block">
+		#{list competitors}
+		<div>
+			<span style="float:left">${_.getFullName()}</span>
+			<span style="float: right">${_.getDivision()}</span>
+		</div>
+		#{/list}
 	</div>
 </form>

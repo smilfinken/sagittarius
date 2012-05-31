@@ -43,7 +43,6 @@ button[type=submit].enter {
 
 input.scoring {
 	border: 			1px solid gray;
-	size: 				5;
 	width: 				30px;
 }
 
@@ -63,4 +62,14 @@ input.scoring {
 }
 .clear {
 	clear:				both !important;
+}
+
+.multicolumn-block {
+	width: 100%;
+}
+.multicolumn-block div {
+	width: 20%;
+	margin-right: 5%;
+	padding-bottom: 0.2em;
+	float: left;
 }

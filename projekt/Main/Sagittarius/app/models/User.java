@@ -8,6 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import notifiers.RegistrationNotifier;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 import controllers.Security;
 
@@ -25,6 +26,7 @@ public class User extends Model {
 	public String password;
 	public Date registrationDate;
 	public Date confirmationDate;
+	public boolean admin = false;
 	@OneToOne
 	public Rank rank;
 	@ManyToMany
@@ -101,5 +103,18 @@ public class User extends Model {
 			save();
 		}
 		return ok;
+	}
+
+	public static boolean check(String username, String profile) {
+		if (username != null && profile != null) {
+			switch (profile) {
+				case "admin":
+					User user = User.find("byEmail", username).first();
+					return user.admin;
+				default:
+					return false; 
+			} 
+		}
+		return false;
 	}
 }

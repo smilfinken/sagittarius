@@ -7,7 +7,7 @@
 </form>
 
 <hr />
-
+#{secure.check "admin"}
 <form action="@{Competitions.add()}" method="POST">
 	&{'competitions.createnew'}<br />
 	<label for="name">&{'common.name'}</label>
@@ -17,3 +17,4 @@
 	<input type="text" name="date" />
 	<button type="submit">&{'competitions.create'}</button>
 </form>
+#{/secure.check}

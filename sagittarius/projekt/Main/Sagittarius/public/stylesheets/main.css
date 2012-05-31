@@ -50,18 +50,38 @@ input.scoring {
 .error {
 	color:				red;
 }
+
 .container {
 	width:				100%;
 	display:			block;
 }
+
 .left {
 	float:				left;
 }
+
 .right {
 	float:				right;
 }
+
 .clear {
 	clear:				both !important;
+}
+
+.applicationtitle {
+	float:				left;
+	font-size:			larger;
+}
+
+.competitioninfo {
+	float:				right;
+	font-size:			large;
+}
+
+.currentuser {
+	clear:				both;
+	float:				right;
+	font-style:			italic;
 }
 
 .multicolumn-block {

@@ -11,21 +11,25 @@
 		#{get 'moreScripts' /}
 	</head>
 	<body>
-		<h1>#{a @Application.index()}&{'application.name'}#{/a}</h1>
-		<hr />
-		<div class="container">
-			<div class="left">
-				#{a @Administration.index()}&{'navigation.administration'}#{/a}
-				#{a @Parameters.list()}&{'navigation.parameters'}#{/a}
-			</div>
-			<div class="right">
-				[
-				Inloggad som: ${session.username}
-				#{a @Secure.logout()}&{'navigation.logout'}#{/a}
-				]
-			</div>
+		<div class="applicationtitle">
+			#{a @Application.index()}&{'application.name'}#{/a}
 		</div>
-		<hr class="clear"/>
+		#{if (competition != null)}
+		<div class="competitioninfo">
+			${competition.name}, ${competition.getDate()}
+		</div>
+		#{/if}
+		<div class="currentuser">
+			Inloggad som: ${session.username} #{a @Secure.logout()}&{'navigation.logout'}#{/a}
+		</div>
+		#{secure.check "admin"}
+		<hr class="clear" />
+		<div class="container">
+			#{a @Administration.index()}&{'navigation.administration'}#{/a}
+			#{a @Parameters.list()}&{'navigation.parameters'}#{/a}
+		</div>
+		#{/secure.check}
+		<hr class="clear" />
 
 		#{doLayout /}
 	</body>

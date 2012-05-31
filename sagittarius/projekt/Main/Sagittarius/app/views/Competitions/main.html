@@ -2,13 +2,12 @@
 #{set title: messages.get("competitions.competition") /}
 
 <div>
-	<h2>&{'competitions.greeting', competition.name}</h2>
-	<div class="">
-		#{a @Results.list(competition.id)}&{'results.title'}#{/a}
-		#{a @Competitions.competitors(competition.id)}&{'competitions.participants'}#{/a}
-<!--		#{a @Competitions.enroll(competition.id)}&{'competitions.application'}#{/a} -->
-		#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}
-	</div>
+	#{a @Results.list(competition.id)}&{'results.title'}#{/a}
+	<!--		#{a @Competitions.enroll(competition.id)}&{'competitions.application'}#{/a} -->
+	#{a @Competitions.competitors(competition.id)}&{'competitions.participants'}#{/a}
+	#{secure.check "admin"}
+	#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}
+	#{/secure.check}
 </div>
 
 #{doLayout /}

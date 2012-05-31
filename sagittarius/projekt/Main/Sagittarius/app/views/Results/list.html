@@ -1,7 +1,7 @@
 #{extends "Competitions/main.html" /}
 #{set title: "Resultat" /}
 
-<hr />
+<hr class="clear" />
 
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
@@ -12,7 +12,9 @@
 			<tr>
 				<td colspan="6">
 					#{include "Common/selectCompetitor.html" /}
+					#{secure.check "admin"}
 					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>&{'competitors.unregister'}</button>
+					#{/secure.check}
 				</td>
 			</tr>
 			<tr class="scoring">
@@ -122,11 +124,13 @@
 				${totalHits + totalTargets}&nbsp;(${totalPoints})
 			</td>
 			<td>
+				#{secure.check "admin"}
 				<form action="@{Results.delete()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="competitorID" value="${entry.id}" />
 					<button class="delete" type="submit">&{'common.delete'}</button>
 				</form>
+				#{/secure.check}
 			</td>
 		</tr>
 		%{

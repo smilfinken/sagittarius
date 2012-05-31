@@ -1,8 +1,8 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get("common.changeobject", competition.name)  /}
 
-<hr />
-
+#{secure.check "admin"}
+<hr class="clear" />
 <div>
 	<form id="competition" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -17,8 +17,7 @@
 </div>
 
 #{if (competition.hasStages())}
-<hr />
-
+<hr class="clear" />
 <div>
 	<table>
 		#{list stages, as:'stage'}
@@ -45,3 +44,4 @@
 		<button type="submit" class="enter" formaction="@{Competitions.addStage()}">&{'competitions.addstage'}</button>
 	</form>
 </div>
+#{/secure.check}

@@ -8,7 +8,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import notifiers.RegistrationNotifier;
-import play.data.validation.Required;
 import play.db.jpa.Model;
 import controllers.Security;
 
@@ -116,8 +115,8 @@ public class User extends Model {
 						return user.admin;
 					}
 				default:
-					return false; 
-			} 
+					return false;
+			}
 		}
 		return false;
 	}

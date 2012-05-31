@@ -1,6 +1,7 @@
 #{extends "main.html" /}
-#{set title: messages.get("adminstration.title") /}
+#{set title: messages.get("administration.title") /}
 
+#{secure.check "admin"}
 <div>
 	#{a @Administration.index()}&{'administration.competitiontypes'}#{/a}
 	#{a @Administration.index()}&{'administration.categories'}#{/a}
@@ -8,7 +9,7 @@
 	#{a @Administration.index()}&{'administration.divisions'}#{/a}
 	#{a @Users.list()}&{'administration.users'}#{/a}
 </div>
-
-<hr />
+<hr class="clear" />
+#{/secure.check}
 
 #{doLayout /}

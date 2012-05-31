@@ -1,5 +1,6 @@
 
 import controllers.Security;
+import java.util.Date;
 import java.util.List;
 import models.*;
 import play.jobs.Job;
@@ -53,8 +54,10 @@ public class Bootstrap extends Job {
 			// try to compensate for old data not having hashed passwords
 			List<User> users = User.all().fetch();
 			for (User user : users) {
-				if ("123".equals(user.password)) {
+				if (user.password == null || "123".equals(user.password)) {
 					user.password = Security.hashPassword("123");
+					user.registrationDate = new Date();
+					user.confirmationDate = new Date();
 					user.save();
 				}
 			}

@@ -111,8 +111,10 @@ public class User extends Model {
 				case "basic":
 					return true;
 				case "admin":
-					User user = User.find("byEmail", username).first();					
-					return user.admin;
+					User user = User.find("byEmail", username).first();
+					if (user != null) {
+						return user.admin;
+					}
 				default:
 					return false; 
 			} 

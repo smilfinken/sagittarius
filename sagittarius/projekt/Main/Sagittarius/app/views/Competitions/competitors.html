@@ -3,27 +3,29 @@
 
 #{secure.check "admin"}
 <hr class="clear" />
-<form id="register" method="POST">
-	<div>
+<div>
+	<form action="@{Competitions.registerUser()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		#{include "Common/selectUser.html" /}
 		#{include "Common/selectDivision.html" /}
-		<button class="enter" type="submit" formaction="@{Competitions.registerUser()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Competitions.registerUser()}"'#{/if}>&{'common.register'}</button>
-		<button class="delete" type="submit" formaction="@{Users.delete()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("register").action="@{Users.delete()}"'#{/if}>&{'users.delete'}</button>
-	</div>
+		<button class="enter" type="submit">&{'common.register'}</button>
+	</form>
+</div>
 
-	<hr class="clear" />
+<hr class="clear" />
 
-	<div>
+<div>
+	<form action="@{Users.add()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<label for="firstName">&{'models.user.firstname'}</label>
 		<input type="text" name="firstName" />
 		<label for="surname">&{'models.user.surname'}</label>
 		<input type="text" name="surname" />
 		#{include "Common/selectCategory.html" /}
 		#{include "Common/selectRank.html" /}
-		<button class="enter" type="submit" formaction="@{Users.add}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("user").action="@{Users.add()}"'#{/if}>&{'competitors.createuser'}</button>
-	</div>
-</form>
+		<button class="enter" type="submit">&{'competitors.createuser'}</button>
+	</form>
+</div>
 #{/secure.check}
 
 <hr class="clear" />

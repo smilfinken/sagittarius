@@ -16,7 +16,6 @@ public class Users extends Controller {
 
 	public static void list() {
 		List<User> users = User.all().fetch();
-
 		render(common.Sorting.sortUsers(users));
 	}
 
@@ -24,7 +23,6 @@ public class Users extends Controller {
 		Competition competition = Competition.findById(competitionID);
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
-
 		render(competition, categories, ranks);
 	}
 
@@ -75,10 +73,8 @@ public class Users extends Controller {
 
 		flash.put("categoryID", user.categories.get(0).id);
 		flash.put("rankID", user.rank.id);
-
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
-
 		render(user, categories, ranks);
 	}
 

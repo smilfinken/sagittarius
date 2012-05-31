@@ -1,12 +1,12 @@
 #{extends "main.html" /}
-#{set title: messages.get("administration.title") /}
+#{set title: messages.get('administration.title') /}
 
 #{secure.check "admin"}
 <div>
-	#{a @Administration.index()}&{'administration.competitiontypes'}#{/a}
-	#{a @Administration.index()}&{'administration.categories'}#{/a}
-	#{a @Administration.index()}&{'administration.ranks'}#{/a}
-	#{a @Administration.index()}&{'administration.divisions'}#{/a}
+	#{a @CompetitionTypes.list()}&{'administration.competitiontypes'}#{/a}
+	#{a @Categories.list()}&{'administration.categories'}#{/a}
+	#{a @Ranks.list()}&{'administration.ranks'}#{/a}
+	#{a @Divisions.list()}&{'administration.divisions'}#{/a}
 	#{a @Users.list()}&{'administration.users'}#{/a}
 </div>
 <hr class="clear" />

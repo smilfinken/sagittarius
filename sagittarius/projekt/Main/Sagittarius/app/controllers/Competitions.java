@@ -13,6 +13,7 @@ import play.mvc.With;
 @With(Secure.class)
 public class Competitions extends Controller {
 
+	@Check("admin")
 	public static void add(String name, long competitionTypeID, String date) {
 		Competition competition = new Competition(name);
 

@@ -106,10 +106,12 @@ public class User extends Model {
 	}
 
 	public static boolean check(String username, String profile) {
-		if (username != null && profile != null) {
+		if (username != null && profile != null && !"".equals(profile)) {
 			switch (profile) {
+				case "basic":
+					return true;
 				case "admin":
-					User user = User.find("byEmail", username).first();
+					User user = User.find("byEmail", username).first();					
 					return user.admin;
 				default:
 					return false; 

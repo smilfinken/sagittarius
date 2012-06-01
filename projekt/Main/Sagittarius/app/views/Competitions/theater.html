@@ -37,17 +37,6 @@
 </style>
 
 	<script>
-		$(document).ready(
-				function() {
-					for ( var i = 0; i < 30; i++) {
-						$('#table1').append(
-								'<tr class="row_"+i><td>Column data 1' + i
-										+ '</td><td>Column data 2' + i
-										+ '</td><td>Column data 3' + i
-										+ '</td></tr>');
-					}
-				});
-
 		$(document).ready(function() {
 			$("#results").ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
   				$(this).html( "Triggered ajaxError handler.<br/>" + jqXHR.responseText );
@@ -55,8 +44,6 @@
 			reloadPage();
 			pageScroll();
 			textAnimation();
-			//showSpeed();
-			//showTextSize();
 		});
 
 		function textAnimation() {
@@ -64,38 +51,26 @@
 		}
 
 		var dir = 1;
-		var mem = 0;
 		var scrollDelay = 40;
 		function pageScroll() {
-			var pause = false;
-			if (document.body.scrollTop == 0) {
-				dir = 1;
-				pause = true;
-			} else if (document.body.scrollTop == mem) {
-				mem = 0;
-				dir = -1;
-				pause = true;
-			}
-			mem = document.body.scrollTop;
-			window.scrollBy(0, dir * 1); // horizontal and vertical scroll increments
-			setTimeout('pageScroll()', (pause ? 2000: scrollDelay));
+			var b4 = $(window).scrollTop();
+			$(window).scrollTop( b4 + 1*dir );
+			
+			var changeDirection = b4==$(window).scrollTop();
+			dir = changeDirection ? (-1*dir) : dir;
+			
+			console.log('document.body.scrollTop: '+$(window).scrollTop());
+			setTimeout('pageScroll()', ( changeDirection ? 2000: scrollDelay));
 		}
 		function scrollSpeed(slower) {
 			scrollDelay += slower == true ? 10 : -10;
-			showSpeed();
-		}
-		function showSpeed() {
-			$('#speed').text(scrollDelay);
 		}
 		function changeTextSize(smaller) {
-			var property = $('#table1').css('font-size');
+			var property = $('.resultTable td').css('font-size');
 			var value = property.substring(0, 2);
 			var unit = property.substring(2, 4);
 			smaller ? value-- : value++;
-			$('#table1').css('font-size', value + unit);
-		}
-		function showTextSize() {
-			$('#textSize').text($('#table1').css('font-size'));
+			$('.resultTable td').css('font-size', value + unit);
 		}
 		function toggleControl() {
 			$('.collapsable').toggleClass('hidden');
@@ -111,7 +86,7 @@
 		}
 		function showPresentTime() {
 			var date = new Date();
-			$('#time').text(date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+':'+date.getMilliseconds());
+			$('#time').text(date.getHours()+':'+date.getMinutes()+':'+date.getSeconds());
 		}
 	</script>
 

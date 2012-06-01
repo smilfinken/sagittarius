@@ -3,7 +3,6 @@ package controllers;
 import java.util.Arrays;
 import java.util.List;
 import models.*;
-import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -62,6 +61,7 @@ public class Users extends Controller {
 					user.categories = Arrays.asList((Category) Category.findById(categoryID));
 					user.admin = admin;
 					user.save();
+					list();
 					break;
 				case "delete":
 					user.delete();

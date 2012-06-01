@@ -1,3 +1,24 @@
-<hr style="border: 1px solid #ff9600" />
-<span style="font-style: italic; text-align: left; width: 50%; float: left">Sagittarius Competition Tracker</span>
-<span style="font-style: italic; text-align: right; width: 50%; float: right">${timeStamp}</span>
+<style>
+	hr.footer {
+		border: 1px solid #ff9600;
+	}
+
+	span.footer {
+		font-style: italic;
+		width: 50%;
+	}
+
+	span.left {
+		text-align: left;
+		float: left;
+	}
+
+	span.right {
+		text-align: right;
+		float: right;
+	}
+</style>
+
+<hr class="footer" />
+<span class="footer left">&{'application.name'}</span>
+<span class="footer right">${timeStamp}</span>

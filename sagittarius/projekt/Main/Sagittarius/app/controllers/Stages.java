@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 import models.*;
-import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -14,6 +13,7 @@ import play.mvc.With;
 @With(Secure.class)
 public class Stages extends Controller {
 
+	@Check("admin")
 	public static void edit(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
@@ -22,6 +22,7 @@ public class Stages extends Controller {
 		renderTemplate("Stages/edit.html", competition, stage, targetModels);
 	}
 
+	@Check("admin")
 	public static void update(long competitionID, long stageID, String name) {
 		Stage stage = Stage.findById(stageID);
 
@@ -33,6 +34,7 @@ public class Stages extends Controller {
 		edit(competitionID, stageID);
 	}
 
+	@Check("admin")
 	public static void addTargetGroup(long competitionID, long stageID) {
 		Stage stage = Stage.findById(stageID);
 
@@ -46,6 +48,7 @@ public class Stages extends Controller {
 		edit(competitionID, stageID);
 	}
 
+	@Check("admin")
 	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID) {
 		Stage stage = Stage.findById(stageID);
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
@@ -61,6 +64,7 @@ public class Stages extends Controller {
 		edit(competitionID, stageID);
 	}
 
+	@Check("admin")
 	public static void addTarget(long competitionID, long stageID, long targetGroupID, String hasPoints) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
@@ -76,6 +80,7 @@ public class Stages extends Controller {
 		edit(competitionID, stageID);
 	}
 
+	@Check("admin")
 	public static void updateTarget(long competitionID, long stageID, long targetID, String hasPoints, long modelID) {
 		Target target = Target.findById(targetID);
 
@@ -88,6 +93,7 @@ public class Stages extends Controller {
 		edit(competitionID, stageID);
 	}
 
+	@Check("admin")
 	public static void deleteTarget(long competitionID, long stageID, long targetGroupID, long targetID, String hasPoints, String model) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 		Target target = Target.findById(targetID);

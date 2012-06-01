@@ -8,6 +8,7 @@ import play.mvc.Controller;
  */
 public class Administration extends Controller {
 
+	@Check("admin")
 	public static void index() {
 		render();
 	}

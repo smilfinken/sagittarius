@@ -15,6 +15,7 @@ public class Categories extends Controller {
 		render(categories);
 	}
 
+	@Check("admin")
 	public static void edit(long categoryID) {
 	}
 }

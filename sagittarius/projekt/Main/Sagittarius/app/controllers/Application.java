@@ -9,11 +9,6 @@ import play.mvc.With;
 @With(Secure.class)
 public class Application extends Controller {
 
-//    @Before
-//    static void addDefaults() {
-//        renderArgs.put("connected", Security.connected());
-//    }
-
 	public static void index() {
 		List<Competition> competitions = Competition.all().fetch();
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();

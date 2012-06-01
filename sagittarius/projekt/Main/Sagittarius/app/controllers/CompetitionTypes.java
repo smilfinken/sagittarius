@@ -15,6 +15,7 @@ public class CompetitionTypes extends Controller {
 		render(competitionTypes);
 	}
 
+	@Check("admin")
 	public static void edit(long competitionTypeID) {
 	}
 }

@@ -27,11 +27,12 @@ common.update=Uppdatera
 
 competitions.addstage=Lägg till station
 competitions.application=Tävlingsanmälan
+competitions.competition=Tävling
+competitions.competitiondate=Tävlingsdatum
+competitions.competitionname=Tävlingens namn
+competitions.competitiontype=Tävlingstyp
 competitions.create=Skapa
 competitions.createnew=Skapa en ny tävling
-competitions.competition=Tävling
-competitions.competitionname=Tävlingens namn
-competitions.competitiondate=Tävlingsdatum
 competitions.details=Detaljer
 competitions.greeting=Hej och välkommen till %s!
 competitions.nostages=Tävlingen har inga stationer.
@@ -53,6 +54,10 @@ competitors.unregister=Avregistrera deltagare
 controller.registration.password=Lösenord
 controller.registration.passwordVerification=Bekräfta lösenord
 
+divisions.ranks=Klassindelad
+divisions.categories=Kategorier
+divisions.competitiontypes=Tävlingstyper
+
 export=Exportera
 export.print=Utskrift
 export.integration=Exportera till annat system
@@ -69,10 +74,14 @@ models.user.surname=Efternamn
 navigation.administration=Administration
 navigation.logout=Logga ut
 navigation.parameters=Parametrar (debug)
+navigation.profile=Profil
 
 notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
+
+ranks.rank=Klass
+ranks.label=Beskrivning
 
 registration.cancel=Till inloggninssidan
 registration.failed.title=Registrering misslyckades
@@ -114,6 +123,8 @@ secure.logout=Du har blivit utloggad
 secure.noaccount=Har du inget konto?
 secure.noaccount.create=Skapa ett här
 secure.password=Lösenord
+secure.passwordreset=Lösenordet har återställts
 secure.remember=Kom ihåg lösenord
+secure.resetpassword=Återställ lösenordet
 secure.title=
 secure.username=E-postadress

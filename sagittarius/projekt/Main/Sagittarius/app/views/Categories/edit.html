@@ -1,0 +1,13 @@
+#{extends "Administration/main.html" /}
+#{set title: item.category /}
+
+<div>
+	<form action="@{Categories.edit()}" method="POST">
+		<input type="hidden" name="categoryID" value="${item.id}" />
+		<label for="category">&{'models.user.category'}</label>
+		<input type="text" name="category" value="${item.category}" />
+
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

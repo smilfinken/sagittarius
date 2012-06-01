@@ -1,10 +1,8 @@
 #{extends "Administration/main.html" /}
 #{set title: item.getFullName() /}
 
-#{secure.check "admin"}
 <div>
-	<form action="@{Users.edit()}" method="POST">
-		<input type="hidden" name="userID" value="${item.id}" />
+	<form action="@{Users.profile()}" method="POST">
 		<label for="firstName">&{'models.user.firstname'}</label>
 		<input type="text" name="firstName" value="${item.firstName}" />
 		<label for="surname">&{'models.user.surname'}</label>
@@ -17,15 +15,8 @@
 
 		#{include "Common/selectCategory.html" /}
 		#{include "Common/selectRank.html" /}
-		<label for="admin">&{'models.user.admin'}</label>
-		<input type="checkbox" name="admin" #{if (item.admin)}checked#{/if}><br />
 
 		<br />
 		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
-		<button type="submit" name="useraction" value="reactivate" class="enter">&{'secure.resetpassword'}</button>
-		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
-
-		${message}
 	</form>
 </div>
-#{/secure}

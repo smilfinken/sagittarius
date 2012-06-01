@@ -179,8 +179,20 @@ public class Competitions extends Controller {
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions);
 	}
 
-	public static void theater(long competitionID) {
+	public static void newCompetitor(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
+		List<Competitor> competitors = competition.competitors;
+		List<User> users = User.all().fetch();
+
+		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users));
+	}
+
+	public static void theater(long competitionId) {
+		render(competitionId);
+	}
+	
+	public static void theaterpart(long competitionId) {
+		Competition competition = Competition.findById(competitionId);
 		List<Competitor> allcompetitors = competition.competitors;
 
 		List<Competitor> competitors = new ArrayList<>();
@@ -191,7 +203,8 @@ public class Competitions extends Controller {
 			} else {
 				results.add(competitor);
 			}
-		}
-		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
+		}		
+		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));		
 	}
+	
 }

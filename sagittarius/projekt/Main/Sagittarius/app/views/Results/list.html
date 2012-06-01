@@ -21,12 +21,12 @@
 				#{list items:0..competition.stages.size()-1, as:'i'}
 				<td class="scoring">
 					<div style="text-align: center; clear: all">Station ${i+1}</div>
-					<label for="results[${i}].hits">Tr&auml;ff</label>
+					<label for="results[${i}].hits">&{'results.hits'}</label>
 					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
-					<label for="results[${i}].targets">Figurer</label>
+					<label for="results[${i}].targets">&{'results.targets'}Figurer</label>
 					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
 					#{if (competition.stages[i].hasPoints())}
-					<label for="results[${i}].points">&{'competitions.points'}</label>
+					<label for="results[${i}].points">&{'results.points'}</label>
 					<input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
 					#{/if}
 				</td>
@@ -76,7 +76,7 @@
 	}%
 	<table>
 		<tr>
-			<th colspan="2" style="text-align: left">&{'common.name'}</th>
+			<th style="text-align: left">&{'common.name'}</th>
 			<th>&{'common.division'}</th>
 			<th colspan="4">&{'results.title'}</th>
 		</tr>
@@ -94,9 +94,14 @@
 		previousClass = entry.getDivision();
 		}%
 		<tr>
-			<td style="font-style: italic; font-weight: bold; text-align: left">${place}</td>
-			<td style="font-weight: bold">${entry.getFullName()}</td>
-			<td style="font-weight: bold">${entry.getDivision()}</td>
+			<td style="font-weight: bold; text-align: left">
+				#{a @Results.edit(competition.id, entry.id)}
+				<span style="font-style: italic">${place}</span> ${entry.getFullName()}
+				#{/a}
+			</td>
+			<td style="font-weight: bold">
+				${entry.getDivision()}
+			</td>
 			<td>
 				%{
 				totalHits = 0;

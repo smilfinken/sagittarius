@@ -93,6 +93,26 @@ public class Users extends Controller {
 	public static void profile(String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, String useraction) {
 		User item = User.find("byEmail", session.get("username")).first();
 
+		if (item != null) {
+			if (params._contains("useraction")) {
+				switch (useraction) {
+					case "save":
+						item.firstName = firstName;
+						item.surname = surname;
+						item.cardNumber = cardNumber;
+						item.email = email;
+						item.rank = (Rank) Rank.findById(rankID);
+						item.categories = Arrays.asList((Category) Category.findById(categoryID));
+						item.save();
+
+						List<Competition> competitions = Competition.all().fetch();
+						List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+						renderTemplate("Application/index.html", competitions, competitionTypes);
+						break;
+				}
+			}
+		}
+
 		flash.put("categoryID", item.categories.get(0).id);
 		flash.put("rankID", item.rank.id);
 		List<Category> categories = Category.all().fetch();

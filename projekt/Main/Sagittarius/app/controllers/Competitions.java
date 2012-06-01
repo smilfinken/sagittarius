@@ -187,11 +187,11 @@ public class Competitions extends Controller {
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users));
 	}
 
-	public static void theater(long competitionId) {
+	public static void billboard(long competitionId) {
 		render(competitionId);
 	}
 	
-	public static void theaterpart(long competitionId) {
+	public static void billboardpart(long competitionId) {
 		Competition competition = Competition.findById(competitionId);
 		List<Competitor> allcompetitors = competition.competitors;
 

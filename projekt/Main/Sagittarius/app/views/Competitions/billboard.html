@@ -76,7 +76,7 @@
 			$('.collapsable').toggleClass('hidden');
 		}
 		function reloadPage() {
-			$.get('@{Competitions.theaterpart()}',	
+			$.get('@{Competitions.billboardpart()}',	
 				{ competitionId: ${competitionId} },
 				function(data){
 					$('#results').replaceWith(data);

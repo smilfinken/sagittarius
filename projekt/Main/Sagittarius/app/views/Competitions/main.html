@@ -8,7 +8,7 @@
 	#{secure.check "admin"}
 	#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}
 	#{/secure.check}
-	<a target="_Blank" href="@{Competitions.theater(competition.id)}">&{'competitions.theater'}</a>
+	<a target="_Blank" href="@{Competitions.billboard(competition.id)}">&{'competitions.billboard'}</a>
 </div>
 
 #{doLayout /}

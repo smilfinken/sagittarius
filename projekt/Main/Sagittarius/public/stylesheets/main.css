@@ -47,6 +47,21 @@ input.scoring {
 }
 
 /* CLASSES */
+h1 a {
+	color:				#000 !important;
+	text-decoration:	none !important;		
+}
+/*
+.menu a:link, a:visited, a:hover, a:active  {
+	color:				gray;
+	text-decoration:	none;
+}
+
+.menu a:active, a:hover {
+	color:				black !important;
+	text-decoration:	underline !important;
+} 
+*/
 .error {
 	color:				red;
 }

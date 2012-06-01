@@ -1,0 +1,195 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<!--[if IE]>
+<style>		
+	.control{
+		position: absolute;
+  		right: 0px;
+  		top: expression( document.body.scrollTop + 'px' );
+  	}
+</style>
+<![endif]-->
+	
+<!--[if !IE]><!-->
+<style>
+	.control{
+		position: fixed;
+		top: 2px;
+		right: 2px;
+	}
+</style>		
+<!--<![endif]-->
+
+<style>
+	.control{
+		display: block;
+		border: solid 1px lightblue;
+	}
+	.controlHeader{
+		border-bottom: solid 2px lightblue;
+		text-align: right;
+	}
+	.hidden{
+		display: none;
+	}
+</style>
+
+	<script>
+		$(document).ready(
+				function() {
+					for ( var i = 0; i < 30; i++) {
+						$('#table1').append(
+								'<tr class="row_"+i><td>Column data 1' + i
+										+ '</td><td>Column data 2' + i
+										+ '</td><td>Column data 3' + i
+										+ '</td></tr>');
+					}
+				});
+
+		$(document).ready(function() {
+			pageScroll();
+			textAnimation();
+			showSpeed();
+			showTextSize();
+		});
+
+		function textAnimation() {
+
+		}
+
+		var dir = 1;
+		var mem = 0;
+		var scrollDelay = 40;
+		function pageScroll() {
+			var pause = false;
+			if (document.body.scrollTop == 0) {
+				dir = 1;
+				pause = true;
+			} else if (document.body.scrollTop == mem) {
+				mem = 0;
+				dir = -1;
+				pause = true;
+			}
+			mem = document.body.scrollTop;
+			window.scrollBy(0, dir * 1); // horizontal and vertical scroll increments
+			scrolldelay = setTimeout('pageScroll()', (pause ? 2000
+					: scrollDelay)); // scrolls every 100 milliseconds
+		}
+		function scrollSpeed(slower) {
+			scrollDelay += slower == true ? 10 : -10;
+			showSpeed();
+		}
+		function showSpeed() {
+			$('#speed').text(scrollDelay);
+		}
+		function changeTextSize(smaller) {
+			var property = $('#table1').css('font-size');
+			var value = property.substring(0, 2);
+			var unit = property.substring(2, 4);
+			smaller ? value-- : value++;
+			$('#table1').css('font-size', value + unit);
+		}
+		function showTextSize() {
+			$('#textSize').text($('#table1').css('font-size'));
+		}
+		function toggleControl() {
+			$('.collapsable').toggleClass('hidden');
+		}
+	</script>
+
+</head>
+<body>
+
+<div class="content">
+	%{
+	boolean tableOpen = false;
+	int totalHits;
+	int totalTargets;
+	int totalPoints;
+	int place = 1;
+	int count = 1;
+	}%
+	%{
+	if (results.size() > 0) {
+	String previousClass = "";
+	for(entry in results){
+	if (entry.results != null && entry.results.size() == competition.stages.size()) {
+	if (!entry.getDivision().equals(previousClass)){
+	place = 1;
+	}%
+	#{if (tableOpen == true)}</table>#{/if}
+<table id="table1">
+	<thead>
+		<tr class="header">
+			<th class="competitor">
+				Klass ${entry.getDivision()}
+			</th>
+			<th class="stages">
+				Stationer
+			</th>
+			<th class="totals">
+				Totalt
+			</th>
+		</tr>
+	</thead>
+	%{
+	}
+	tableOpen = true;
+	previousClass = entry.getDivision();
+	}%
+	<tr>
+		<td class="competitor">
+			<span class="place">${place++}</span> <span class="name">${entry.getFullName()}</span>
+		</td>
+		<td class="stages">
+			%{
+			totalHits = 0;
+			totalTargets = 0;
+			totalPoints = 0;
+			count = 1;
+			for(result in entry.results){
+			totalHits += result.hits;
+			totalTargets += result.targets;
+			totalPoints += result.points;
+			}%
+			${result.hits}/${result.targets}#{if result.points > 0} (${result.points})#{/if}#{if count++ < entry.results.size()}, #{/if}
+			%{
+			}
+			}%
+		</td>
+		<td class="totals">
+			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets() == true}
+			<span class="sum">${totalHits + totalTargets}</span> (${totalPoints})
+			#{/if}
+			#{else}
+			<span class="sum">${totalHits}/${totalTargets}</span> (${totalPoints})
+			#{/else}
+		</td>
+		</td>
+	</tr>
+	%{
+	}
+	}
+	}
+	}%
+</table>
+</div>
+<div class="control">
+	<div class="controlHeader">
+		<a href="javascript:toggleControl();">[?]</a>
+	</div>
+	<div class="collapsable">
+		Speed: <span id="speed"></span><br/>
+		<a href="javascript:scrollSpeed(true);">Slower</a>
+		<a href="javascript:scrollSpeed(false);">Faster</a>
+	</div>
+	<div class="collapsable">
+		Text size: <span id="textSize"></span><br/>
+		<a href="javascript:changeTextSize(true);">Smaller</a>
+		<a href="javascript:changeTextSize(false);">Bigger</a>
+	</div>
+</div>
+</body>
+</html>

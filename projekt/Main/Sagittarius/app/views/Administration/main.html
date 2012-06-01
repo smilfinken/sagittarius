@@ -2,7 +2,7 @@
 #{set title: messages.get('administration.title') /}
 
 #{secure.check "admin"}
-<div>
+<div class="menu">
 	#{a @CompetitionTypes.list()}&{'administration.competitiontypes'}#{/a}
 	#{a @Categories.list()}&{'administration.categories'}#{/a}
 	#{a @Ranks.list()}&{'administration.ranks'}#{/a}

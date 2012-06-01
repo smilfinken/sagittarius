@@ -94,8 +94,12 @@ registration.successful.title=Registrering lyckades
 registration.submit=Skapa konto
 registration.title=Skapa konto
 
+results.editlabel=Resultat för %s i %s
+results.hits=Träff
 results.noresults=Inga resultat har registrerats.
+results.points=Poäng
 results.register=Registrera resultat
+results.targets=Figurer
 results.title=Resultat
 
 targets.target=Mål

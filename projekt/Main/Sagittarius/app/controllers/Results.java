@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.*;
 import models.*;
@@ -57,8 +58,28 @@ public class Results extends Controller {
 		list(competitionID);
 	}
 
-	public static void edit(long competitionID, long competitorID) {
-		list(competitionID);
+	public static void edit(long competitionID, long competitorID, List<Result> newResults, String useraction) {
+		Competition competition = Competition.findById(competitionID);
+		Competitor competitor = Competitor.findById(competitorID);
+		Result[] results = null;
+
+		if (competitor != null) {
+			if (params._contains("useraction")) {
+				switch (useraction) {
+					case "save":
+						if (newResults != null && newResults.size() == competitor.results.size()) {
+							// TODO: fix this so that data is properly removed from db on deletion
+							competitor.results = newResults;
+							competitor.save();
+						}
+						list(competitionID);
+						break;
+				}
+			}
+			results = competitor.results.toArray(new Result[competitor.results.size()]);
+		}
+
+		render(competition, competitor, results);
 	}
 
 	public static void export(long competitionID) throws IOException {

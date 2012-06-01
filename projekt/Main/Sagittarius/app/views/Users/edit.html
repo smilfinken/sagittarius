@@ -20,12 +20,10 @@
 		<label for="admin">&{'models.user.admin'}</label>
 		<input type="checkbox" name="admin" #{if (item.admin)}checked#{/if}><br />
 
-		<br />
 		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
 		<button type="submit" name="useraction" value="reactivate" class="enter">&{'secure.resetpassword'}</button>
 		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
-
-		${message}
 	</form>
+	${message}
 </div>
 #{/secure.check}

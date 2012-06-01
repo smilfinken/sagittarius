@@ -15,6 +15,7 @@ public class Ranks extends Controller {
 		render(ranks);
 	}
 
+	@Check("admin")
 	public static void edit(long rankID) {
 	}
 }

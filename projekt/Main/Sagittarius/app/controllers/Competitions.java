@@ -40,6 +40,7 @@ public class Competitions extends Controller {
 		render(competition, stages, competitionTypes);
 	}
 
+	@Check("admin")
 	public static void save(long competitionID, String name, String date) {
 		Competition competition = Competition.findById(competitionID);
 
@@ -64,6 +65,7 @@ public class Competitions extends Controller {
 	}
 
 	// TODO: fix this so that data is properly removed from db on deletion
+	@Check("admin")
 	public static void delete(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 
@@ -93,6 +95,7 @@ public class Competitions extends Controller {
 		Results.list(competitionID);
 	}
 
+	@Check("admin")
 	public static void addStage(long competitionID, String name) {
 		Competition competition = Competition.findById(competitionID);
 
@@ -109,6 +112,7 @@ public class Competitions extends Controller {
 		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 
+	@Check("admin")
 	public static void deleteStage(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
 
@@ -133,6 +137,7 @@ public class Competitions extends Controller {
 		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
 	}
 
+	@Check("admin")
 	public static void registerUser(long competitionID, long userID, long divisionID) {
 		Competition competition = Competition.findById(competitionID);
 		User user = User.findById(userID);
@@ -153,6 +158,7 @@ public class Competitions extends Controller {
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
 	}
 
+	@Check("admin")
 	public static void unregisterUser(long competitionID, long competitorID) {
 		Competition competition = Competition.findById(competitionID);
 		Competitor competitor = Competitor.findById(competitorID);
@@ -173,14 +179,6 @@ public class Competitions extends Controller {
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions);
 	}
 
-	public static void newCompetitor(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-		List<Competitor> competitors = competition.competitors;
-		List<User> users = User.all().fetch();
-
-		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users));
-	}
-
 	public static void theater(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<Competitor> allcompetitors = competition.competitors;
@@ -193,8 +191,7 @@ public class Competitions extends Controller {
 			} else {
 				results.add(competitor);
 			}
-		}		
+		}
 		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
 	}
-	
 }

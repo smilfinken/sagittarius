@@ -15,6 +15,7 @@ public class Divisions extends Controller {
 		render(divisions);
 	}
 
+	@Check("admin")
 	public static void edit(long divisionID) {
 	}
 }

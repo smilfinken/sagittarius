@@ -58,9 +58,9 @@ divisions.ranks=Klassindelad
 divisions.categories=Kategorier
 divisions.competitiontypes=Tävlingstyper
 
-export=Exportera
+export.file=Exportera till fil
 export.print=Utskrift
-export.integration=Exportera till annat system
+export.integration=Exportera till %s
 
 models.user.admin=Administratör
 models.user.cardnumber=Skyttekortsnummer

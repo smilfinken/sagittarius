@@ -46,4 +46,16 @@ public class Division extends Model {
 		this.categories = categories;
 		this.ranks = ranks;
 	}
+
+	public boolean hasCompetitionType(long competitionTypeID) {
+		CompetitionType competitionType = CompetitionType.findById(competitionTypeID);
+
+		return competitionTypes.contains(competitionType);
+	}
+
+	public boolean hasCategory(long categoryID) {
+		Category category = Category.findById(categoryID);
+
+		return categories.contains(category);
+	}
 }

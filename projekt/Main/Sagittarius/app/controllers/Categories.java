@@ -16,6 +16,24 @@ public class Categories extends Controller {
 	}
 
 	@Check("admin")
-	public static void edit(long categoryID) {
+	public static void edit(long categoryID, String category, String useraction) {
+				Category item = Category.findById(categoryID);
+
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "save":
+					item.category = category;
+					item.save();
+					list();
+					break;
+				case "delete":
+					item.delete();
+					list();
+					break;
+			}
+
+		}
+
+		render(item);
 	}
 }

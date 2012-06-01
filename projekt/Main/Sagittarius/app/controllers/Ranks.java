@@ -16,6 +16,25 @@ public class Ranks extends Controller {
 	}
 
 	@Check("admin")
-	public static void edit(long rankID) {
+	public static void edit(long rankID, int rank, String label, String useraction) {
+		Rank item = Rank.findById(rankID);
+
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "save":
+					item.rank = rank;
+					item.label = label;
+					item.save();
+					list();
+					break;
+				case "delete":
+					item.delete();
+					list();
+					break;
+			}
+
+		}
+
+		render(item);
 	}
 }

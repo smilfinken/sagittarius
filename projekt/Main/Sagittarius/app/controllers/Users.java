@@ -1,8 +1,10 @@
 package controllers;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import models.*;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -48,34 +50,54 @@ public class Users extends Controller {
 
 	@Check("admin")
 	public static void edit(long userID, String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, boolean admin, String useraction) {
-		User user = User.findById(userID);
+		User item = User.findById(userID);
+		String message = "";
 
-		if (params._contains("useraction")) {
-			switch (useraction) {
-				case "save":
-					user.firstName = firstName;
-					user.surname = surname;
-					user.cardNumber = cardNumber;
-					user.email = email;
-					user.rank = (Rank) Rank.findById(rankID);
-					user.categories = Arrays.asList((Category) Category.findById(categoryID));
-					user.admin = admin;
-					user.save();
-					list();
-					break;
-				case "delete":
-					user.delete();
-					list();
-					break;
+		if (item != null) {
+			if (params._contains("useraction")) {
+				switch (useraction) {
+					case "save":
+						item.firstName = firstName;
+						item.surname = surname;
+						item.cardNumber = cardNumber;
+						item.email = email;
+						item.rank = (Rank) Rank.findById(rankID);
+						item.categories = Arrays.asList((Category) Category.findById(categoryID));
+						item.admin = admin;
+						item.save();
+						list();
+						break;
+					case "reactivate":
+						// TODO: This should send a message to the user with the new password,
+						//       or preferably a reactivation link
+						item.password = Security.hashPassword("123");
+						item.confirmationDate = new Date();
+						item.save();
+						message = Messages.get("secure.passwordreset");
+						break;
+					case "delete":
+						item.delete();
+						list();
+						break;
+				}
 			}
-
 		}
 
-		flash.put("categoryID", user.categories.get(0).id);
-		flash.put("rankID", user.rank.id);
+		flash.put("categoryID", item.categories.get(0).id);
+		flash.put("rankID", item.rank.id);
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
-		render(user, categories, ranks);
+		render(item, categories, ranks, message);
+	}
+
+	public static void profile(String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, String useraction) {
+		User item = User.find("byEmail", session.get("username")).first();
+
+		flash.put("categoryID", item.categories.get(0).id);
+		flash.put("rankID", item.rank.id);
+		List<Category> categories = Category.all().fetch();
+		List<Rank> ranks = Rank.all().fetch();
+		render(item, categories, ranks);
 	}
 
 	@Check("admin")

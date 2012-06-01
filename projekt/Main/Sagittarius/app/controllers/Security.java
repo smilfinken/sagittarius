@@ -32,12 +32,12 @@ public class Security extends Secure.Security {
 	static void onAuthenticated() {
 		Application.index();
 	}
-	
+
 	public static String staticHash(String text) {
 
 		// currentTimeMillis - To ensure a failing hashing algoritm does not allow for registration check fall through
 		String hashedText = String.valueOf(System.currentTimeMillis());
-		
+
 		if (text != null) {
 			try {
 				SecretKeyFactory factory = SecretKeyFactory.getInstance("DES");
@@ -45,12 +45,11 @@ public class Security extends Secure.Security {
 				byte[] hash = factory.generateSecret(spec).getEncoded();
 				hashedText = String.format("%1$16x", new BigInteger(1, hash)).replace(" ", "0");
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException e) {
-				e.printStackTrace();
 			}
 		}
-		
+
 		return hashedText;
-	}	
+	}
 
 	static byte[] generateHash(byte[] salt, String password) {
 		try {

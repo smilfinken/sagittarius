@@ -20,7 +20,9 @@
 		</div>
 		#{/if}
 		<div class="currentuser">
-			Inloggad som: ${session.username} #{a @Secure.logout()}&{'navigation.logout'}#{/a}
+			Inloggad som:
+			#{a @Users.profile()}${session.username}#{/a}
+			#{a @Secure.logout()}&{'navigation.logout'}#{/a}
 		</div>
 		#{secure.check "admin"}
 		<hr class="clear" />

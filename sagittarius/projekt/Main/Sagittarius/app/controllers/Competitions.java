@@ -1,6 +1,7 @@
 package controllers;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import models.*;
 import play.mvc.Controller;
@@ -179,4 +180,21 @@ public class Competitions extends Controller {
 
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users));
 	}
+
+	public static void theater(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<Competitor> allcompetitors = competition.competitors;
+
+		List<Competitor> competitors = new ArrayList<>();
+		List<Competitor> results = new ArrayList<>();
+		for (Competitor competitor : allcompetitors) {
+			if (!competitor.isScored()) {
+				competitors.add(competitor);
+			} else {
+				results.add(competitor);
+			}
+		}		
+		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
+	}
+	
 }

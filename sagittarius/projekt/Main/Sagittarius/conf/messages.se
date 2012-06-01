@@ -43,6 +43,7 @@ competitions.return=Tillbaks till tävlingen
 competitions.select=Välj
 competitions.selectlabel=Välj en tävling
 competitions.stage=Station
+competitions.theater=Billboard
 
 competitors.createuser=Skapa ny användare
 competitors.nocompetitors=Inga deltagare finns att registrera resultat på.

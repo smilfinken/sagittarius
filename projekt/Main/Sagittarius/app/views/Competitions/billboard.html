@@ -1,69 +1,22 @@
+<!DOCTYPE html>
 <html>
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
-<!--[if IE]>
-<style>		
-	.control{
-		position: absolute;
-  		right: 0px;
-  		top: expression( document.body.scrollTop + 'px' );
-  	}
-</style>
-<![endif]-->
-	
-<!--[if !IE]><!-->
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/billboard.css'}" />
+<script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/auto-scroll.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <style>
-	.control{
-		position: fixed;
-		top: 2px;
-		right: 2px;
-	}
-</style>		
-<!--<![endif]-->
 
-<style>
-	.control{
-		display: block;
-		border: solid 1px lightblue;
-	}
-	.controlHeader{
-		border-bottom: solid 2px lightblue;
-		text-align: right;
-	}
-	.hidden{
-		display: none;
-	}
 </style>
 
 	<script>
 		$(document).ready(function() {
-			$("#results").ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
-  				$(this).html( "Triggered ajaxError handler.<br/>" + jqXHR.responseText );
-			});
 			reloadPage();
-			pageScroll();
+			sagittarius.autoscroll.start();
 			textAnimation();
 		});
-
 		function textAnimation() {
-
-		}
-
-		var dir = 1;
-		var scrollDelay = 40;
-		function pageScroll() {
-			var b4 = $(window).scrollTop();
-			$(window).scrollTop( b4 + 1*dir );
-			
-			var changeDirection = b4==$(window).scrollTop();
-			dir = changeDirection ? (-1*dir) : dir;
-			
-			console.log('document.body.scrollTop: '+$(window).scrollTop());
-			setTimeout('pageScroll()', ( changeDirection ? 2000: scrollDelay));
-		}
-		function scrollSpeed(slower) {
-			scrollDelay += slower == true ? 10 : -10;
+		
 		}
 		function changeTextSize(smaller) {
 			var property = $('.resultTable td').css('font-size');
@@ -79,7 +32,8 @@
 			$.get('@{Competitions.billboardpart()}',	
 				{ competitionId: ${competitionId} },
 				function(data){
-					$('#results').replaceWith(data);
+					$('#results').empty();
+					$('#results').append(data);
 				});
 			showPresentTime();
 			setTimeout('reloadPage()', 60000); // Reload page every 60 seconds
@@ -95,11 +49,15 @@
 <div id="results"></div>
 <div class="control">
 	<div class="controlHeader">
-		<a href="javascript:toggleControl();">[?]</a>
+		<a href="javascript:toggleControl();">[+]</a>
 	</div>
 	<div class="collapsable">
-		<a href="javascript:scrollSpeed(true);">Slower</a>
-		<a href="javascript:scrollSpeed(false);">Faster</a>
+		<a href="javascript:sagittarius.autoscroll.pause();">Stop</a>
+		<a href="javascript:sagittarius.autoscroll.resume();">Start</a>
+	</div>
+	<div class="collapsable">
+		<a href="javascript:sagittarius.autoscroll.speedDown();">Slower</a>
+		<a href="javascript:sagittarius.autoscroll.speedUp();">Faster</a>
 	</div>
 	<div class="collapsable">
 		<a href="javascript:changeTextSize(true);">Smaller</a>

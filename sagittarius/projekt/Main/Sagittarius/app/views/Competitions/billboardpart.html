@@ -6,6 +6,7 @@
 	int totalPoints;
 	int place = 1;
 	int count = 1;
+	int rowCount = 1;
 	}%
 	%{
 	if (results.size() > 0) {
@@ -35,7 +36,7 @@
 	tableOpen = true;
 	previousClass = entry.getDivision();
 	}%
-	<tr>
+	<tr #{if rowCount++ % 2 != 0}class="even"#{/if}>
 		<td class="competitor">
 			<span class="place">${place++}</span> <span class="name">${entry.getFullName()}</span>
 		</td>
@@ -50,17 +51,17 @@
 			totalTargets += result.targets;
 			totalPoints += result.points;
 			}%
-			${result.hits}/${result.targets}#{if result.points > 0} (${result.points})#{/if}#{if count++ < entry.results.size()}, #{/if}
+			${result.hits}/${result.targets}#{if result.points > 0} <span class="points">(${result.points})</span>#{/if}#{if count++ < entry.results.size()}, #{/if}
 			%{
 			}
 			}%
 		</td>
 		<td class="totals">
 			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets() == true}
-			<span class="sum">${totalHits + totalTargets}</span> (${totalPoints})
+			<span class="sum">${totalHits + totalTargets}</span> <span class="points">(${totalPoints})</span>
 			#{/if}
 			#{else}
-			<span class="sum">${totalHits}/${totalTargets}</span> (${totalPoints})
+			<span class="sum">${totalHits}/${totalTargets}</span> <span class="points">(${totalPoints})</span>
 			#{/else}
 		</td>
 		</td>

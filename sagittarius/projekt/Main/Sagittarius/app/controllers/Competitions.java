@@ -203,8 +203,8 @@ public class Competitions extends Controller {
 			} else {
 				results.add(competitor);
 			}
-		}		
-		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));		
+		}
+		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
 	}
 	
 }

@@ -5,6 +5,7 @@
 <script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/auto-scroll.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/auto-scroll-proto.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <style>
 
 </style>
@@ -13,20 +14,36 @@
 		$(document).ready(function() {
 			reloadPage();
 			sagittarius.autoscroll.start();
-			textAnimation();
 		});
-		function textAnimation() {
-		
-		}
 		function changeTextSize(smaller) {
-			var property = $('.resultTable td').css('font-size');
+			var property = $('#results').css('font-size');
 			var value = property.substring(0, 2);
 			var unit = property.substring(2, 4);
 			smaller ? value-- : value++;
-			$('.resultTable td').css('font-size', value + unit);
+			$('#results').css('font-size', value + unit);
 		}
-		function toggleControl() {
-			$('.collapsable').toggleClass('hidden');
+		function toggleControl(forceClose) {
+			if (forceClose == true && $("a.square").hasClass('out')) {
+			
+				// The user has closed the pop-up, skip eventdriven toggle.
+				return;
+			}
+		
+			if ($("a.square").hasClass('in')) {
+				$("a.square").removeClass('in');
+				$("a.square").addClass('out');
+				$(".hide").toggleClass('hidden');
+				$(".control").animate({ width: '88px' }, 300 );
+			} else {
+				$("a.square").removeClass('out');
+				$("a.square").addClass('in');
+				$(".control").animate({ width: "100%" }, 300, function() {
+					$(".hide").toggleClass('hidden');
+				});
+				
+				// Close after 60sec, if forgotten to close
+				setTimeout('toggleControl(true)', 10000);
+			}
 		}
 		function reloadPage() {
 			$.get('@{Competitions.billboardpart()}',	
@@ -40,34 +57,82 @@
 		}
 		function showPresentTime() {
 			var date = new Date();
-			$('#time').text(date.getHours()+':'+date.getMinutes()+':'+date.getSeconds());
+			$('.time').text( justify( date.getHours() ) +':'+ justify( date.getMinutes() ) +':'+ justify( date.getSeconds() ));
+		}
+		function justify(val) {
+			return (val > 9) ? val : '0'+val;
+		}
+		var protoList = [];
+		function changeMode(mode) {
+		
+			// Always empty protolist
+			for (var i in protoList) {
+				console.log('Iterating protoList:' + protoList[i]);
+				if (protoList[i] != null) {
+					protoList[i].clear();
+				}
+				delete protoList[i];
+				protoList[i] = null;
+			}
+		
+			// Rearrange...
+			$('#results').slideToggle(1500, 'swing', function(){
+				
+				if (mode == 'stacked') {
+					sagittarius.autoscroll.pause();
+					$('.resultTable').css('float', 'left');			
+					$('.dataTable').each(function(index, value){
+						$(this).css('height', '150px');
+						var proto = new sagittarius.AutoScrollProto($(this));
+						proto.scroll();
+						protoList.push(proto);
+					});
+					
+				} else if (mode == 'plain'){
+					$('.resultTable').css('float', 'none');
+					$('.dataTable').each(function(index, value){
+						$(this).css('height', '100%');
+					});
+					sagittarius.autoscroll.resume();		
+				}
+				
+				$('#results').slideToggle(1500, 'swing');
+			});
 		}
 	</script>
 
 </head>
 <body>
 <div id="results"></div>
-<div class="control">
-	<div class="controlHeader">
-		<a href="javascript:toggleControl();">[+]</a>
-	</div>
-	<div class="collapsable">
-		<a href="javascript:sagittarius.autoscroll.pause();">Stop</a>
-		<a href="javascript:sagittarius.autoscroll.resume();">Start</a>
-	</div>
-	<div class="collapsable">
-		<a href="javascript:sagittarius.autoscroll.speedDown();">Slower</a>
-		<a href="javascript:sagittarius.autoscroll.speedUp();">Faster</a>
-	</div>
-	<div class="collapsable">
-		<a href="javascript:changeTextSize(true);">Smaller</a>
-		<a href="javascript:changeTextSize(false);">Bigger</a>
-	</div>
-	<div class="collapsable">
-		<a href="javascript:reloadPage();">Reload</a>
-	</div>
-	<div class="collapsable">
-		<span id="time"></span>
+<div class="control collapsable rounded-corners">
+	<ul class="controls left hidden hide">
+		<li>
+			Scrolling: 
+			<a href="javascript:sagittarius.autoscroll.pause();">Stop</a>
+			<a href="javascript:sagittarius.autoscroll.resume();">Start</a>
+		</li>
+		<li>
+			Speed:
+			<a href="javascript:sagittarius.autoscroll.speedDown();">Slower</a>
+			<a href="javascript:sagittarius.autoscroll.speedUp();">Faster</a>
+		</li>
+		<li>
+			Text size:
+			<a href="javascript:changeTextSize(true);">Smaller</a>
+			<a href="javascript:changeTextSize(false);">Bigger</a>
+		</li>
+		<li>
+			View mode:
+			<a href="javascript:changeMode('plain');">Plain</a>
+			<a href="javascript:changeMode('stacked');">Stacked</a>
+		</li>
+		<li>
+			Page:
+			<a href="javascript:reloadPage();">Reload</a>
+		</li>
+	</ul>
+	<div class="controlHeader right">
+		<span class="time"></span><a class="square out" href="javascript:toggleControl(this);"></a>
 	</div>
 </div>
 </body>

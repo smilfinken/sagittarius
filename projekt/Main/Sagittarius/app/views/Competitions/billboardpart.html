@@ -16,7 +16,7 @@
 	if (!entry.getDivision().equals(previousClass)){
 	place = 1;
 	}%
-	#{if (tableOpen == true)}</table>#{/if}
+	#{if (tableOpen == true)}</tr></table></td></tr></table>#{/if}
 <table class="resultTable">
 	<thead>
 		<tr class="header">
@@ -31,6 +31,9 @@
 			</th>
 		</tr>
 	</thead>
+	<tr>
+	<td colspan="3">
+	<table class="dataTable">
 	%{
 	}
 	tableOpen = true;
@@ -64,12 +67,12 @@
 			<span class="sum">${totalHits}/${totalTargets}</span> <span class="points">(${totalPoints})</span>
 			#{/else}
 		</td>
-		</td>
 	</tr>
 	%{
 	}
 	}
 	}
 	}%
+	</tr></table></td>
 </table>
 </div>

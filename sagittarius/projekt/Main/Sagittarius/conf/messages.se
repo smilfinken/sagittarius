@@ -80,7 +80,7 @@ notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
 
-ranks.rank=Klass
+ranks.ranking=Klass
 ranks.label=Beskrivning
 
 registration.cancel=Till inloggninssidan

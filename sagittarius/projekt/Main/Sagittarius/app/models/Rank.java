@@ -10,16 +10,16 @@ import play.db.jpa.Model;
 @Entity
 public class Rank extends Model {
 
-	public int rank;
+	public int ranking;
 	public String label;
 
-	public Rank(int rank) {
-		this.rank = rank;
-		this.label = String.format("%d", rank);
+	public Rank(int ranking) {
+		this.ranking = ranking;
+		this.label = String.format("%d", ranking);
 	}
 
-	public Rank(int rank, String label) {
-		this.rank = rank;
+	public Rank(int ranking, String label) {
+		this.ranking = ranking;
 		this.label = label;
 	}
 }

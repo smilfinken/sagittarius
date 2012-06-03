@@ -16,13 +16,13 @@ public class Ranks extends Controller {
 	}
 
 	@Check("admin")
-	public static void edit(long rankID, int rank, String label, String useraction) {
+	public static void edit(long rankID, int ranking, String label, String useraction) {
 		Rank item = Rank.findById(rankID);
 
 		if (params._contains("useraction")) {
 			switch (useraction) {
 				case "save":
-					item.rank = rank;
+					item.ranking = ranking;
 					item.label = label;
 					item.save();
 					list();

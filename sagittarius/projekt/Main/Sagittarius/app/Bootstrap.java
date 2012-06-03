@@ -3,6 +3,7 @@ import controllers.Security;
 import java.util.Date;
 import java.util.List;
 import models.*;
+import org.xhtmlrenderer.extend.OutputDevice;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
@@ -38,7 +39,7 @@ public class Bootstrap extends Job {
 			List<Rank> ranks = Rank.all().fetch();
 			for (Rank rank : ranks) {
 				if (rank.label == null || rank.label == "") {
-					rank.label = String.format("%d", rank.rank);
+					rank.label = String.format("%d", rank.ranking);
 					rank.save();
 				}
 			}

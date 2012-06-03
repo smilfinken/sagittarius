@@ -10,20 +10,21 @@ import play.db.jpa.Model;
 @Entity
 public class ScoringType extends Model {
 
-	public int type;
 	public String label;
+	public boolean sumPointsAndTargets;
 
-	public ScoringType(int type, String label) {
-		this.type = type;
+	public ScoringType(String label) {
 		this.label = label;
+		this.sumPointsAndTargets = false;
+	}
+
+	public ScoringType(String label, boolean sumPointsAndTargets) {
+		this.label = label;
+		this.sumPointsAndTargets = sumPointsAndTargets;
 	}
 
 	@Override
 	public String toString() {
 		return label;
-	}
-
-	public boolean sumPointsAndTargets() {
-		return true;
 	}
 }

@@ -1,6 +1,5 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -52,9 +51,9 @@ public class Competitor extends Model {
 	public String getDivision() {
 		if (division != null) {
 			if (division.ranks) {
-				return String.format("%s%s", division.division, user.rank.rank);
+				return String.format("%s%s", division.label, user.rank.ranking);
 			} else {
-				return String.format("%s", division.division);
+				return String.format("%s", division.label);
 			}
 		} else {
 			return "";

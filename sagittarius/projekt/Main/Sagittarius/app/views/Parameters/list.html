@@ -13,7 +13,7 @@
 <div>
 	${ranks.size()} t&auml;vlingsklasser<br />
 	#{list ranks}
-	[${_.id}] ${_.rank} ${_.label}<br />
+	[${_.id}] ${_.ranking} ${_.label}<br />
 	#{/list}
 </div>
 
@@ -31,7 +31,7 @@
 <div>
 	${divisions.size()} divisoner<br />
 	#{list divisions}
-	[${_.id}] ${_.division} <input type="checkbox" disabled #{if (_.ranks)}checked#{/if}/><br />
+	[${_.id}] ${_.label} <input type="checkbox" disabled #{if (_.ranks)}checked#{/if}/><br />
 	#{/list}
 </div>
 

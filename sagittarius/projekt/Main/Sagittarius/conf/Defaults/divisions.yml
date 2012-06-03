@@ -1,55 +1,55 @@
 # pre-defined divisions
 
 Division(1):
-  division: J
+  label: J
   competitionTypes: [1,2]
   categories: [1]
   ranks: false
 
 Division(2):
-  division: C
+  label: C
   competitionTypes: [1,2]
   categories: [2]
   ranks: true
 
 Division(3):
-  division: D
+  label: D
   competitionTypes: [1,2]
   categories: [3]
   ranks: true
 
 Division(4):
-  division: VY
+  label: VY
   competitionTypes: [1,2]
   categories: [4]
   ranks: false
 
 Division(5):
-  division: VÄ
+  label: VÄ
   competitionTypes: [1,2]
   categories: [5]
   ranks: false
 
 Division(6):
-  division: A
+  label: A
   competitionTypes: [1,2]
   categories: [1,2,3,4,5]
   ranks: true
 
 Division(7):
-  division: B
+  label: B
   competitionTypes: [1,2]
   categories: [1,2,3,4,5]
   ranks: true
 
 Division(8):
-  division: R
+  label: R
   competitionTypes: 1
   categories: [1,2,3,4,5]
   ranks: true
 
 Division(9):
-  division: S
+  label: S
   competitionTypes: 1
   categories: [1,2,3,4,5]
   ranks: false

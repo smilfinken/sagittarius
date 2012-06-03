@@ -19,7 +19,7 @@ public class Divisions extends Controller {
 	}
 
 	@Check("admin")
-	public static void edit(long divisionID, String division, boolean ranks, long[] validCompetitionTypes, long[] validCategories, String useraction) {
+	public static void edit(long divisionID, String label, boolean ranks, long[] validCompetitionTypes, long[] validCategories, String useraction) {
 		Division item = Division.findById(divisionID);
 
 		if (params._contains("useraction")) {
@@ -39,7 +39,7 @@ public class Divisions extends Controller {
 							newCs.add(c);
 						}
 					}
-					item.division = division;
+					item.label = label;
 					item.ranks = ranks;
 					item.categories = newCs;
 					item.competitionTypes = newCTs;

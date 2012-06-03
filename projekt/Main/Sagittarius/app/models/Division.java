@@ -12,37 +12,37 @@ import play.db.jpa.Model;
 @Entity
 public class Division extends Model {
 
-	public String division;
+	public String label;
 	@ManyToMany
 	public List<CompetitionType> competitionTypes;
 	@ManyToMany
 	public List<Category> categories;
 	public boolean ranks;
 
-	public Division(String division) {
+	public Division(String label) {
 		this.competitionTypes = null;
-		this.division = division;
+		this.label = label;
 		this.categories = null;
 		this.ranks = true;
 	}
 
-	public Division(List<CompetitionType> competitionTypes, String division) {
+	public Division(List<CompetitionType> competitionTypes, String label) {
 		this.competitionTypes = competitionTypes;
-		this.division = division;
+		this.label = label;
 		this.categories = null;
 		this.ranks = true;
 	}
 
-	public Division(List<CompetitionType> competitionTypes, String division, List<Category> categories) {
+	public Division(List<CompetitionType> competitionTypes, String label, List<Category> categories) {
 		this.competitionTypes = competitionTypes;
-		this.division = division;
+		this.label = label;
 		this.categories = categories;
 		this.ranks = true;
 	}
 
-	public Division(List<CompetitionType> competitionTypes, String division, List<Category> categories, boolean ranks) {
+	public Division(List<CompetitionType> competitionTypes, String label, List<Category> categories, boolean ranks) {
 		this.competitionTypes = competitionTypes;
-		this.division = division;
+		this.label = label;
 		this.categories = categories;
 		this.ranks = ranks;
 	}

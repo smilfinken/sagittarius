@@ -58,7 +58,7 @@
 			}%
 		</td>
 		<td class="totals">
-			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets() == true}
+			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets == true}
 			<span class="sum">${totalHits + totalTargets}</span> (${totalPoints})
 			#{/if}
 			#{else}

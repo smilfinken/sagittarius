@@ -1,0 +1,12 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get('common.changeobject', 'anmälan') /}
+
+<hr class="clear" />
+<form action="@{Competitors.edit}" method="POST" autocomplete="off">
+	<input type="hidden" name="competitionID" value="${competition.id}" />
+	<input type="hidden" name="competitorID" value="${competitor.id}" />
+	${competitor.getFullName()}
+	#{include "Common/selectDivision.html" /}
+
+	<button type="submit" name="useraction" value="save">&{'common.save'}</button>
+</form>

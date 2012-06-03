@@ -16,13 +16,13 @@ Category(categorySenior):
         category: Senior
 
 Rank(rank1):
-        rank: 1
+        ranking: 1
 
 Rank(rank2):
-        rank: 2
+        ranking: 2
 
 Rank(rank3):
-        rank: 3
+        ranking: 3
 
 User(userJunior):
         firstName: Young
@@ -50,31 +50,31 @@ User(userSenior):
 
 Division(divisionJ):
         competitionTypes: [testCompetition]
-        division: J
+        label: J
         categories: [categoryJunior, categoryAdult, categoryLady]
         ranks: false
 
 Division(divisionC):
         competitionTypes: [testCompetition]
-        division: C
+        label: C
         categories: [categoryAdult, categoryLady]
         ranks: true
 
 Division(divisionD):
         competitionTypes: [testCompetition]
-        division: D
+        label: D
         categories: [categoryLady]
         ranks: true
 
 Division(divisionA):
         competitionTypes: [testCompetition]
-        division: A
+        label: A
         categories: [categoryJunior, categoryAdult, categoryLady]
         ranks: true
 
 Division(divisionVY):
         competitionTypes: [testCompetition]
-        division: VY
+        label: VY
         categories: [categorySenior]
         ranks: false
 

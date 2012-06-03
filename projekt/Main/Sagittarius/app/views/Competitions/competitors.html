@@ -32,8 +32,10 @@
 <div class="multicolumn-block">
 	#{list competitors}
 	<div>
+		#{a @Competitors.edit(competition.id, _.id)}
 		<span style="float:left">${_.getFullName()}</span>
 		<span style="float: right">${_.getDivision()}</span>
+		#{/a}
 	</div>
 	#{/list}
 </div>

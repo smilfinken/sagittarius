@@ -1,11 +1,11 @@
 #{extends "Administration/main.html" /}
-#{set title: item.division /}
+#{set title: item.label /}
 
 <div>
 	<form action="@{Divisions.edit()}" method="POST">
 		<input type="hidden" name="divisionID" value="${item.id}" />
-		<label for="division">&{'common.division'}</label>
-		<input type="text" name="division" value="${item.division}" />
+		<label for="label">&{'common.division'}</label>
+		<input type="text" name="label" value="${item.label}" />
 		<label for="ranks">&{'divisions.ranks'}</label>
 		<input type="checkbox" name="ranks" #{if (item.ranks)}checked#{/if} /><br />
 

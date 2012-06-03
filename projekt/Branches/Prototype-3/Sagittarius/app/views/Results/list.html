@@ -1,0 +1,146 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get('results.title') /}
+
+<hr class="clear" />
+#{if (competition.stages != null && competition.stages.size() > 0)}
+#{if (competitors?.size() > 0)}
+<div>
+	<form id="competitor" method="POST" autocomplete="off">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<table>
+			<tr>
+				<td colspan="6">
+					#{include "Common/selectCompetitor.html" /}
+					#{secure.check "admin"}
+					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>&{'competitors.unregister'}</button>
+					#{/secure.check}
+				</td>
+			</tr>
+			<tr class="scoring">
+				#{list items:0..competition.stages.size()-1, as:'i'}
+				<td class="scoring">
+					<div style="text-align: center; clear: all">Station ${i+1}</div>
+					<label for="results[${i}].hits">&{'results.hits'}</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
+					<label for="results[${i}].targets">&{'results.targets'}</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
+					#{if (competition.stages[i].hasPoints())}
+					<label for="results[${i}].points">&{'results.points'}</label>
+					<input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
+					#{/if}
+				</td>
+				#{/list}
+			</tr>
+			<tr>
+				<td class="buttons" colspan="7">
+					<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>&{'results.register'}</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+#{/if}
+#{else}
+<div>
+	&{'competitors.nocompetitors'}
+</div>
+#{/else}
+
+#{if (results?.size() > 0)}
+<hr class="clear" />
+<div>
+	<a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.print'}</a>
+	#{a @Results.export(competition.id)}&{'export.file'}#{/a}
+	#{a @Results.exportToShooter(competition.id)}&{'export.integration', "Shooter"}#{/a}
+</div>
+
+<hr class="clear" />
+<div>
+	%{
+	int totalHits;
+	int totalTargets;
+	int totalPoints;
+	int place = 1;
+	}%
+	<table>
+		<tr>
+			<th style="text-align: left">&{'common.name'}</th>
+			<th>&{'common.division'}</th>
+			<th colspan="3">&{'results.title'}</th>
+		</tr>
+		%{
+		if (results.size() > 0) {
+		String previousClass = results.first().getDivision();
+		for(entry in results){
+		if (entry.results != null && entry.results.size() == competition.stages.size()) {
+		if (!entry.getDivision().equals(previousClass)){
+		place = 1;
+		}%
+		<tr><td colspan="4">&nbsp;</td></tr>
+		%{
+		}
+		previousClass = entry.getDivision();
+		}%
+		<tr>
+			<td style="font-weight: bold; text-align: left">
+				#{a @Results.edit(competition.id, entry.id)}
+				<span style="font-style: italic">${place}</span> ${entry.getFullName()}
+				#{/a}
+			</td>
+			<td style="font-weight: bold">
+				${entry.getDivision()}
+			</td>
+			<td>
+				%{
+				totalHits = 0;
+				totalTargets = 0;
+				totalPoints = 0;
+				for(result in entry.results){
+				totalHits += result.hits;
+				totalTargets += result.targets;
+				}%
+				${result.hits}/${result.targets}&nbsp;
+				%{
+				if (result.points > 0){
+				totalPoints += result.points;
+				}%
+				(${result.points})&nbsp;
+				%{
+				}
+				}
+				}%
+			</td>
+			<td>
+				${totalHits}/${totalTargets}
+				<span style="font-weight: bold">${totalHits + totalTargets} (${totalPoints})</span>
+			</td>
+			<td>
+				#{secure.check "admin"}
+				<form action="@{Results.delete()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
+					<input type="hidden" name="competitorID" value="${entry.id}" />
+					<button class="delete" type="submit">&{'common.delete'}</button>
+				</form>
+				#{/secure.check}
+			</td>
+		</tr>
+		%{
+		place++;
+		}
+		}
+		}
+		}%
+	</table>
+</div>
+#{/if}
+#{else}
+<div>
+	&{'results.noresults'}
+</div>
+#{/else}
+#{/if}
+#{else}
+<div>
+	&{'competitions.nostages'}
+</div>
+#{/else}

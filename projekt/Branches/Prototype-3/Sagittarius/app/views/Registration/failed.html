@@ -1,0 +1,11 @@
+#{extends "mainExt.html" /}
+#{set title: messages.get("registration.failed.title") /}
+#{ifErrors}
+	<div class="error">
+   		<h1>&{'validation.error'}</h1>
+   	</div>
+#{/ifErrors}
+<div>
+	<h1>&{'registration.failed.heading'}</h1>
+	<p>&{'registration.failed.body'}</p>
+</div>

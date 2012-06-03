@@ -1,0 +1,10 @@
+#{extends "Administration/main.html" /}
+#{set title: messages.get('administration.categories') /}
+
+<div class="multicolumn-block">
+	#{list categories}
+	<div>
+		#{a @Categories.edit(_.id)}${_.category}#{/a}<br />
+	</div>
+	#{/list}
+</div>

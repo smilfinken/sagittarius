@@ -1,0 +1,44 @@
+#{extends "mainExt.html" /}
+#{set title: messages.get("registration.title") /}
+#{ifErrors}
+	<div class="error">
+   		<h1>&{'validation.error'}</h1>
+   	</div>
+#{/ifErrors}
+<div>
+	<form action="@{registration.doSignup()}" method="POST">
+		<span class="error">#{error 'firstname' /}</span>
+		<label for="firstname">&{'models.user.firstname'}</label>
+		<input type="text" name="firstname" value="${flash.firstname}"/><br/>
+
+		<span class="error">#{error 'surname' /}</span>
+		<label for="surname">&{'models.user.surname'}</label>
+		<input type="text" name="surname" value="${flash.surname}"/><br/>
+
+		<span class="error">#{error 'cardnumber' /}</span>
+		<label for="cardnumber">&{'models.user.cardnumber'}</label>
+		<input type="text" name="cardnumber" value="${flash.cardnumber}"/><br/>
+
+		<span class="error">#{error 'email' /}</span>
+		<label for="email">&{'models.user.email'}</label>
+		<input type="text" name="email" value="${flash.email}"/><br/>
+
+		<span class="error">#{error 'rankID' /}</span>
+		#{include "Common/selectRank.html" /}
+		<br />
+
+		<span class="error">#{error 'categoryID' /}</span>
+		#{include "Common/selectCategory.html" /}
+		<br />
+
+		<span class="error">#{error 'password' /}</span>
+		<label for="email">&{'models.user.password'}</label>
+		<input type="password" name="password""/><br/>
+
+		<span class="error">#{error 'passwordVerification' /}</span>
+		<label for="email">&{'controller.registration.passwordVerification'}</label>
+		<input type="password" name="passwordVerification" /><br/>
+		<input type="submit" value="&{'registration.submit'}"/>
+		<input type="button" value="&{'registration.cancel'}" onClick="location.href='@{application.index}';"/>
+	</form>
+</div>

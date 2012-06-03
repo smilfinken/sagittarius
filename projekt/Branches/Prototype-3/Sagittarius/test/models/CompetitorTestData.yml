@@ -1,0 +1,115 @@
+# Test data for the CompetitorTest tests
+
+CompetitionType(testCompetition):
+        name: Testtävling
+
+Category(categoryJunior):
+        category: Junior
+
+Category(categoryAdult):
+        category: Adult
+
+Category(categoryLady):
+        category: Lady
+
+Category(categorySenior):
+        category: Senior
+
+Rank(rank1):
+        ranking: 1
+
+Rank(rank2):
+        ranking: 2
+
+Rank(rank3):
+        ranking: 3
+
+User(userJunior):
+        firstName: Young
+        surname: Shooter
+        rank: rank1
+        category: categoryJunior
+
+User(userAdult):
+        firstName: Sharp
+        surname: Shooter
+        rank: rank2
+        category: categoryAdult
+
+User(userLady):
+        firstName: Girl
+        surname: Shooter
+        rank: rank3
+        category: categoryLady
+
+User(userSenior):
+        firstName: Old
+        surname: Shooter
+        rank: rank3
+        category: categorySenior
+
+Division(divisionJ):
+        competitionTypes: [testCompetition]
+        label: J
+        categories: [categoryJunior, categoryAdult, categoryLady]
+        ranks: false
+
+Division(divisionC):
+        competitionTypes: [testCompetition]
+        label: C
+        categories: [categoryAdult, categoryLady]
+        ranks: true
+
+Division(divisionD):
+        competitionTypes: [testCompetition]
+        label: D
+        categories: [categoryLady]
+        ranks: true
+
+Division(divisionA):
+        competitionTypes: [testCompetition]
+        label: A
+        categories: [categoryJunior, categoryAdult, categoryLady]
+        ranks: true
+
+Division(divisionVY):
+        competitionTypes: [testCompetition]
+        label: VY
+        categories: [categorySenior]
+        ranks: false
+
+Competitor(competitorJuniorJ):
+        user: userJunior
+        division: divisionJ
+
+Competitor(competitorJuniorA):
+        user: userJunior
+        division: divisionA
+
+Competitor(competitorAdultC):
+        user: userAdult
+        division: divisionC
+
+Competitor(competitorAdultA):
+        user: userAdult
+        division: divisionA
+
+Competitor(competitorLadyD):
+        user: userLady
+        division: divisionD
+
+Competitor(competitorLadyA):
+        user: userLady
+        division: divisionA
+
+Competitor(competitorLadySeniorV):
+        user: userLady
+        division: divisionVY
+
+Competitor(competitorSeniorV):
+        user: userSenior
+        division: divisionVY
+
+Competitor(competitorSeniorA):
+        user: userSenior
+        division: divisionA

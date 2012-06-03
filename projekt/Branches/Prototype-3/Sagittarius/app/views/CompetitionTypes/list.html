@@ -1,0 +1,10 @@
+#{extends "Administration/main.html" /}
+#{set title: messages.get('administration.competitiontypes') /}
+
+<div class="multicolumn-block">
+	#{list competitionTypes}
+	<div>
+		#{a @CompetitionTypes.edit(_.id)}${_.name}#{/a}<br />
+	</div>
+	#{/list}
+</div>

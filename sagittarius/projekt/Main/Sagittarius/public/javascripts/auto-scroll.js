@@ -44,7 +44,7 @@ sagittarius.autoscroll = (function() {
     	
     	// If not used, scrolling element will default to Browser Window
         setup: function(element) {
-            setup(element);
+            _setup(element);
         },
         
     	// Call ONCE to start scroll of page/element

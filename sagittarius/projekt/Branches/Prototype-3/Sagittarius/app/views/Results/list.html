@@ -1,9 +1,10 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get('results.title') /}
 
-<hr class="clear" />
 #{if (competition.stages != null && competition.stages.size() > 0)}
+#{secure.check "admin"}
 #{if (competitors?.size() > 0)}
+<hr class="clear" />
 <div>
 	<form id="competitor" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -45,6 +46,7 @@
 	&{'competitors.nocompetitors'}
 </div>
 #{/else}
+#{/secure.check}
 
 #{if (results?.size() > 0)}
 <hr class="clear" />

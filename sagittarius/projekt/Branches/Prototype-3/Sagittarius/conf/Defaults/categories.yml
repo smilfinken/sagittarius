@@ -1,0 +1,16 @@
+# pre-defined user categories
+
+Category(1):
+  category: Junior
+
+Category(2):
+  category: Herr
+
+Category(3):
+  category: Dam
+
+Category(4):
+  category: Veteran Yngre
+
+Category(5):
+  category: Veteran Äldre

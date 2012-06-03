@@ -1,0 +1,13 @@
+#{extends "Administration/main.html" /}
+#{set title: item.name /}
+
+<div>
+	<form action="@{CompetitionTypes.edit()}" method="POST">
+		<input type="hidden" name="competitionTypeID" value="${item.id}" />
+		<label for="name">&{'competitions.competitiontype'}</label>
+		<input type="text" name="name" value="${item.name}" />
+
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

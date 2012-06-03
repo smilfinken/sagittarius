@@ -1,0 +1,43 @@
+@IMPORT url("reset.css");
+
+/** CLASSES **/
+
+.control{
+	position: 			fixed;
+	top: 				2px;
+	right: 				2px;
+	display: 			block;
+	border: 			solid 3px #436645;
+	background-color:	#436645;
+}
+.controlHeader{
+	border-bottom: 		solid 3px #436645;
+	text-align: 		right;
+}
+.hidden{
+	display: 			none;
+}
+.points {
+	font-size:			10pt;
+	font-style: 		italic;
+}
+/** ELEMENTS **/
+table {
+	margin-top:			1em;
+}
+th {
+	text-align: 		left;
+	background-color:	#084857;
+	color:				#fff;
+	font-weight: 		bold;
+	padding-top:		12px !important;
+}
+th.competitor {			width: 180px;}
+th.stages {				width: 300px;}
+th.totals {				width: 60px;}
+tr.even {
+	background-color:	#86abba;
+}
+th, td {
+	padding:			1px 0px 1px 2px;
+}

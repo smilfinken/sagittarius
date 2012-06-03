@@ -1,0 +1,15 @@
+#{extends "Administration/main.html" /}
+#{set title: item.label /}
+
+<div>
+	<form action="@{Ranks.edit()}" method="POST">
+		<input type="hidden" name="rankID" value="${item.id}" />
+		<label for="ranking">&{'ranks.ranking'}</label>
+		<input type="text" name="ranking" value="${item.ranking}" />
+		<label for="label">&{'ranks.label'}</label>
+		<input type="text" name="label" value="${item.label}" />
+
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

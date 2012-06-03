@@ -1,0 +1,9 @@
+# pre-defined target models
+
+TargetModel(1):
+  name: Okänd typ
+  colour: Okänd färg
+
+TargetModel(2):
+  name: C20
+  colour: Gul

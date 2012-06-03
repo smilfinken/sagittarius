@@ -1,0 +1,9 @@
+# pre-defined scoring types
+
+ScoringType(1):
+  label: Poängfält
+  sumPointsAndTargets: true
+
+ScoringType(2):
+  label: Traditionell
+  sumPointsAndTargets: false

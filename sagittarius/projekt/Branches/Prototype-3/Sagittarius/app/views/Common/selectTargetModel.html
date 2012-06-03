@@ -1,0 +1,7 @@
+<label for="modelID">&{'common.type'}</label>
+#{select 'modelID', value:target?.getModelID()}
+#{option -1}#{/option}
+#{list targetModels}
+#{option _.id}${_.getModel()}#{/option}
+#{/list}
+#{/select}

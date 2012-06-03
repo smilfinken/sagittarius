@@ -1,0 +1,4 @@
+<label for="competitionTypeID">&{'common.type'}</label>
+#{select 'competitionTypeID', items:competitionTypes, value:competition?.competitionType?.id, valueProperty:'id', labelProperty:'name'}
+#{option -1}#{/option}
+#{/select}

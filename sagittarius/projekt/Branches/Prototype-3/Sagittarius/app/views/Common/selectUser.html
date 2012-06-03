@@ -1,0 +1,7 @@
+<label for="userID">&{'users.user'}</label>
+#{select 'userID', value:userID}
+#{option -1}#{/option}
+#{list users}
+#{option _.id}${_.getFullName(true)}#{/option}
+#{/list}
+#{/select}

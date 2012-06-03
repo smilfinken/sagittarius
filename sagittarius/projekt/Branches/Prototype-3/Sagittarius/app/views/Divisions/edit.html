@@ -1,0 +1,28 @@
+#{extends "Administration/main.html" /}
+#{set title: item.label /}
+
+<div>
+	<form action="@{Divisions.edit()}" method="POST">
+		<input type="hidden" name="divisionID" value="${item.id}" />
+		<label for="label">&{'common.division'}</label>
+		<input type="text" name="label" value="${item.label}" />
+		<label for="ranks">&{'divisions.ranks'}</label>
+		<input type="checkbox" name="ranks" #{if (item.ranks)}checked#{/if} /><br />
+
+		<label for="validCompetitionTypes">&{'divisions.competitiontypes'}</label>
+		<select type="radio" name="validCompetitionTypes" multiple>
+			#{list competitionTypes}
+			<option value="${_.id}" #{if (item.hasCompetitionType(_.id))}selected#{/if}>${_.name}</option>
+			#{/list}
+		</select>
+		<label for="validCategories">&{'divisions.categories'}</label>
+		<select type="radio" name="validCategories" multiple>
+			#{list categories}
+			<option value="${_.id}" #{if (item.hasCategory(_.id))}selected#{/if}>${_.category}</option>
+			#{/list}
+		</select><br />
+
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

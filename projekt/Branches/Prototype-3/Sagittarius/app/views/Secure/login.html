@@ -9,11 +9,11 @@
 </script>
 
 <div id="login">
-	
+
 	<h1>&{'secure.title'}</h1>
-		
+
 	#{form @authenticate()}
-		
+
 		#{if flash.error}
 			<p class="error">
 				&{flash.error}
@@ -24,7 +24,7 @@
 				&{flash.success}
 			</p>
 		#{/if}
-		
+
 		<p id="username-field">
 			<label for="username">&{'secure.username'}</label>
 			<input type="text" name="username" id="username" value="${flash.username}" />
@@ -41,10 +41,8 @@
 			<input type="submit" id="signin" value="&{'secure.login'}" />
 		</p>
 	#{/form}
-	
-	<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
-	
-	<p>Vill du logga in som ADMIN? <a href="javascript:loginAs('per@pelle.se', '123');"> Testa per@pelle.se:123</a></p>
-	<p>Vill du logga in som BASIC? <a href="javascript:loginAs('oskar@oskarsson.se', '123');"> Testa oskar@oskarsson.se:123</a></p>
-	
+
+	<p>&{'secure.noaccount'} #{a @Registration.signup()}&{'secure.noaccount.create'}#{/a}</p>
+	<p>Vill du logga in som g&auml;st? <a href="javascript:loginAs('msf@msf.tld', '123');">Klicka h&auml;r</a></p>
+
 </div>

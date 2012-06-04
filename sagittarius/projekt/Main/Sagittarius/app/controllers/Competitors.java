@@ -47,6 +47,8 @@ public class Competitors extends Controller {
 			}
 		}
 
+		// TODO: WTF?
+		//long foo = competitor.division.id;
 		List<Division> divisions = Division.all().fetch();
 		render(competition, competitor, divisions);
 	}

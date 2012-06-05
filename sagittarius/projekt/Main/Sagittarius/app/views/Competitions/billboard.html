@@ -83,7 +83,7 @@
 			}
 		
 			// Rearrange...
-			if (mode == 'stacked') {
+			if (mode == 'scroll') {
 				sagittarius.autoscroll.pause();
 				$('.resultTable').css('float', 'left');			
 				$('.dataTable').each(function(index, value){
@@ -93,6 +93,12 @@
 					sagittarius.billboard.protoList.push(proto);
 				});
 				
+			} else if (mode == 'stacked') {
+				$('.resultTable').css('float', 'left');
+				$('.dataTable').each(function(index, value){
+						$(this).css('height', '100%');
+				});
+				sagittarius.autoscroll.resume();
 			} else if (mode == 'plain'){
 				$('.resultTable').css('float', 'none');
 				$('.dataTable').each(function(index, value){
@@ -127,6 +133,7 @@
 			View mode:
 			<a href="javascript:changeMode('plain');">Plain</a>
 			<a href="javascript:changeMode('stacked');">Stacked</a>
+			<a href="javascript:changeMode('scroll');">Scrolling</a>
 		</li>
 		<li>
 			Page:

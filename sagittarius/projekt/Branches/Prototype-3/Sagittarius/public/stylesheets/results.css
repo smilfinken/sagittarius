@@ -17,7 +17,7 @@ table {
 	-fs-table-paginate: paginate;
 	width: 100%;
 	border: none;
-	padding-top: 1em;
+	padding-top: 0.9em;
 }
 
 tr.spacer {

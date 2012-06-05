@@ -32,10 +32,14 @@
 <div class="multicolumn-block">
 	#{list competitors}
 	<div>
-		#{a @Competitors.edit(competition.id, _.id)}
-		<span style="float:left">${_.getFullName()}</span>
-		<span style="float: right">${_.getDivision()}</span>
-		#{/a}
+		#{secure.check "admin"}
+		<a href="@{Competitors.edit(competition.id, _.id)}">
+			#{/secure.check}
+			<span style="float:left">${_.getFullName()}</span>
+			<span style="float: right">${_.getDivision()}</span>
+			#{secure.check "admin"}
+		</a>
+		#{/secure.check}
 	</div>
 	#{/list}
 </div>

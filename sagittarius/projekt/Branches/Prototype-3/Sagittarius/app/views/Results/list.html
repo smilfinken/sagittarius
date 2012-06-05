@@ -85,9 +85,13 @@
 		}%
 		<tr>
 			<td style="font-weight: bold; text-align: left">
-				#{a @Results.edit(competition.id, entry.id)}
-				<span style="font-style: italic">${place}</span> ${entry.getFullName()}
-				#{/a}
+				#{secure.check "admin"}
+				<a href="@{Results.edit(competition.id, entry.id)}">
+					#{/secure.check}
+					<span style="font-style: italic">${place}</span> ${entry.getFullName()}
+					#{secure.check "admin"}
+				</a>
+				#{/secure.check}
 			</td>
 			<td style="font-weight: bold">
 				${entry.getDivision()}

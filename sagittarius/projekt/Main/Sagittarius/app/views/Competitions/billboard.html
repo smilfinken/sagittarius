@@ -11,6 +11,11 @@
 </style>
 
 	<script>
+		sagittarius.billboard = {
+			mode: 'plain',
+			protoList: []
+		};	
+
 		$(document).ready(function() {
 			reloadPage();
 			sagittarius.autoscroll.start();
@@ -46,14 +51,16 @@
 			}
 		}
 		function reloadPage() {
+			console.log('Present mode: ' + sagittarius.billboard.mode);
 			$.get('@{Competitions.billboardpart()}',	
 				{ competitionId: ${competitionId} },
 				function(data){
 					$('#results').empty();
 					$('#results').append(data);
+					showPresentTime();
+					changeMode(sagittarius.billboard.mode);
 				});
-			showPresentTime();
-			setTimeout('reloadPage()', 60000); // Reload page every 60 seconds
+			setTimeout('reloadPage()', 60000); // Reload page every 120 seconds
 		}
 		function showPresentTime() {
 			var date = new Date();
@@ -62,42 +69,37 @@
 		function justify(val) {
 			return (val > 9) ? val : '0'+val;
 		}
-		var protoList = [];
 		function changeMode(mode) {
-		
+			sagittarius.billboard.mode = mode;
+			
+			
 			// Always empty protolist
-			for (var i in protoList) {
-				console.log('Iterating protoList:' + protoList[i]);
-				if (protoList[i] != null) {
-					protoList[i].clear();
+			for (var i in sagittarius.billboard.protoList) {
+				if (sagittarius.billboard.protoList[i] != null) {
+					sagittarius.billboard.protoList[i].clear();
 				}
-				delete protoList[i];
-				protoList[i] = null;
+				delete sagittarius.billboard.protoList[i];
+				sagittarius.billboard.protoList[i] = null;
 			}
 		
 			// Rearrange...
-			$('#results').slideToggle(1500, 'swing', function(){
+			if (mode == 'stacked') {
+				sagittarius.autoscroll.pause();
+				$('.resultTable').css('float', 'left');			
+				$('.dataTable').each(function(index, value){
+					$(this).css('height', '150px');
+					var proto = new sagittarius.AutoScrollProto($(this));
+					proto.scroll();
+					sagittarius.billboard.protoList.push(proto);
+				});
 				
-				if (mode == 'stacked') {
-					sagittarius.autoscroll.pause();
-					$('.resultTable').css('float', 'left');			
-					$('.dataTable').each(function(index, value){
-						$(this).css('height', '150px');
-						var proto = new sagittarius.AutoScrollProto($(this));
-						proto.scroll();
-						protoList.push(proto);
-					});
-					
-				} else if (mode == 'plain'){
-					$('.resultTable').css('float', 'none');
-					$('.dataTable').each(function(index, value){
+			} else if (mode == 'plain'){
+				$('.resultTable').css('float', 'none');
+				$('.dataTable').each(function(index, value){
 						$(this).css('height', '100%');
-					});
-					sagittarius.autoscroll.resume();		
-				}
-				
-				$('#results').slideToggle(1500, 'swing');
-			});
+				});
+				sagittarius.autoscroll.resume();		
+			 }
 		}
 	</script>
 

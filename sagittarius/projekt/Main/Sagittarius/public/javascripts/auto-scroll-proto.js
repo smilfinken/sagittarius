@@ -25,7 +25,6 @@ sagittarius.AutoScrollProto.prototype.scroll = function() {
 };
 
 sagittarius.AutoScrollProto.prototype.clear = function() {
-	console.log('Clearing AutoScrollProto');
 	delete this.jQueryElement;
 	this.jQueryElement = null;
 };

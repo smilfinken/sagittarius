@@ -13,6 +13,17 @@ administration.scoringtype=Poängräkning
 administration.users=Användare
 administration.weaponcategory=Vapentyper
 
+billboard.start=Starta
+billboard.stop=Stoppa
+billboard.slower=Långsammare
+billboard.faster=Snabbare
+billboard.smaller=Mindre
+billboard.bigger=Större
+billboard.plain=Standard
+billboard.stacked=Kolumner
+billboard.scrolling=Scrollande
+billboard.reload=Ladda om
+
 common.crestgroup=Vapengrupp
 common.change=Ändra
 common.changeobject=Ändra %s

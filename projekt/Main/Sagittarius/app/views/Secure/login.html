@@ -1,16 +1,22 @@
 #{extends "mainExt.html" /}
 
 <script>
+	$(document).ready(function(){
+	  $("#username").focus();
+	});
+	
 	function loginAs(username, password) {
 		$('#username').val(username);
 		$('#password').val(password);
 		$('#signin').click();
 	}
 </script>
-
-<div id="login">
-	
+<div class="left">
 	<h1>&{'secure.title'}</h1>
+</div>
+
+<div id="login" class="center box-mid border center-container rounded-corners-mid-sized bluegray">
+	
 		
 	#{form @authenticate()}
 		
@@ -25,26 +31,31 @@
 			</p>
 		#{/if}
 		
-		<p id="username-field">
-			<label for="username">&{'secure.username'}</label>
-			<input type="text" name="username" id="username" value="${flash.username}" />
-		</p>
-		<p id="password-field">
-			<label for="password">&{'secure.password'}</label>
-			<input type="password" name="password" id="password" value="" />
-		</p>
-		<p id="remember-field">
-			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-			<label for="remember">&{'secure.remember'}</label>
-		</p>
-		<p id="signin-field">
-			<input type="submit" id="signin" value="&{'secure.login'}" />
-		</p>
+		<div class="labeled text-center padded">
+			<p id="username-field">
+				<label for="username" class="medium">&{'secure.username'}</label>
+				<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
+			</p>
+			<p id="password-field">
+				<label for="password" class="medium">&{'secure.password'}</label>
+				<input type="password" name="password" id="password" value="" class="gargantuan"/>
+			</p>
+			<p id="remember-field" class="text-center">
+				<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+				<label for="remember">&{'secure.remember'}</label>
+			</p>
+			<p id="signin-field" class="text-center">
+				<input type="submit" id="signin" value="&{'secure.login'}"/>
+			</p>
+		</div>
 	#{/form}
-	
-	<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
-	
-	<p>Vill du logga in som ADMIN? <a href="javascript:loginAs('per@pelle.se', '123');"> Testa per@pelle.se:123</a></p>
-	<p>Vill du logga in som BASIC? <a href="javascript:loginAs('oskar@oskarsson.se', '123');"> Testa oskar@oskarsson.se:123</a></p>
+	<p>&nbsp;</p>
+	<div class="sicklygreenish rounded-corners-bottom-mid-sized padded top-border">
+		
+		<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
+		
+		<p>Vill du logga in som ADMIN? <a href="javascript:loginAs('per@pelle.se', '123');"> Testa per@pelle.se:123</a></p>
+		<p>Vill du logga in som BASIC? <a href="javascript:loginAs('oskar@oskarsson.se', '123');"> Testa oskar@oskarsson.se:123</a></p>
+	</div>
 	
 </div>

@@ -1,0 +1,44 @@
+@IMPORT url("main.css");
+/* CLASSES */
+.center-container {
+	text-align: 			center;
+}
+.center {
+	margin:					0px auto;
+	text-align:				left;
+}
+.box-mid {
+	width:					400px;
+}
+.border {
+	border:					solid 2px #666;
+}
+.padded {
+	padding:				1em 0.5em 1em 0.5em;
+}
+.full-width {
+	width:					100%;
+}
+.mid-width {
+	width:					75%;
+}
+.top-border {
+	border-top: 			solid 2px #666;
+}
+
+/* ELEMENTS */
+.labeled label {
+	display: inline-block;
+}
+.mini { 		width:			30px; }
+.small { 		width:			50px; }
+.medium { 		width:			100px; }
+.large { 		width:			140px; }
+.gargantuan { 	width:			200px; }
+
+.text-center {
+	text-align: 			center;
+}
+.text-right {
+	text-align: 			right;
+}

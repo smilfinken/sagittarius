@@ -1,5 +1,19 @@
 @IMPORT url("reset.css");
 
+/* COLORS */
+.gray {
+	background-color:				#666;	
+}
+.lightgray {
+	background-color:				#999;	
+}
+.bluegray {
+	background-color:				#86abba;
+}
+.sicklygreenish {
+	background-color: 				#BAB686;
+}
+
 /* DEFAULTS */
 h1 {font-size: 20pt;font-weight: bold;}
 h2 {font-size: 14pt;font-weight: bold;}
@@ -77,6 +91,26 @@ h1 a {
 
 .right {
 	float:				right;
+}
+
+.rounded-corners-mid-sized {
+    
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;    
+}
+
+.rounded-corners-bottom-mid-sized {
+    -moz-border-bottom-left-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    -khtml-border-bottom-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    
+    -moz-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    -khtml-border-bottom-right-radius: 15px;
+    border-bottom-right-radius: 15px;   
 }
 
 .clear {

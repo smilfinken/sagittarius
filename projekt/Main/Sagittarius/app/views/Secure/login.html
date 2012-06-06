@@ -17,35 +17,35 @@
 
 <div id="login" class="center box-mid border center-container rounded-corners-mid-sized bluegray">
 	
-		
 	#{form @authenticate()}
 		
 		#{if flash.error}
-			<p class="error">
+			<p class="error rounded-corners-top-mid-sized">
 				&{flash.error}
 			</p>
 		#{/if}
 		#{if flash.success}
-			<p class="success">
+			<p class="success rounded-corners-top-mid-sized">
 				&{flash.success}
 			</p>
 		#{/if}
 		
 		<div class="labeled text-center padded">
 			<p id="username-field">
-				<label for="username" class="medium">&{'secure.username'}</label>
+				<label for="username" class="medium bold">&{'secure.username'}</label>
 				<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
 			</p>
 			<p id="password-field">
-				<label for="password" class="medium">&{'secure.password'}</label>
+				<label for="password" class="medium bold">&{'secure.password'}</label>
 				<input type="password" name="password" id="password" value="" class="gargantuan"/>
 			</p>
-			<p id="remember-field" class="text-center">
+			<p id="remember-field" class="text-center bold">
 				<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
 				<label for="remember">&{'secure.remember'}</label>
 			</p>
+			<br/>
 			<p id="signin-field" class="text-center">
-				<input type="submit" id="signin" value="&{'secure.login'}"/>
+				<input type="submit" id="signin" value="&{'secure.login'}" class="bold"/>
 			</p>
 		</div>
 	#{/form}

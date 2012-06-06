@@ -1,5 +1,11 @@
 @IMPORT url("main.css");
+
+#login {
+	font-size:				13pt;
+}
+
 /* CLASSES */
+
 .center-container {
 	text-align: 			center;
 }
@@ -41,4 +47,14 @@
 }
 .text-right {
 	text-align: 			right;
+}
+.bold {
+	font-weight: 			bold;
+}
+p.error {
+	text-align:				center;
+	background-color:		yellow;
+	padding:				0.5em 0 0.5em 0;
+	font-size:				14pt;
+	font-weight:			bold;
 }

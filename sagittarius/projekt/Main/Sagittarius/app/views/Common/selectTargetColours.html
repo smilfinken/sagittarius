@@ -1,0 +1,6 @@
+		<label for="validTargetColours">&{'common.colour'}</label>
+		<select type="radio" name="validTargetColours" multiple>
+			#{list targetColours}
+			<option value="${_.id}">${_.label}</option>
+			#{/list}
+		</select>

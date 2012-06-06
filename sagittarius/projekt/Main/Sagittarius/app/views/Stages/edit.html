@@ -11,7 +11,8 @@
 				<td>
 					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
-					<input type="text" name="name" value="${stage.name}" />
+					<label for="label">&{'common.label'}</label>
+					<input type="text" name="label" value="${stage.label}" />
 					<button class="enter" type="submit">&{'common.change'}</button>
 				</td>
 			</tr>
@@ -19,7 +20,7 @@
 	</form>
 
 	#{list stage.targetGroups, as:'targetGroup'}
-	<form action="@{Stages.deleteTargetGroup()}" method="POST">
+	<form action="@{Stages.editTargetGroup()}" method="POST">
 		<table>
 			<tr>
 				<th style="text-align: left">
@@ -27,7 +28,10 @@
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
 					&{'targetgroups.targetgroup'} ${targetGroup_index}
-					<button class="delete" type="submit">&{'common.delete'}</button>
+					<input type="text" name="range" value="${targetGroup.range}" /> m
+
+					<button class="save" type="submit" name="useraction" value="save">&{'common.update'}</button>
+					<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
 				</th>
 			</tr>
 		</table>
@@ -50,7 +54,7 @@
 					${target_index}
 				</td>
 				<td style="text-align: left">
-					#{include 'Common/selectTargetModel.html' /}
+					#{include 'Common/selectTarget.html' /}
 				</td>
 				<td style="text-align: left">
 					<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />

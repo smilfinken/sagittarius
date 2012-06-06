@@ -14,22 +14,25 @@ import play.db.jpa.Model;
 @Entity
 public class TargetGroup extends Model {
 
-	public String description;
+	public String label;
+	public int range;
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Target> targets;
 
 	public TargetGroup() {
-		this.description = "";
+		this.label = "";
+		this.range = 0;
 		this.targets = new ArrayList<>();
 	}
 
 	public TargetGroup(List<Target> targets) {
-		this.description = "";
+		this.label = "";
 		this.targets = targets;
 	}
 
-	public TargetGroup(String description, List<Target> targets) {
-		this.description = description;
+	public TargetGroup(String label, int range, List<Target> targets) {
+		this.label = label;
+		this.range = range;
 		this.targets = targets;
 	}
 }

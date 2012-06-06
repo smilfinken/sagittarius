@@ -45,145 +45,175 @@ Competitor(4):
 
 Target(1):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(2):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(3):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(4):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(5):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(6):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(7):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(8):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(9):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(10):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(11):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(12):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(13):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(14):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(15):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(16):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(17):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(18):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(19):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(20):
   hasPoints: false
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(21):
   hasPoints: true
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 Target(22):
   hasPoints: true
-  targetModel: 1
+  targetShape: 1
+  targetColour: 1
 
 TargetGroup(1):
   targets: [1,2,3,4]
+  range: 25
 
 TargetGroup(2):
   targets: [21]
+  range: 25
 
 TargetGroup(3):
   targets: [5,6,7,8,9]
+  range: 25
 
 TargetGroup(4):
   targets: [22]
+  range: 25
 
 TargetGroup(5):
   targets: [10,11]
+  range: 40
 
 TargetGroup(6):
   targets: [12,13,14]
+  range: 25
 
 TargetGroup(7):
   targets: [15,16]
+  range: 25
 
 TargetGroup(8):
   targets: [17,18,19,20]
+  range: 50
 
 Stage(1):
   targetGroups: [1]
   stageIndex: 1
-  name: Inskjutning
+  label: Inskjutning
 
 Stage(2):
   targetGroups: [2]
   stageIndex: 2
-  name: Snabbskytte
+  label: Snabbskytte
 
 Stage(3):
   targetGroups: [3]
   stageIndex: 3
-  name: Vändställ
+  label: Vändställ
 
 Stage(4):
   targetGroups: [4,5]
   stageIndex: 4
-  name: Kort och brett
+  label: Kort och brett
 
 Stage(5):
   targetGroups: [6]
   stageIndex: 5
-  name: Långt och smalt
+  label: Långt och smalt
 
 Stage(6):
   targetGroups: [7,8]
   stageIndex: 6
-  name: Långt och brett
+  label: Långt och brett
 
 Competition(1):
   name: Fältskjutning 1

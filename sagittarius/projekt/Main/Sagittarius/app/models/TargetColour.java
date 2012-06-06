@@ -8,15 +8,16 @@ import play.db.jpa.Model;
  * @author johan
  */
 @Entity
-public class CompetitionType extends Model {
+public class TargetColour extends Model {
 
 	public String label;
 
-	public CompetitionType(String label) {
+	public TargetColour(String label) {
 		this.label = label;
 	}
 
-	public boolean hasStages() {
-		return true;
+	@Override
+	public String toString() {
+		return label;
 	}
 }

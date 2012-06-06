@@ -12,15 +12,18 @@ public class ScoringType extends Model {
 
 	public String label;
 	public boolean sumPointsAndTargets;
+	public boolean sumPointsOnly;
 
 	public ScoringType(String label) {
 		this.label = label;
 		this.sumPointsAndTargets = false;
+		this.sumPointsOnly = false;
 	}
 
-	public ScoringType(String label, boolean sumPointsAndTargets) {
+	public ScoringType(String label, boolean sumPointsAndTargets, boolean sumPointsOnly) {
 		this.label = label;
 		this.sumPointsAndTargets = sumPointsAndTargets;
+		this.sumPointsOnly = sumPointsOnly;
 	}
 
 	@Override

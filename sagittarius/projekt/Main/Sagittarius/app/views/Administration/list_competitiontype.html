@@ -2,9 +2,9 @@
 #{set title: messages.get('administration.competitiontypes') /}
 
 <div class="multicolumn-block">
-	#{list competitionTypes}
+	#{list list}
 	<div>
-		#{a @CompetitionTypes.edit(_.id)}${_.name}#{/a}<br />
+		#{a @Administration.edit_competitiontype(_.id)}${_.label}#{/a}<br />
 	</div>
 	#{/list}
 </div>

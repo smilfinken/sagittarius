@@ -17,9 +17,10 @@ public class Stages extends Controller {
 	public static void edit(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
-		List<TargetModel> targetModels = TargetModel.all().fetch();
+		List<TargetShape> targetShapes = TargetShape.all().fetch();
+		List<TargetColour> targetColours = TargetColour.all().fetch();
 
-		renderTemplate("Stages/edit.html", competition, stage, targetModels);
+		renderTemplate("Stages/edit.html", competition, stage, targetShapes, targetColours);
 	}
 
 	@Check("admin")
@@ -27,7 +28,7 @@ public class Stages extends Controller {
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
-			stage.name = name;
+			stage.label = name;
 			stage.save();
 		}
 
@@ -35,11 +36,11 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void addTargetGroup(long competitionID, long stageID) {
+	public static void addTargetGroup(long competitionID, long stageID, int range) {
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
-			TargetGroup targetGroup = new TargetGroup("Målgrupp", new ArrayList<Target>());
+			TargetGroup targetGroup = new TargetGroup("Målgrupp", range, new ArrayList<Target>());
 			targetGroup.save();
 			stage.targetGroups.add(targetGroup);
 			stage.save();
@@ -49,29 +50,42 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void deleteTargetGroup(long competitionID, long stageID, long targetGroupID) {
+	public static void editTargetGroup(long competitionID, long stageID, long targetGroupID, int range, String useraction) {
 		Stage stage = Stage.findById(stageID);
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
-		// TODO: fix this so that data is properly removed from db on deletion
-		if (stage != null && targetGroup != null) {
-			targetGroup.targets = null;
-			targetGroup.save();
-			stage.targetGroups.remove(targetGroup);
-			stage.save();
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "save":
+					if (targetGroup != null) {
+						targetGroup.range = range;
+						targetGroup.save();
+					}
+					break;
+				case "delete":
+					// TODO: fix this so that data is properly removed from db on deletion
+					if (stage != null && targetGroup != null) {
+						targetGroup.targets = null;
+						targetGroup.save();
+						stage.targetGroups.remove(targetGroup);
+						stage.save();
+					}
+					break;
+			}
+
 		}
 
 		edit(competitionID, stageID);
 	}
 
 	@Check("admin")
-	public static void addTarget(long competitionID, long stageID, long targetGroupID, String hasPoints) {
+	public static void addTarget(long competitionID, long stageID, long targetGroupID, long shapeID, long colourID, boolean hasPoints) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
 		if (targetGroup != null) {
-			Target target = new Target();
-			target.hasPoints = (hasPoints != null);
-			target.targetModel = null;
+			TargetShape targetShape = TargetShape.findById(shapeID);
+			TargetColour targetColour = TargetColour.findById(colourID);
+			Target target = new Target(targetShape, targetColour, hasPoints);
 			target.save();
 			targetGroup.targets.add(target);
 			targetGroup.save();
@@ -81,13 +95,14 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void updateTarget(long competitionID, long stageID, long targetID, String hasPoints, long modelID) {
+	public static void updateTarget(long competitionID, long stageID, long targetID, String hasPoints, long shapeID, long colourID) {
 		Target target = Target.findById(targetID);
 
 		if (target != null) {
 			target.willBeSaved = true;
 			target.hasPoints = (hasPoints != null);
-			target.targetModel = TargetModel.findById(modelID);
+			target.targetShape = TargetShape.findById(shapeID);
+			target.targetColour = TargetColour.findById(colourID);
 		}
 
 		edit(competitionID, stageID);

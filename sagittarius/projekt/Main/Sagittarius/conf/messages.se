@@ -6,7 +6,12 @@ administration.categories=Deltagarkategorier
 administration.competitiontypes=Tävlingstyper
 administration.divisions=Divisioner
 administration.ranks=Tävlingsklasser
+administration.targetclass=Figurkategorier
+administration.targetcolour=Figurfärger
+administration.targetshape=Figurer
+administration.scoringtype=Poängräkning
 administration.users=Användare
+administration.weaponcategory=Vapentyper
 
 common.crestgroup=Vapengrupp
 common.change=Ändra
@@ -15,12 +20,14 @@ common.colour=Färg
 common.competitor=Tävlande
 common.delete=Ta bort
 common.division=Klass
+common.label=Beteckning
 common.name=Namn
 common.person=Person
 common.participant=Deltagare
 common.register=Registrera
 common.save=Spara
 common.selectcategory=Välj kategori
+common.shortlabel=Förkortning
 common.type=Typ
 common.unregister=Avregistrera
 common.update=Uppdatera
@@ -81,7 +88,6 @@ notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
 
 ranks.ranking=Klass
-ranks.label=Beskrivning
 
 registration.cancel=Till inloggninssidan
 registration.failed.title=Registrering misslyckades
@@ -102,16 +108,25 @@ results.register=Registrera resultat
 results.targets=Figurer
 results.title=Resultat
 
+scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
+scoringtype.sumpointsonly=Räkna enbart poäng
+
 targets.target=Mål
 targets.shape=Figur
 targets.scoreable=Poängmål
 targets.new=Ny figur
+
+targetclass.classification=Figurgrupp
+targetclass.maximumrange=Maximalt skjutavstånd
+targetclass.weaponcategory=Vapengrupp
 
 targetgroups.new=Ny målgrupp
 targetgroups.targetgroup=Målgrupp
 
 users.delete=Radera användare
 users.user= Användare
+
+weaponcategory.shotinterval=Tid per skott (s)
 
 # Validation messages
 validation.email=Ogiltig e-postadress

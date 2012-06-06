@@ -2,9 +2,9 @@
 #{set title: messages.get('administration.categories') /}
 
 <div class="multicolumn-block">
-	#{list categories}
+	#{list list}
 	<div>
-		#{a @Categories.edit(_.id)}${_.category}#{/a}<br />
+		#{a @Administration.edit_category(_.id)}${_.label}#{/a}<br />
 	</div>
 	#{/list}
 </div>

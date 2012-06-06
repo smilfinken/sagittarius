@@ -1,0 +1,19 @@
+#{extends "Administration/main.html" /}
+#{set title: item.classification /}
+
+<div>
+	<form action="@{Administration.edit_targetclass()}" method="POST">
+		<input type="hidden" name="ID" value="${item.id}" />
+		<label for="classification">&{'targetclass.classification'}</label>
+		<input type="text" name="label" value="${item.classification}" />
+		<label for="maximumRange">&{'targetclass.maximumrange'}</label>
+		<input type="text" name="maximumRange" value="${item.maximumRange}" />
+
+		<br />
+		#{include "Common/selectWeaponCategory.html" /}
+
+		<br />
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

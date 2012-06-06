@@ -32,15 +32,15 @@ public class CompetitorTest extends UnitTest {
 		Competitor competitorSeniorV = competitors.get(7);
 		Competitor competitorSeniorA = competitors.get(8);
 
-		assertEquals(String.format("Competitor Young Shooter in division J is indicated as %s", competitorJuniorJ.getDivision()), "J", competitorJuniorJ.getDivision());
-		assertEquals(String.format("Competitor Young Shooter in division A is indicated as %s", competitorJuniorA.getDivision()), "A1", competitorJuniorA.getDivision());
-		assertEquals(String.format("Competitor Sharp Shooter in division C is indicated as %s", competitorAdultC.getDivision()), "C2", competitorAdultC.getDivision());
-		assertEquals(String.format("Competitor Sharp Shooter in division A is indicated as %s", competitorAdultA.getDivision()), "A2", competitorAdultA.getDivision());
-		assertEquals(String.format("Competitor Girl Shooter in division D is indicated as %s", competitorLadyD.getDivision()), "D3", competitorLadyD.getDivision());
-		assertEquals(String.format("Competitor Girl Shooter in division A is indicated as %s", competitorLadyA.getDivision()), "A3", competitorLadyA.getDivision());
-		assertEquals(String.format("Competitor Girl Shooter in division V is indicated as %s", competitorLadySeniorV.getDivision()), "VY", competitorLadySeniorV.getDivision());
-		assertEquals(String.format("Competitor Old Shooter in division V is indicated as %s", competitorSeniorV.getDivision()), "VY", competitorSeniorV.getDivision());
-		assertEquals(String.format("Competitor Old Shooter in division A is indicated as %s", competitorSeniorA.getDivision()), "A3", competitorSeniorA.getDivision());
+		assertEquals(String.format("Competitor Young Shooter in division J is indicated as %s", competitorJuniorJ.getDivisionAsString()), "J", competitorJuniorJ.getDivisionAsString());
+		assertEquals(String.format("Competitor Young Shooter in division A is indicated as %s", competitorJuniorA.getDivisionAsString()), "A1", competitorJuniorA.getDivisionAsString());
+		assertEquals(String.format("Competitor Sharp Shooter in division C is indicated as %s", competitorAdultC.getDivisionAsString()), "C2", competitorAdultC.getDivisionAsString());
+		assertEquals(String.format("Competitor Sharp Shooter in division A is indicated as %s", competitorAdultA.getDivisionAsString()), "A2", competitorAdultA.getDivisionAsString());
+		assertEquals(String.format("Competitor Girl Shooter in division D is indicated as %s", competitorLadyD.getDivisionAsString()), "D3", competitorLadyD.getDivisionAsString());
+		assertEquals(String.format("Competitor Girl Shooter in division A is indicated as %s", competitorLadyA.getDivisionAsString()), "A3", competitorLadyA.getDivisionAsString());
+		assertEquals(String.format("Competitor Girl Shooter in division V is indicated as %s", competitorLadySeniorV.getDivisionAsString()), "VY", competitorLadySeniorV.getDivisionAsString());
+		assertEquals(String.format("Competitor Old Shooter in division V is indicated as %s", competitorSeniorV.getDivisionAsString()), "VY", competitorSeniorV.getDivisionAsString());
+		assertEquals(String.format("Competitor Old Shooter in division A is indicated as %s", competitorSeniorA.getDivisionAsString()), "A3", competitorSeniorA.getDivisionAsString());
 	}
 
 	@Test

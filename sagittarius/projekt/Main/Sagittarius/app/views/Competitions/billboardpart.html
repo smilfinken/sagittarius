@@ -13,7 +13,7 @@
 	String previousClass = "";
 	for(entry in results){
 	if (entry.results != null && entry.results.size() == competition.stages.size()) {
-	if (!entry.getDivision().equals(previousClass)){
+	if (!entry.getDivisionAsString().equals(previousClass)){
 	place = 1;
 	}%
 	#{if (tableOpen == true)}</tr></table></td></tr></table>#{/if}
@@ -21,7 +21,7 @@
 	<thead>
 		<tr class="header">
 			<th class="competitor">
-				Klass ${entry.getDivision()}
+				Klass ${entry.getDivisionAsString()}
 			</th>
 			<th class="stages">
 				Stationer
@@ -37,7 +37,7 @@
 	%{
 	}
 	tableOpen = true;
-	previousClass = entry.getDivision();
+	previousClass = entry.getDivisionAsString();
 	}%
 	<tr #{if rowCount++ % 2 != 0}class="even"#{/if}>
 		<td class="competitor">

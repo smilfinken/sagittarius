@@ -43,15 +43,15 @@ public class Sorting {
 			public int compare(Competitor A, Competitor B) {
 				if (A.user.surname.equals(B.user.surname)) {
 					if (A.user.firstName.equals(B.user.firstName)) {
-						String classA = A.getDivision().substring(0, Math.max(1, A.getDivision().length() - 1));
-						String classB = B.getDivision().substring(0, Math.max(1, B.getDivision().length() - 1));
+						String classA = A.getDivisionAsString().substring(0, Math.max(1, A.getDivisionAsString().length() - 1));
+						String classB = B.getDivisionAsString().substring(0, Math.max(1, B.getDivisionAsString().length() - 1));
 						int classSort = classOrder.indexOf(classA) - classOrder.indexOf(classB);
 
 						if (classSort != 0) {
 							return classSort;
 						} else {
-							String rankA = A.getDivision().substring(A.getDivision().length() - 1);
-							String rankB = B.getDivision().substring(B.getDivision().length() - 1);
+							String rankA = A.getDivisionAsString().substring(A.getDivisionAsString().length() - 1);
+							String rankB = B.getDivisionAsString().substring(B.getDivisionAsString().length() - 1);
 
 							return rankA.compareTo(rankB);
 						}
@@ -118,7 +118,7 @@ public class Sorting {
 
 			@Override
 			public int compare(Competitor A, Competitor B) {
-				if (A.getDivision().equals(B.getDivision())) {
+				if (A.getDivisionAsString().equals(B.getDivisionAsString())) {
 					if (sumResults(B.results) == sumResults(A.results)) {
 						if (sumPoints(B.results) == sumPoints(A.results)) {
 							return compareStages(A, B);
@@ -129,15 +129,15 @@ public class Sorting {
 						return sumResults(B.results) - sumResults(A.results);
 					}
 				} else {
-					String classA = A.getDivision().substring(0, Math.max(1, A.getDivision().length() - 1));
-					String classB = B.getDivision().substring(0, Math.max(1, B.getDivision().length() - 1));
+					String classA = A.getDivisionAsString().substring(0, Math.max(1, A.getDivisionAsString().length() - 1));
+					String classB = B.getDivisionAsString().substring(0, Math.max(1, B.getDivisionAsString().length() - 1));
 					int classSort = classOrder.indexOf(classA) - classOrder.indexOf(classB);
 
 					if (classSort != 0) {
 						return classSort;
 					} else {
-						String rankA = A.getDivision().substring(A.getDivision().length() - 1);
-						String rankB = B.getDivision().substring(B.getDivision().length() - 1);
+						String rankA = A.getDivisionAsString().substring(A.getDivisionAsString().length() - 1);
+						String rankB = B.getDivisionAsString().substring(B.getDivisionAsString().length() - 1);
 
 						return rankA.compareTo(rankB);
 					}

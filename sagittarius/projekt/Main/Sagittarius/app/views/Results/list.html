@@ -70,16 +70,16 @@
 		</tr>
 		%{
 		if (results.size() > 0) {
-		String previousClass = results.first().getDivision();
+		String previousClass = results.first().getDivisionAsString();
 		for(entry in results){
 		if (entry.results != null && entry.results.size() == competition.stages.size()) {
-		if (!entry.getDivision().equals(previousClass)){
+		if (!entry.getDivisionAsString().equals(previousClass)){
 		place = 1;
 		}%
 		<tr><td colspan="4">&nbsp;</td></tr>
 		%{
 		}
-		previousClass = entry.getDivision();
+		previousClass = entry.getDivisionAsString();
 		}%
 		<tr>
 			<td style="font-weight: bold; text-align: left">
@@ -88,7 +88,7 @@
 				#{/a}
 			</td>
 			<td style="font-weight: bold">
-				${entry.getDivision()}
+				${entry.getDivisionAsString()}
 			</td>
 			<td>
 				%{

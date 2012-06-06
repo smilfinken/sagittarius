@@ -100,7 +100,7 @@ public class Results extends Controller {
 				resultsWriter.write(header1 + header2);
 
 				for (Competitor competitor : common.Sorting.sortResults(competition.getScoredCompetitors())) {
-					String line = String.format("\"%s\";\"%s\"", competitor.getFullName(), competitor.getDivision());
+					String line = String.format("\"%s\";\"%s\"", competitor.getFullName(), competitor.getDivisionAsString());
 					int totalHits = 0;
 					int totalTargets = 0;
 					int totalPoints = 0;
@@ -139,14 +139,14 @@ public class Results extends Controller {
 				int place = 1;
 				String division = "";
 				for (Competitor competitor : common.Sorting.sortResults(results)) {
-					if (!competitor.getDivision().equals(division)) {
+					if (!competitor.getDivisionAsString().equals(division)) {
 						place = 1;
 					} else {
 						place++;
 					}
-					String line = String.format("'%s',%d,'%s','%s',%d,'%s',%d,%d\r\n", competition.name, competition.getMaxScore(), competitor.getDivision(), competitor.getFullName(), competitor.getScore(), competition.getDate(), place, 0);
+					String line = String.format("'%s',%d,'%s','%s',%d,'%s',%d,%d\r\n", competition.name, competition.getMaxScore(), competitor.getDivisionAsString(), competitor.getFullName(), competitor.getScore(), competition.getDate(), place, 0);
 					resultsWriter.write(line);
-					division = competitor.getDivision();
+					division = competitor.getDivisionAsString();
 				}
 				resultsWriter.close();
 			} catch (IOException e) {

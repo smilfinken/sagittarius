@@ -48,7 +48,7 @@ public class Competitor extends Model {
 		return user.getFullName();
 	}
 
-	public String getDivision() {
+	public String getDivisionAsString() {
 		if (division != null) {
 			if (division.ranks) {
 				return String.format("%s%s", division.label, user.rank.ranking);

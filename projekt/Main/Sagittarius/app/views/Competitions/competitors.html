@@ -34,7 +34,7 @@
 	<div>
 		#{a @Competitors.edit(competition.id, _.id)}
 		<span style="float:left">${_.getFullName()}</span>
-		<span style="float: right">${_.getDivision()}</span>
+		<span style="float: right">${_.getDivisionAsString()}</span>
 		#{/a}
 	</div>
 	#{/list}

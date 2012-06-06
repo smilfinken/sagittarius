@@ -1,0 +1,456 @@
+# pre-defined target shapes
+
+TargetShape(1):
+  label: Odefinierad
+  classification: 1
+  scoring: false
+  competitionTypes: [1,2]
+  availableColours: [1]
+
+TargetShape(2):
+  label: B100
+  classification: 1
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(3):
+  label: 1/1
+  classification: 1
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(4):
+  label: B65
+  classification: 2
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(5):
+  label: 1/2
+  classification: 2
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(6):
+  label: C50
+  classification: 3
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(7):
+  label: Bildäck bakifrån
+  classification: 3
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(8):
+  label: Tunna
+  classification: 4
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(9):
+  label: 1/3
+  classification: 4
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(10):
+  label: Sexkant 3
+  classification: 4
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(11):
+  label: B45
+  classification: 5
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(12):
+  label: C40
+  classification: 5
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(13):
+  label: L3 vertikal
+  classification: 5
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(14):
+  label: Rubinen
+  classification: 5
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(15):
+  label: C35
+  classification: 6
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(16):
+  label: L3 horisontal
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(17):
+  label: 1/4 rak
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(18):
+  label: 1/4 profil
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(19):
+  label: A-rondell 2
+  classification: 6
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(20):
+  label: Sexkant 2
+  classification: 6
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(21):
+  label: Bildäck sida
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(22):
+  label: 1/4
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(23):
+  label: 1/4 höger
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(24):
+  label: 1/4 vänster
+  classification: 6
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(25):
+  label: C30
+  classification: 7
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(26):
+  label: S25 vertikal
+  classification: 7
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(27):
+  label: L2 vertikal
+  classification: 7
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(28):
+  label: 1/1 mini
+  classification: 7
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(29):
+  label: C25
+  classification: 8
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(30):
+  label: 1/6 rak
+  classification: 8
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(31):
+  label: 1/6 profil
+  classification: 8
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(32):
+  label: S20 vertikal
+  classification: 8
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(33):
+  label: S25 horisontal
+  classification: 8
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(34):
+  label: L2 horisontal
+  classification: 8
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(35):
+  label: A-oval 3
+  classification: 8
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(36):
+  label: Sexkant 1
+  classification: 8
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(37):
+  label: A-triangel 2
+  classification: 8
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(38):
+  label: B-triangel 2
+  classification: 8
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(39):
+  label: 1/7
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(40):
+  label: 1/8
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(41):
+  label: S20 horisontal
+  classification: 9
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(42):
+  label: A-rondell 1
+  classification: 9
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(43):
+  label: B-rondell 3
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(44):
+  label: A-oval 2
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(45):
+  label: L1 vertikal
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(46):
+  label: Huvud
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(47):
+  label: Diamanten
+  classification: 9
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(48):
+  label: C20
+  classification: 10
+  scoring: true
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(49):
+  label: L1 horisontal
+  classification: 10
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(50):
+  label: B-rondell 2
+  classification: 10
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(51):
+  label: B-oval 2
+  classification: 10
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(52):
+  label: Ovalen stående
+  classification: 10
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(53):
+  label: Tunna D20
+  classification: 11
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(54):
+  label: Bunkerspringa vertikal
+  classification: 11
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(55):
+  label: S15D
+  classification: 11
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(56):
+  label: B-triangel 1
+  classification: 11
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(57):
+  label: Kvadraten
+  classification: 11
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(58):
+  label: Ovalen liggande
+  classification: 11
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(59):
+  label: Bunkerspringa horisontal
+  classification: 12
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(60):
+  label: C15D
+  classification: 12
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(61):
+  label: A-triangel 1
+  classification: 12
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(62):
+  label: A-oval 1
+  classification: 12
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(63):
+  label: B-oval 1
+  classification: 12
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(64):
+  label: S10D
+  classification: 13
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]
+
+TargetShape(65):
+  label: B-rondell 1
+  classification: 13
+  scoring: false
+  competitionTypes: [1]
+  availableColours: [1]

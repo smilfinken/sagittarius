@@ -14,26 +14,26 @@ import play.db.jpa.Model;
 @Entity
 public class Stage extends Model {
 
-	public String name;
+	public String label;
 	public int stageIndex;
 	@OneToMany(cascade= CascadeType.ALL)
 	public List<TargetGroup> targetGroups;
 
 	public Stage(int targetGroups) {
 		this.targetGroups = new ArrayList<>(targetGroups);
-		this.name = "";
+		this.label = "";
 		this.stageIndex = 0;
 	}
 
-	public Stage(int targetGroups, String name) {
+	public Stage(int targetGroups, String label) {
 		this.targetGroups = new ArrayList<>(targetGroups);
-		this.name = name;
+		this.label = label;
 		this.stageIndex = 0;
 	}
 
-	public Stage(int targetGroups, String name, int stageIndex) {
+	public Stage(int targetGroups, String label, int stageIndex) {
 		this.targetGroups = new ArrayList<>(targetGroups);
-		this.name = name;
+		this.label = label;
 		this.stageIndex = stageIndex;
 	}
 

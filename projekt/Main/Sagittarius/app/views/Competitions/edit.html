@@ -24,7 +24,7 @@
 		<tr>
 			<td>
 				<form action="@{Competitions.deleteStage()}" method="POST">
-					${stage.stageIndex} #{a @Stages.edit(competition.id, stage.id)}${stage.name}#{/a}
+					${stage.stageIndex} #{a @Stages.edit(competition.id, stage.id)}${stage.label}#{/a}
 					<input type="checkbox" disabled #{if (stage.hasPoints())}checked#{/if} />
 						   <input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />

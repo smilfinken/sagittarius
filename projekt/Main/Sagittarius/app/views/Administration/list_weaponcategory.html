@@ -1,0 +1,10 @@
+#{extends "Administration/main.html" /}
+#{set title: messages.get('administration.weaponcategory') /}
+
+<div class="multicolumn-block">
+	#{list list}
+	<div>
+		#{a @Administration.edit_weaponcategory(_.id)}${_.label} (${_.shortLabel})#{/a}<br />
+	</div>
+	#{/list}
+</div>

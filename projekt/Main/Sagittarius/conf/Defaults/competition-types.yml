@@ -1,7 +1,7 @@
 # predefined competition types
 
 CompetitionType(1):
-  name: Fältskjutning
+  label: Fältskjutning
 
 CompetitionType(2):
-  name: Precision
+  label: Precision

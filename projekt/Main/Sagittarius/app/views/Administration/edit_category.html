@@ -2,11 +2,9 @@
 #{set title: item.label /}
 
 <div>
-	<form action="@{Ranks.edit()}" method="POST">
-		<input type="hidden" name="rankID" value="${item.id}" />
-		<label for="ranking">&{'ranks.ranking'}</label>
-		<input type="text" name="ranking" value="${item.ranking}" />
-		<label for="label">&{'ranks.label'}</label>
+	<form action="@{Administration.edit_category()}" method="POST">
+		<input type="hidden" name="ID" value="${item.id}" />
+		<label for="label">&{'common.label'}</label>
 		<input type="text" name="label" value="${item.label}" />
 
 		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>

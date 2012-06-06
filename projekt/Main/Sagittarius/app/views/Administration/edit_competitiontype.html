@@ -2,10 +2,10 @@
 #{set title: item.name /}
 
 <div>
-	<form action="@{CompetitionTypes.edit()}" method="POST">
-		<input type="hidden" name="competitionTypeID" value="${item.id}" />
-		<label for="name">&{'competitions.competitiontype'}</label>
-		<input type="text" name="name" value="${item.name}" />
+	<form action="@{Administration.edit_competitiontype()}" method="POST">
+		<input type="hidden" name="ID" value="${item.id}" />
+		<label for="label">&{'competitions.competitiontype'}</label>
+		<input type="text" name="label" value="${item.label}" />
 
 		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
 		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>

@@ -4,16 +4,16 @@ CompetitionType(testCompetition):
         name: Testtävling
 
 Category(categoryJunior):
-        category: Junior
+        label: Junior
 
 Category(categoryAdult):
-        category: Adult
+        label: Adult
 
 Category(categoryLady):
-        category: Lady
+        label: Lady
 
 Category(categorySenior):
-        category: Senior
+        label: Senior
 
 Rank(rank1):
         ranking: 1

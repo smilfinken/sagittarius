@@ -1,0 +1,10 @@
+#{extends "Administration/main.html" /}
+#{set title: messages.get('administration.targetshape') /}
+
+<div class="multicolumn-block">
+	#{list list}
+	<div>
+		#{a @Administration.edit_targetshape(_.id)}${_.label}#{/a}<br />
+	</div>
+	#{/list}
+</div>

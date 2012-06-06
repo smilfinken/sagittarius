@@ -2,9 +2,9 @@
 #{set title: messages.get('administration.ranks') /}
 
 <div class="multicolumn-block">
-	#{list ranks}
+	#{list list}
 	<div>
-		#{a @Ranks.edit(_.id)}${_.label}#{/a}<br />
+		#{a @Administration.edit_rank(_.id)}${_.label}#{/a}<br />
 	</div>
 	#{/list}
 </div>

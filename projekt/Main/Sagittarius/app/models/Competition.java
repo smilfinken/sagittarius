@@ -58,7 +58,7 @@ public class Competition extends Model {
 
 	public String getType() {
 		if (competitionType != null) {
-			return competitionType.name;
+			return competitionType.label;
 		} else {
 			return "";
 		}

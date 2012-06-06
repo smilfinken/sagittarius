@@ -1,5 +1,9 @@
 @IMPORT url("reset.css");
 
+body {
+	font-size:			14pt;	
+}
+
 /** CLASSES **/
 .center {
 	text-align:center;	
@@ -30,7 +34,7 @@
 	display: 			none;
 }
 .points {
-	font-size:			10pt;
+	font-size:			11pt;
 	font-style: 		italic;
 }
 .left {
@@ -54,12 +58,6 @@ a.square {
 	height:				16px;
 	border:				solid 1px, black;
 	margin:				0 5px 0 5px;
-}
-a.out {
-	background-image: 	url("/public/images/crystal_project/16x16/2leftarrow.png");
-}
-a.in {
-	background-image: 	url("/public/images/crystal_project/16x16/2rightarrow.png");
 }
 table.resultTable {			
 	margin:				5px 0 5px 5px;

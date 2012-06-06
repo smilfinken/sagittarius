@@ -1,6 +1,9 @@
 @IMPORT url("reset.css");
 
 /** CLASSES **/
+.center {
+	text-align:center;	
+}
 .control{
 	position: 			fixed;
 	top:				0px;
@@ -84,7 +87,12 @@ th, td {
 }
 
 /** IDS **/
-#results {
+#results.plain {
+	width: 				550px;
+	margin:				0px auto;
+	text-align: 		left;
+}
+#results.stacked {
 	position:			absolute;
 	top:				0px;
 }

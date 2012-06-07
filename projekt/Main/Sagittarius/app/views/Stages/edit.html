@@ -2,24 +2,26 @@
 #{set title: "${competition.name}, station ${stage.stageIndex}" /}
 
 <hr />
-
 <div>
 	<h2>${competition.name}, &{'competitions.stage'} ${stage.stageIndex}</h2>
-	<form action="@{Stages.update}" method="POST">
-		<table>
-			<tr>
-				<td>
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="stageID" value="${stage.id}" />
-					<label for="label">&{'common.label'}</label>
-					<input type="text" name="label" value="${stage.label}" />
-					<button class="enter" type="submit">&{'common.change'}</button>
-				</td>
-			</tr>
-		</table>
-	</form>
 
-	#{list stage.targetGroups, as:'targetGroup'}
+	<hr />
+	<div>
+		<form action="@{Stages.update}" method="POST">
+			<input type="hidden" name="competitionID" value="${competition.id}" />
+			<input type="hidden" name="stageID" value="${stage.id}" />
+			<label for="label">&{'common.label'}</label>
+			<input type="text" name="label" value="${stage.label}" />
+			<button class="enter" type="submit">&{'common.change'}</button>
+		</form>
+
+		&{'stages.suggestedtimings'}: ${minTime} -- ${maxTime} &{'common.seconds'}
+	</div>
+</div>
+
+#{list stage.targetGroups, as:'targetGroup'}
+<hr />
+<div>
 	<form action="@{Stages.editTargetGroup()}" method="POST">
 		<table>
 			<tr>
@@ -77,16 +79,14 @@
 		<button class="enter" type="submit">&{'targets.new'}</button>
 	</form>
 	#{/list}
+</div>
 
-	<table>
-		<tr>
-			<td style="text-align: left">
-				<form action="@{Stages.addTargetGroup()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="stageID" value="${stage.id}" />
-					<button class="enter" type="submit">&{'targetgroups.new'}</button>
-				</form>
-			</td>
-		</tr>
-	</table>
+<hr />
+<div>
+	<form action="@{Stages.addTargetGroup()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<button class="enter" type="submit">&{'targetgroups.new'}</button>
+	</form>
+</div>
 </div>

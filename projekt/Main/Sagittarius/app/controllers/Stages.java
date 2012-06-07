@@ -19,8 +19,10 @@ public class Stages extends Controller {
 		Stage stage = Stage.findById(stageID);
 		List<TargetShape> targetShapes = TargetShape.all().fetch();
 		List<TargetColour> targetColours = TargetColour.all().fetch();
-
-		renderTemplate("Stages/edit.html", competition, stage, targetShapes, targetColours);
+		double timings[] = common.Timings.getExtremes(stageID, 1);
+		String minTime = String.format("%.1f", timings[0]);
+		String maxTime = String.format("%.1f", timings[1]);
+		renderTemplate("Stages/edit.html", competition, stage, targetShapes, targetColours, minTime, maxTime);
 	}
 
 	@Check("admin")

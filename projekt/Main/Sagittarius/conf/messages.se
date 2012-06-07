@@ -37,6 +37,7 @@ common.person=Person
 common.participant=Deltagare
 common.register=Registrera
 common.save=Spara
+common.seconds=sekunder
 common.selectcategory=Välj kategori
 common.shortlabel=Förkortning
 common.type=Typ
@@ -121,6 +122,8 @@ results.title=Resultat
 
 scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
 scoringtype.sumpointsonly=Räkna enbart poäng
+
+stages.suggestedtimings=Föreslagen skjuttid
 
 targets.target=Mål
 targets.shape=Figur

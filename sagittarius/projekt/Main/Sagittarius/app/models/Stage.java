@@ -16,7 +16,7 @@ public class Stage extends Model {
 
 	public String label;
 	public int stageIndex;
-	@OneToMany(cascade= CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<TargetGroup> targetGroups;
 
 	public Stage(int targetGroups) {

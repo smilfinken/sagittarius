@@ -45,113 +45,113 @@ Competitor(4):
 
 Target(1):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(2):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(3):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(4):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(5):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(6):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(7):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(8):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(9):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(10):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(11):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(12):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(13):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(14):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(15):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(16):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(17):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(18):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(19):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(20):
   hasPoints: false
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(21):
   hasPoints: true
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 Target(22):
   hasPoints: true
-  targetShape: 1
-  targetColour: 1
+  targetShape: 2
+  targetColour: 2
 
 TargetGroup(1):
   targets: [1,2,3,4]

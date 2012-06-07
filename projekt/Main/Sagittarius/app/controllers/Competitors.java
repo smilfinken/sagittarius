@@ -47,8 +47,7 @@ public class Competitors extends Controller {
 			}
 		}
 
-		// TODO: No more WTF ?
-		long foo = competitor.division.id; // Long to long = Auto boxing, potential NullPointerException be aware!
+		flash.put("divisionID", competitor.division.id);
 		List<Division> divisions = Division.all().fetch();
 		render(competition, competitor, divisions);
 	}

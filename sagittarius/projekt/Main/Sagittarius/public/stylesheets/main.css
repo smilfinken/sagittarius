@@ -2,10 +2,10 @@
 
 /* COLORS */
 .gray {
-	background-color:				#666;	
+	background-color:				#666;
 }
 .lightgray {
-	background-color:				#999;	
+	background-color:				#999;
 }
 .bluegray {
 	background-color:				#86abba;
@@ -63,7 +63,7 @@ input.scoring {
 /* CLASSES */
 h1 a {
 	color:				#000 !important;
-	text-decoration:	none !important;		
+	text-decoration:	none !important;
 }
 /*
 .menu a:link, a:visited, a:hover, a:active  {
@@ -74,7 +74,7 @@ h1 a {
 .menu a:active, a:hover {
 	color:				black !important;
 	text-decoration:	underline !important;
-} 
+}
 */
 .error {
 	color:				red;
@@ -94,11 +94,11 @@ h1 a {
 }
 
 .rounded-corners-mid-sized {
-    
+
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
     -khtml-border-radius: 15px;
-    border-radius: 15px;    
+    border-radius: 15px;
 }
 
 .rounded-corners-bottom-mid-sized {
@@ -106,11 +106,11 @@ h1 a {
     -webkit-border-bottom-left-radius: 15px;
     -khtml-border-bottom-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    
+
     -moz-border-bottom-right-radius: 15px;
     -webkit-border-bottom-right-radius: 15px;
     -khtml-border-bottom-right-radius: 15px;
-    border-bottom-right-radius: 15px;   
+    border-bottom-right-radius: 15px;
 }
 
 .rounded-corners-top-mid-sized {
@@ -118,11 +118,11 @@ h1 a {
     -webkit-border-top-left-radius: 15px;
     -khtml-border-top-left-radius: 15px;
     border-top-left-radius: 15px;
-    
+
     -moz-border-top-right-radius: 15px;
     -webkit-border-top-right-radius: 15px;
     -khtml-border-top-right-radius: 15px;
-    border-top-right-radius: 15px;   
+    border-top-right-radius: 15px;
 }
 
 .clear {
@@ -134,15 +134,17 @@ h1 a {
 	font-size:			larger;
 }
 
-.competitioninfo {
+div.competitioninfo {
 	float:				right;
+}
+
+span.competitioninfo {
 	font-size:			large;
 }
 
-.currentuser {
-	clear:				both;
-	float:				right;
+span.currentuser {
 	font-style:			italic;
+	font-size:			small;
 }
 
 .multicolumn-block {

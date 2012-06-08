@@ -2,9 +2,9 @@
 
 <script>
 	$(document).ready(function(){
-	  $("#username").focus();
+		$("#username").focus();
 	});
-	
+
 	function loginAs(username, password) {
 		$('#username').val(username);
 		$('#password').val(password);
@@ -16,46 +16,48 @@
 </div>
 
 <div id="login" class="center box-mid border center-container rounded-corners-mid-sized bluegray">
-	
+
 	#{form @authenticate()}
-		
-		#{if flash.error}
-			<p class="error rounded-corners-top-mid-sized">
-				&{flash.error}
-			</p>
-		#{/if}
-		#{if flash.success}
-			<p class="success rounded-corners-top-mid-sized">
-				&{flash.success}
-			</p>
-		#{/if}
-		
-		<div class="labeled text-center padded">
-			<p id="username-field">
-				<label for="username" class="medium bold">&{'secure.username'}</label>
-				<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
-			</p>
-			<p id="password-field">
-				<label for="password" class="medium bold">&{'secure.password'}</label>
-				<input type="password" name="password" id="password" value="" class="gargantuan"/>
-			</p>
-			<p id="remember-field" class="text-center bold">
-				<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-				<label for="remember">&{'secure.remember'}</label>
-			</p>
-			<br/>
-			<p id="signin-field" class="text-center">
-				<input type="submit" id="signin" value="&{'secure.login'}" class="bold"/>
-			</p>
-		</div>
+
+	#{if flash.error}
+	<p class="error rounded-corners-top-mid-sized">
+		&{flash.error}
+	</p>
+	#{/if}
+	#{if flash.success}
+	<p class="success rounded-corners-top-mid-sized">
+		&{flash.success}
+	</p>
+	#{/if}
+
+	<div class="labeled text-center padded">
+		<p id="username-field">
+			<label for="username" class="medium bold">&{'secure.username'}</label>
+			<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
+		</p>
+		<p id="password-field">
+			<label for="password" class="medium bold">&{'secure.password'}</label>
+			<input type="password" name="password" id="password" value="" class="gargantuan"/>
+		</p>
+		<p id="remember-field" class="text-center bold">
+			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+				   <label for="remember">&{'secure.remember'}</label>
+		</p>
+		<br/>
+		<p id="signin-field" class="text-center">
+			<input type="submit" id="signin" value="&{'secure.login'}" class="bold"/>
+		</p>
+	</div>
 	#{/form}
 	<p>&nbsp;</p>
 	<div class="sicklygreenish rounded-corners-bottom-mid-sized padded top-border normal-font">
-		
+
 		<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
-		
-		<p>Vill du logga in som ADMIN? <a href="javascript:loginAs('per@pelle.se', '123');"> Testa per@pelle.se:123</a></p>
-		<p>Vill du logga in som BASIC? <a href="javascript:loginAs('oskar@oskarsson.se', '123');"> Testa oskar@oskarsson.se:123</a></p>
+		<p>
+			&{'demo.heading'}
+			&{'demo.loginas'} <a href="javascript:loginAs('per@pelle.se', '123');">&{'demo.admin'}</a>
+			&{'common.or'} <a href="javascript:loginAs('oskar@oskarsson.se', '123');">&{'demo.user'}</a>
+		</p>
 	</div>
-	
+
 </div>

@@ -33,6 +33,7 @@ common.delete=Ta bort
 common.division=Klass
 common.label=Beteckning
 common.name=Namn
+common.or=eller
 common.person=Person
 common.participant=Deltagare
 common.register=Registrera
@@ -72,6 +73,11 @@ competitors.unregister=Avregistrera deltagare
 
 controller.registration.password=Lösenord
 controller.registration.passwordVerification=Bekräfta lösenord
+
+demo.admin=administratör
+demo.heading=Vill du prova på?
+demo.loginas=Logga in som
+demo.user=användare
 
 divisions.ranks=Klassindelad
 divisions.categories=Kategorier
@@ -138,7 +144,7 @@ targetgroups.new=Ny målgrupp
 targetgroups.targetgroup=Målgrupp
 
 users.delete=Radera användare
-users.user= Användare
+users.user=Användare
 
 weaponcategory.shotinterval=Tid per skott (s)
 

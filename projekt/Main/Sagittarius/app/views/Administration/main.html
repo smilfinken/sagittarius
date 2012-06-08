@@ -2,21 +2,25 @@
 #{set title: messages.get('administration.title') /}
 
 #{secure.check "admin"}
-<div class="menu">
-	#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}
-	#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}
-	<br />
-	#{a @Administration.list_category()}&{'administration.categories'}#{/a}
-	#{a @Administration.list_rank()}&{'administration.ranks'}#{/a}
-	#{a @Administration.list_division()}&{'administration.divisions'}#{/a}
-	#{a @Users.list()}&{'administration.users'}#{/a}
-	<br />
-	#{a @Administration.list_weaponcategory()}&{'administration.weaponcategory'}#{/a}
-	#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}
-	#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}
-	#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}
-</div>
 <hr class="clear" />
+<div id="menu">
+	<ul id="menu">
+		<li>#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
+		<li>#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}</li>
+		<li>#{a @Administration.list_category()}&{'administration.categories'}#{/a}</li>
+		<li>#{a @Administration.list_rank()}&{'administration.ranks'}#{/a}</li>
+		<li>#{a @Administration.list_division()}&{'administration.divisions'}#{/a}</li>
+	</ul>
+	<ul id="menu">
+		<li>#{a @Administration.list_weaponcategory()}&{'administration.weaponcategory'}#{/a}</li>
+		<li>#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}</li>
+		<li>#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}</li>
+		<li>#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}</li>
+	</ul>
+	<ul id="menu">
+		<li>#{a @Users.list()}&{'administration.users'}#{/a}</li>
+	</ul>
+</div>
 #{/secure.check}
 
 #{doLayout /}

@@ -5,6 +5,7 @@
 		<title>#{get 'title' /}</title>
 		<meta charset="${_response_encoding}">
 		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/menu.css'}">
 		#{get 'moreStyles' /}
 		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
 		<script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
@@ -15,23 +16,27 @@
 		<div class="applicationtitle">
 			#{a @Application.index()}&{'application.name'}#{/a}
 		</div>
-		#{if (competition != null)}
 		<div class="competitioninfo">
-			${competition.name}, ${competition.getDate()}
+			#{if (competition != null)}
+			<span class="competitioninfo">
+				${competition.name}, ${competition.getDate()}
+			</span>
+			#{/if}
+			<span class="currentuser">
+				Inloggad som: ${session.username}
+			</span>
 		</div>
-		#{/if}
-		<div class="currentuser">
-			Inloggad som:
-			#{a @Users.profile()}${session.username}#{/a}
-			#{a @Secure.logout()}&{'navigation.logout'}#{/a}
-		</div>
-		#{secure.check "admin"}
+
 		<hr class="clear" />
-		<div class="container menu">
-			#{a @Administration.index()}&{'navigation.administration'}#{/a}
+		<div id="menu">
+			<ul id="menu">
+				#{secure.check "admin"}
+				<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
+				#{/secure.check}
+				<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
+				<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
+			</ul>
 		</div>
-		#{/secure.check}
-		<hr class="clear" />
 
 		#{doLayout /}
 	</body>

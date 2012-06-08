@@ -1,7 +1,6 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get('results.title') /}
 
-<hr class="clear" />
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
 <div>
@@ -48,10 +47,12 @@
 
 #{if (results?.size() > 0)}
 <hr class="clear" />
-<div>
-	<a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.print'}</a>
-	#{a @Results.export(competition.id)}&{'export.file'}#{/a}
-	#{a @Results.exportToShooter(competition.id)}&{'export.integration', "Shooter"}#{/a}
+<div id="menu">
+	<ul id="menu">
+	<li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.print'}</a></li>
+	<li>#{a @Results.export(competition.id)}&{'export.file'}#{/a}</li>
+	<li>#{a @Results.exportToShooter(competition.id)}&{'export.integration', "Shooter"}#{/a}</li>
+	</ul>
 </div>
 
 <hr class="clear" />

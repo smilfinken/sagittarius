@@ -1,12 +1,19 @@
 package controllers;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Query;
-import models.*;
-import play.db.jpa.JPA;
+import java.util.Set;
+
+import models.Category;
+import models.Competition;
+import models.CompetitionType;
+import models.Competitor;
+import models.Division;
+import models.Rank;
+import models.ScoringType;
+import models.Stage;
+import models.User;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -204,6 +211,7 @@ public class Competitions extends Controller {
 		Division division = Division.findById(divisionID);
 
 		if (user != null && division != null) {
+			// TODO: Validate that given user can have given division!
 			Competitor competitor = new Competitor(user, division);
 			competitor.save();
 			competition.competitors.add(competitor);
@@ -260,5 +268,12 @@ public class Competitions extends Controller {
 			}
 		}
 		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
+	}
+	public static void userdivisions(long userId) {
+		User user = User.findById(userId);
+		if (user != null) {
+			Set<Division> divisions = user.getValidDivisions();
+			renderTemplate("Common/selectDivision.html", divisions);
+		}
 	}
 }

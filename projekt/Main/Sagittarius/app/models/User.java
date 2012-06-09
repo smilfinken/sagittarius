@@ -1,7 +1,12 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -119,5 +124,22 @@ public class User extends Model {
 			}
 		}
 		return false;
+	}
+
+	public Set<Division> getValidDivisions() {
+		Set<Division> divisions = new TreeSet<Division>(new Comparator<Division>() {
+
+			@Override
+			public int compare(Division o1, Division o2) {
+				if (o1 != null && o2 != null) {
+					return o1.id.compareTo(o2.id);
+				}
+				return 0;
+			}
+		});
+		for (Category c : categories) {
+			divisions.addAll(c.divisions);
+		}
+		return divisions;
 	}
 }

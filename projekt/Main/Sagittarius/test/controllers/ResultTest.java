@@ -28,7 +28,7 @@ public class ResultTest extends UnitTest {
 		userThird.rank = rank;
 		userFourth.rank = rank;
 
-		Division division = new Division(Arrays.asList(new CompetitionType("Testtävling")), "J", Arrays.asList(category), false);
+		Division division = new Division(Arrays.asList(new CompetitionType("Testtävling", true)), "J", Arrays.asList(category), false);
 		Competitor competitorFirst = new Competitor(userFirst, division, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));
 		Competitor competitorSecond = new Competitor(userSecond, division, mockResults(new int[]{6, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 14}));
 		Competitor competitorThird = new Competitor(userThird, division, mockResults(new int[]{5, 6, 6, 6, 6, 6}, new int[]{4, 3, 2, 1, 6, 4}, new int[]{0, 0, 0, 0, 25, 15}));

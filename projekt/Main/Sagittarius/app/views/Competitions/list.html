@@ -1,0 +1,24 @@
+#{extends 'main.html' /}
+#{set title: messages.get("common.competitions") /}
+
+#{secure.check "admin"}
+<div id="menu">
+	<ul id="menu">
+		<li>#{a @Competitions.create()}&{'competitions.createnew'}#{/a}</li>
+	</ul>
+</div>
+#{/secure.check}
+
+#{secure.check "basic"}
+<div id="menu">
+	#{list competitions}
+	<ul id="menu">
+		<li>#{a @Results.list(_.id)}${_.label}#{/a}</li>
+		<li>#{a @Competitions.enroll(_.id)}&{'competitions.enroll'}#{/a}
+			#{if (_.isEnrolled(session.username))}
+		<li>#{a @Competitions.unroll(_.id)}&{'competitions.unroll'}#{/a}
+			#{/if}
+	</ul>
+	#{/list}
+</div>
+#{/secure.check}

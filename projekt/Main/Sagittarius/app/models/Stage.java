@@ -19,20 +19,30 @@ public class Stage extends Model {
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<TargetGroup> targetGroups;
 
+	List<TargetGroup> createTargetGroups(int count) {
+		ArrayList newGroups = new ArrayList<>();
+		for (int i = 1; i <= count; i++) {
+			TargetGroup targetGroup = new TargetGroup();
+			targetGroup.save();
+			newGroups.add(targetGroup);
+		}
+		return newGroups;
+	}
+
 	public Stage(int targetGroups) {
-		this.targetGroups = new ArrayList<>(targetGroups);
+		this.targetGroups = createTargetGroups(targetGroups);
 		this.label = "";
 		this.stageIndex = 0;
 	}
 
 	public Stage(int targetGroups, String label) {
-		this.targetGroups = new ArrayList<>(targetGroups);
+		this.targetGroups = createTargetGroups(targetGroups);
 		this.label = label;
 		this.stageIndex = 0;
 	}
 
 	public Stage(int targetGroups, String label, int stageIndex) {
-		this.targetGroups = new ArrayList<>(targetGroups);
+		this.targetGroups = createTargetGroups(targetGroups);
 		this.label = label;
 		this.stageIndex = stageIndex;
 	}
@@ -62,5 +72,27 @@ public class Stage extends Model {
 			}
 		}
 		return false;
+	}
+
+	public void deleteTargetGroup(long targetGroupID) {
+		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
+		if (targetGroup != null && this.targetGroups.contains(targetGroup)) {
+			targetGroup.deleteTargets();
+			this.targetGroups.remove(targetGroup);
+			this.save();
+			targetGroup.delete();
+		}
+	}
+
+	public void deleteTargetGroups() {
+		ArrayList<Long> ids = new ArrayList<>();
+		for (TargetGroup item : this.targetGroups) {
+			ids.add(item.id);
+		}
+		for (long item : ids) {
+			deleteTargetGroup(item);
+		}
+		this.targetGroups = null;
+		this.save();
 	}
 }

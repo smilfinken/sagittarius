@@ -35,4 +35,25 @@ public class TargetGroup extends Model {
 		this.range = range;
 		this.targets = targets;
 	}
+
+	public void deleteTarget(long targetID) {
+		Target target = Target.findById(targetID);
+		if (target != null && this.targets.contains(target)) {
+			this.targets.remove(target);
+			this.save();
+			target.delete();
+		}
+	}
+
+	public void deleteTargets() {
+		ArrayList<Long> ids = new ArrayList<>();
+		for (Target item : this.targets) {
+			ids.add(item.id);
+		}
+		for (long item : ids) {
+			deleteTarget(item);
+		}
+		this.targets = null;
+		this.save();
+	}
 }

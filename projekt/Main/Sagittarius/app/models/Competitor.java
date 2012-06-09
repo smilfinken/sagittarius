@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -76,5 +77,26 @@ public class Competitor extends Model {
 		}
 
 		return score;
+	}
+
+	public void deleteResult(long resultID){
+		Result result = Result.findById(resultID);
+		if (result != null && this.results.contains(result)){
+			this.results.remove(result);
+			this.save();
+			result.delete();
+		}
+	}
+
+	public void deleteResults(){
+		ArrayList<Long> ids = new ArrayList<>();
+		for (Result item : this.results) {
+			ids.add(item.id);
+		}
+		for (long item : ids) {
+			deleteResult(item);
+		}
+		this.results = null;
+		this.save();
 	}
 }

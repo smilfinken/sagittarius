@@ -19,7 +19,7 @@
 		<div class="competitioninfo">
 			#{if (competition != null)}
 			<span class="competitioninfo">
-				${competition.name}, ${competition.getDate()}
+				${competition.label}, ${competition.getDate()}
 			</span>
 			#{/if}
 			<span class="currentuser">
@@ -30,6 +30,7 @@
 		<hr class="clear" />
 		<div id="menu">
 			<ul id="menu">
+				<li>#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
 				#{secure.check "admin"}
 				<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
 				#{/secure.check}

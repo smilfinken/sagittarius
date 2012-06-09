@@ -2,6 +2,29 @@
 #{set title: messages.get("competitions.participants") /}
 
 #{secure.check "admin"}
+<script>
+
+	$(document).ready(function() {
+		$('#userID').change(function(){
+			var userId = $('#userID').val();
+			console.log('Selected userId: ' + userId); 
+			sagittarius.competitors.loadUsersDivisions(userId);	
+		});
+	});	
+
+	var sagittarius = sagittarius || {};	
+	sagittarius.competitors = {
+		loadUsersDivisions: function(userId) {
+			$.get(
+				'@{Competitions.userDivisions()}',	
+				{ userId: userId },
+				function(data){
+					$('#divisionID').html(data);
+				}
+			);
+		}		
+	};
+</script>
 <hr class="clear" />
 <div>
 	<form action="@{Competitions.registerUser()}" method="POST">

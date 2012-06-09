@@ -52,8 +52,7 @@ public class Results extends Controller {
 	public static void delete(long competitionID, long competitorID) {
 		Competitor competitor = Competitor.findById(competitorID);
 		if (competitor != null) {
-			competitor.results = new ArrayList<>();
-			competitor.save();
+			competitor.deleteResults();
 		}
 		list(competitionID);
 	}
@@ -68,7 +67,7 @@ public class Results extends Controller {
 				switch (useraction) {
 					case "save":
 						if (newResults != null && newResults.size() == competitor.results.size()) {
-							// TODO: fix this so that data is properly removed from db on deletion
+							competitor.deleteResults();
 							competitor.results = newResults;
 							competitor.save();
 						}
@@ -144,7 +143,7 @@ public class Results extends Controller {
 					} else {
 						place++;
 					}
-					String line = String.format("'%s',%d,'%s','%s',%d,'%s',%d,%d\r\n", competition.name, competition.getMaxScore(), competitor.getDivisionAsString(), competitor.getFullName(), competitor.getScore(), competition.getDate(), place, 0);
+					String line = String.format("'%s',%d,'%s','%s',%d,'%s',%d,%d\r\n", competition.label, competition.getMaxScore(), competitor.getDivisionAsString(), competitor.getFullName(), competitor.getScore(), competition.getDate(), place, 0);
 					resultsWriter.write(line);
 					division = competitor.getDivisionAsString();
 				}
@@ -172,7 +171,7 @@ public class Results extends Controller {
 		Date currentDate = new Date();
 		String timeStamp = String.format("%s %s", DateFormat.getDateInstance(DateFormat.LONG).format(currentDate), DateFormat.getTimeInstance(DateFormat.SHORT).format(currentDate));
 		Options options = new Options();
-		options.filename = String.format("%s - %s.pdf", competition.name, competition.getDate());
+		options.filename = String.format("%s - %s.pdf", competition.label, competition.getDate());
 		//TODO: figure out why css classes do not work in the header and footer
 		options.HEADER_TEMPLATE = "Results/header.html";
 		options.FOOTER_TEMPLATE = "Results/footer.html";
@@ -182,14 +181,8 @@ public class Results extends Controller {
 
 	public static void unregisterUser(long competitionID, long competitorID) {
 		Competition competition = Competition.findById(competitionID);
-		Competitor competitor = Competitor.findById(competitorID);
-
-		// TODO: fix this so that data is properly removed from db on deletion
-		if (competition != null && competitor != null) {
-			competition.competitors.remove(competitor);
-			competition.save();
-			competitor.results = null;
-			competitor.delete();
+		if (competition != null) {
+			competition.deleteCompetitor(competitorID);
 		}
 
 		list(competitionID);

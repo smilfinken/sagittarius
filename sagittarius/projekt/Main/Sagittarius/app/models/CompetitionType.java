@@ -11,12 +11,10 @@ import play.db.jpa.Model;
 public class CompetitionType extends Model {
 
 	public String label;
+	public boolean hasStages;
 
-	public CompetitionType(String label) {
+	public CompetitionType(String label, boolean hasStages) {
 		this.label = label;
-	}
-
-	public boolean hasStages() {
-		return true;
+		this.hasStages = hasStages;
 	}
 }

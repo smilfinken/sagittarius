@@ -1,9 +1,19 @@
 #{extends "Competitions/main.html" /}
-#{set title: "${competition.name}, station ${stage.stageIndex}" /}
+#{set title: "${competition.label}, station ${stage.stageIndex}" /}
 
 <hr />
 <div>
-	<h2>${competition.name}, &{'competitions.stage'} ${stage.stageIndex}</h2>
+	<h2>${competition.label}, &{'competitions.stage'} ${stage.stageIndex}</h2>
+	<div id="menu">
+		<ul id="menu">
+			#{if (!competition.isFirstStage(stage.id))}
+			<li>#{a @Stages.edit(competition.id, competition.getPreviousStage(stage.id))}&{'navigation.previousstage'}#{/a}
+			#{/if}
+			#{if (!competition.isLastStage(stage.id))}
+			<li>#{a @Stages.edit(competition.id, competition.getNextStage(stage.id))}&{'navigation.nextstage'}#{/a}
+			#{/if}
+		</ul>
+	</div>
 
 	<hr />
 	<div>
@@ -60,7 +70,7 @@
 				</td>
 				<td style="text-align: left">
 					<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />
-						   <input type="hidden" name="competitionID" value="${competition.id}" />
+					       <input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
 					<input type="hidden" name="targetID" value="${target.id}" />

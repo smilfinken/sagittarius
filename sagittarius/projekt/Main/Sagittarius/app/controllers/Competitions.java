@@ -2,8 +2,11 @@ package controllers;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.Query;
 import models.*;
+import play.db.jpa.JPA;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -14,70 +17,87 @@ import play.mvc.With;
 @With(Secure.class)
 public class Competitions extends Controller {
 
-	@Check("admin")
-	public static void add(String name, long competitionTypeID, String date) {
-		Competition competition = new Competition(name);
-
-		if (date != null) {
-			try {
-				DateFormat shortDate = DateFormat.getDateInstance(DateFormat.SHORT);
-				competition.date = shortDate.parse(date);
-			} catch (Exception e) {
-			}
-		}
-		competition.competitionType = CompetitionType.findById(competitionTypeID);
-		competition.save();
-
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		renderTemplate("Competitions/edit.html", competition, competitionTypes);
-	}
-
-	public static void edit(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-		List<Stage> stages = competition.stages;
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-
-		render(competition, stages, competitionTypes);
-	}
-
-	@Check("admin")
-	public static void save(long competitionID, String name, String date) {
-		Competition competition = Competition.findById(competitionID);
-
-		if (competition != null) {
-			if (name.length() > 0) {
-				competition.name = name;
-			}
-			if (date.length() > 0) {
-				try {
-					DateFormat shortDate = DateFormat.getDateInstance(DateFormat.SHORT);
-					competition.date = shortDate.parse(date);
-				} catch (Exception e) {
-				}
-			}
-			competition.save();
-		}
-
-		List<Stage> stages = competition.stages;
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-
-		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
-	}
-
-	// TODO: fix this so that data is properly removed from db on deletion
-	@Check("admin")
-	public static void delete(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-
-		if (competition != null) {
-			competition.competitors = null;
-			competition.stages = null;
-			competition.delete();
-		}
-
+	public static void list() {
 		List<Competition> competitions = Competition.all().fetch();
+		render(competitions);
+	}
+
+	@Check("admin")
+	public static void create() {
+		List<CompetitionType> competitionTypes = CompetitionType.findAll();
+		List<ScoringType> scoringTypes = ScoringType.findAll();
+		render(competitionTypes, scoringTypes);
+	}
+
+	@Check("admin")
+	public static void edit(long competitionID, String label, Date date, long competitionTypeID, long scoringTypeID, int stages, String useraction) {
+		Competition competition;
+
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "create":
+					competition = new Competition(label);
+					competition.date = date;
+					competition.competitionType = CompetitionType.findById(competitionTypeID);
+					competition.scoringType = ScoringType.findById(scoringTypeID);
+					competition.save();
+
+					if (competition.competitionType.hasStages) {
+						stages(competition.id);
+					} else {
+						competitors(competition.id);
+					}
+					break;
+				case "addstages":
+					competition = Competition.findById(competitionID);
+					if (competition != null) {
+						List<Stage> newstages = new ArrayList<>();
+						for (int i = 1; i <= stages; i++) {
+							Stage stage = new Stage(1, String.format("Station %d", i), i);
+							stage.save();
+							newstages.add(stage);
+						}
+						competition.stages = newstages;
+						competition.save();
+					}
+
+					Stages.edit(competitionID, competition.stages.get(0).id);
+					break;
+				case "save":
+					competition = Competition.findById(competitionID);
+					if (competition != null) {
+						competition.label = label;
+						competition.date = date;
+						competition.save();
+					}
+
+					List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+					renderTemplate("Competitions/edit.html", competition, competition.stages, competitionTypes);
+					break;
+				case "delete":
+					competition = Competition.findById(competitionID);
+					if (competition != null) {
+						competition.deleteCompetitors();
+						competition.deleteStages();
+						competition.delete();
+					}
+
+					list();
+					break;
+			}
+
+		}
+
+		competition = Competition.findById(competitionID);
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-		renderTemplate("Application/index.html", competitions, competitionTypes);
+
+		render(competition, competitionTypes);
+	}
+
+	public static void stages(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+
+		render(competition);
 	}
 
 	public static void competitors(long competitionID) {
@@ -91,8 +111,59 @@ public class Competitions extends Controller {
 		render(competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users), categories, ranks, divisions);
 	}
 
-	public static void enroll(long competitionID) {
-		Results.list(competitionID);
+	public static void enroll(long competitionID, long divisionID) {
+		Competition competition = Competition.findById(competitionID);
+		User user = User.find("byEmail", session.get("username")).first();
+		//List<Division> divisions = Division.find("byCategories", user.categories).fetch();
+
+		if (params._contains("divisionID")) {
+			Division division = Division.findById(divisionID);
+			Competitor competitor = new Competitor(user, division);
+			competition.competitors.add(competitor);
+			competition.save();
+		}
+
+		List<Division> divisions = new ArrayList<>();
+		List<Division> allDivisions = Division.all().fetch();
+		for (Category category : user.categories) {
+			for (Division division : allDivisions) {
+				if (division.categories.contains(category) && !divisions.contains(division)) {
+					divisions.add(division);
+				}
+			}
+		}
+
+		render(competition, divisions);
+	}
+
+	public static void unroll(long competitionID, long divisionID) {
+		Competition competition = Competition.findById(competitionID);
+		User user = User.find("byEmail", session.get("username")).first();
+
+		if (params._contains("divisionID")) {
+			Competitor competitor = null;
+			for (Competitor candidate : competition.competitors) {
+				if (candidate.division.id == divisionID) {
+					competitor = candidate;
+				}
+			}
+			if (competitor != null) {
+				competition.competitors.remove(competitor);
+				competition.save();
+				competitor.delete();
+			}
+		}
+
+		List<Division> divisions = new ArrayList<>();
+		List<Division> allDivisions = Division.all().fetch();
+		for (Category category : user.categories) {
+			for (Division division : allDivisions) {
+				if (division.categories.contains(category) && !divisions.contains(division)) {
+					divisions.add(division);
+				}
+			}
+		}
+		renderTemplate("Competitions/enroll.html", competition, divisions);
 	}
 
 	@Check("admin")
@@ -116,19 +187,8 @@ public class Competitions extends Controller {
 	public static void deleteStage(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
 
-		// TODO: fix this so that data is properly removed from db on deletion
-		// TODO: fix index when deleting a stage
-		Stage stage = Stage.findById(stageID);
-		if (stage != null) {
-			for (TargetGroup targetGroup : stage.targetGroups) {
-				targetGroup.targets = null;
-				targetGroup.save();
-			}
-			stage.targetGroups = null;
-			stage.save();
-			competition.stages.remove(stage);
-			competition.save();
-			stage.delete();
+		if (competition != null) {
+			competition.deleteStage(stageID);
 		}
 
 		List<Stage> stages = competition.stages;
@@ -161,14 +221,9 @@ public class Competitions extends Controller {
 	@Check("admin")
 	public static void unregisterUser(long competitionID, long competitorID) {
 		Competition competition = Competition.findById(competitionID);
-		Competitor competitor = Competitor.findById(competitorID);
 
-		// TODO: fix this so that data is properly removed from db on deletion
-		if (competition != null && competitor != null) {
-			competition.competitors.remove(competitor);
-			competition.save();
-			competitor.results = null;
-			competitor.delete();
+		if (competition != null) {
+			competition.deleteCompetitor(competitorID);
 		}
 
 		List<User> users = User.all().fetch();
@@ -190,7 +245,7 @@ public class Competitions extends Controller {
 	public static void billboard(long competitionId) {
 		render(competitionId);
 	}
-	
+
 	public static void billboardpart(long competitionId) {
 		Competition competition = Competition.findById(competitionId);
 		List<Competitor> allcompetitors = competition.competitors;
@@ -206,5 +261,4 @@ public class Competitions extends Controller {
 		}
 		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
 	}
-	
 }

@@ -26,11 +26,11 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void update(long competitionID, long stageID, String name) {
+	public static void update(long competitionID, long stageID, String label) {
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
-			stage.label = name;
+			stage.label = label;
 			stage.save();
 		}
 
@@ -65,12 +65,8 @@ public class Stages extends Controller {
 					}
 					break;
 				case "delete":
-					// TODO: fix this so that data is properly removed from db on deletion
 					if (stage != null && targetGroup != null) {
-						targetGroup.targets = null;
-						targetGroup.save();
-						stage.targetGroups.remove(targetGroup);
-						stage.save();
+						stage.deleteTargetGroup(targetGroup.id);
 					}
 					break;
 			}

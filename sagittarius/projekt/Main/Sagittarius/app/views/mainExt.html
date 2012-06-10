@@ -11,12 +11,12 @@
 		<script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 		#{get 'moreScripts' /}
 	</head>
-	<body class="center-container">
-		<h1>&{'application.name'}</h1>
-		<hr />
-
-		#{doLayout /}
-
-		<hr />
+	<body>
+		<div id="logo">
+			<div id="logo-text" class="tilted"><span class="logo-font">&{'application.name'}</span></div>
+		</div>
+		<div id="main" class="middle">
+			#{doLayout /}
+		</div>
 	</body>
 </html>

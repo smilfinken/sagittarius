@@ -13,6 +13,10 @@
 		#{get 'moreScripts' /}
 	</head>
 	<body>
+		<div id="logo">
+			<div id="logo-text" class="tilted"><span class="logo-font">&{'application.name'}</span></div>
+		</div>
+		<div id="main">	
 		<div class="applicationtitle">
 			#{a @Application.index()}&{'application.name'}#{/a}
 		</div>
@@ -40,5 +44,6 @@
 		</div>
 
 		#{doLayout /}
+		</div>
 	</body>
 </html>

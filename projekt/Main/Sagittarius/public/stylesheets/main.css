@@ -2,16 +2,60 @@
 
 /* COLORS */
 .gray {
-	background-color:				#666;
+	background-color:	#666;
 }
 .lightgray {
-	background-color:				#999;
+	background-color:	#999;
 }
 .bluegray {
-	background-color:				#86abba;
+	background-color:	#6A9CA7;
 }
 .sicklygreenish {
-	background-color: 				#BAB686;
+	background-color: 	#BAB686;
+}
+
+/* Foundation */
+body {
+	padding-left:		6%;
+	padding-right:		5px;
+}
+#logo {
+	position:			absolute;
+	left:				0;
+	top:				0;
+	bottom:				0;
+	width:				6%;
+	vertical-align: 	middle;
+	border-right: 		solid 3px lightgray;
+}
+#logo-text {
+	margin-right:		-10px;
+	width:				100%;
+	top:				50%;
+	left:				0px;
+	right:				0px;
+	position:			absolute;	
+}
+.logo-font {
+	font-family:  		'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: 		normal;
+    font-size: 			1.75em;
+	letter-spacing: 	.2em;
+	line-height: 		1.1em;
+	margin:				0px;
+	text-align: 		center;
+	color: 				lightgray;
+}
+#main {
+	position:			relative;
+	margin-left:		5px;
+}
+.tilted {
+	-webkit-transform: 	rotate(-90deg); 
+	-moz-transform: 	rotate(-90deg);
+	/*display:			block;
+	filter: 			progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	*/	
 }
 
 /* DEFAULTS */

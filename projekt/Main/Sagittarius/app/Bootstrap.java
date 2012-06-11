@@ -22,6 +22,9 @@ public class Bootstrap extends Job {
 		if (ScoringType.count() == 0) {
 			Fixtures.loadModels("Defaults/scoring-types.yml");
 		}
+		if (StartingPosition.count() == 0) {
+			Fixtures.loadModels("Defaults/starting-positions.yml");
+		}
 		if (Category.count() == 0) {
 			Fixtures.loadModels("Defaults/categories.yml");
 		}

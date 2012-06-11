@@ -1,0 +1,33 @@
+# pre-defined scoring types
+
+StartingPosition(1):
+  label: st 45
+  description: Stående 45º
+  competitionType: 1
+  aimingAllowed: false
+  weaponHolstered: false
+  weaponLoaded: true
+
+StartingPosition(2):
+  label: st 45 u sth
+  description: Stående 45º utan stödhand
+  competitionType: 1
+  aimingAllowed: false
+  weaponHolstered: false
+  weaponLoaded: true
+
+StartingPosition(3):
+  label: st
+  description: Stående
+  competitionType: 1
+  aimingAllowed: true
+  weaponHolstered: false
+  weaponLoaded: true
+
+StartingPosition(4):
+  label: st u sth
+  description: Stående utan stödhand
+  competitionType: 1
+  aimingAllowed: true
+  weaponHolstered: false
+  weaponLoaded: true

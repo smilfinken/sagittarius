@@ -4,29 +4,38 @@
 <hr />
 <div>
 	<h2>${competition.label}, &{'competitions.stage'} ${stage.stageIndex}</h2>
+	#{if (minTime != "0.0" && maxTime != "0.0")}
+	<div class="timings">
+		&{'stages.suggestedtimings'}: ${minTime} -- ${maxTime} &{'common.seconds'}
+	</div>
+	#{/if}
 	<div id="menu">
 		<ul id="menu">
 			#{if (!competition.isFirstStage(stage.id))}
-			<li>#{a @Stages.edit(competition.id, competition.getPreviousStage(stage.id))}&{'navigation.previousstage'}#{/a}
+			<li>#{a @Stages.edit(competition.id, competition.getPreviousStage(stage.id))}&{'navigation.previousstage'}#{/a}</li>
 			#{/if}
 			#{if (!competition.isLastStage(stage.id))}
-			<li>#{a @Stages.edit(competition.id, competition.getNextStage(stage.id))}&{'navigation.nextstage'}#{/a}
+			<li>#{a @Stages.edit(competition.id, competition.getNextStage(stage.id))}&{'navigation.nextstage'}#{/a}</li>
 			#{/if}
 		</ul>
 	</div>
 
 	<hr />
-	<div>
-		<form action="@{Stages.update}" method="POST">
-			<input type="hidden" name="competitionID" value="${competition.id}" />
-			<input type="hidden" name="stageID" value="${stage.id}" />
+	<form action="@{Stages.update}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<div>
 			<label for="label">&{'common.label'}</label>
 			<input type="text" name="label" value="${stage.label}" />
-			<button class="enter" type="submit">&{'common.change'}</button>
-		</form>
 
-		&{'stages.suggestedtimings'}: ${minTime} -- ${maxTime} &{'common.seconds'}
-	</div>
+			#{if (stage.startingPosition != null)}
+			<br />
+			#{include "Common/selectStartingPosition.html" /}
+			#{/if}
+			<br />
+			<button class="enter" type="submit">&{'common.change'}</button>
+		</div>
+	</form>
 </div>
 
 #{list stage.targetGroups, as:'targetGroup'}
@@ -70,7 +79,7 @@
 				</td>
 				<td style="text-align: left">
 					<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />
-					       <input type="hidden" name="competitionID" value="${competition.id}" />
+						   <input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
 					<input type="hidden" name="targetID" value="${target.id}" />

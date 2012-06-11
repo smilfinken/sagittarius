@@ -3,6 +3,9 @@
 #login {
 	font-size:				13pt;
 }
+#login p {
+	margin-top:				3px;
+}
 
 /* CLASSES */
 
@@ -49,6 +52,9 @@
 }
 .text-right {
 	text-align: 			right;
+}
+.text-left {
+	text-align: 			left;
 }
 .bold {
 	font-weight: 			bold;

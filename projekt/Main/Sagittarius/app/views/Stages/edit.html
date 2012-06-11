@@ -4,7 +4,7 @@
 <hr />
 <div>
 	<h2>${competition.label}, &{'competitions.stage'} ${stage.stageIndex}</h2>
-	#{if (minTime != "0.0" && maxTime != "0.0")}
+	#{if (minTime != "0,0" && maxTime != "0,0")}
 	<div class="timings">
 		&{'stages.suggestedtimings'}: ${minTime} -- ${maxTime} &{'common.seconds'}
 	</div>
@@ -28,10 +28,9 @@
 			<label for="label">&{'common.label'}</label>
 			<input type="text" name="label" value="${stage.label}" />
 
-			#{if (stage.startingPosition != null)}
 			<br />
 			#{include "Common/selectStartingPosition.html" /}
-			#{/if}
+
 			<br />
 			<button class="enter" type="submit">&{'common.change'}</button>
 		</div>

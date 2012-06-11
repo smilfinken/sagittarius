@@ -16,6 +16,7 @@ import models.Stage;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.With;
+import static common.Sorting.*;
 
 /**
  *
@@ -34,6 +35,14 @@ public class Competitions extends Controller {
 		List<CompetitionType> competitionTypes = CompetitionType.findAll();
 		List<ScoringType> scoringTypes = ScoringType.findAll();
 		render(competitionTypes, scoringTypes);
+	}
+
+	@Check("admin")
+	public static void details(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
+
+		renderTemplate("Competitions/edit.html", competition, competitionTypes, sortStages(competition.stages));
 	}
 
 	@Check("admin")
@@ -95,10 +104,7 @@ public class Competitions extends Controller {
 
 		}
 
-		competition = Competition.findById(competitionID);
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-
-		render(competition, competitionTypes);
+		details(competitionID);
 	}
 
 	public static void stages(long competitionID) {
@@ -115,7 +121,7 @@ public class Competitions extends Controller {
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
 
-		render(competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users), categories, ranks, divisions);
+		render(competition, sortCompetitors(competitors), sortUsers(users), categories, ranks, divisions);
 	}
 
 	public static void enroll(long competitionID, long divisionID) {
@@ -184,10 +190,7 @@ public class Competitions extends Controller {
 			competition.save();
 		}
 
-		List<Stage> stages = competition.stages;
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-
-		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
+		details(competitionID);
 	}
 
 	@Check("admin")
@@ -198,10 +201,7 @@ public class Competitions extends Controller {
 			competition.deleteStage(stageID);
 		}
 
-		List<Stage> stages = competition.stages;
-		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-
-		renderTemplate("Competitions/edit.html", competition, stages, competitionTypes);
+		details(competitionID);
 	}
 
 	@Check("admin")
@@ -218,12 +218,7 @@ public class Competitions extends Controller {
 			competition.save();
 		}
 
-		List<User> users = User.all().fetch();
-		List<Competitor> competitors = competition.competitors;
-		List<Category> categories = Category.all().fetch();
-		List<Rank> ranks = Rank.all().fetch();
-		List<Division> divisions = Division.all().fetch();
-		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
+		competitors(competitionID);
 	}
 
 	@Check("admin")
@@ -234,20 +229,7 @@ public class Competitions extends Controller {
 			competition.deleteCompetitor(competitorID);
 		}
 
-		List<User> users = User.all().fetch();
-		List<Competitor> competitors = competition.competitors;
-		List<Category> categories = Category.all().fetch();
-		List<Rank> ranks = Rank.all().fetch();
-		List<Division> divisions = Division.all().fetch();
-		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions);
-	}
-
-	public static void newCompetitor(long competitionID) {
-		Competition competition = Competition.findById(competitionID);
-		List<Competitor> competitors = competition.competitors;
-		List<User> users = User.all().fetch();
-
-		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortCompetitors(competitors), common.Sorting.sortUsers(users));
+		competitors(competitionID);
 	}
 
 	public static void billboard(long competitionId) {
@@ -267,8 +249,9 @@ public class Competitions extends Controller {
 				results.add(competitor);
 			}
 		}
-		render(competition, common.Sorting.sortResults(results), common.Sorting.sortCompetitors(competitors));
+		render(competition, sortResults(results), sortCompetitors(competitors));
 	}
+
 	public static void userdivisions(long userId) {
 		User user = User.findById(userId);
 		if (user != null) {

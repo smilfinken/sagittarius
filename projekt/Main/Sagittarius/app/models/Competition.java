@@ -76,11 +76,11 @@ public class Competition extends Model {
 			long nextID = getNextStage(stageID);
 			while (nextID != -1) {
 				Stage nextStage = Stage.findById(nextID);
+				nextID = getNextStage(nextID);
 				if (nextStage != null) {
 					nextStage.stageIndex--;
 					nextStage.save();
 				}
-				nextID = getNextStage(nextID);
 			}
 			this.stages.remove(stage);
 			this.save();
@@ -102,7 +102,7 @@ public class Competition extends Model {
 
 	public void deleteCompetitor(long competitorID) {
 		Competitor competitor = Competitor.findById(competitorID);
-		if (competitor != null){
+		if (competitor != null) {
 			this.competitors.remove(competitor);
 			this.save();
 			competitor.deleteResults();

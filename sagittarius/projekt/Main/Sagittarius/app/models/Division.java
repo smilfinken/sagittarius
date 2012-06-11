@@ -47,6 +47,11 @@ public class Division extends Model {
 		this.ranks = ranks;
 	}
 
+	@Override
+	public String toString() {
+		return this.label;
+	}
+
 	public boolean hasCompetitionType(long competitionTypeID) {
 		CompetitionType competitionType = CompetitionType.findById(competitionTypeID);
 

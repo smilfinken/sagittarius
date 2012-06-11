@@ -1,196 +1,211 @@
 # pre-defined target classes
 
 TargetClass(1):
+  classification: 0
+  maximumRange: 100
+  weaponCategory: 1
+
+TargetClass(2):
+  classification: 0
+  maximumRange: 90
+  weaponCategory: 2
+
+TargetClass(3):
+  classification: 0
+  maximumRange: 80
+  weaponCategory: 3
+
+TargetClass(4):
   classification: 1
   maximumRange: 90
   weaponCategory: 1
 
-TargetClass(2):
+TargetClass(5):
   classification: 1
   maximumRange: 80
   weaponCategory: 2
 
-TargetClass(3):
+TargetClass(6):
   classification: 1
   maximumRange: 70
   weaponCategory: 3
 
-TargetClass(4):
+TargetClass(7):
   classification: 2
   maximumRange: 75
   weaponCategory: 1
 
-TargetClass(5):
+TargetClass(8):
   classification: 2
   maximumRange: 65
   weaponCategory: 2
 
-TargetClass(6):
+TargetClass(9):
   classification: 2
   maximumRange: 60
   weaponCategory: 3
 
-TargetClass(7):
+TargetClass(10):
   classification: 3
   maximumRange: 65
   weaponCategory: 1
 
-TargetClass(8):
-  classification: 3
-  maximumRange: 55
-  weaponCategory: 2
-
-TargetClass(9):
-  classification: 3
-  maximumRange: 50
-  weaponCategory: 3
-
-TargetClass(10):
-  classification: 4
-  maximumRange: 55
-  weaponCategory: 1
-
 TargetClass(11):
-  classification: 4
-  maximumRange: 50
+  classification: 3
+  maximumRange: 55
   weaponCategory: 2
 
 TargetClass(12):
+  classification: 3
+  maximumRange: 50
+  weaponCategory: 3
+
+TargetClass(13):
+  classification: 4
+  maximumRange: 55
+  weaponCategory: 1
+
+TargetClass(14):
+  classification: 4
+  maximumRange: 50
+  weaponCategory: 2
+
+TargetClass(15):
   classification: 4
   maximumRange: 45
   weaponCategory: 3
 
-TargetClass(13):
+TargetClass(16):
   classification: 5
   maximumRange: 50
   weaponCategory: 1
 
-TargetClass(14):
-  classification: 5
-  maximumRange: 45
-  weaponCategory: 2
-
-TargetClass(15):
-  classification: 5
-  maximumRange: 40
-  weaponCategory: 3
-
-TargetClass(16):
-  classification: 6
-  maximumRange: 45
-  weaponCategory: 1
-
 TargetClass(17):
-  classification: 6
-  maximumRange: 40
+  classification: 5
+  maximumRange: 45
   weaponCategory: 2
 
 TargetClass(18):
+  classification: 5
+  maximumRange: 40
+  weaponCategory: 3
+
+TargetClass(19):
+  classification: 6
+  maximumRange: 45
+  weaponCategory: 1
+
+TargetClass(20):
+  classification: 6
+  maximumRange: 40
+  weaponCategory: 2
+
+TargetClass(21):
   classification: 6
   maximumRange: 35
   weaponCategory: 3
 
-TargetClass(19):
+TargetClass(22):
   classification: 7
   maximumRange: 40
   weaponCategory: 1
 
-TargetClass(20):
+TargetClass(23):
   classification: 7
   maximumRange: 35
   weaponCategory: 2
 
-TargetClass(21):
+TargetClass(24):
   classification: 7
   maximumRange: 30
   weaponCategory: 3
 
-TargetClass(22):
+TargetClass(25):
   classification: 8
   maximumRange: 36
   weaponCategory: 1
 
-TargetClass(23):
+TargetClass(26):
   classification: 8
   maximumRange: 32
   weaponCategory: 2
 
-TargetClass(24):
+TargetClass(27):
   classification: 8
   maximumRange: 27
   weaponCategory: 3
 
-TargetClass(25):
+TargetClass(28):
   classification: 9
   maximumRange: 30
   weaponCategory: 1
 
-TargetClass(26):
+TargetClass(29):
   classification: 9
   maximumRange: 27
   weaponCategory: 2
 
-TargetClass(27):
+TargetClass(30):
   classification: 9
   maximumRange: 24
   weaponCategory: 3
 
-TargetClass(28):
+TargetClass(31):
   classification: 10
   maximumRange: 25
   weaponCategory: 1
 
-TargetClass(29):
+TargetClass(32):
   classification: 10
   maximumRange: 22
   weaponCategory: 2
 
-TargetClass(30):
+TargetClass(33):
   classification: 10
   maximumRange: 20
   weaponCategory: 3
 
-TargetClass(31):
+TargetClass(34):
   classification: 11
   maximumRange: 20
   weaponCategory: 1
 
-TargetClass(32):
-  classification: 11
-  maximumRange: 18
-  weaponCategory: 2
-
-TargetClass(33):
-  classification: 11
-  maximumRange: 16
-  weaponCategory: 3
-
-TargetClass(34):
-  classification: 12
-  maximumRange: 18
-  weaponCategory: 1
-
 TargetClass(35):
-  classification: 12
-  maximumRange: 16
+  classification: 11
+  maximumRange: 18
   weaponCategory: 2
 
 TargetClass(36):
+  classification: 11
+  maximumRange: 16
+  weaponCategory: 3
+
+TargetClass(37):
+  classification: 12
+  maximumRange: 18
+  weaponCategory: 1
+
+TargetClass(38):
+  classification: 12
+  maximumRange: 16
+  weaponCategory: 2
+
+TargetClass(39):
   classification: 12
   maximumRange: 14
   weaponCategory: 3
 
-TargetClass(37):
+TargetClass(40):
   classification: 13
   maximumRange: 16
   weaponCategory: 1
 
-TargetClass(38):
+TargetClass(41):
   classification: 13
   maximumRange: 14
   weaponCategory: 2
 
-TargetClass(39):
+TargetClass(42):
   classification: 13
   maximumRange: 12
   weaponCategory: 3

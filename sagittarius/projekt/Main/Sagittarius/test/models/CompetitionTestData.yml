@@ -1,4 +1,4 @@
 # Test data for the CompetitionTest tests
 
 CompetitionType(testCompetition):
-        name: Testtävling
+        label: Testtävling

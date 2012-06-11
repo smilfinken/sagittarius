@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import play.db.jpa.Model;
 
 /**
@@ -34,6 +36,21 @@ public class TargetGroup extends Model {
 		this.label = label;
 		this.range = range;
 		this.targets = targets;
+	}
+
+	@Override
+	public String toString() {
+		return label;
+	}
+
+	public Element toXML() {
+		Element targetGroupElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		targetGroupElement.addAttribute("label", label);
+		targetGroupElement.addAttribute("range", String.format("%d", range));
+		for (Target target : targets) {
+			targetGroupElement.add(target.toXML());
+		}
+		return targetGroupElement;
 	}
 
 	public void deleteTarget(long targetID) {

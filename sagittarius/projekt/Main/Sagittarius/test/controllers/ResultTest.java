@@ -49,12 +49,12 @@ public class ResultTest extends UnitTest {
 
 	private List<Result> mockResults(int[] hits, int[] targets, int[] points) {
 		assertTrue(
-			"Failed due to array length discrepancy, result-target-points must be of equal length",
-			hits.length == targets.length
-			&& targets.length == points.length);
+				"Failed due to array length discrepancy, result-target-points must be of equal length",
+				hits.length == targets.length
+				&& targets.length == points.length);
 		List<Result> results = new ArrayList<>();
 		for (int i = 0; i < hits.length; i++) {
-			results.add(new Result(hits[i], targets[i], points[i]));
+			results.add(new Result(hits[i], targets[i], points[i], null));
 		}
 		return results;
 	}

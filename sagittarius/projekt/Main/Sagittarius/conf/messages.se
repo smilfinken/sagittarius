@@ -91,9 +91,20 @@ divisions.ranks=Klassindelad
 divisions.categories=Kategorier
 divisions.competitiontypes=Tävlingstyper
 
-export.file=Exportera till fil
-export.print=Utskrift
-export.integration=Exportera till %s
+export.application.shooter=Shooter
+export.destination.file=Export (%s)
+export.destination.integration=Exportera till %s
+export.destination.print=Utskrift
+export.format.csv=CSV
+export.format.xml=XML
+export.heading.competitorname=Namn
+export.heading.competitordivision=Klass
+export.heading.hits=Träff
+export.heading.targets=Figurer
+export.heading.points=Poäng
+export.heading.stage=Station
+export.heading.sum=Summa
+export.heading.total=Total
 
 models.user.admin=Administratör
 models.user.cardnumber=Skyttekortsnummer
@@ -140,6 +151,8 @@ results.title=Resultat
 scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
 scoringtype.sumpointsonly=Räkna enbart poäng
 
+squads.label=Patrull
+
 stages.scoring=Poängräkning
 stages.startingposition=Startposition
 stages.suggestedtimings=Föreslagen skjuttid
@@ -150,6 +163,7 @@ targets.scoreable=Poängmål
 targets.new=Ny figur
 
 targetclass.classification=Figurgrupp
+targetclass.label=Figurkategori
 targetclass.maximumrange=Maximalt skjutavstånd
 targetclass.weaponcategory=Vapengrupp
 
@@ -159,6 +173,7 @@ targetgroups.targetgroup=Målgrupp
 users.delete=Radera användare
 users.user=Användare
 
+weaponcategory.label=Vapentyp
 weaponcategory.shotinterval=Tid per skott (s)
 
 # Validation messages

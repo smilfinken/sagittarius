@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import play.db.jpa.Model;
 
 /**
@@ -22,7 +24,7 @@ public class Stage extends Model {
 	@ManyToOne
 	public StartingPosition startingPosition;
 
-	List<TargetGroup> createTargetGroups(int count) {
+	private List<TargetGroup> createTargetGroups(int count) {
 		ArrayList newGroups = new ArrayList<>();
 		for (int i = 1; i <= count; i++) {
 			TargetGroup targetGroup = new TargetGroup();
@@ -48,6 +50,21 @@ public class Stage extends Model {
 		this.targetGroups = createTargetGroups(targetGroups);
 		this.label = label;
 		this.stageIndex = stageIndex;
+	}
+
+	@Override
+	public String toString() {
+		return label;
+	}
+
+	public Element toXML() {
+		Element stageElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		stageElement.addAttribute("label", label);
+		stageElement.addAttribute("stageindex", String.format("%d", stageIndex));
+		for (TargetGroup targetGroup : targetGroups) {
+			stageElement.add(targetGroup.toXML());
+		}
+		return stageElement;
 	}
 
 	public int targetCount() {

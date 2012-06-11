@@ -15,11 +15,15 @@ import play.db.jpa.Model;
 public class Category extends Model {
 
 	public String label;
-	
-	@ManyToMany(mappedBy="categories")
+	@ManyToMany(mappedBy = "categories")
 	public List<Division> divisions;
 
 	public Category(String label) {
 		this.label = label;
+	}
+
+	@Override
+	public String toString() {
+		return label;
 	}
 }

@@ -1,7 +1,7 @@
 # Test data for the CompetitorTest tests
 
 CompetitionType(testCompetition):
-        name: Testtävling
+        label: Testtävling
 
 Category(categoryJunior):
         label: Junior

@@ -47,6 +47,6 @@ public class CompetitionTest extends UnitTest {
 
 		competition.competitionType = competitionType;
 		assertEquals(String.format("Competition type is not correctly set after setting competitionType"), competition.competitionType, competitionType);
-		assertEquals(String.format("Competition type name is not correctly reported by getType()"), competitionType.label, competition.getType());
+		assertEquals(String.format("Competition type name is not correctly reported"), competitionType.label, competition.competitionType.toString());
 	}
 }

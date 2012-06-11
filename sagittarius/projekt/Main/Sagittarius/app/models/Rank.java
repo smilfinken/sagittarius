@@ -22,4 +22,9 @@ public class Rank extends Model {
 		this.ranking = ranking;
 		this.label = label;
 	}
+
+	@Override
+	public String toString() {
+		return label;
+	}
 }

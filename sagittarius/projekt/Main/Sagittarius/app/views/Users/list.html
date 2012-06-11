@@ -1,7 +1,7 @@
 #{extends "Administration/main.html" /}
 #{set title: "Användare" /}
 
-<div class="multicolumn-block">
+<div class="multicolumn-block-4col">
 	#{list users}
 	<div>
 		#{a @Users.edit(_.id)}${_.getFullName(true)}#{/a}#{if (_.admin)}*#{/if}<br />

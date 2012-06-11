@@ -24,11 +24,11 @@
 		<tr>
 			<td>
 				<form action="@{Competitions.deleteStage()}" method="POST">
-					${stage.stageIndex} #{a @Stages.edit(competition.id, stage.id)}${stage.label}#{/a}
-					<input type="checkbox" disabled #{if (stage.hasPoints())}checked#{/if} />
-						   <input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<button class="delete" type="submit">&{'common.delete'}</button>
+					#{a @Stages.edit(competition.id, stage.id)}${stage.stageIndex} ${stage.label}#{/a}
+					#{if (stage.hasPoints())}&{'stages.scoring'}#{/if}
+					${stage.startingPosition?.toString()}
 				</form>
 			</td>
 		</tr>

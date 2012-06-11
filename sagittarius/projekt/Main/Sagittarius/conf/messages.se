@@ -140,6 +140,7 @@ results.title=Resultat
 scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
 scoringtype.sumpointsonly=Räkna enbart poäng
 
+stages.startingposition=Startposition
 stages.suggestedtimings=Föreslagen skjuttid
 
 targets.target=Mål

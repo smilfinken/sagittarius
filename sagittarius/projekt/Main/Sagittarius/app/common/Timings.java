@@ -9,13 +9,13 @@ import models.*;
 public class Timings {
 
 	public static double[] getExtremes(long stageID, long weaponCategoryID) {
-		double[] result = null;
+		double[] result = new double[]{0.0, 0.0};
 
 		Stage stage = Stage.findById(stageID);
 		WeaponCategory weaponCategory = WeaponCategory.findById(weaponCategoryID);
 		if (stage != null && weaponCategory != null) {
-			double minTime = 1000;
-			double maxTime = 0;
+			Double minTime = null;
+			Double maxTime = null;
 			double targetTime = 0;
 			int targets = 0;
 			int movements = 0;
@@ -27,19 +27,33 @@ public class Timings {
 						TargetClass targetClass = TargetClass.find("byClassificationAndWeaponCategory", classification, weaponCategory).first();
 						if (targetClass != null) {
 							double time = weaponCategory.shotInterval * ((double) targetGroup.range / (double) targetClass.maximumRange);
-							minTime = Math.min(time, minTime);
-							maxTime = Math.max(time, maxTime);
+							if (minTime == null) {
+								minTime = time;
+							} else {
+								minTime = Math.min(time, minTime);
+
+							}
+							if (maxTime == null) {
+								maxTime = time;
+							} else {
+								maxTime = Math.max(time, maxTime);
+							}
 							targetTime += time;
 							targets++;
 						}
 					}
 					movements++;
 				}
+				if (stage.startingPosition != null && !stage.startingPosition.aimingAllowed) {
+					movements++;
+				}
 
-				minTime = 1.0 + targetTime + (minTime * (6 - targets)) + 1.0 * (movements - 1);
-				maxTime = 1.5 + targetTime + (maxTime * (6 - targets)) + 1.5 * (movements - 1);
+				if (minTime != null && maxTime != null) {
+					minTime = targetTime + (minTime * (6 - targets)) + 1.0 * (movements - 1);
+					maxTime = targetTime + (maxTime * (6 - targets)) + 1.5 * (movements - 1);
 
-				result = new double[]{minTime, maxTime};
+					result = new double[]{minTime, maxTime};
+				}
 
 			} catch (Exception e) {
 			}

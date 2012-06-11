@@ -27,7 +27,7 @@ Result(6):
         targets: 6
 
 Competitor(1):
-  user: 2
+  user: 1
   division: 1
   results: [1,2,3,4,5,6]
 
@@ -189,31 +189,37 @@ Stage(1):
   targetGroups: [1]
   stageIndex: 1
   label: Inskjutning
+  startingPosition: 1
 
 Stage(2):
   targetGroups: [2]
   stageIndex: 2
   label: Snabbskytte
+  startingPosition: 1
 
 Stage(3):
   targetGroups: [3]
   stageIndex: 3
   label: Vändställ
+  startingPosition: 3
 
 Stage(4):
   targetGroups: [4,5]
   stageIndex: 4
   label: Kort och brett
+  startingPosition: 1
 
 Stage(5):
   targetGroups: [6]
   stageIndex: 5
   label: Långt och smalt
+  startingPosition: 1
 
 Stage(6):
   targetGroups: [7,8]
   stageIndex: 6
   label: Långt och brett
+  startingPosition: 1
 
 Competition(1):
   label: Fältskjutning 1

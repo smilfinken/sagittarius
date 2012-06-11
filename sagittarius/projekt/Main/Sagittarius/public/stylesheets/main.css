@@ -34,7 +34,7 @@ body {
 	top:				50%;
 	left:				0px;
 	right:				0px;
-	position:			absolute;	
+	position:			absolute;
 }
 .logo-font {
 	font-family:  		'Hoefler Text', Georgia, 'Times New Roman', serif;
@@ -51,11 +51,11 @@ body {
 	margin-left:		5px;
 }
 .tilted {
-	-webkit-transform: 	rotate(-90deg); 
+	-webkit-transform: 	rotate(-90deg);
 	-moz-transform: 	rotate(-90deg);
 	/*display:			block;
 	filter: 			progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-	*/	
+	*/
 }
 
 /* DEFAULTS */
@@ -180,6 +180,10 @@ h1 a {
 
 div.competitioninfo {
 	float:				right;
+}
+
+div.timings {
+	font-style:			italic;
 }
 
 span.competitioninfo {

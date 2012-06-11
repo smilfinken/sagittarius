@@ -1,48 +1,5 @@
 # dummy competition data
 
-Result(1):
-        hits: 5
-        targets: 4
-
-Result(2):
-        hits: 6
-        targets: 1
-        points: 23
-
-Result(3):
-        hits: 5
-        targets: 4
-
-Result(4):
-        hits: 6
-        targets: 2
-        points: 5
-
-Result(5):
-        hits: 4
-        targets: 3
-
-Result(6):
-        hits: 6
-        targets: 6
-
-Competitor(1):
-  user: 1
-  division: 1
-  results: [1,2,3,4,5,6]
-
-Competitor(2):
-  user: 3
-  division: 2
-
-Competitor(3):
-  user: 3
-  division: 2
-
-Competitor(4):
-  user: 6
-  division: 3
-
 Target(1):
   hasPoints: false
   targetShape: 2
@@ -220,6 +177,55 @@ Stage(6):
   stageIndex: 6
   label: Långt och brett
   startingPosition: 1
+
+Result(1):
+  stage: 1
+  hits: 5
+  targets: 4
+
+Result(2):
+  stage: 2
+  hits: 6
+  targets: 1
+  points: 23
+
+Result(3):
+  stage: 3
+  hits: 5
+  targets: 4
+
+Result(4):
+  stage: 4
+  hits: 6
+  targets: 2
+  points: 5
+
+Result(5):
+  stage: 5
+  hits: 4
+  targets: 3
+
+Result(6):
+  stage: 6
+  hits: 6
+  targets: 6
+
+Competitor(1):
+  user: 1
+  division: 1
+  results: [1,2,3,4,5,6]
+
+Competitor(2):
+  user: 3
+  division: 2
+
+Competitor(3):
+  user: 3
+  division: 2
+
+Competitor(4):
+  user: 6
+  division: 3
 
 Competition(1):
   label: Fältskjutning 1

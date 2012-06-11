@@ -1,13 +1,18 @@
 package models;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import play.db.jpa.Model;
 
 /**
@@ -56,12 +61,29 @@ public class Competition extends Model {
 		this.stages = stages;
 	}
 
-	public String getType() {
-		if (competitionType != null) {
-			return competitionType.label;
-		} else {
-			return "";
+	@Override
+	public String toString() {
+		return label;
+	}
+
+	public Element toXML() {
+		Element competitionElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		competitionElement.addAttribute("label", label);
+		competitionElement.addAttribute("date", getDate());
+		competitionElement.addAttribute("competitiontype", competitionType.toString());
+		competitionElement.addAttribute("scoringtype", scoringType.toString());
+
+		Element competitorsElement = competitionElement.addElement("competitors");
+		for (Competitor competitor : competitors) {
+			competitorsElement.add(competitor.toXML());
 		}
+
+		Element stagesElement = competitionElement.addElement("stages");
+		for (Stage stage : stages) {
+			stagesElement.add(stage.toXML());
+		}
+
+		return competitionElement;
 	}
 
 	public boolean hasStages() {

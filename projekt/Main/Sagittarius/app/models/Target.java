@@ -2,6 +2,8 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import play.db.jpa.Model;
 
 /**
@@ -15,7 +17,7 @@ public class Target extends Model {
 	public TargetShape targetShape;
 	@ManyToOne
 	public TargetColour targetColour;
-	public boolean hasPoints;
+	public Boolean hasPoints;
 
 	public Target(TargetShape targetShape, TargetColour targetColour) {
 		this.targetShape = targetShape;
@@ -36,6 +38,14 @@ public class Target extends Model {
 		} else {
 			return "";
 		}
+	}
+
+	public Element toXML() {
+		Element targetElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		targetElement.addAttribute("targetshape", targetShape.toString());
+		targetElement.addAttribute("targetcolour", targetColour.toString());
+		targetElement.addAttribute("haspoints", hasPoints.toString());
+		return targetElement;
 	}
 
 	public long getShapeID() {

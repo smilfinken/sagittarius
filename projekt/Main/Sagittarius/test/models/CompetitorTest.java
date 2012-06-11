@@ -50,9 +50,9 @@ public class CompetitorTest extends UnitTest {
 		Competitor competitorLadyD = competitors.get(4);
 		Competitor competitorSeniorV = competitors.get(7);
 
-		assertEquals(String.format("Competitor Young Shooter is erroneously referred to as %s", competitorJuniorJ.getFullName()), "Young Shooter", competitorJuniorJ.getFullName());
-		assertEquals(String.format("Competitor Sharp Shooter is erroneously referred to as %s", competitorAdultA.getFullName()), "Sharp Shooter", competitorAdultA.getFullName());
-		assertEquals(String.format("Competitor Girl Shooter is erroneously referred to as %s", competitorLadyD.getFullName()), "Girl Shooter", competitorLadyD.getFullName());
-		assertEquals(String.format("Competitor Old Shooter is erroneously referred to as %s", competitorSeniorV.getFullName()), "Old Shooter", competitorSeniorV.getFullName());
+		assertEquals(String.format("Competitor Young Shooter is erroneously referred to as %s", competitorJuniorJ.toString()), "Young Shooter", competitorJuniorJ.toString());
+		assertEquals(String.format("Competitor Sharp Shooter is erroneously referred to as %s", competitorAdultA.toString()), "Sharp Shooter", competitorAdultA.toString());
+		assertEquals(String.format("Competitor Girl Shooter is erroneously referred to as %s", competitorLadyD.toString()), "Girl Shooter", competitorLadyD.toString());
+		assertEquals(String.format("Competitor Old Shooter is erroneously referred to as %s", competitorSeniorV.toString()), "Old Shooter", competitorSeniorV.toString());
 	}
 }

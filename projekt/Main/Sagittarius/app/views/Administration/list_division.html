@@ -1,7 +1,7 @@
 #{extends "Administration/main.html" /}
 #{set title: messages.get('administration.divisions') /}
 
-<div class="multicolumn-block">
+<div class="multicolumn-block-4col">
 	#{list list}
 	<div>
 		#{a @Administration.edit_division(_.id)}${_.label}#{/a}<br />

@@ -49,9 +49,10 @@
 <hr class="clear" />
 <div id="menu">
 	<ul id="menu">
-	<li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.print'}</a></li>
-	<li>#{a @Results.export(competition.id)}&{'export.file'}#{/a}</li>
-	<li>#{a @Results.exportToShooter(competition.id)}&{'export.integration', "Shooter"}#{/a}</li>
+		<li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.destination.print'}</a></li>
+		<li>#{a @Results.export(competition.id)}&{'export.destination.file', messages.get('export.format.csv')}#{/a}</li>
+		<li>#{a @Results.exportXML(competition.id)}&{'export.destination.file', messages.get('export.format.xml')}#{/a}</li>
+		<li>#{a @Results.exportToShooter(competition.id)}&{'export.destination.integration', messages.get('Shooter')}#{/a}</li>
 	</ul>
 </div>
 
@@ -85,7 +86,7 @@
 		<tr>
 			<td style="font-weight: bold; text-align: left">
 				#{a @Results.edit(competition.id, entry.id)}
-				<span style="font-style: italic">${place}</span> ${entry.getFullName()}
+				<span style="font-style: italic">${place}</span> ${entry}
 				#{/a}
 			</td>
 			<td style="font-weight: bold">

@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import play.db.jpa.Model;
 
 /**
@@ -45,8 +47,19 @@ public class Competitor extends Model {
 		}
 	}
 
-	public String getFullName() {
+	@Override
+	public String toString() {
 		return user.getFullName();
+	}
+
+	public Element toXML() {
+		Element competitorElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		competitorElement.addAttribute("user", user.toString());
+		competitorElement.addAttribute("division", division.toString());
+		for (Result result : results) {
+			competitorElement.add(result.toXML());
+		}
+		return competitorElement;
 	}
 
 	public String getDivisionAsString() {
@@ -79,16 +92,16 @@ public class Competitor extends Model {
 		return score;
 	}
 
-	public void deleteResult(long resultID){
+	public void deleteResult(long resultID) {
 		Result result = Result.findById(resultID);
-		if (result != null && this.results.contains(result)){
+		if (result != null && this.results.contains(result)) {
 			this.results.remove(result);
 			this.save();
 			result.delete();
 		}
 	}
 
-	public void deleteResults(){
+	public void deleteResults() {
 		ArrayList<Long> ids = new ArrayList<>();
 		for (Result item : this.results) {
 			ids.add(item.id);

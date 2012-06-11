@@ -195,10 +195,22 @@ span.currentuser {
 	font-size:			small;
 }
 
-.multicolumn-block {
+.multicolumn-block-3col {
 	width: 100%;
 }
-.multicolumn-block div {
+
+.multicolumn-block-3col div {
+	width: 28%;
+	margin-right: 5%;
+	padding-bottom: 0.2em;
+	float: left;
+}
+
+.multicolumn-block-4col {
+	width: 100%;
+}
+
+.multicolumn-block-4col div {
 	width: 20%;
 	margin-right: 5%;
 	padding-bottom: 0.2em;

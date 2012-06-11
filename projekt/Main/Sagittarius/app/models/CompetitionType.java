@@ -17,4 +17,9 @@ public class CompetitionType extends Model {
 		this.label = label;
 		this.hasStages = hasStages;
 	}
+
+	@Override
+	public String toString() {
+		return label;
+	}
 }

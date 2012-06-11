@@ -3,7 +3,7 @@
 
 <hr class="clear" />
 
-&{'results.editlabel', competitor?.getFullName(), competitor?.getDivisionAsString()}
+&{'results.editlabel', competitor?.toString(), competitor?.getDivisionAsString()}
 <form action="@{Results.edit}" method="POST" autocomplete="off">
 	<input type="hidden" name="competitionID" value="${competition.id}" />
 	<input type="hidden" name="competitorID" value="${competitor.id}" />

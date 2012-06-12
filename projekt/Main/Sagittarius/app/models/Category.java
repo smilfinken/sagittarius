@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 import play.db.jpa.Model;
 
@@ -25,5 +27,11 @@ public class Category extends Model {
 	@Override
 	public String toString() {
 		return label;
+	}
+
+	public Element toXML() {
+		Element categoryElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		categoryElement.addAttribute("label", label);
+		return categoryElement;
 	}
 }

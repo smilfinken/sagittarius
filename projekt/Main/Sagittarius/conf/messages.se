@@ -62,6 +62,7 @@ competitions.details=Detaljer
 competitions.enroll=Anmäl dig
 competitions.enrollment=Tävlingsanmälan
 competitions.greeting=Hej och välkommen till %s!
+competitions.import=Importera
 competitions.nostages=Tävlingen har inga stationer.
 competitions.participant=Deltagare
 competitions.participants=Deltagare

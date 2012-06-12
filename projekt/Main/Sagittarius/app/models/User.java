@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import notifiers.RegistrationNotifier;
 import play.db.jpa.Model;
 import controllers.Security;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 /**
  *
@@ -70,14 +72,27 @@ public class User extends Model {
 	}
 
 	@Override
+	public boolean create() {
+		this.registrationDate = new Date();
+		return super.create();
+	}
+
+	@Override
 	public String toString() {
 		return email;
 	}
 
-	@Override
-	public boolean create() {
-		this.registrationDate = new Date();
-		return super.create();
+	public Element toXML() {
+		Element userElement = DocumentHelper.createElement(this.getClass().getSimpleName());
+		userElement.addAttribute("firstname", firstName);
+		userElement.addAttribute("surname", surname);
+		userElement.addAttribute("email", email);
+		userElement.addAttribute("cardnumber", cardNumber);
+
+		for (Category category : categories) {
+			userElement.add(category.toXML());
+		}
+		return userElement;
 	}
 
 	public String getFullName() {

@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import play.db.jpa.Model;
 
 /**
@@ -47,6 +48,12 @@ public class Competitor extends Model {
 		}
 	}
 
+	public Competitor(Node competitor) {
+		this.user = User.find("byEmail", competitor.valueOf("@user")).first();
+		this.division = Division.find("byLabel", competitor.valueOf("@division")).first();
+		this.save();
+	}
+
 	@Override
 	public String toString() {
 		return user.getFullName();
@@ -56,6 +63,7 @@ public class Competitor extends Model {
 		Element competitorElement = DocumentHelper.createElement(this.getClass().getSimpleName());
 		competitorElement.addAttribute("user", user.toString());
 		competitorElement.addAttribute("division", division.toString());
+		competitorElement.add(user.toXML());
 		for (Result result : results) {
 			competitorElement.add(result.toXML());
 		}

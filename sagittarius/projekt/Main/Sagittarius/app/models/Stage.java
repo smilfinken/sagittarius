@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import play.db.jpa.Model;
 
 /**
@@ -52,6 +53,13 @@ public class Stage extends Model {
 		this.stageIndex = stageIndex;
 	}
 
+	public Stage(Node stage) {
+		this.label = stage.valueOf("@label");
+		this.stageIndex = new Integer(stage.valueOf("@stageindex"));
+		this.startingPosition = StartingPosition.find("byLabel", stage.valueOf("@startingposition")).first();
+		this.save();
+	}
+
 	@Override
 	public String toString() {
 		return label;
@@ -61,6 +69,7 @@ public class Stage extends Model {
 		Element stageElement = DocumentHelper.createElement(this.getClass().getSimpleName());
 		stageElement.addAttribute("label", label);
 		stageElement.addAttribute("stageindex", String.format("%d", stageIndex));
+		stageElement.addAttribute("startingposition", startingPosition.label);
 		for (TargetGroup targetGroup : targetGroups) {
 			stageElement.add(targetGroup.toXML());
 		}

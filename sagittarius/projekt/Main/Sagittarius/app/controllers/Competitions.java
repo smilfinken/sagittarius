@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import models.Category;
 import models.Competition;
 import models.CompetitionType;
@@ -17,6 +16,15 @@ import models.User;
 import play.mvc.Controller;
 import play.mvc.With;
 import static common.Sorting.*;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.dom4j.*;
+import org.dom4j.io.SAXReader;
+import play.data.validation.Required;
 
 /**
  *
@@ -258,5 +266,31 @@ public class Competitions extends Controller {
 			Set<Division> divisions = user.getValidDivisions();
 			renderTemplate("Common/selectDivision.html", divisions);
 		}
+	}
+
+	private static Document parseXML(File file) throws DocumentException {
+		SAXReader reader = new SAXReader();
+		Document document = reader.read(file);
+		return document;
+	}
+
+	public static void importCompetition(File file, String useraction) {
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "upload":
+					if (file != null) {
+						try {
+							Competition competition = new Competition(parseXML(file).selectSingleNode("//Competition"));
+							competition.save();
+							list();
+						} catch (DocumentException | ParseException ex) {
+							Logger.getLogger(Competitions.class.getName()).log(Level.SEVERE, "Failed to import XML from file", ex);
+						}
+						break;
+					}
+			}
+		}
+
+		render();
 	}
 }

@@ -2,9 +2,9 @@ package models;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.CascadeType;
@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import play.db.jpa.Model;
 
 /**
@@ -61,26 +62,46 @@ public class Competition extends Model {
 		this.stages = stages;
 	}
 
+	public Competition(Node competition) throws ParseException {
+		this.label = competition.valueOf("@label");
+		this.date = new SimpleDateFormat("yyyy-MM-dd", new Locale("sv", "SE")).parse(competition.valueOf("@date"));
+		this.scoringType = ScoringType.find("byLabel", competition.valueOf("@scoringtype")).first();
+		this.competitionType = CompetitionType.find("byLabel", competition.valueOf("@competitiontype")).first();
+
+		this.competitors = new ArrayList<>();
+		for (Iterator it = competition.selectNodes("//Competitor").iterator(); it.hasNext();) {
+			Node competitor = (Node) it.next();
+			this.competitors.add(new Competitor(competitor));
+		}
+
+		this.stages = new ArrayList<>();
+		for (Iterator it = competition.selectNodes("//Stage").iterator(); it.hasNext();) {
+			Node stage = (Node) it.next();
+			this.stages.add(new Stage(stage));
+		}
+
+		this.save();
+	}
+
 	@Override
 	public String toString() {
 		return label;
 	}
 
 	public Element toXML() {
+		//TODO: finish the importing routine for all sub-elements
 		Element competitionElement = DocumentHelper.createElement(this.getClass().getSimpleName());
 		competitionElement.addAttribute("label", label);
 		competitionElement.addAttribute("date", getDate());
 		competitionElement.addAttribute("competitiontype", competitionType.toString());
 		competitionElement.addAttribute("scoringtype", scoringType.toString());
 
-		Element competitorsElement = competitionElement.addElement("competitors");
 		for (Competitor competitor : competitors) {
-			competitorsElement.add(competitor.toXML());
+			competitionElement.add(competitor.toXML());
 		}
 
-		Element stagesElement = competitionElement.addElement("stages");
 		for (Stage stage : stages) {
-			stagesElement.add(stage.toXML());
+			competitionElement.add(stage.toXML());
 		}
 
 		return competitionElement;
@@ -150,7 +171,7 @@ public class Competition extends Model {
 
 		if (user != null) {
 			for (Competitor competitor : this.competitors) {
-				if (competitor.user.id == user.id) {
+				if (competitor.user != null && competitor.user.id == user.id) {
 					result = true;
 				}
 			}
@@ -164,7 +185,7 @@ public class Competition extends Model {
 
 		if (user != null) {
 			for (Competitor competitor : this.competitors) {
-				if (competitor.user.id == user.id && competitor.division.id == divisionID) {
+				if (competitor.user != null && competitor.user.id == user.id && competitor.division.id == divisionID) {
 					result = true;
 				}
 			}

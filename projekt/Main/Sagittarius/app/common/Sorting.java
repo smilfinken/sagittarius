@@ -153,6 +153,22 @@ public class Sorting {
 		return out;
 	}
 
+	public static List<Result> sortScores(List<Result> scores) {
+		class ResultComparator implements Comparator<Result> {
+
+			@Override
+			public int compare(Result A, Result B) {
+				return B.stageIndex - A.stageIndex;
+			}
+		}
+
+		List<Result> out = scores;
+		ResultComparator c = new ResultComparator();
+
+		Collections.sort(out, c);
+		return out;
+	}
+
 	public static List<Stage> sortStages(List<Stage> stages) {
 
 		class StageComparator implements Comparator<Stage> {
@@ -162,7 +178,6 @@ public class Sorting {
 				return A.stageIndex - B.stageIndex;
 			}
 		}
-
 		List<Stage> out = stages;
 		StageComparator c = new StageComparator();
 

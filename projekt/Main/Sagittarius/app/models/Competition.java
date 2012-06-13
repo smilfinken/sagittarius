@@ -1,12 +1,9 @@
 package models;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,6 +12,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import play.db.jpa.Model;
+import static common.Sorting.*;
 
 /**
  *
@@ -96,11 +94,13 @@ public class Competition extends Model {
 		competitionElement.addAttribute("competitiontype", competitionType.toString());
 		competitionElement.addAttribute("scoringtype", scoringType.toString());
 
-		for (Competitor competitor : competitors) {
+		for (Iterator<Competitor> it = sortCompetitors(competitors).iterator(); it.hasNext();) {
+			Competitor competitor = it.next();
 			competitionElement.add(competitor.toXML());
 		}
 
-		for (Stage stage : stages) {
+		for (Iterator<Stage> it = sortStages(stages).iterator(); it.hasNext();) {
+			Stage stage = it.next();
 			competitionElement.add(stage.toXML());
 		}
 

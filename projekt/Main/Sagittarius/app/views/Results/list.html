@@ -4,35 +4,33 @@
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
 <div>
-	<form id="competitor" method="POST" autocomplete="off">
+	<form action="@{Results.add()}" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
 			<tr>
 				<td colspan="6">
 					#{include "Common/selectCompetitor.html" /}
-					#{secure.check "admin"}
-					<button class="delete" type="submit" formaction="@{Results.unregisterUser()}" formmethod="POST"  #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.unregisterUser()}"'#{/if}>&{'competitors.unregister'}</button>
-					#{/secure.check}
 				</td>
 			</tr>
 			<tr class="scoring">
-				#{list items:0..competition.stages.size()-1, as:'i'}
+				#{list items:competition.stages}
 				<td class="scoring">
-					<div style="text-align: center; clear: all">Station ${i+1}</div>
-					<label for="results[${i}].hits">&{'results.hits'}</label>
-					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].hits" /><br />
-					<label for="results[${i}].targets">&{'results.targets'}</label>
-					<input class="scoring" type="text" size="2" maxlength="1" name="results[${i}].targets" /><br />
-					#{if (competition.stages[i].hasPoints())}
-					<label for="results[${i}].points">&{'results.points'}</label>
-					<input class="scoring" type="text" size="2" maxlength="2" name="results[${i}].points" /><br />
+					<input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
+					<div style="text-align: center; clear: all">Station ${_.stageIndex}</div>
+					<label for="results[${_.stageIndex - 1}].hits">&{'results.hits'}</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" /><br />
+					<label for="results[${_.stageIndex - 1}].targets">&{'results.targets'}</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" /><br />
+					#{if (_.hasPoints())}
+					<label for="results[${_.stageIndex - 1}].points">&{'results.points'}</label>
+					<input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" /><br />
 					#{/if}
 				</td>
 				#{/list}
 			</tr>
 			<tr>
 				<td class="buttons" colspan="7">
-					<button class="enter" type="submit" formaction="@{Results.add()}" formmethod="POST" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("competitor").action="@{Results.add()}"'#{/if}>&{'results.register'}</button>
+					<button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
 				</td>
 			</tr>
 		</table>

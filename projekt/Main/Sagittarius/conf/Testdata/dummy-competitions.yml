@@ -111,34 +111,42 @@ Target(22):
   targetColour: 2
 
 TargetGroup(1):
+  label: A
   targets: [1,2,3,4]
   range: 25
 
 TargetGroup(2):
+  label: A
   targets: [21]
   range: 25
 
 TargetGroup(3):
+  label: A
   targets: [5,6,7,8,9]
   range: 25
 
 TargetGroup(4):
+  label: A
   targets: [22]
   range: 25
 
 TargetGroup(5):
+  label: B
   targets: [10,11]
   range: 40
 
 TargetGroup(6):
+  label: A
   targets: [12,13,14]
   range: 25
 
 TargetGroup(7):
+  label: A
   targets: [15,16]
   range: 25
 
 TargetGroup(8):
+  label: B
   targets: [17,18,19,20]
   range: 50
 

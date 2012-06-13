@@ -19,7 +19,9 @@
 			#{/if}
 		</ul>
 	</div>
+</div>
 
+<div>
 	<hr />
 	<form action="@{Stages.update}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -41,60 +43,49 @@
 <hr />
 <div>
 	<form action="@{Stages.editTargetGroup()}" method="POST">
-		<table>
-			<tr>
-				<th style="text-align: left">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="stageID" value="${stage.id}" />
-					<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
-					&{'targetgroups.targetgroup'} ${targetGroup_index}
-					<input type="text" name="range" value="${targetGroup.range}" /> m
-
-					<button class="save" type="submit" name="useraction" value="save">&{'common.update'}</button>
-					<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
-				</th>
-			</tr>
-		</table>
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
+		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+		<label for="label">&{'targetgroups.targetgroup'}</label>
+		<input type="text" name="label" size="10" value="${targetGroup.label}" />
+		<label for="range">&{'targetgroups.range'}</label>
+		<input type="text" name="range" size="4" maxlength="4" value="${targetGroup.range}" /> m
+		<button class="enter" type="submit" name="useraction" value="save">&{'common.update'}</button>
 	</form>
+</div>
 
-	<table>
-		<tr>
-			<th style="text-align: left" />
-			<th style="text-align: left">
-				&{'targets.shape'}
-			</th>
-			<th style="text-align: left">
-				&{'targets.scoreable'}
-			</th>
-		</tr>
-		#{list targetGroup.targets, as:'target'}
-		<form id="updateTarget_${target.id}" method="POST">
-			<tr>
-				<td style="text-align: left">
-					${target_index}
-				</td>
-				<td style="text-align: left">
-					#{include 'Common/selectTarget.html' /}
-				</td>
-				<td style="text-align: left">
-					<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />
-						   <input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="stageID" value="${stage.id}" />
-					<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
-					<input type="hidden" name="targetID" value="${target.id}" />
-					<button class="enter" type="submit" formaction="@{Stages.updateTarget()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("updateTarget_${target.id}").action="@{Stages.updateTarget()}"'#{/if}>&{'common.update'}</button>
-					<button class="delete" type="submit" formaction="@{Stages.deleteTarget()}" #{if (request.headers.get("user-agent").toString().contains("MSIE"))}onClick='document.getElementById("updateTarget_${target.id}").action="@{Stages.deleteTarget()}"'#{/if}>&{'common.delete'}</button>
-				</td>
-			</tr>
-		</form>
-		#{/list}
-	</table>
+#{if (targetGroup.targets?.size() > 0)}
+<br />
+<div>
+	#{list targetGroup.targets, as:'target'}
+	<form action="@{Stages.editTarget()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
+		<input type="hidden" name="targetID" value="${target.id}" />
+		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+		${target_index}
+		#{include 'Common/selectTarget.html' /}
+		<label for="hasPoints">&{'stages.scoring'}</label>
+		<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />
+			   <button class="enter" type="submit" name="useraction" value="save">&{'common.update'}</button>
+	</form>
+	#{/list}
+</div>
+#{/if}
 
+<br />
+<div>
 	<form action="@{Stages.addTarget()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<input type="hidden" name="stageID" value="${stage.id}" />
 		<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
-		<button class="enter" type="submit">&{'targets.new'}</button>
+		${target = null}
+		#{include 'Common/selectTarget.html' /}
+		<label for="hasPoints">&{'stages.scoring'}</label>
+		<input type="checkbox" name="hasPoints" />
+		<button class="enter" type="submit">&{'targets.add'}</button>
 	</form>
 	#{/list}
 </div>
@@ -104,7 +95,10 @@
 	<form action="@{Stages.addTargetGroup()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<input type="hidden" name="stageID" value="${stage.id}" />
-		<button class="enter" type="submit">&{'targetgroups.new'}</button>
+		<label for="label">&{'targetgroups.targetgroup'}</label>
+		<input type="text" name="label" size="10" />
+		<label for="range">&{'targetgroups.range'}</label>
+		<input type="text" name="range" size="4" maxlength="4" /> m
+		<button class="enter" type="submit">&{'targetgroups.add'}</button>
 	</form>
-</div>
 </div>

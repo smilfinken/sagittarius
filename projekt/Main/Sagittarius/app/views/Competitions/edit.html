@@ -11,6 +11,7 @@
 		<label for="date">&{'competitions.competitiondate'}</label>
 		<input type="text" name="date" value="${competition.date}" />
 		#{include "Common/selectCompetitionType.html" /}
+		#{include "Common/selectScoringType.html" /}
 		<button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
 		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
 	</form>

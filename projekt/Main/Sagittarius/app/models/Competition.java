@@ -69,13 +69,13 @@ public class Competition extends Model {
 		this.competitionType = CompetitionType.find("byLabel", competition.valueOf("@competitiontype")).first();
 
 		this.competitors = new ArrayList<>();
-		for (Iterator it = competition.selectNodes("//Competitor").iterator(); it.hasNext();) {
+		for (Iterator it = competition.selectNodes("Competitor").iterator(); it.hasNext();) {
 			Node competitor = (Node) it.next();
 			this.competitors.add(new Competitor(competitor));
 		}
 
 		this.stages = new ArrayList<>();
-		for (Iterator it = competition.selectNodes("//Stage").iterator(); it.hasNext();) {
+		for (Iterator it = competition.selectNodes("Stage").iterator(); it.hasNext();) {
 			Node stage = (Node) it.next();
 			this.stages.add(new Stage(stage));
 		}

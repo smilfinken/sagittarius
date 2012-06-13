@@ -1,9 +1,9 @@
 package models;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import play.db.jpa.Model;
 
 /**
@@ -14,17 +14,23 @@ import play.db.jpa.Model;
 public class Result extends Model {
 
 	//TODO: add stage id or index to ensure correctness
-	@ManyToOne
-	public Stage stage;
+	public int stageIndex;
 	public int hits;
 	public int targets;
 	public int points;
 
-	public Result(int hits, int targets, int points, Stage stage) {
+	public Result(int hits, int targets, int points, int stageIndex) {
 		this.hits = hits;
 		this.targets = targets;
 		this.points = points;
-		this.stage = stage;
+		this.stageIndex = stageIndex;
+	}
+
+	public Result(Node result) {
+		this.stageIndex = new Integer(result.valueOf("@stageindex"));
+		this.hits = new Integer(result.valueOf("@hits"));
+		this.targets = new Integer(result.valueOf("@targets"));
+		this.points = new Integer(result.valueOf("@points"));
 	}
 
 	@Override
@@ -34,7 +40,7 @@ public class Result extends Model {
 
 	public Element toXML() {
 		Element resultElement = DocumentHelper.createElement(this.getClass().getSimpleName());
-		resultElement.addAttribute("stageindex", String.format("%d", stage.stageIndex));
+		resultElement.addAttribute("stageindex", String.format("%d", stageIndex));
 		resultElement.addAttribute("hits", String.format("%d", hits));
 		resultElement.addAttribute("targets", String.format("%d", targets));
 		resultElement.addAttribute("points", String.format("%d", points));

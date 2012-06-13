@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -57,6 +58,13 @@ public class Stage extends Model {
 		this.label = stage.valueOf("@label");
 		this.stageIndex = new Integer(stage.valueOf("@stageindex"));
 		this.startingPosition = StartingPosition.find("byLabel", stage.valueOf("@startingposition")).first();
+
+		this.targetGroups = new ArrayList<>();
+		for (Iterator it = stage.selectNodes("TargetGroup").iterator(); it.hasNext();) {
+			Node targetGroup = (Node) it.next();
+			this.targetGroups.add(new TargetGroup(targetGroup));
+		}
+
 		this.save();
 	}
 

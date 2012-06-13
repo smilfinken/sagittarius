@@ -1,12 +1,14 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import play.db.jpa.Model;
 
 /**
@@ -36,6 +38,19 @@ public class TargetGroup extends Model {
 		this.label = label;
 		this.range = range;
 		this.targets = targets;
+	}
+
+	public TargetGroup(Node targetGroup) {
+		this.label = targetGroup.valueOf("@label");
+		this.range = new Integer(targetGroup.valueOf("@range"));
+
+		this.targets = new ArrayList<>();
+		for (Iterator it = targetGroup.selectNodes("Target").iterator(); it.hasNext();) {
+			Node target = (Node) it.next();
+			this.targets.add(new Target(target));
+		}
+
+		this.save();
 	}
 
 	@Override

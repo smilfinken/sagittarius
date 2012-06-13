@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import play.db.jpa.Model;
 
 /**
@@ -29,6 +30,13 @@ public class Target extends Model {
 		this.targetShape = targetShape;
 		this.targetColour = targetColour;
 		this.hasPoints = hasPoints;
+	}
+
+	public Target(Node target) {
+		this.targetShape = TargetShape.find("byLabel", target.valueOf("@targetshape")).first();
+		this.targetColour = TargetColour.find("byLabel", target.valueOf("@targetcolour")).first();
+		this.hasPoints = (target.valueOf("@haspoints").equalsIgnoreCase("true"));
+		this.save();
 	}
 
 	@Override

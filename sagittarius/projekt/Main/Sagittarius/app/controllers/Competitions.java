@@ -281,7 +281,6 @@ public class Competitions extends Controller {
 					if (file != null) {
 						try {
 							Competition competition = new Competition(parseXML(file).selectSingleNode("//Competition"));
-							competition.save();
 							list();
 						} catch (DocumentException | ParseException ex) {
 							Logger.getLogger(Competitions.class.getName()).log(Level.SEVERE, "Failed to import XML from file", ex);

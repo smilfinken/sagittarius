@@ -11,6 +11,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import play.db.jpa.Model;
+import static common.Sorting.*;
 
 /**
  *
@@ -72,7 +73,8 @@ public class Competitor extends Model {
 		competitorElement.addAttribute("user", user.toString());
 		competitorElement.addAttribute("division", division.toString());
 		competitorElement.add(user.toXML());
-		for (Result result : results) {
+		for (Iterator<Result> it = sortScores(results).iterator(); it.hasNext();) {
+			Result result = it.next();
 			competitorElement.add(result.toXML());
 		}
 		return competitorElement;

@@ -14,36 +14,33 @@
 	</head>
 	<body>
 		<div id="logo">
-			<div id="logo-text" class="tilted"><span class="logo-font">&{'application.name'}</span></div>
+			<div id="logo-text" class="tilted"><span class="logo-font">#{a @Application.index()}&{'application.name'}#{/a}</span></div>
 		</div>
-		<div id="main">	
-		<div class="applicationtitle">
-			#{a @Application.index()}&{'application.name'}#{/a}
-		</div>
-		<div class="competitioninfo">
-			#{if (competition != null)}
-			<span class="competitioninfo">
-				${competition.label}, ${competition.getDate()}
-			</span>
-			#{/if}
-			<span class="currentuser">
-				Inloggad som: ${session.username}
-			</span>
-		</div>
+		<div id="main">
+			<div class="competitioninfo">
+				<span class="currentuser">
+					Inloggad som: ${session.username}
+				</span>
+				#{if (competition != null)}
+				<br />
+				<span class="competitioninfo">
+					${competition.label}, ${competition.getDate()}
+				</span>
+				#{/if}
+			</div>
 
-		<hr class="clear" />
-		<div id="menu">
-			<ul id="menu">
-				<li>#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
-				#{secure.check "admin"}
-				<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
-				#{/secure.check}
-				<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
-				<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
-			</ul>
-		</div>
+			<div id="menu">
+				<ul id="menu">
+					<li>#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
+					#{secure.check "admin"}
+					<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
+					#{/secure.check}
+					<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
+					<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
+				</ul>
+			</div>
 
-		#{doLayout /}
+			#{doLayout /}
 		</div>
 	</body>
 </html>

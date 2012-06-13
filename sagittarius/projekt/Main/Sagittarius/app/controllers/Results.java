@@ -12,7 +12,6 @@ import static play.modules.pdf.PDF.renderPDF;
 import static common.Sorting.*;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -22,11 +21,6 @@ import play.mvc.With;
  */
 @With(Secure.class)
 public class Results extends Controller {
-
-	static void addResult(Competitor competitor, List<Result> results) {
-		competitor.results = results;
-		competitor.save();
-	}
 
 	public static void list(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
@@ -47,8 +41,10 @@ public class Results extends Controller {
 
 	public static void add(long competitionID, long competitorID, List<Result> results) {
 		Competitor competitor = Competitor.findById(competitorID);
+		System.out.println(String.format("%d", results.size()));
 		if (competitor != null) {
-			addResult(competitor, results);
+			competitor.results = sortScores(results);
+			competitor.save();
 		}
 		list(competitionID);
 	}
@@ -140,6 +136,7 @@ public class Results extends Controller {
 
 			try (FileWriter exportWriter = new FileWriter(exportFile)) {
 				document.write(exportWriter);
+				exportWriter.write('\n');
 				exportWriter.close();
 			} catch (IOException e) {
 			}

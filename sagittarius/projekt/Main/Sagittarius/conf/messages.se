@@ -161,14 +161,15 @@ stages.suggestedtimings=Föreslagen skjuttid
 targets.target=Mål
 targets.shape=Figur
 targets.scoreable=Poängmål
-targets.new=Ny figur
+targets.add=Lägg till figur
 
 targetclass.classification=Figurgrupp
 targetclass.label=Figurkategori
 targetclass.maximumrange=Maximalt skjutavstånd
 targetclass.weaponcategory=Vapengrupp
 
-targetgroups.new=Ny målgrupp
+targetgroups.add=Lägg till målgrupp
+targetgroups.range=Avstånd
 targetgroups.targetgroup=Målgrupp
 
 users.delete=Radera användare

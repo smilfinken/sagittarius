@@ -17,14 +17,11 @@ import play.mvc.Controller;
 import play.mvc.With;
 import static common.Sorting.*;
 import java.io.File;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
-import play.data.validation.Required;
 
 /**
  *
@@ -49,8 +46,10 @@ public class Competitions extends Controller {
 	public static void details(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
 		List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-
-		renderTemplate("Competitions/edit.html", competition, competitionTypes, sortStages(competition.stages));
+		flash.put("competitionTypeID", competition.competitionType.id);
+		List<ScoringType> scoringTypes = ScoringType.all().fetch();
+		flash.put("scoringTypeID", competition.scoringType.id);
+		renderTemplate("Competitions/edit.html", competition, competitionTypes, scoringTypes, sortStages(competition.stages));
 	}
 
 	@Check("admin")

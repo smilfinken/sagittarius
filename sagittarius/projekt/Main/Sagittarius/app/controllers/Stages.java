@@ -48,11 +48,11 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void addTargetGroup(long competitionID, long stageID, int range) {
+	public static void addTargetGroup(long competitionID, long stageID, String label, int range) {
 		Stage stage = Stage.findById(stageID);
 
 		if (stage != null) {
-			TargetGroup targetGroup = new TargetGroup("Målgrupp", range, new ArrayList<Target>());
+			TargetGroup targetGroup = new TargetGroup(label, range, new ArrayList<Target>());
 			targetGroup.save();
 			stage.targetGroups.add(targetGroup);
 			stage.save();
@@ -62,7 +62,7 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void editTargetGroup(long competitionID, long stageID, long targetGroupID, int range, String useraction) {
+	public static void editTargetGroup(long competitionID, long stageID, long targetGroupID, String label, int range, String useraction) {
 		Stage stage = Stage.findById(stageID);
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 
@@ -70,6 +70,7 @@ public class Stages extends Controller {
 			switch (useraction) {
 				case "save":
 					if (targetGroup != null) {
+						targetGroup.label = label;
 						targetGroup.range = range;
 						targetGroup.save();
 					}
@@ -80,7 +81,6 @@ public class Stages extends Controller {
 					}
 					break;
 			}
-
 		}
 
 		edit(competitionID, stageID);
@@ -103,28 +103,26 @@ public class Stages extends Controller {
 	}
 
 	@Check("admin")
-	public static void updateTarget(long competitionID, long stageID, long targetID, String hasPoints, long shapeID, long colourID) {
-		Target target = Target.findById(targetID);
-
-		if (target != null) {
-			target.willBeSaved = true;
-			target.hasPoints = (hasPoints != null);
-			target.targetShape = TargetShape.findById(shapeID);
-			target.targetColour = TargetColour.findById(colourID);
-		}
-
-		edit(competitionID, stageID);
-	}
-
-	@Check("admin")
-	public static void deleteTarget(long competitionID, long stageID, long targetGroupID, long targetID, String hasPoints, String model) {
+	public static void editTarget(long competitionID, long stageID, long targetGroupID, long targetID, boolean hasPoints, long shapeID, long colourID, String useraction) {
 		TargetGroup targetGroup = TargetGroup.findById(targetGroupID);
 		Target target = Target.findById(targetID);
 
-		if (targetGroup != null && target != null) {
-			targetGroup.targets.remove(target);
-			targetGroup.save();
-			target.delete();
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "save":
+					if (target != null) {
+						target.hasPoints = hasPoints;
+						target.targetShape = TargetShape.findById(shapeID);
+						target.targetColour = TargetColour.findById(colourID);
+						target.save();
+					}
+					break;
+				case "delete":
+					if (target != null && targetGroup != null) {
+						targetGroup.deleteTarget(target.id);
+					}
+					break;
+			}
 		}
 
 		edit(competitionID, stageID);

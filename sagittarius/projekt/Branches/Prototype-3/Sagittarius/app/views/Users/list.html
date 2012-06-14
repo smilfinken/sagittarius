@@ -1,6 +1,10 @@
 #{extends "Administration/main.html" /}
 #{set title: "Användare" /}
 
+<div>
+	#{a @Users.export()}&{'export.file'}#{/a}
+
+</div>
 <div class="multicolumn-block">
 	#{list users}
 	<div>

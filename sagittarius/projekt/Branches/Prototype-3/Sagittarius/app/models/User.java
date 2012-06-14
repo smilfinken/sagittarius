@@ -77,6 +77,7 @@ public class User extends Model {
 		userElement.addAttribute("surname", surname);
 		userElement.addAttribute("email", email);
 		userElement.addAttribute("cardnumber", cardNumber);
+		userElement.addAttribute("rank", rank.label);
 
 		for (Category category : categories) {
 			userElement.add(category.toXML());

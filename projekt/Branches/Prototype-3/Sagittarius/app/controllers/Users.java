@@ -1,9 +1,16 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import models.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -135,5 +142,29 @@ public class Users extends Controller {
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
+	}
+
+	public static void export() throws IOException {
+		Document document = DocumentHelper.createDocument();
+		Element userElement = document.addElement("Users");
+		for (Iterator<Object> it = User.all().fetch().iterator(); it.hasNext();) {
+			User user = (User) it.next();
+			userElement.add(user.toXML());
+		}
+
+		File exportFile = File.createTempFile("sgt", "xml");
+		exportFile.deleteOnExit();
+
+		try (FileWriter exportWriter = new FileWriter(exportFile)) {
+			document.write(exportWriter);
+			exportWriter.write('\n');
+			exportWriter.close();
+		} catch (IOException e) {
+		}
+
+		response.setHeader("Content-Length", String.format("%d", exportFile.length()));
+		response.setHeader("Content-Type", "text/xml; charset=utf-8");
+		response.setHeader("Content-Disposition", "attachment; filename=users.xml");
+		renderBinary(exportFile);
 	}
 }

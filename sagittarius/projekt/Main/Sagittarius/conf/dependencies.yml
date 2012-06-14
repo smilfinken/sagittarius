@@ -3,6 +3,5 @@
 require:
     - play
     - play -> crud
-    - play -> logisimayml 1.8
     - play -> pdf 0.7
     - play -> secure

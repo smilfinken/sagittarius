@@ -1,0 +1,44 @@
+/* COLORS */
+.pink {
+	color: 	pink;
+}
+
+/* BACKGROUND COLORS */
+.bg_gray {
+	background-color:	#666;
+}
+.bg_lightgray {
+	background-color:	#999;
+}
+.bg_bluegray {
+	background-color:	#6A9CA7;
+}
+.bg_bluegray_light {
+	background-color:	#EAF1F2;
+}
+.bg_sicklygreenish {
+	background-color: 	#BAB686;
+}
+.bg_white {
+	background-color: 	#FFF;
+}
+.bg_pink {
+	background-color: 	pink;
+}
+
+/* BORDER COLORS */
+.border_gray {
+	border-color:		gray !important;
+}
+.border_pink {
+	border-color: 		pink !important;
+}
+.border_sicklygreenish {
+	border-color: 		#BAB686 !important;
+}
+
+/* MSG */
+.error {
+	color:				red;
+	background-color:	yellow;
+}

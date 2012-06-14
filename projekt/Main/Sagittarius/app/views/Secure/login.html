@@ -11,28 +11,27 @@
 		$('#signin').click();
 	}
 </script>
-<div id="login" class="center box-mid border center-container rounded-corners-mid-sized bluegray">
+<div id="login" class="center box-mid center-container">
 
 	#{form @authenticate()}
 
 	#{if flash.error}
-	<p class="error rounded-corners-top-mid-sized">
+	<div class="error rounded-corners-top-mid-sized">
 		&{flash.error}
-	</p>
+	</div>
 	#{/if}
 	#{if flash.success}
-	<p class="success rounded-corners-top-mid-sized">
+	<div class="success rounded-corners-top-mid-sized">
 		&{flash.success}
-	</p>
-	#{/if}
-
-	<div class="labeled text-center padded">
+	</div>
+	#{/if}	
+	<div class="labeled text-center padded rounded-corners-top-mid-sized bg_pink border_gray border">
 		<p id="username-field">
-			<label for="username" class="medium bold">&{'secure.username'}</label>
+			<label for="username" class="gargantuan bold text-left">&{'secure.username'}</label>
 			<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
 		</p>
 		<p id="password-field">
-			<label for="password" class="medium bold">&{'secure.password'}</label>
+			<label for="password" class="gargantuan bold text-left">&{'secure.password'}</label>
 			<input type="password" name="password" id="password" value="" class="gargantuan"/>
 		</p>
 		<p id="remember-field" class="text-center bold">
@@ -45,8 +44,7 @@
 		</p>
 	</div>
 	#{/form}
-	<p>&nbsp;</p>
-	<div class="sicklygreenish rounded-corners-bottom-mid-sized padded top-border normal-font">
+	<div class="rounded-corners-bottom-mid-sized padded top-border normal-font bg_sicklygreenish border_gray border border-except-top">
 
 		<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
 		<p>

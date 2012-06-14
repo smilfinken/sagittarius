@@ -1,0 +1,40 @@
+.left {
+	float:				left;
+}
+
+.right {
+	float:				right;
+}
+.clear {
+	clear:				both !important;
+}
+.text-right {
+	text-align:			right;
+}
+.text-left {
+	text-align:			left;
+}
+.text-center {
+	text-align: 		center;
+}
+.micro {
+	width:				25px; 
+}
+.mini {
+	width:				50px; 
+}
+.small {
+	width:				100px; 
+}
+.medium {
+	width:				140px; 
+}
+.large {
+	width:				180px; 
+}
+.gargantuan {
+	width:				250px; 
+}
+.full {
+	width:				100%
+}

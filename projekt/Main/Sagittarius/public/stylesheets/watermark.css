@@ -1,0 +1,35 @@
+
+#logo {
+	position:			absolute;
+	left:				0;
+	top:				0;
+	bottom:				0;
+	width:				6%;
+	vertical-align: 	middle;
+	border-right: 		solid 3px lightgray;
+}
+#logo-text {
+	margin-right:		-10px;
+	width:				100%;
+	top:				50%;
+	left:				0px;
+	right:				0px;
+	position:			absolute;	
+}
+.logo-font {
+	font-family:  		'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: 		normal;
+    font-size: 			1.75em;
+	letter-spacing: 	.2em;
+	line-height: 		1.1em;
+	margin:				0px;
+	text-align: 		center;
+	color: 				lightgray;
+}
+.tilted {
+	-webkit-transform: 	rotate(-90deg); 
+	-moz-transform: 	rotate(-90deg);
+	/*display:			block;
+	filter: 			progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	*/	
+}

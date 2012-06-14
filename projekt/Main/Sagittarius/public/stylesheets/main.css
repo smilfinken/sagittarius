@@ -1,65 +1,12 @@
 @IMPORT url("reset.css");
+@IMPORT url("foundation.css");
+@IMPORT url("common.css");
+@IMPORT url("colors.css");
 
 /* COLORS */
-.gray {
-	background-color:	#666;
-}
-.lightgray {
-	background-color:	#999;
-}
-.bluegray {
-	background-color:	#6A9CA7;
-}
-.sicklygreenish {
-	background-color: 	#BAB686;
-}
-
-/* Foundation */
-body {
-	padding-left:		6%;
-	padding-right:		5px;
-}
-#logo {
-	position:			absolute;
-	left:				0;
-	top:				0;
-	bottom:				0;
-	width:				6%;
-	vertical-align: 	middle;
-	border-right: 		solid 3px lightgray;
-}
-#logo-text {
-	margin-right:		-10px;
-	width:				100%;
-	top:				50%;
-	left:				0px;
-	right:				0px;
-	position:			absolute;
-}
-.logo-font {
-	font-family:  		'Hoefler Text', Georgia, 'Times New Roman', serif;
-	font-weight: 		normal;
-    font-size: 			1.75em;
-	letter-spacing: 	.2em;
-	line-height: 		1.1em;
-	margin:				0px;
-	text-align: 		center;
-	color: 				lightgray;
-}
-#main {
-	position:			relative;
-	margin-left:		5px;
-}
-.tilted {
-	-webkit-transform: 	rotate(-90deg);
-	-moz-transform: 	rotate(-90deg);
-	/*display:			block;
-	filter: 			progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-	*/
-}
-#logo a {
-	color: 				lightgray;
-	text-decoration:	none;
+#logo a:link, #logo a:hover, #logo a:visited, #logo a:active {
+	color:					gray;
+	text-decoration: 		none;
 }
 
 /* DEFAULTS */
@@ -124,21 +71,10 @@ h1 a {
 	text-decoration:	underline !important;
 }
 */
-.error {
-	color:				red;
-}
 
 .container {
 	width:				100%;
 	display:			block;
-}
-
-.left {
-	float:				left;
-}
-
-.right {
-	float:				right;
 }
 
 .rounded-corners-mid-sized {
@@ -173,8 +109,11 @@ h1 a {
     border-top-right-radius: 15px;
 }
 
-.clear {
-	clear:				both !important;
+
+
+.applicationtitle {
+	float:				left;
+	font-size:			larger;
 }
 
 div.competitioninfo {
@@ -183,11 +122,9 @@ div.competitioninfo {
 	text-align:			right;
 	float:				none;
 }
-
 div.timings {
 	font-style:			italic;
 }
-
 span.competitioninfo {
 	font-size:			large;
 }

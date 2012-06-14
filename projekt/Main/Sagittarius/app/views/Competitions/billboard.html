@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/billboard.css'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}" />
 <script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/auto-scroll.js'}" type="text/javascript" charset="${_response_encoding}"></script>
@@ -142,6 +143,10 @@ a.in {
 
 </head>
 <body class="center">
+<div id="logo">
+	<div id="logo-text" class="tilted"><span class="logo-font">&{'application.name'}</span></div>
+</div>
+<div id="main">
 <div id="results" class="plain"></div>
 <div class="control collapsable rounded-corners">
 	<ul class="controls left hidden hide">

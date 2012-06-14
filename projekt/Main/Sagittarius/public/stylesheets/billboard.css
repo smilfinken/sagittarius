@@ -1,4 +1,6 @@
 @IMPORT url("reset.css");
+@IMPORT url("foundation.css");
+@IMPORT url("watermark.css");
 
 body {
 	font-size:			14pt;	

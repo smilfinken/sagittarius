@@ -1,8 +1,7 @@
 @IMPORT url("main.css");
+@IMPORT url("colors.css");
+@IMPORT url("watermark.css");
 
-#login {
-	font-size:				13pt;
-}
 #login p {
 	margin-top:				3px;
 }
@@ -36,45 +35,39 @@
 .top-border {
 	border-top: 			solid 2px #666;
 }
-
-/* ELEMENTS */
-.labeled label {
-	display: inline-block;
-}
-.mini { 		width:			30px; }
-.small { 		width:			50px; }
-.medium { 		width:			100px; }
-.large { 		width:			140px; }
-.gargantuan { 	width:			200px; }
-
-.text-center {
-	text-align: 			center;
-}
-.text-right {
-	text-align: 			right;
-}
-.text-left {
-	text-align: 			left;
-}
-.bold {
-	font-weight: 			bold;
-}
-p.error {
-	text-align:				center;
-	background-color:		yellow;
-	padding:				0.5em 0 0.5em 0;
-	font-size:				14pt;
-	font-weight:			bold;
-}
 .normal-font {
 	font-size:				12pt;
 }
 .middle {
 	margin-top:				15%;
 }
+
 #logo {
 	border-right-color: 	pink !important;
 }
 .logo-font {
 	color: 					#6A9CA7 !important;
+}
+.bold {
+	font-weight: 			bold;
+}
+/* ELEMENTS */
+.labeled label {
+	display: 				inline-block;
+}
+span.error {
+	/*padding:				0.3em 0.5em 0.3em 0.5em;*/
+}
+div.error {
+	text-align:				center;
+	padding:				0.5em 0 0.5em 0;
+	font-size:				14pt;
+	font-weight:			bold;
+	margin-top:				15px;
+}
+.border {
+	border:					solid 2px black;
+}
+.border-except-top {
+	border-top-width: 		0px; 
 }

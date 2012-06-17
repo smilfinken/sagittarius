@@ -32,8 +32,12 @@ a.in {
 				var property = $('#results').css('font-size');
 				var value = property.substring(0, 2);
 				var unit = property.substring(2, 4);
+				
 				smaller ? value-- : value++;
-				$('#results').css('font-size', value + unit);
+				if (!isNaN(unit)) {
+					unit = Number(unit);
+				}
+				$('#results').css('font-size', Number(value) + unit);
 			},
 			
 			toggleControl: function (forceClose) {

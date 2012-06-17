@@ -3,12 +3,6 @@
 @IMPORT url("common.css");
 @IMPORT url("colors.css");
 
-/* COLORS */
-#logo a:link, #logo a:hover, #logo a:visited, #logo a:active {
-	color:					gray;
-	text-decoration: 		none;
-}
-
 /* DEFAULTS */
 h1 {font-size: 20pt;font-weight: bold;}
 h2 {font-size: 14pt;font-weight: bold;}
@@ -60,17 +54,6 @@ h1 a {
 	color:				#000 !important;
 	text-decoration:	none !important;
 }
-/*
-.menu a:link, a:visited, a:hover, a:active  {
-	color:				gray;
-	text-decoration:	none;
-}
-
-.menu a:active, a:hover {
-	color:				black !important;
-	text-decoration:	underline !important;
-}
-*/
 
 .container {
 	width:				100%;
@@ -108,19 +91,9 @@ h1 a {
     -khtml-border-top-right-radius: 15px;
     border-top-right-radius: 15px;
 }
-
-
-
 .applicationtitle {
 	float:				left;
 	font-size:			larger;
-}
-
-div.competitioninfo {
-	width:				100%;
-	height:				3em;
-	text-align:			right;
-	float:				none;
 }
 div.timings {
 	font-style:			italic;
@@ -135,23 +108,26 @@ span.currentuser {
 }
 
 .multicolumn-block-3col {
-	width: 100%;
+	width: 				100%;
 }
 
 .multicolumn-block-3col div {
-	width: 28%;
-	margin-right: 5%;
-	padding-bottom: 0.2em;
-	float: left;
+	width: 				28%;
+	margin-right: 		5%;
+	padding-bottom: 	0.2em;
+	float: 				left;
 }
 
 .multicolumn-block-4col {
-	width: 100%;
+	width: 				100%;
 }
 
 .multicolumn-block-4col div {
-	width: 20%;
-	margin-right: 5%;
-	padding-bottom: 0.2em;
-	float: left;
+	width: 				20%;
+	margin-right: 		5%;
+	padding-bottom: 	0.2em;
+	float: 				left;
 }
+.padded {
+	padding-left: 		0.5em;
+} 

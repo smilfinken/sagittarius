@@ -41,13 +41,6 @@
 .middle {
 	margin-top:				15%;
 }
-
-#logo {
-	border-right-color: 	pink !important;
-}
-.logo-font {
-	color: 					#6A9CA7 !important;
-}
 .bold {
 	font-weight: 			bold;
 }
@@ -63,10 +56,6 @@ div.error {
 	padding:				0.5em 0 0.5em 0;
 	font-size:				14pt;
 	font-weight:			bold;
-	margin-top:				15px;
-}
-.border {
-	border:					solid 2px black;
 }
 .border-except-top {
 	border-top-width: 		0px; 

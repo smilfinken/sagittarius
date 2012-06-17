@@ -5,46 +5,41 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
-#menu
-{
-  text-align: left;
-  text-decoration: none;
-  margin: auto;
-  padding: 0em;
+.menu {
+	padding-left:			0.4em;
 }
 
-ul#menu
-{
-  margin: 0px;
-  padding: 0px;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  white-space: nowrap;
-  border: none;
+div .menu .level2 {
+	width:					100%
 }
 
-#menu li
-{
-  display: inline;
-  list-style-type: none;
+ul.menu {
+	margin: 				0px;
+	padding: 				0px;
+	margin: 				0.4em 0 0.4em 0em;
+	white-space: 			nowrap;
 }
 
-#menu a
-{
-  padding: 4px 15px;
+.menu li {
+	display: 				inline-block;
+	list-style-type: 		none;
 }
 
-#menu a:link, #menu a:visited
-{
-  color: #fff;
-  background-color: #036;
-  text-decoration: none;
+.menu a {
+	padding: 				3px 10px;
 }
 
-#menu a:hover
-{
-  color: #fff;
-  background-color: #369;
-  text-decoration: none;
+.menu a:link, .menu a:visited {
+	color: 					#000;
+	background-color: 		#EAF1F2;
+	text-decoration: 		none;
+}
+
+.menu a:hover {
+	color: 					#fff;
+	background-color: 		#369;
+	text-decoration: 		none;
+}
+.border-bottom {
+	border-bottom-width: 	2px;
 }

@@ -1,3 +1,7 @@
+#logo a:link, #logo a:hover, #logo a:visited, #logo a:active {
+	color:					#6A9CA7;
+	text-decoration: 		none;
+}
 
 #logo {
 	position:			absolute;
@@ -32,4 +36,10 @@
 	/*display:			block;
 	filter: 			progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	*/	
+}
+#logo {
+	border-right-color: 	#EAF1F2;
+}
+.logo-font {
+	color: 					#6A9CA7;
 }

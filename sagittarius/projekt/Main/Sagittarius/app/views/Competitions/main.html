@@ -2,8 +2,8 @@
 #{set title: messages.get("competitions.competition") /}
 
 <hr class="clear" />
-<div id="menu">
-	<ul id="menu">
+<div class="menu">
+	<ul class="menu">
 		<li>#{a @Results.list(competition.id)}&{'results.title'}#{/a}</li>
 		<!--		#{a @Competitions.enroll(competition.id)}&{'competitions.application'}#{/a} -->
 		<li>#{a @Competitions.competitors(competition.id)}&{'competitions.participants'}#{/a}</li>

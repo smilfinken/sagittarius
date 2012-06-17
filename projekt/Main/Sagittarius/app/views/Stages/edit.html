@@ -9,8 +9,8 @@
 		&{'stages.suggestedtimings'}: ${minTime} -- ${maxTime} &{'common.seconds'}
 	</div>
 	#{/if}
-	<div id="menu">
-		<ul id="menu">
+	<div class="menu">
+		<ul class="menu">
 			#{if (!competition.isFirstStage(stage.id))}
 			<li>#{a @Stages.edit(competition.id, competition.getPreviousStage(stage.id))}&{'navigation.previousstage'}#{/a}</li>
 			#{/if}

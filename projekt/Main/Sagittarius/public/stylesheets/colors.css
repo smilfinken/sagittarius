@@ -1,6 +1,6 @@
 /* COLORS */
 .pink {
-	color: 	pink;
+	color: 	#EAF1F2;
 }
 
 /* BACKGROUND COLORS */
@@ -23,17 +23,17 @@
 	background-color: 	#FFF;
 }
 .bg_pink {
-	background-color: 	pink;
+	background-color: 	#EAF1F2;
 }
 
 /* BORDER COLORS */
-.border_gray {
+.border-gray {
 	border-color:		gray !important;
 }
-.border_pink {
+.border-pink {
 	border-color: 		pink !important;
 }
-.border_sicklygreenish {
+.border-sicklygreenish {
 	border-color: 		#BAB686 !important;
 }
 

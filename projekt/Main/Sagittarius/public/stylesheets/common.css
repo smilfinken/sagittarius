@@ -1,13 +1,15 @@
+/* FLOAT */
 .left {
 	float:				left;
 }
-
 .right {
 	float:				right;
 }
 .clear {
 	clear:				both !important;
 }
+
+/* TEXT ALIGN */
 .text-right {
 	text-align:			right;
 }
@@ -17,6 +19,8 @@
 .text-center {
 	text-align: 		center;
 }
+
+/* SIZE */
 .micro {
 	width:				25px; 
 }
@@ -37,4 +41,12 @@
 }
 .full {
 	width:				100%
+}
+
+/* VISIBLE */
+.hidden {
+	visibility: 		hidden;
+}
+.oblitirated {
+	display: 			none !important;
 }

@@ -14,34 +14,33 @@
 		#{get 'moreScripts' /}
 	</head>
 	<body>
-		<div id="logo">
-			<div id="logo-text" class="tilted"><span class="logo-font">#{a @Application.index()}&{'application.name'}#{/a}</span></div>
+		<div id="logo" class="bg_sicklygreenish">
+			<div id="logo-text" class="tilted"><span class="logo-font">#{a @Application.index()}Sa<span class="pink">g</span>ittarius</span>#{/a}</span></div>
 		</div>
 		<div id="main">
-			<div class="competitioninfo">
-				<span class="currentuser">
-					Inloggad som: ${session.username}
-				</span>
-				#{if (competition != null)}
-				<br />
-				<span class="competitioninfo">
-					${competition.label}, ${competition.getDate()}
-				</span>
-				#{/if}
+			<div class="left bg_bluegray full border-bottom border-pink">
+				<div class="right">
+					<span class="currentuser">
+						Inloggad som: ${session.username}
+					</span>
+				</div>
+				<div class="menu" class="left">
+					<ul class="menu level1 rounded-corners-mid-sized" class="bg_sicklygreenish">
+						<li class="rounded-corners-mid-sized">
+							<div class="rounded-corners-mid-sized">
+								#{a @Competitions.list()}&{'common.competitions'}#{/a}
+							</div>
+						</li>
+						#{secure.check "admin"}
+						<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
+						#{/secure.check}
+						<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
+						<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
+					</ul>
+				</div>			
 			</div>
 
-			<div id="menu">
-				<ul id="menu">
-					<li>#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
-					#{secure.check "admin"}
-					<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
-					#{/secure.check}
-					<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
-					<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
-				</ul>
-			</div>
-
-		#{doLayout /}
+			#{doLayout /}
 		</div>
 	</body>
 </html>

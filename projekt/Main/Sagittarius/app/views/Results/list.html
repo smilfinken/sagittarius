@@ -3,7 +3,7 @@
 
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
-<div>
+<div class="padded">
 	<form action="@{Results.add()}" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<table>
@@ -45,8 +45,8 @@
 
 #{if (results?.size() > 0)}
 <hr class="clear" />
-<div id="menu">
-	<ul id="menu">
+<div class="menu">
+	<ul class="menu">
 		<li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.destination.print'}</a></li>
 		<li>#{a @Results.export(competition.id)}&{'export.destination.file', messages.get('export.format.csv')}#{/a}</li>
 		<li>#{a @Results.exportXML(competition.id)}&{'export.destination.file', messages.get('export.format.xml')}#{/a}</li>

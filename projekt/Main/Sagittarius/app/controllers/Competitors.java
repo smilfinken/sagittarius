@@ -3,6 +3,7 @@ package controllers;
 import static common.Sorting.sortCompetitors;
 import static common.Sorting.sortUsers;
 import java.util.List;
+import java.util.Set;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -35,20 +36,25 @@ public class Competitors extends Controller {
 							competitor.division = division;
 							competitor.save();
 
-							List<Competitor> competitors = competition.competitors;
-							List<User> users = User.all().fetch();
-							List<Category> categories = Category.all().fetch();
-							List<Rank> ranks = Rank.all().fetch();
-							List<Division> divisions = Division.all().fetch();
-							renderTemplate("Competitions/competitors.html", competition, sortCompetitors(competitors), sortUsers(users), categories, ranks, divisions);
+							Competitions.competitors(competitionID);
+							//List<Competitor> competitors = competition.competitors;
+							//List<User> users = User.all().fetch();
+							//List<Category> categories = Category.all().fetch();
+							//List<Rank> ranks = Rank.all().fetch();
+							//List<Division> divisions = Division.all().fetch();
+							//renderTemplate("Competitions/competitors.html", competition, sortCompetitors(competitors), sortUsers(users), categories, ranks, divisions);
 						}
+						break;
+					case "delete":
+						competition.deleteCompetitor(competitor.id);
+						Competitions.competitors(competitionID);
 						break;
 				}
 			}
 		}
 
 		flash.put("divisionID", competitor.division.id);
-		List<Division> divisions = Division.all().fetch();
+		Set<Division> divisions = competitor.user.getValidDivisions();
 		render(competition, competitor, divisions);
 	}
 }

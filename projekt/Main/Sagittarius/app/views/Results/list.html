@@ -13,7 +13,7 @@
 				</td>
 			</tr>
 			<tr class="scoring">
-				#{list items:competition.stages}
+				#{list items:common.Sorting.sortStages(competition.stages)}
 				<td class="scoring">
 					<input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
 					<div style="text-align: center; clear: all">Station ${_.stageIndex}</div>
@@ -95,7 +95,7 @@
 				totalHits = 0;
 				totalTargets = 0;
 				totalPoints = 0;
-				for(result in entry.results){
+				for(result in common.Sorting.sortScores(entry.results)){
 				totalHits += result.hits;
 				totalTargets += result.targets;
 				}%

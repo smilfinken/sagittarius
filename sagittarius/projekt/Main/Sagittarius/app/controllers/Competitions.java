@@ -95,7 +95,7 @@ public class Competitions extends Controller {
 					}
 
 					List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-					renderTemplate("Competitions/edit.html", competition, competition.stages, competitionTypes);
+					details(competitionID);
 					break;
 				case "delete":
 					competition = Competition.findById(competitionID);
@@ -147,7 +147,7 @@ public class Competitions extends Controller {
 		List<Division> allDivisions = Division.all().fetch();
 		for (Category category : user.categories) {
 			for (Division division : allDivisions) {
-				if (division.categories.contains(category) && !divisions.contains(division)) {
+				if (division.categories.contains(category) && !divisions.contains(division) && !competition.isEnrolled(user.email, division.id)) {
 					divisions.add(division);
 				}
 			}
@@ -178,7 +178,7 @@ public class Competitions extends Controller {
 		List<Division> allDivisions = Division.all().fetch();
 		for (Category category : user.categories) {
 			for (Division division : allDivisions) {
-				if (division.categories.contains(category) && !divisions.contains(division)) {
+				if (division.categories.contains(category) && !divisions.contains(division) && competition.isEnrolled(user.email, division.id)) {
 					divisions.add(division);
 				}
 			}

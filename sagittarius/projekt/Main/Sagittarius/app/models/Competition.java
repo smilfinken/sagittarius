@@ -31,6 +31,8 @@ public class Competition extends Model {
 	public List<Stage> stages;
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Competitor> competitors;
+	@OneToMany
+	public List<Squad> squads;
 
 	public Competition(String label) {
 		this.label = label;
@@ -104,6 +106,11 @@ public class Competition extends Model {
 			competitionElement.add(stage.toXML());
 		}
 
+		//for (Iterator<Squad> it = squads.iterator(); it.hasNext();) {
+		//Squad squad = it.next();
+		//competitionElement.add(squad.toXML());
+		//}
+
 		return competitionElement;
 	}
 
@@ -176,11 +183,13 @@ public class Competition extends Model {
 				}
 			}
 		}
+
 		return result;
 	}
 
 	public boolean isEnrolled(String username, long divisionID) {
 		boolean result = false;
+
 		User user = User.find("byEmail", username).first();
 
 		if (user != null) {
@@ -190,21 +199,38 @@ public class Competition extends Model {
 				}
 			}
 		}
+
 		return result;
 	}
 
 	public int getMaxScore() {
-		int maxScore = 0;
+		return getMaxScore(6);
+	}
+
+	public int getMaxScore(int shotsPerStage) {
+		int result = 0;
+
 		if (stages != null) {
 			int targets = 0;
 			for (Stage stage : stages) {
 				for (TargetGroup targetGroup : stage.targetGroups) {
-					targets += targetGroup.targets.size();
+					targets += Math.min(shotsPerStage, targetGroup.targets.size());
 				}
 			}
-			maxScore = targets + stages.size() * 6;
+			result = targets + stages.size() * shotsPerStage;
 		}
-		return maxScore;
+
+		return result;
+	}
+
+	public int getTopScore() {
+		int result = 0;
+
+		for (Competitor competitor : competitors) {
+			result = Math.max(result, competitor.getScore());
+		}
+
+		return result;
 	}
 
 	public List<Competitor> getScoredCompetitors() {
@@ -278,6 +304,30 @@ public class Competition extends Model {
 				}
 			}
 		}
+
+		return result;
+	}
+
+	public int CountCompetitors() {
+		int result = 0;
+
+		if (competitors != null) {
+			result = competitors.size();
+		}
+
+		return result;
+	}
+
+	public int CountUsers() {
+		int result = 0;
+
+		List<User> users = new ArrayList<>();
+		for (Competitor competitor : competitors) {
+			if (!users.contains(competitor.user)) {
+				users.add(competitor.user);
+			}
+		}
+		result = users.size();
 
 		return result;
 	}

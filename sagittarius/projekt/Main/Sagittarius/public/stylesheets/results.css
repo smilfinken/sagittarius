@@ -84,6 +84,16 @@ td.totals {
 .content {
 }
 
+.statistics {
+	page-break-before: always;
+	font-style: italic;
+	font-size: large;
+}
+
 .sum {
 	font-weight: bold;
+}
+
+.max {
+	color: green;
 }

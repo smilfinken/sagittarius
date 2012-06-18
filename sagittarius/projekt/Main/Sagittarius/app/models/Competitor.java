@@ -52,15 +52,20 @@ public class Competitor extends Model {
 
 	public Competitor(Node competitor) {
 		this.user = User.find("byEmail", competitor.valueOf("@user")).first();
-		this.division = Division.find("byLabel", competitor.valueOf("@division")).first();
-
-		this.results = new ArrayList<>();
-		for (Iterator it = competitor.selectNodes("Result").iterator(); it.hasNext();) {
-			Node result = (Node) it.next();
-			this.results.add(new Result(result));
+		if (this.user == null) {
+			this.user = new User(competitor.selectSingleNode("User"));
 		}
+		if (this.user != null) {
+			this.division = Division.find("byLabel", competitor.valueOf("@division")).first();
 
-		this.save();
+			this.results = new ArrayList<>();
+			for (Iterator it = competitor.selectNodes("Result").iterator(); it.hasNext();) {
+				Node result = (Node) it.next();
+				this.results.add(new Result(result));
+			}
+
+			this.save();
+		}
 	}
 
 	@Override

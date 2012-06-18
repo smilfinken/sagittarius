@@ -15,8 +15,10 @@ import javax.persistence.OneToOne;
 import notifiers.RegistrationNotifier;
 import play.db.jpa.Model;
 import controllers.Security;
+import java.util.*;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.Node;
 
 /**
  *
@@ -60,6 +62,21 @@ public class User extends Model {
 		this.categories = categories;
 	}
 
+	public User(Node user) {
+		this.firstName = user.valueOf("@firstname");
+		this.surname = user.valueOf("@surname");
+		this.cardNumber = user.valueOf("@cardnumber");
+		this.email = user.valueOf("@email");
+		this.rank = Rank.find("byLabel", user.valueOf("@rank")).first();
+		this.categories = new ArrayList<>();
+		for (Iterator it = user.selectNodes("Category").iterator(); it.hasNext();) {
+			Node categoryNode = (Node) it.next();
+			Category category = Category.find("byLabel", categoryNode.valueOf("@label")).first();
+			this.categories.add(category);
+		}
+		this.save();
+	}
+
 	public static boolean connect(String username, String password) {
 		boolean result = false;
 		User user = User.find("byEmail", username).first();
@@ -88,6 +105,7 @@ public class User extends Model {
 		userElement.addAttribute("surname", surname);
 		userElement.addAttribute("email", email);
 		userElement.addAttribute("cardnumber", cardNumber);
+		userElement.addAttribute("rank", rank.toString());
 
 		for (Category category : categories) {
 			userElement.add(category.toXML());
@@ -142,7 +160,7 @@ public class User extends Model {
 	}
 
 	public Set<Division> getValidDivisions() {
-		Set<Division> divisions = new TreeSet<Division>(new Comparator<Division>() {
+		Set<Division> divisions = new TreeSet<>(new Comparator<Division>() {
 
 			@Override
 			public int compare(Division o1, Division o2) {

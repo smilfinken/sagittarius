@@ -47,7 +47,7 @@
 			totalTargets = 0;
 			totalPoints = 0;
 			count = 1;
-			for(result in entry.results){
+			for(result in common.Sorting.sortScores(entry.results)){
 			totalHits += result.hits;
 			totalTargets += result.targets;
 			totalPoints += result.points;
@@ -59,10 +59,10 @@
 		</td>
 		<td class="totals">
 			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets == true}
-			<span class="sum">${totalHits + totalTargets}</span> (${totalPoints})
+			<span class="sum#{if (totalHits + totalTargets == competition.getMaxScore())} max#{/if}">${totalHits + totalTargets}</span> (${totalPoints})
 			#{/if}
 			#{else}
-			<span class="sum">${totalHits}/${totalTargets}</span> (${totalPoints})
+			<span class="sum#{if (totalHits + totalTargets == competition.getMaxScore())} max#{/if}">${totalHits}/${totalTargets}</span> (${totalPoints})
 			#{/else}
 		</td>
 		</td>
@@ -73,4 +73,8 @@
 	}
 	}%
 </table>
+</div>
+<div class="statistics">
+	<br />&{'statistics.totals', competition.CountUsers(), competition.CountCompetitors()}
+	<br />&{'statistics.scores', competition.getTopScore(), competition.getMaxScore() + " (S " + competition.getMaxScore(5) + ")"}
 </div>

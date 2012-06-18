@@ -254,3 +254,4 @@ Competition(3):
   competitionType: 2
   date: 2012-08-21
   competitors: [3,4]
+  scoringType: 3

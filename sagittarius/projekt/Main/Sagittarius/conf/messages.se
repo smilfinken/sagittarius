@@ -158,6 +158,9 @@ stages.scoring=Poängräkning
 stages.startingposition=Startposition
 stages.suggestedtimings=Föreslagen skjuttid
 
+statistics.scores=Bästa resultat var %s av en maxpoäng på %s.
+statistics.totals=%s tävlande genomförde totalt %s starter.
+
 targets.target=Mål
 targets.shape=Figur
 targets.scoreable=Poängmål
@@ -173,6 +176,7 @@ targetgroups.range=Avstånd
 targetgroups.targetgroup=Målgrupp
 
 users.delete=Radera användare
+users.import=Importera användarlista
 users.user=Användare
 
 weaponcategory.label=Vapentyp

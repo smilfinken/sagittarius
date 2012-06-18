@@ -4,7 +4,17 @@
 <div class="multicolumn-block-4col">
 	#{list users}
 	<div>
-		#{a @Users.edit(_.id)}${_.getFullName(true)}#{/a}#{if (_.admin)}*#{/if}<br />
+		#{a @Users.edit(_.id)}${_.getFullName(true)}#{/a}#{if (_.admin)}*#{/if}
 	</div>
 	#{/list}
 </div>
+
+<br class="clear"/>
+#{secure.check "admin"}
+<div>
+	<form action="@{Users.importUsers()}" method="POST" enctype="multipart/form-data">
+		<input type="file" name="file" />
+		<button type="submit" name="useraction" value="upload">&{'users.import'}</button>
+	</form>
+</div>
+#{/secure.check}

@@ -1,9 +1,17 @@
 package controllers;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -135,5 +143,33 @@ public class Users extends Controller {
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
 		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
+	}
+
+	private static Document parseXML(File file) throws DocumentException {
+		SAXReader reader = new SAXReader();
+		Document document = reader.read(file);
+		return document;
+	}
+
+	public static void importUsers(File file, String useraction) {
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "upload":
+					if (file != null) {
+						try {
+							for (Iterator it = parseXML(file).selectNodes("//User").iterator(); it.hasNext();) {
+								Node userNode = (Node) it.next();
+								User user = new User(userNode);
+							}
+							list();
+						} catch (DocumentException ex) {
+							Logger.getLogger(Competitions.class.getName()).log(Level.SEVERE, "Failed to import XML from file", ex);
+						}
+						break;
+					}
+			}
+		}
+
+		list();
 	}
 }

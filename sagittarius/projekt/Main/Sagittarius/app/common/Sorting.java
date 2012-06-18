@@ -158,7 +158,7 @@ public class Sorting {
 
 			@Override
 			public int compare(Result A, Result B) {
-				return B.stageIndex - A.stageIndex;
+				return A.stageIndex - B.stageIndex;
 			}
 		}
 

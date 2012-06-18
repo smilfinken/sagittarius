@@ -311,9 +311,7 @@ public class Competition extends Model {
 	public int CountCompetitors() {
 		int result = 0;
 
-		if (competitors != null) {
-			result = competitors.size();
-		}
+		result = getScoredCompetitors().size();
 
 		return result;
 	}
@@ -322,7 +320,7 @@ public class Competition extends Model {
 		int result = 0;
 
 		List<User> users = new ArrayList<>();
-		for (Competitor competitor : competitors) {
+		for (Competitor competitor : getScoredCompetitors()) {
 			if (!users.contains(competitor.user)) {
 				users.add(competitor.user);
 			}

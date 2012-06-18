@@ -1,0 +1,16 @@
+# pre-defined weapon categories
+
+WeaponCategory(1):
+  label: Finkalibriga tävlingsvapen
+  shortLabel: C
+  shotInterval: 1
+
+WeaponCategory(2):
+  label: Grovkalibriga tävlingsvapen
+  shortLabel: B
+  shotInterval: 1.5
+
+WeaponCategory(3):
+  label: Tjänstepistoler och -revolvrar
+  shortLabel: A/R/S
+  shotInterval: 2

@@ -1,0 +1,5 @@
+# pre-defined target models
+
+TargetModel(1):
+  targetModel: 1
+  targetColour: 1

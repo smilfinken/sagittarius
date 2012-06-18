@@ -1,0 +1,4 @@
+# Test data for the CompetitionTest tests
+
+CompetitionType(testCompetition):
+        label: Testtävling

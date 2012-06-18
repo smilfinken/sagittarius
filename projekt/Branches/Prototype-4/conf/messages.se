@@ -1,0 +1,203 @@
+application.name=Sagittarius
+
+# Application properties
+administration.title=Administration
+administration.categories=Deltagarkategorier
+administration.competitiontypes=Tävlingstyper
+administration.divisions=Divisioner
+administration.ranks=Tävlingsklasser
+administration.targetclass=Figurkategorier
+administration.targetcolour=Figurfärger
+administration.targetshape=Figurer
+administration.scoringtype=Poängräkning
+administration.users=Användare
+administration.weaponcategory=Vapentyper
+
+billboard.start=Starta
+billboard.stop=Stoppa
+billboard.slower=Långsammare
+billboard.faster=Snabbare
+billboard.smaller=Mindre
+billboard.bigger=Större
+billboard.plain=Standard
+billboard.stacked=Kolumner
+billboard.scrolling=Scrollande
+billboard.reload=Ladda om
+
+common.add=Lägg till
+common.addobject=Lägg till %s
+common.crestgroup=Vapengrupp
+common.change=Ändra
+common.changeobject=Ändra %s
+common.colour=Färg
+common.competitor=Tävlande
+common.competitions=Tävlingar
+common.delete=Ta bort
+common.division=Klass
+common.label=Beteckning
+common.name=Namn
+common.next=Gå vidare
+common.or=eller
+common.person=Person
+common.participant=Deltagare
+common.register=Registrera
+common.save=Spara
+common.seconds=sekunder
+common.selectcategory=Välj kategori
+common.shortlabel=Förkortning
+common.type=Typ
+common.unregister=Avregistrera
+common.update=Uppdatera
+
+competitions.addstage=Lägg till station
+competitions.application=Tävlingsanmälan
+competitions.billboard=Billboard
+competitions.competition=Tävling
+competitions.competitiondate=Tävlingsdatum
+competitions.competitionname=Tävlingens namn
+competitions.competitiontype=Tävlingstyp
+competitions.create=Skapa
+competitions.createnew=Skapa en ny tävling
+competitions.details=Detaljer
+competitions.enroll=Anmäl dig
+competitions.enrollment=Tävlingsanmälan
+competitions.greeting=Hej och välkommen till %s!
+competitions.import=Importera
+competitions.nostages=Tävlingen har inga stationer.
+competitions.participant=Deltagare
+competitions.participants=Deltagare
+competitions.points=Poäng
+competitions.registerparticipant=Registrera deltagare
+competitions.return=Tillbaks till tävlingen
+competitions.select=Välj
+competitions.selectlabel=Välj en tävling
+competitions.stage=Station
+competitions.stages=stationer
+competitions.unroll=Avanmäl dig
+
+competitors.createuser=Skapa ny användare
+competitors.nocompetitors=Inga deltagare finns att registrera resultat på.
+competitors.registernew=Registrera en ny deltagare
+competitors.unregister=Avregistrera deltagare
+
+controller.registration.password=Lösenord
+controller.registration.passwordVerification=Bekräfta lösenord
+
+demo.admin=administratör
+demo.heading=Vill du prova på?
+demo.loginas=Logga in som
+demo.user=användare
+
+divisions.ranks=Klassindelad
+divisions.categories=Kategorier
+divisions.competitiontypes=Tävlingstyper
+
+export.application.shooter=Shooter
+export.destination.file=Export (%s)
+export.destination.integration=Exportera till %s
+export.destination.print=Utskrift
+export.format.csv=CSV
+export.format.xml=XML
+export.heading.competitorname=Namn
+export.heading.competitordivision=Klass
+export.heading.hits=Träff
+export.heading.targets=Figurer
+export.heading.points=Poäng
+export.heading.stage=Station
+export.heading.sum=Summa
+export.heading.total=Total
+
+models.user.admin=Administratör
+models.user.cardnumber=Skyttekortsnummer
+models.user.category=Kategori
+models.user.email=E-post
+models.user.firstname=Förnamn
+models.user.password=Lösenord
+models.user.rank=Klass
+models.user.surname=Efternamn
+
+navigation.administration=Administration
+navigation.logout=Logga ut
+navigation.nextstage=Nästa station
+navigation.parameters=Parametrar (debug)
+navigation.previousstage=Föregående station
+navigation.profile=Profil
+navigation.tocompetition=Tillbaks till tävlingen
+
+notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
+notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
+notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
+
+ranks.ranking=Klass
+
+registration.cancel=Till inloggninssidan
+registration.failed.title=Registrering misslyckades
+registration.initiated.body=Vi har skickat ett mail till den E-postadress du angav. Där framgår hur du ska göra för att aktivera ditt konto.
+registration.initiated.heading=Din registrering behandlas!
+registration.link=Fortsätt till inloggningssidan
+registration.successful.body=Nu har du slutfört din registrering. Vi hoppas att du kommer ha stor nytta av tjänsten och att du hör av dig med önskemål och kommentarer till <a href="mailto:feedback@sagittarius.se">feedback@sagittarius.se</a>.
+registration.successful.heading=Registreringen slutförd!
+registration.successful.title=Registrering lyckades
+registration.submit=Skapa konto
+registration.title=Skapa konto
+
+results.editlabel=Resultat för %s i %s
+results.hits=Träff
+results.noresults=Inga resultat har registrerats.
+results.points=Poäng
+results.register=Registrera resultat
+results.targets=Figurer
+results.title=Resultat
+
+scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
+scoringtype.sumpointsonly=Räkna enbart poäng
+
+squads.label=Patrull
+
+stages.scoring=Poängräkning
+stages.startingposition=Startposition
+stages.suggestedtimings=Föreslagen skjuttid
+
+statistics.scores=Bästa resultat var %s av en maxpoäng på %s.
+statistics.totals=%s tävlande genomförde totalt %s starter.
+
+targets.target=Mål
+targets.shape=Figur
+targets.scoreable=Poängmål
+targets.add=Lägg till figur
+
+targetclass.classification=Figurgrupp
+targetclass.label=Figurkategori
+targetclass.maximumrange=Maximalt skjutavstånd
+targetclass.weaponcategory=Vapengrupp
+
+targetgroups.add=Lägg till målgrupp
+targetgroups.range=Avstånd
+targetgroups.targetgroup=Målgrupp
+
+users.delete=Radera användare
+users.import=Importera användarlista
+users.user=Användare
+
+weaponcategory.label=Vapentyp
+weaponcategory.shotinterval=Tid per skott (s)
+
+# Validation messages
+validation.email=Ogiltig e-postadress
+validation.error=Fel i inmatad data
+validation.equals=Måste matcha &{%2$s}
+validation.min=Värde måste anges
+validation.required=Obligatoriskt fält
+
+# Module overrides
+secure.error=Okänt användarnamn eller lösenord
+secure.login=Logga in
+secure.logout=Du har blivit utloggad
+secure.noaccount=Har du inget konto?
+secure.noaccount.create=Skapa ett här
+secure.password=Lösenord
+secure.passwordreset=Lösenordet har återställts
+secure.remember=Kom ihåg lösenord
+secure.resetpassword=Återställ lösenordet
+secure.title=
+secure.username=E-postadress

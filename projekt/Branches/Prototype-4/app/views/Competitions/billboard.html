@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/billboard.css'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}" />
+<script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/auto-scroll.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/auto-scroll-proto.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<style>
+a.out {
+	background-image: 	url("@{'/public/images/crystal_project/16x16/2leftarrow.png'}");
+}
+a.in {
+	background-image: 	url("@{'/public/images/crystal_project/16x16/2rightarrow.png'}");
+}
+</style>
+
+	<script>
+		$(document).ready(function() {
+			sagittarius.billboard.reloadPage();
+			sagittarius.autoscroll.start();
+		});
+		
+		var sagittarius = sagittarius || {};
+		sagittarius.billboard = {
+			mode: 'plain',
+			stopped: false,
+			protoList: [],
+		
+			changeTextSize: function (smaller) {
+				var property = $('#results').css('font-size');
+				var value = property.substring(0, 2);
+				var unit = property.substring(2, 4);
+				
+				smaller ? value-- : value++;
+				if (!isNaN(unit)) {
+					unit = Number(unit);
+				}
+				$('#results').css('font-size', Number(value) + unit);
+			},
+			
+			toggleControl: function (forceClose) {
+				if (forceClose == true && $("a.square").hasClass('out')) {
+				
+					// The user has closed the pop-up, skip eventdriven toggle.
+					return;
+				}
+			
+				if ($("a.square").hasClass('in')) {
+					$("a.square").removeClass('in');
+					$("a.square").addClass('out');
+					$(".hide").toggleClass('hidden');
+					$(".control").animate({ width: '100px' }, 150 );
+				} else {
+					$("a.square").removeClass('out');
+					$("a.square").addClass('in');
+					$(".control").animate({ width: "100%" }, 150, function() {
+						$(".hide").toggleClass('hidden');
+					});
+					
+					// Close after 30sec, if forgotten to close
+					setTimeout('sagittarius.billboard.toggleControl(true)', 30000);
+				}
+			},
+			
+			reloadPage: function () {
+				$.get('@{Competitions.billboardpart()}',	
+					{ competitionId: ${competitionId} },
+					function(data){
+						$('#results').empty();
+						$('#results').append(data);
+						sagittarius.billboard.showPresentTime();
+						sagittarius.billboard.changeMode(sagittarius.billboard.mode);	
+					});
+				setTimeout('sagittarius.billboard.reloadPage()', 60000); // Reload page every 60 seconds
+			},
+			
+			showPresentTime: function () {
+				var date = new Date();
+				$('.time').text( sagittarius.billboard.justify( date.getHours() ) +':'+ sagittarius.billboard.justify( date.getMinutes() ) +':'+ sagittarius.billboard.justify( date.getSeconds() ));
+			},
+			
+			justify: function (val) {
+				return (val > 9) ? val : '0'+val;
+			},
+			
+			changeMode: function (mode) {
+				sagittarius.billboard.mode = mode;
+				
+				// Always empty protolist
+				for (var i in sagittarius.billboard.protoList) {
+					if (sagittarius.billboard.protoList[i] != null) {
+						sagittarius.billboard.protoList[i].clear();
+					}
+					delete sagittarius.billboard.protoList[i];
+					sagittarius.billboard.protoList[i] = null;
+				}
+			
+				// Rearrange...
+				if (mode == 'scroll') {
+					sagittarius.autoscroll.pause();
+					$('#results').removeClass('plain');
+					$('#results').addClass('stacked');
+					$('.resultTable').css('float', 'left');			
+					$('.dataTable').each(function(index, value){
+						$(this).css('height', '150px');
+						var proto = new sagittarius.AutoScrollProto($(this));
+						proto.scroll();
+						sagittarius.billboard.protoList.push(proto);
+					});
+					
+				} else if (mode == 'stacked') {
+					$('#results').removeClass('plain');
+					$('#results').addClass('stacked');
+					$('.resultTable').css('float', 'left');
+					$('.dataTable').each(function(index, value){
+							$(this).css('height', '100%');
+					});
+					if (!sagittarius.billboard.stopped) {
+						sagittarius.autoscroll.resume();
+					}
+				} else if (mode == 'plain'){
+					$('#results').removeClass('stacked');
+					$('#results').addClass('plain');
+					$('.resultTable').css('float', 'none');
+					$('.dataTable').each(function(index, value){
+						$(this).css('height', '100%');
+					});
+					if (!sagittarius.billboard.stopped) {
+						sagittarius.autoscroll.resume();
+					}		
+				}
+			},
+			stopScroll: function() {
+				sagittarius.autoscroll.pause();
+				sagittarius.billboard.stopped = true;
+			},
+			startScroll: function() {
+				sagittarius.autoscroll.resume();
+				sagittarius.billboard.stopped = false;
+			}
+		};	
+
+		
+	</script>
+
+</head>
+<body class="center">
+<div id="logo">
+	<div id="logo-text" class="tilted"><span class="logo-font">&{'application.name'}</span></div>
+</div>
+<div id="main">
+<div id="results" class="plain"></div>
+<div class="control collapsable rounded-corners">
+	<ul class="controls left hidden hide">
+		<li>
+			Scrolling: 
+			<a href="javascript:sagittarius.billboard.stopScroll()">&{'billboard.stop'}</a>
+			<a href="javascript:sagittarius.billboard.startScroll()">&{'billboard.start'}</a>
+		</li>
+		<li>
+			Speed:
+			<a href="javascript:sagittarius.autoscroll.speedDown();">&{'billboard.slower'}</a>
+			<a href="javascript:sagittarius.autoscroll.speedUp();">&{'billboard.faster'}</a>
+		</li>
+		<li>
+			Text size:
+			<a href="javascript:sagittarius.billboard.changeTextSize(true);">&{'billboard.smaller'}</a>
+			<a href="javascript:sagittarius.billboard.changeTextSize(false);">&{'billboard.bigger'}</a>
+		</li>
+		<li>
+			View mode:
+			<a href="javascript:sagittarius.billboard.changeMode('plain');">&{'billboard.plain'}</a>
+			<a href="javascript:sagittarius.billboard.changeMode('stacked');">&{'billboard.stacked'}</a>
+			<a href="javascript:sagittarius.billboard.changeMode('scroll');">&{'billboard.scrolling'}</a>
+		</li>
+		<li>
+			Page:
+			<a href="javascript:sagittarius.billboard.reloadPage();">Reload</a>
+		</li>
+	</ul>
+	<div class="controlHeader right">
+		<span class="time"></span>
+		<a class="square out" href="javascript:sagittarius.billboard.toggleControl(this);"></a>
+	</div>
+</div>
+</body>
+</html>

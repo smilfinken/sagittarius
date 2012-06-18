@@ -1,0 +1,20 @@
+#{extends "Administration/main.html" /}
+#{set title: item.label /}
+
+<div>
+	<form action="@{Administration.edit_targetcolour()}" method="POST">
+		<input type="hidden" name="ID" value="${item.id}" />
+		<label for="label">&{'common.label'}</label>
+		<input type="text" name="label" value="${item.label}" />
+
+		<br />
+		<label for="sumPointsAndTargets">&{'scoringtype.sumpointsandtargets'}</label>
+		<input type="checkbox" name="sumPointsAndTargets" #{if (item.sumPointsAndTargets)}checked#{/if} />
+		<label for="sumPointsOnly">&{'scoringtype.sumpointsonly'}</label>
+		<input type="checkbox" name="sumPointsOnly" #{if (item.sumPointsOnly)}checked#{/if} />
+
+		<br />
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

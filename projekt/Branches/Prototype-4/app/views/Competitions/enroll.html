@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+#{set title: messages.get("competitions.enrollment") /}
+
+<div class="menu">
+	${competition.label} ${competition.date}
+	<form>
+		<div class="menu">
+			<ul class="menu">
+				#{list divisions}
+				#{if (!competition.isEnrolled(session.username, _.id))}
+				<li>#{a @Competitions.enroll(competition.id, _.id)}&{'competitions.enroll'} ${_.label}#{/a}</li>
+				#{/if}
+				#{else}
+				<li>#{a @Competitions.unroll(competition.id, _.id)}&{'competitions.unroll'} ${_.label}#{/a}</li>
+				#{/else}
+				#{/list}
+			</ul>
+		</div>
+	</form>
+</div>

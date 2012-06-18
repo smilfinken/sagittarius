@@ -1,0 +1,15 @@
+<label for="shapeID">&{'common.type'}</label>
+#{select 'shapeID', value:target?.getShapeID()}
+#{option -1}#{/option}
+#{list targetShapes}
+#{option _.id}${_.toString()}#{/option}
+#{/list}
+#{/select}
+
+<label for="colourID">&{'common.colour'}</label>
+#{select 'colourID', value:target?.getColourID()}
+#{option -1}#{/option}
+#{list targetColours}
+#{option _.id}${_.toString()}#{/option}
+#{/list}
+#{/select}

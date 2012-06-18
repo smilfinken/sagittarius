@@ -1,0 +1,104 @@
+#{extends "Competitions/main.html" /}
+#{set title: "${competition.label}, station ${stage.stageIndex}" /}
+
+<hr />
+<div>
+	<h2>${competition.label}, &{'competitions.stage'} ${stage.stageIndex}</h2>
+	#{if (minTime != "0,0" && maxTime != "0,0")}
+	<div class="timings">
+		&{'stages.suggestedtimings'}: ${minTime} -- ${maxTime} &{'common.seconds'}
+	</div>
+	#{/if}
+	<div class="menu">
+		<ul class="menu">
+			#{if (!competition.isFirstStage(stage.id))}
+			<li>#{a @Stages.edit(competition.id, competition.getPreviousStage(stage.id))}&{'navigation.previousstage'}#{/a}</li>
+			#{/if}
+			#{if (!competition.isLastStage(stage.id))}
+			<li>#{a @Stages.edit(competition.id, competition.getNextStage(stage.id))}&{'navigation.nextstage'}#{/a}</li>
+			#{/if}
+		</ul>
+	</div>
+</div>
+
+<div>
+	<hr />
+	<form action="@{Stages.update}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<div>
+			<label for="label">&{'common.label'}</label>
+			<input type="text" name="label" value="${stage.label}" />
+
+			<br />
+			#{include "Common/selectStartingPosition.html" /}
+
+			<br />
+			<button class="enter" type="submit">&{'common.change'}</button>
+		</div>
+	</form>
+</div>
+
+#{list stage.targetGroups, as:'targetGroup'}
+<hr />
+<div>
+	<form action="@{Stages.editTargetGroup()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
+		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+		<label for="label">&{'targetgroups.targetgroup'}</label>
+		<input type="text" name="label" size="10" value="${targetGroup.label}" />
+		<label for="range">&{'targetgroups.range'}</label>
+		<input type="text" name="range" size="4" maxlength="4" value="${targetGroup.range}" /> m
+		<button class="enter" type="submit" name="useraction" value="save">&{'common.update'}</button>
+	</form>
+</div>
+
+#{if (targetGroup.targets?.size() > 0)}
+<br />
+<div>
+	#{list targetGroup.targets, as:'target'}
+	<form action="@{Stages.editTarget()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
+		<input type="hidden" name="targetID" value="${target.id}" />
+		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+		${target_index}
+		#{include 'Common/selectTarget.html' /}
+		<label for="hasPoints">&{'stages.scoring'}</label>
+		<input type="checkbox" name="hasPoints" #{if (target.hasPoints)}checked#{/if} />
+			   <button class="enter" type="submit" name="useraction" value="save">&{'common.update'}</button>
+	</form>
+	#{/list}
+</div>
+#{/if}
+
+<br />
+<div>
+	<form action="@{Stages.addTarget()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<input type="hidden" name="targetGroupID" value="${targetGroup.id}" />
+		${target = null}
+		#{include 'Common/selectTarget.html' /}
+		<label for="hasPoints">&{'stages.scoring'}</label>
+		<input type="checkbox" name="hasPoints" />
+		<button class="enter" type="submit">&{'targets.add'}</button>
+	</form>
+	#{/list}
+</div>
+
+<hr />
+<div>
+	<form action="@{Stages.addTargetGroup()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="stageID" value="${stage.id}" />
+		<label for="label">&{'targetgroups.targetgroup'}</label>
+		<input type="text" name="label" size="10" />
+		<label for="range">&{'targetgroups.range'}</label>
+		<input type="text" name="range" size="4" maxlength="4" /> m
+		<button class="enter" type="submit">&{'targetgroups.add'}</button>
+	</form>
+</div>

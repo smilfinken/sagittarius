@@ -1,0 +1,80 @@
+<link media="print" type="text/css" rel="stylesheet" href="/public/stylesheets/results.css"/>
+
+<div class="content">
+	%{
+	boolean tableOpen = false;
+	int totalHits;
+	int totalTargets;
+	int totalPoints;
+	int place = 1;
+	int count = 1;
+	}%
+	%{
+	if (results.size() > 0) {
+	String previousClass = "";
+	for(entry in results){
+	if (entry.results != null && entry.results.size() == competition.stages.size()) {
+	if (!entry.getDivisionAsString().equals(previousClass)){
+	place = 1;
+	}%
+	#{if (tableOpen == true)}</table>#{/if}
+<table>
+	<thead>
+		<tr class="header">
+			<th class="competitor">
+				Klass ${entry.getDivisionAsString()}
+			</th>
+			<th class="stages">
+				Stationer
+			</th>
+			<th class="totals">
+				Totalt
+			</th>
+		</tr>
+	</thead>
+	%{
+	}
+	tableOpen = true;
+	previousClass = entry.getDivisionAsString();
+	}%
+	<tr>
+		<td class="competitor">
+			<span class="place">${place++}</span> <span class="name">${entry}</span>
+		</td>
+		<td class="stages">
+			%{
+			totalHits = 0;
+			totalTargets = 0;
+			totalPoints = 0;
+			count = 1;
+			for(result in common.Sorting.sortScores(entry.results)){
+			totalHits += result.hits;
+			totalTargets += result.targets;
+			totalPoints += result.points;
+			}%
+			${result.hits}/${result.targets}#{if result.points > 0} (${result.points})#{/if}#{if count++ < entry.results.size()}, #{/if}
+			%{
+			}
+			}%
+		</td>
+		<td class="totals">
+			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets == true}
+			<span class="sum#{if (totalHits + totalTargets == competition.getMaxScore())} max#{/if}">${totalHits + totalTargets}</span> (${totalPoints})
+			#{/if}
+			#{else}
+			<span class="sum#{if (totalHits + totalTargets == competition.getMaxScore())} max#{/if}">${totalHits}/${totalTargets}</span> (${totalPoints})
+			#{/else}
+		</td>
+		</td>
+	</tr>
+	%{
+	}
+	}
+	}
+	}%
+</table>
+</div>
+<div class="statistics">
+	<br />&{'statistics.totals', competition.CountUsers(), competition.CountCompetitors()}
+	<br />&{'statistics.scores', competition.getTopScore(), competition.getMaxScore() + " (S " + competition.getMaxScore(5) + ")"}
+</div>

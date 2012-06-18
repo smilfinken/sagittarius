@@ -1,0 +1,28 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get('common.changeobject', 'Resultat') /}
+
+<hr class="clear" />
+
+&{'results.editlabel', competitor?.toString(), competitor?.getDivisionAsString()}
+<form action="@{Results.edit}" method="POST" autocomplete="off">
+	<input type="hidden" name="competitionID" value="${competition.id}" />
+	<input type="hidden" name="competitorID" value="${competitor.id}" />
+	<table>
+		<tr class="scoring">
+			#{list items:0..competition.stages.size()-1, as:'i'}
+			<td class="scoring">
+				<div style="text-align: center; clear: all">Station ${i+1}</div>
+				<label for="newResults[${i}].hits">&{'results.hits'}</label>
+				<input class="scoring" type="text" size="2" maxlength="1" name="newResults[${i}].hits" value="${results[i].hits}" /><br />
+				<label for="newResults[${i}].targets">&{'results.targets'}</label>
+				<input class="scoring" type="text" size="2" maxlength="1" name="newResults[${i}].targets" value="${results[i].targets}" /><br />
+				#{if (competition.stages[i].hasPoints())}
+				<label for="newResults[${i}].points">&{'results.points'}</label>
+				<input class="scoring" type="text" size="2" maxlength="2" name="newResults[${i}].points" value="${results[i].points}" /><br />
+				#{/if}
+			</td>
+			#{/list}
+		</tr>
+	</table>
+	<button type="submit" name="useraction" value="save">&{'common.save'}</button>
+</form>

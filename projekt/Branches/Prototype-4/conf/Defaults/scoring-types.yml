@@ -1,0 +1,19 @@
+# pre-defined scoring types
+
+ScoringType(1):
+  label: Poängfältskjutning
+  sumPointsAndTargets: true
+  sumPointsOnly: false
+  competitionTypes: [1]
+
+ScoringType(2):
+  label: Traditionell fältskjutning
+  sumPointsAndTargets: false
+  sumPointsOnly: false
+  competitionTypes: [1]
+
+ScoringType(3):
+  label: Precisionstävling
+  sumPointsAndTargets: false
+  sumPointsOnly: true
+  competitionTypes: [2]

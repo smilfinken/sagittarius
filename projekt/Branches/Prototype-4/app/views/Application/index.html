@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+#{set title: messages.get("application.name") /}
+
+#{secure.check "basic"}
+<p>Dina anmälningar:</p>
+<p>...</p>
+<p>...</p>
+#{/secure.check}
+
+#{secure.check "admin"}
+<br />
+<p>Tävlingar du administrerar:</p>
+<p>...</p>
+<p>...</p>
+#{/secure.check}

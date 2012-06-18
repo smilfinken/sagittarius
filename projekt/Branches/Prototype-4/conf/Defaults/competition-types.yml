@@ -1,0 +1,9 @@
+# predefined competition types
+
+CompetitionType(1):
+  label: Fältskjutning
+  hasStages: true
+
+CompetitionType(2):
+  label: Precision
+  hasStages: false

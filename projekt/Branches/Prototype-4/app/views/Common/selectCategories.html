@@ -1,0 +1,6 @@
+<label for="validCategories">&{'divisions.categories'}</label>
+<select type="radio" name="validCategories" multiple>
+	#{list categories}
+	<option value="${_.id}" #{if (item.hasCategory(_.id))}selected#{/if}>${_.label}</option>
+	#{/list}
+</select>

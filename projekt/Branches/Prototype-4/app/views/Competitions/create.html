@@ -1,0 +1,19 @@
+#{extends "main.html" /}
+#{set title: messages.get("competitions.createnew") /}
+
+<hr class="clear" />
+<div>
+	<form action="@{Competitions.edit()}" method="POST">
+		<label for="label">&{'common.name'}</label>
+		<input name="label" value="${competition?.label}" />
+		<label for="date">&{'competitions.competitiondate'}</label>
+		<input name="date" value="${competition?.date}" />
+
+		<br />
+		#{include "Common/selectCompetitionType.html" /}
+		#{include "Common/selectScoringType.html" /}
+
+		<br />
+		<button type="submit" name="useraction" value="create">&{'common.next'}</button>
+	</form>
+</div>

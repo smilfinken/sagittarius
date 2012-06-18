@@ -1,0 +1,13 @@
+#{extends "Administration/main.html" /}
+#{set title: item.label /}
+
+<div>
+	<form action="@{Administration.edit_category()}" method="POST">
+		<input type="hidden" name="ID" value="${item.id}" />
+		<label for="label">&{'common.label'}</label>
+		<input type="text" name="label" value="${item.label}" />
+
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

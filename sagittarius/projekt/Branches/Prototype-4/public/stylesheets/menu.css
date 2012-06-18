@@ -1,0 +1,45 @@
+/*
+    Document   : menu
+    Created on : Jun 8, 2012, 11:12:52 AM
+    Author     : johan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.menu {
+	padding-left:			0.4em;
+}
+
+div .menu .level2 {
+	width:					100%
+}
+
+ul.menu {
+	margin: 				0px;
+	padding: 				0px;
+	margin: 				0.4em 0 0.4em 0em;
+	white-space: 			nowrap;
+}
+
+.menu li {
+	display: 				inline-block;
+	list-style-type: 		none;
+}
+
+.menu a {
+	padding: 				3px 10px;
+}
+
+.menu a:link, .menu a:visited {
+	color: 					#000;
+	background-color: 		#EAF1F2;
+	text-decoration: 		none;
+}
+
+.menu a:hover {
+	color: 					#fff;
+	background-color: 		#369;
+	text-decoration: 		none;
+}
+.border-bottom {
+	border-bottom-width: 	2px;
+}

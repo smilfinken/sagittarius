@@ -1,0 +1,133 @@
+@IMPORT url("reset.css");
+@IMPORT url("foundation.css");
+@IMPORT url("common.css");
+@IMPORT url("colors.css");
+
+/* DEFAULTS */
+h1 {font-size: 20pt;font-weight: bold;}
+h2 {font-size: 14pt;font-weight: bold;}
+h3 {font-size: 12pt;font-weight: bold;}
+h4 {font-size: 10pt;font-weight: bold;}
+
+table, tr, td {
+	width: 				auto;
+}
+
+tr.scoring
+{
+	vertical-align: 	text-top;
+}
+
+td.scoring {
+	text-align: 		right;
+}
+
+td.buttons {
+	text-align: 		left;
+}
+
+fieldset {
+	float: 				left;
+	clear: 				left;
+	width:				100%;
+}
+
+button, input {
+	border: 			1px solid blue;
+}
+
+button[type=submit].delete {
+	border: 			1px solid red;
+}
+
+button[type=submit].enter {
+	border: 			1px solid green;
+}
+
+input.scoring {
+	border: 			1px solid gray;
+	width: 				30px;
+}
+
+/* CLASSES */
+h1 a {
+	color:				#000 !important;
+	text-decoration:	none !important;
+}
+
+.container {
+	width:				100%;
+	display:			block;
+}
+
+.rounded-corners-mid-sized {
+
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.rounded-corners-bottom-mid-sized {
+    -moz-border-bottom-left-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    -khtml-border-bottom-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    -moz-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    -khtml-border-bottom-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.rounded-corners-top-mid-sized {
+    -moz-border-top-left-radius: 15px;
+    -webkit-border-top-left-radius: 15px;
+    -khtml-border-top-left-radius: 15px;
+    border-top-left-radius: 15px;
+
+    -moz-border-top-right-radius: 15px;
+    -webkit-border-top-right-radius: 15px;
+    -khtml-border-top-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.applicationtitle {
+	float:				left;
+	font-size:			larger;
+}
+div.timings {
+	font-style:			italic;
+}
+span.competitioninfo {
+	font-size:			large;
+}
+
+span.currentuser {
+	font-style:			italic;
+	font-size:			small;
+}
+
+.multicolumn-block-3col {
+	width: 				100%;
+}
+
+.multicolumn-block-3col div {
+	width: 				28%;
+	margin-right: 		5%;
+	padding-bottom: 	0.2em;
+	float: 				left;
+}
+
+.multicolumn-block-4col {
+	width: 				100%;
+}
+
+.multicolumn-block-4col div {
+	width: 				20%;
+	margin-right: 		5%;
+	padding-bottom: 	0.2em;
+	float: 				left;
+}
+.padded {
+	padding-left: 		0.5em;
+} 

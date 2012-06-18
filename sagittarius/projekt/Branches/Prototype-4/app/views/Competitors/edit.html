@@ -1,0 +1,18 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get('common.changeobject', 'anmälan') /}
+
+<hr class="clear" />
+<form action="@{Competitors.edit}" method="POST" autocomplete="off">
+	<input type="hidden" name="competitionID" value="${competition.id}" />
+	<input type="hidden" name="competitorID" value="${competitor.id}" />
+
+	#{secure.check "admin"}
+	<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+	#{/secure.check}
+	${competitor}
+	#{include "Common/selectDivision.html" /}
+
+	#{secure.check "admin"}
+	<button class="enter" type="submit" name="useraction" value="save">&{'common.save'}</button>
+	#{/secure.check}
+</form>

@@ -1,0 +1,20 @@
+#{extends "Administration/main.html" /}
+#{set title: item.label /}
+
+<div>
+	<form action="@{Administration.edit_division()}" method="POST">
+		<input type="hidden" name="ID" value="${item.id}" />
+		<label for="label">&{'common.division'}</label>
+		<input type="text" name="label" value="${item.label}" />
+		<label for="ranks">&{'divisions.ranks'}</label>
+		<input type="checkbox" name="ranks" #{if (item.ranks)}checked#{/if} />
+
+		<br />
+		#{include "Common/selectCompetitionTypes.html" /}
+		#{include "Common/selectCategories.html" /}
+
+		<br />
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+</div>

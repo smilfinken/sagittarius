@@ -1,0 +1,7 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> crud
+    - play -> pdf 0.7
+    - play -> secure

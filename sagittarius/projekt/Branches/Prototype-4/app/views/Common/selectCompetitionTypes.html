@@ -1,0 +1,6 @@
+<label for="validCompetitionTypes">&{'divisions.competitiontypes'}</label>
+<select type="radio" name="validCompetitionTypes" multiple>
+	#{list competitionTypes}
+	<option value="${_.id}" #{if (item.hasCompetitionType(_.id))}selected#{/if}>${_.label}</option>
+	#{/list}
+</select>

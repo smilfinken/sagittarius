@@ -1,0 +1,26 @@
+#{extends "main.html" /}
+#{set title: messages.get('administration.title') /}
+
+#{secure.check "admin"}
+<hr class="clear" />
+<div class="menu">
+	<ul class="menu">
+		<li>#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
+		<li>#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}</li>
+		<li>#{a @Administration.list_category()}&{'administration.categories'}#{/a}</li>
+		<li>#{a @Administration.list_rank()}&{'administration.ranks'}#{/a}</li>
+		<li>#{a @Administration.list_division()}&{'administration.divisions'}#{/a}</li>
+	</ul>
+	<ul class="menu">
+		<li>#{a @Administration.list_weaponcategory()}&{'administration.weaponcategory'}#{/a}</li>
+		<li>#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}</li>
+		<li>#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}</li>
+		<li>#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}</li>
+	</ul>
+	<ul class="menu">
+		<li>#{a @Users.list()}&{'administration.users'}#{/a}</li>
+	</ul>
+</div>
+#{/secure.check}
+
+#{doLayout /}

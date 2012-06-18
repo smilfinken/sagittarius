@@ -1,0 +1,48 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get("common.changeobject", competition.label)  /}
+
+#{secure.check "admin"}
+<hr class="clear" />
+<div>
+	<form action="@{Competitions.edit()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<label for="label">&{'competitions.competitionname'}</label>
+		<input type="text" name="label" value="${competition.label}" />
+		<label for="date">&{'competitions.competitiondate'}</label>
+		<input type="text" name="date" value="${competition.date}" />
+		#{include "Common/selectCompetitionType.html" /}
+		#{include "Common/selectScoringType.html" /}
+		<button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
+		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+	</form>
+</div>
+
+#{if (competition.hasStages())}
+<hr class="clear" />
+<div>
+	<table>
+		#{list competition.stages, as:'stage'}
+		<tr>
+			<td>
+				<form action="@{Competitions.deleteStage()}" method="POST">
+					<input type="hidden" name="stageID" value="${stage.id}" />
+					<button class="delete" type="submit">&{'common.delete'}</button>
+					#{a @Stages.edit(competition.id, stage.id)}${stage.stageIndex} ${stage.label}#{/a}
+					#{if (stage.hasPoints())}&{'stages.scoring'}#{/if}
+					${stage.startingPosition?.toString()}
+				</form>
+			</td>
+		</tr>
+		#{/list}
+	</table>
+</div>
+#{/if}
+
+<div>
+	<form action="@{Competitions.addStage()}" method="POST">
+		<input type="text" name="label" />
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<button type="submit" class="enter" formaction="@{Competitions.addStage()}">&{'competitions.addstage'}</button>
+	</form>
+</div>
+#{/secure.check}

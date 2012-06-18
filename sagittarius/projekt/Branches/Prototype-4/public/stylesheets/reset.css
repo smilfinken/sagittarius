@@ -1,0 +1,9 @@
+html,body,div,section,span,h1,h2,h3,h4,h5,h6,applet,object,iframe,embed,audio,video,p,a,center,dl,dt,dd,ol,ul,li,nav,blockquote,pre,fieldset,form,label,legend,keygen,meter,progress,table,caption,tbody,tfoot,thead,tr,th,td,details,summary,figure,figcaption,footer,header,hgroup,menu,article,aside,canvas,abbr,acronym,address,big,cite,code,command,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,output,ruby,rp,rt,time,mark,bdi{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}a:hover,a:active{outline:0}body div:focus{outline:0}img{outline:0}a:focus{outline:0}a::-moz-focus-inner{border:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}hr{display:block}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit; *font-size:100%}legend{color:#000}sup{vertical-align:text-top}sub{vertical-align:text-bottom}caption,th{text-align:left}
+/*OPT(1) Forces normal "font-weight" on the entire body body{font-weight: normal;}*/
+/*OPT(2) Keeps below element's “font-weight” normal h1,h2,h3,h4,h5,h6,address,caption,cite,code,dfn,em,strong,th,var{font-weight:normal;}*/
+/*OPT(3) Choose a default "font-family", "font-size" & "line-height". Compare on various operating systems body{font-family: arial,helvetica,clean,sans-serif;font-size:16px;line-height:1.22; zoom:100%;}*/
+/*OPT(4) Force the vertical scroll bar *html{overflow-y: scroll;}*/
+/*OPT(5) Makes table content start from the top as default td{vertical-align:top;}*/
+/*OPT(6) Breaks words on pre pre{word-wrap:break-word ;}*/
+/*OPT(7) Customize the selection ::selection{background:#00fff3;color:#FF00CC;}::-moz-selection{background:#00fff3;color:#FF00CC;}::-webkit-selection{background:#00fff3;color:#FF00CC;}*/
+/*Vamonos!!!!*/

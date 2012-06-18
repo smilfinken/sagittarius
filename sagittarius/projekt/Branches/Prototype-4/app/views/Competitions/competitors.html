@@ -1,0 +1,64 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get("competitions.participants") /}
+
+#{secure.check "admin"}
+<script>
+
+	$(document).ready(function() {
+		$('#userID').change(function(){
+			var userId = $('#userID').val();
+			console.log('Selected userId: ' + userId);
+			sagittarius.competitors.loadUsersDivisions(userId);
+		});
+	});
+
+	var sagittarius = sagittarius || {};
+	sagittarius.competitors = {
+		loadUsersDivisions: function(userId) {
+			$.get(
+			'@{Competitions.userDivisions()}',
+			{ userId: userId },
+			function(data){
+				$('#divisionID').html(data);
+			}
+		);
+		}
+	};
+</script>
+<hr class="clear" />
+<div>
+	<form action="@{Competitions.registerUser()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		#{include "Common/selectUser.html" /}
+		#{include "Common/selectDivision.html" /}
+		<button class="enter" type="submit">&{'common.register'}</button>
+	</form>
+</div>
+
+<hr class="clear" />
+
+<div>
+	<form action="@{Users.add()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<label for="firstName">&{'models.user.firstname'}</label>
+		<input type="text" name="firstName" />
+		<label for="surname">&{'models.user.surname'}</label>
+		<input type="text" name="surname" />
+		#{include "Common/selectCategory.html" /}
+		#{include "Common/selectRank.html" /}
+		<button class="enter" type="submit">&{'competitors.createuser'}</button>
+	</form>
+</div>
+#{/secure.check}
+
+<hr class="clear" />
+<div class="multicolumn-block-4col">
+	#{list competitors}
+	<div>
+		#{a @Competitors.edit(competition.id, _.id)}
+		<span style="float:left">${_}</span>
+		<span style="float: right">${_.getDivisionAsString()}</span>
+		#{/a}
+	</div>
+	#{/list}
+</div>

@@ -1,0 +1,57 @@
+#{extends "mainExt.html" /}
+
+<script>
+	$(document).ready(function(){
+		$("#username").focus();
+	});
+
+	function loginAs(username, password) {
+		$('#username').val(username);
+		$('#password').val(password);
+		$('#signin').click();
+	}
+</script>
+<div id="login" class="center box-mid center-container">
+
+	#{form @authenticate()}
+
+	#{if flash.error}
+	<div class="error rounded-corners-top-mid-sized">
+		&{flash.error}
+	</div>
+	#{/if}
+	#{if flash.success}
+	<div class="success rounded-corners-top-mid-sized">
+		&{flash.success}
+	</div>
+	#{/if}	
+	<div class="labeled text-center padded rounded-corners-top-mid-sized bg_pink border-gray border">
+		<p id="username-field">
+			<label for="username" class="gargantuan bold text-left">&{'secure.username'}</label>
+			<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
+		</p>
+		<p id="password-field">
+			<label for="password" class="gargantuan bold text-left">&{'secure.password'}</label>
+			<input type="password" name="password" id="password" value="" class="gargantuan"/>
+		</p>
+		<p id="remember-field" class="text-center bold">
+			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+				   <label for="remember">&{'secure.remember'}</label>
+		</p>
+		<br/>
+		<p id="signin-field" class="text-center">
+			<input type="submit" id="signin" value="&{'secure.login'}" class="bold"/>
+		</p>
+	</div>
+	#{/form}
+	<div class="rounded-corners-bottom-mid-sized padded top-border normal-font bg_sicklygreenish border-gray border border-except-top">
+
+		<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
+		<p>
+			&{'demo.heading'}
+			&{'demo.loginas'} <a href="javascript:loginAs('per@pelle.se', '123');">&{'demo.admin'}</a>
+			&{'common.or'} <a href="javascript:loginAs('oskar@oskarsson.se', '123');">&{'demo.user'}</a>
+		</p>
+	</div>
+
+</div>

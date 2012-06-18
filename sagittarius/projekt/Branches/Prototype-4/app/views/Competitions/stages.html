@@ -1,0 +1,45 @@
+#{extends "main.html" /}
+#{set title: messages.get("competitions.stages") /}
+
+<hr class="clear" />
+#{if (competition.hasStages())}
+<div>
+	<table>
+		#{list competition.stages}
+		<tr>
+			<td>
+				<form action="@{Competitions.deleteStage()}" method="POST">
+					#{a @Stages.edit(competition.id, _.id)}${_.stageIndex} ${_.label}#{/a}
+			</td>
+			<td>
+				<input type="checkbox" disabled #{if (_.hasPoints())}checked#{/if} />
+				       <input type="hidden" name="competitionID" value="${competition.id}" />
+			</td>
+			<td>
+				<input type="hidden" name="stageID" value="${_.id}" />
+				<button class="delete" type="submit">&{'common.delete'}</button>
+				</form>
+			</td>
+		</tr>
+		#{/list}
+	</table>
+</div>
+#{/if}
+#{else}
+<div>
+	#{if (competition.competitionType.hasStages)}
+	<form action="@{Competitions.edit()}" method="POST">
+		<label for="stages">&{'common.add'}</label>
+		<input name="stages" />
+		<label for="stages">&{'competitions.stages'}</label>
+
+		<br />
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<button type="submit" name="useraction" value="addstages">&{'common.next'}</button>
+	</form>
+	#{/if}
+	#{else}
+	No stages!
+	#{/else}
+</div>
+#{/else}

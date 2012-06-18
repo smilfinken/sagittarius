@@ -1,0 +1,55 @@
+# pre-defined divisions
+
+Division(1):
+  label: J
+  competitionTypes: [1,2]
+  categories: [1]
+  ranks: false
+
+Division(2):
+  label: C
+  competitionTypes: [1,2]
+  categories: [2]
+  ranks: true
+
+Division(3):
+  label: D
+  competitionTypes: [1,2]
+  categories: [3]
+  ranks: true
+
+Division(4):
+  label: VY
+  competitionTypes: [1,2]
+  categories: [4]
+  ranks: false
+
+Division(5):
+  label: VÄ
+  competitionTypes: [1,2]
+  categories: [5]
+  ranks: false
+
+Division(6):
+  label: A
+  competitionTypes: [1,2]
+  categories: [1,2,3,4,5]
+  ranks: true
+
+Division(7):
+  label: B
+  competitionTypes: [1,2]
+  categories: [1,2,3,4,5]
+  ranks: true
+
+Division(8):
+  label: R
+  competitionTypes: 1
+  categories: [1,2,3,4,5]
+  ranks: true
+
+Division(9):
+  label: S
+  competitionTypes: 1
+  categories: [1,2,3,4,5]
+  ranks: false

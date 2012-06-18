@@ -1,0 +1,29 @@
+#{extends "Administration/main.html" /}
+#{set title: item /}
+
+#{secure.check "admin"}
+<div>
+	<form action="@{Users.edit()}" method="POST">
+		<input type="hidden" name="userID" value="${item.id}" />
+		<label for="firstName">&{'models.user.firstname'}</label>
+		<input type="text" name="firstName" value="${item.firstName}" />
+		<label for="surname">&{'models.user.surname'}</label>
+		<input type="text" name="surname" value="${item.surname}" /><br />
+
+		<label for="cardNumber">&{'models.user.cardnumber'}</label>
+		<input type="text" name="cardNumber" value="${item.cardNumber}" />
+		<label for="email">&{'models.user.email'}</label>
+		<input type="text" name="email" value="${item.email}" /><br />
+
+		#{include "Common/selectCategory.html" /}
+		#{include "Common/selectRank.html" /}
+		<label for="admin">&{'models.user.admin'}</label>
+		<input type="checkbox" name="admin" #{if (item.admin)}checked#{/if}><br />
+
+		<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+		<button type="submit" name="useraction" value="reactivate" class="enter">&{'secure.resetpassword'}</button>
+		<button type="submit" name="useraction" value="delete" class="delete">&{'common.delete'}</button>
+	</form>
+	${message}
+</div>
+#{/secure.check}

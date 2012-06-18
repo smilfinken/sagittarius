@@ -1,0 +1,25 @@
+# pre-defined target colours
+
+TargetColour(1):
+  label: Odefinierad
+
+TargetColour(2):
+  label: Gul
+
+TargetColour(3):
+  label: Svart
+
+TargetColour(4):
+  label: Röd
+
+TargetColour(5):
+  label: Grön
+
+TargetColour(6):
+  label: Orange
+
+TargetColour(7):
+  label: Brun
+
+TargetColour(8):
+  label: Vit

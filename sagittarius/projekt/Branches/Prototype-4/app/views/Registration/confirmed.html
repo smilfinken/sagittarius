@@ -1,0 +1,12 @@
+#{extends "mainExt.html" /}
+#{set title: messages.get("registration.successful.title") /}
+#{ifErrors}
+	<div class="error">
+   		<h1>&{'validation.error'}</h1>
+   	</div>
+#{/ifErrors}
+<div>
+	<h1>&{'registration.successful.heading'}</h1>
+	<p>&{'registration.successful.body'}</p>
+	<p><a href="@{Secure.login}">&{'registration.link'}</a></p>
+</div>

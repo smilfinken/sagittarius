@@ -84,6 +84,7 @@ controller.registration.password=Lösenord
 controller.registration.passwordVerification=Bekräfta lösenord
 
 demo.admin=administratör
+demo.guest=gäst
 demo.heading=Vill du prova på?
 demo.loginas=Logga in som
 demo.user=användare

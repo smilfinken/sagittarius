@@ -43,7 +43,7 @@ public class Results extends Controller {
 		Competitor competitor = Competitor.findById(competitorID);
 		System.out.println(String.format("%d", results.size()));
 		if (competitor != null) {
-			competitor.results = sortScores(results);
+			competitor.results.addAll(sortScores(results));
 			competitor.save();
 		}
 		list(competitionID);

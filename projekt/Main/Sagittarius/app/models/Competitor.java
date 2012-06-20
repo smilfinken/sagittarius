@@ -24,7 +24,7 @@ public class Competitor extends Model {
 	public User user;
 	@OneToOne
 	public Division division;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Result> results;
 
 	public Competitor(User user) {
@@ -120,19 +120,20 @@ public class Competitor extends Model {
 		if (result != null && this.results.contains(result)) {
 			this.results.remove(result);
 			this.save();
-			result.delete();
+			//result.delete();
 		}
 	}
 
 	public void deleteResults() {
-		ArrayList<Long> ids = new ArrayList<>();
-		for (Result item : this.results) {
-			ids.add(item.id);
-		}
-		for (long item : ids) {
-			deleteResult(item);
-		}
-		this.results = null;
+		//ArrayList<Long> ids = new ArrayList<>();
+		//for (Result item : this.results) {
+		////ids.add(item.id);
+		//}
+		//for (long item : ids) {
+		//deleteResult(item);
+		//}
+		//this.results = null;
+		this.results.removeAll(this.results);
 		this.save();
 	}
 }

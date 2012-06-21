@@ -1,8 +1,6 @@
 #{extends 'main.html' /}
 #{set title: messages.get("common.competitions") /}
 
-<hr />
-
 #{secure.check "admin"}
 <div class="menu level2 bg_pink">
 	<ul class="menu">
@@ -12,9 +10,8 @@
 </div>
 #{/secure.check}
 
-#{secure.check "basic"}
-#{list competitions}
 <div class="menu">
+#{list competitions}
 	<ul class="menu">
 		<li>#{a @Results.list(_.id)}${_.label}#{/a}</li>
 		<li>#{a @Competitions.enroll(_.id)}&{'competitions.enroll'}#{/a}</li>
@@ -22,6 +19,5 @@
 		<li>#{a @Competitions.unroll(_.id)}&{'competitions.unroll'}#{/a}</li>
 		#{/if}
 	</ul>
-</div>
 #{/list}
-#{/secure.check}
+</div>

@@ -17,10 +17,10 @@
 	#{list competitions}
 	<ul class="menu">
 		<li>#{a @Results.list(_.id)}${_.label}#{/a}</li>
-		<li>#{a @Competitions.enroll(_.id)}&{'competitions.enroll'}#{/a}
-			#{if (_.isEnrolled(session.username))}
-		<li>#{a @Competitions.unroll(_.id)}&{'competitions.unroll'}#{/a}
-			#{/if}
+		<li>#{a @Competitions.enroll(_.id)}&{'competitions.enroll'}#{/a}</li>
+		#{if (_.isEnrolled(session.username))}
+		<li>#{a @Competitions.unroll(_.id)}&{'competitions.unroll'}#{/a}</li>
+		#{/if}
 	</ul>
 	#{/list}
 </div>

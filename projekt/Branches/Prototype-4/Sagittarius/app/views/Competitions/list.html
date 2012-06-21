@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
 #{set title: messages.get("common.competitions") /}
 
+<hr class="clear" />
 #{secure.check "admin"}
 <div class="menu level2 bg_pink">
 	<ul class="menu">
@@ -10,7 +11,6 @@
 </div>
 #{/secure.check}
 
-<br />
 <div class="menu">
 #{list competitions}
 	<ul class="menu">

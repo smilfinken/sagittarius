@@ -4,10 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.joda.time.DateTime;
 import play.db.jpa.Model;
 import play.i18n.Messages;
 
@@ -18,23 +18,27 @@ import play.i18n.Messages;
 @Entity
 public class Squad extends Model {
 
-	public int squadIndex;
+	public String label;
+	public int squadNumber;
 	public int slots;
-	@OneToMany
+	@OneToMany(mappedBy="squad")
+	@OrderBy(value="squadIndex")
 	public List<Competitor> competitors;
 
 	public Squad(int squadIndex) {
-		this.squadIndex = squadIndex;
+		this.squadNumber = squadIndex;
 		this.slots = -1;
 	}
 
-	public Squad(int squadIndex, int slots) {
-		this.squadIndex = squadIndex;
+	public Squad(String label, int squadIndex, int slots) {
+		this.label = label;
+		this.squadNumber = squadIndex;
 		this.slots = slots;
 	}
 
 	public Squad(Node squad) {
-		this.squadIndex = new Integer(squad.valueOf("@squadindex"));
+		this.label = squad.valueOf("@label");
+		this.squadNumber = new Integer(squad.valueOf("@squadnumber"));
 		this.slots = new Integer(squad.valueOf("@slots"));
 		for (Iterator it = squad.selectNodes("Competitor").iterator(); it.hasNext();) {
 			Node competitorNode = (Node) it.next();
@@ -46,12 +50,12 @@ public class Squad extends Model {
 
 	@Override
 	public String toString() {
-		return String.format("%s %d", Messages.get("squad.label"), squadIndex);
+		return String.format("%s %d (%s)", Messages.get("squad.label"), squadNumber, label);
 	}
 
 	public Element toXML() {
 		Element userElement = DocumentHelper.createElement(this.getClass().getSimpleName());
-		userElement.addAttribute("squadindex", String.format("%d", squadIndex));
+		userElement.addAttribute("squadindex", String.format("%d", squadNumber));
 		userElement.addAttribute("slots", String.format("%d", slots));
 
 		for (Competitor competitor : competitors) {

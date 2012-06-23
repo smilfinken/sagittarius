@@ -119,7 +119,7 @@ public class Stages extends Controller {
 					break;
 				case "delete":
 					if (target != null && targetGroup != null) {
-						targetGroup.deleteTarget(target.id);
+						targetGroup.deleteTarget(target);
 					}
 					break;
 			}

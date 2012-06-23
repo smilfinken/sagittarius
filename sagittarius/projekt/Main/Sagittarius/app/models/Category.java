@@ -1,12 +1,10 @@
 package models;
 
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-
 import play.db.jpa.Model;
 
 /**

@@ -180,11 +180,11 @@ public class Competitions extends Controller {
 	}
 
 	@Check("admin")
-	public static void addStage(long competitionID, String name) {
+	public static void addStage(long competitionID, String label) {
 		Competition competition = Competition.findById(competitionID);
 
 		if (competition != null) {
-			Stage stage = new Stage(1, name, competition.stages.size() + 1);
+			Stage stage = new Stage(1, label, competition.stages.size() + 1);
 			stage.save();
 			competition.stages.add(stage);
 			competition.save();

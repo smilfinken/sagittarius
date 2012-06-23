@@ -10,8 +10,12 @@
 		<input type="text" name="label" value="${competition.label}" />
 		<label for="date">&{'competitions.competitiondate'}</label>
 		<input type="text" name="date" value="${competition.date}" />
+
+		<br />
 		#{include "Common/selectCompetitionType.html" /}
 		#{include "Common/selectScoringType.html" /}
+
+		<br />
 		<button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
 		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
 	</form>
@@ -25,6 +29,7 @@
 		<tr>
 			<td>
 				<form action="@{Competitions.deleteStage()}" method="POST">
+					<input type="hidden" name="competitionID" value="${competition.id}" />
 					<input type="hidden" name="stageID" value="${stage.id}" />
 					<button class="delete" type="submit">&{'common.delete'}</button>
 					#{a @Stages.edit(competition.id, stage.id)}${stage.stageIndex} ${stage.label}#{/a}

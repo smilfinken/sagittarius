@@ -3,15 +3,11 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import play.db.jpa.Model;
-import static common.Sorting.*;
 
 /**
  *
@@ -20,28 +16,35 @@ import static common.Sorting.*;
 @Entity
 public class Competitor extends Model {
 
-	@OneToOne
+	@ManyToOne
 	public User user;
 	@OneToOne
 	public Division division;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OrderBy(value = "stageIndex")
 	public List<Result> results;
+	@ManyToOne
+	public Squad squad;
+	public int squadIndex;
 
 	public Competitor(User user) {
 		this.user = user;
 		this.results = null;
+		this.squadIndex = 0;
 	}
 
 	public Competitor(User user, Division division) {
 		this.user = user;
 		this.division = division;
 		this.results = null;
+		this.squadIndex = 0;
 	}
 
 	public Competitor(User user, Division division, List<Result> results) {
 		this.user = user;
 		this.division = division;
 		this.results = results;
+		this.squadIndex = 0;
 
 		if (results != null) {
 			for (Result result : results) {
@@ -78,7 +81,7 @@ public class Competitor extends Model {
 		competitorElement.addAttribute("user", user.toString());
 		competitorElement.addAttribute("division", division.toString());
 		competitorElement.add(user.toXML());
-		for (Iterator<Result> it = sortScores(results).iterator(); it.hasNext();) {
+		for (Iterator<Result> it = results.iterator(); it.hasNext();) {
 			Result result = it.next();
 			competitorElement.add(result.toXML());
 		}
@@ -115,24 +118,7 @@ public class Competitor extends Model {
 		return score;
 	}
 
-	public void deleteResult(long resultID) {
-		Result result = Result.findById(resultID);
-		if (result != null && this.results.contains(result)) {
-			this.results.remove(result);
-			this.save();
-			//result.delete();
-		}
-	}
-
 	public void deleteResults() {
-		//ArrayList<Long> ids = new ArrayList<>();
-		//for (Result item : this.results) {
-		////ids.add(item.id);
-		//}
-		//for (long item : ids) {
-		//deleteResult(item);
-		//}
-		//this.results = null;
 		this.results.removeAll(this.results);
 		this.save();
 	}

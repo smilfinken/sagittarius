@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import models.Competitor;
 import models.Result;
-import models.Stage;
 import models.User;
 
 /**
@@ -112,7 +111,6 @@ public class Sorting {
 	}
 
 	public static List<Competitor> sortResults(List<Competitor> competitors) {
-
 		final List<String> classOrder = Arrays.asList("J", "C", "D", "V", "B", "A", "R", "S");
 
 		class ResultListComparator implements Comparator<Competitor> {
@@ -148,38 +146,6 @@ public class Sorting {
 
 		List<Competitor> out = competitors;
 		ResultListComparator c = new ResultListComparator();
-
-		Collections.sort(out, c);
-		return out;
-	}
-
-	public static List<Result> sortScores(List<Result> scores) {
-		class ResultComparator implements Comparator<Result> {
-
-			@Override
-			public int compare(Result A, Result B) {
-				return A.stageIndex - B.stageIndex;
-			}
-		}
-
-		List<Result> out = scores;
-		ResultComparator c = new ResultComparator();
-
-		Collections.sort(out, c);
-		return out;
-	}
-
-	public static List<Stage> sortStages(List<Stage> stages) {
-
-		class StageComparator implements Comparator<Stage> {
-
-			@Override
-			public int compare(Stage A, Stage B) {
-				return A.stageIndex - B.stageIndex;
-			}
-		}
-		List<Stage> out = stages;
-		StageComparator c = new StageComparator();
 
 		Collections.sort(out, c);
 		return out;

@@ -20,6 +20,11 @@
 	text-align: 		center;
 }
 
+/* TEXT SIZE */
+.bold {
+	font-weight: 			bold;
+}
+
 /* SIZE */
 .micro {
 	width:				25px; 
@@ -41,6 +46,11 @@
 }
 .full {
 	width:				100%
+}
+
+/* BORDER */
+.border-remove-top {
+	border-top-width: 		0px !important; 
 }
 
 /* VISIBLE */

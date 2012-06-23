@@ -1,5 +1,7 @@
+@import "colors.scss";
+
 #logo a:link, #logo a:hover, #logo a:visited, #logo a:active {
-	color:					#6A9CA7;
+	color:					$color104;
 	text-decoration: 		none;
 }
 
@@ -10,7 +12,8 @@
 	bottom:				0;
 	width:				6%;
 	vertical-align: 	middle;
-	border-right: 		solid 3px lightgray;
+	border-right: 		solid 2px $color104;
+	background-color:	$color100;
 }
 #logo-text {
 	margin-right:		-10px;
@@ -18,7 +21,7 @@
 	top:				50%;
 	left:				0px;
 	right:				0px;
-	position:			absolute;	
+	position:			absolute;
 }
 .logo-font {
 	font-family:  		'Hoefler Text', Georgia, 'Times New Roman', serif;
@@ -28,7 +31,7 @@
 	line-height: 		1.1em;
 	margin:				0px;
 	text-align: 		center;
-	color: 				lightgray;
+	color:				$color2;
 }
 .tilted {
 	-webkit-transform: 	rotate(-90deg); 
@@ -36,10 +39,4 @@
 	/*display:			block;
 	filter: 			progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	*/	
-}
-#logo {
-	border-right-color: 	#EAF1F2;
-}
-.logo-font {
-	color: 					#6A9CA7;
 }

@@ -1,0 +1,59 @@
+@import "main.scss";
+@import "colors.scss";
+@import "watermark.scss";
+
+#login p {
+	margin-top:				3px;
+}
+
+/* CLASSES */
+.center-container {
+	position:				relative;
+	margin-top:				10%;
+	margin:					0px auto;
+	width:					95%;
+	max-width:				500px;	
+}
+.login-box {
+	padding:				1em 0.5em 1em 0.5em;
+	border:					solid 0px $color12;
+	text-align: 			center;
+	background-color: 		$color12;
+}
+.login-box-lower {
+	@extend .login-box;
+	background-color:		$color2;
+	text-align: 			left;
+}
+.login-box p {
+	width:					100%;
+}
+.login-label {
+	display:				inline-block;
+	font-weight:			bold;
+	text-align:				left;
+	width:					80%;
+}
+.login-input {
+	width:					80%;
+}
+
+/* ELEMENTS */
+span.error {
+	/*padding:				0.3em 0.5em 0.3em 0.5em;*/
+}
+div.error {
+	text-align:				center;
+	padding:				0.5em 0 0.5em 0;
+	font-size:				14pt;
+	font-weight:			bold;
+}
+
+/* WATERMARK OVERRIDE */
+#logo {
+	border-right: 			solid 2px $color12;
+	background-color:		$color2;
+}
+.logo-font {
+	color: 					$color12;
+}

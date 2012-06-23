@@ -5,3 +5,4 @@ require:
     - play -> crud
     - play -> pdf 0.7
     - play -> secure
+    - play -> sass 1.1

@@ -1,24 +1,16 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-
-import notifiers.RegistrationNotifier;
-import play.db.jpa.Model;
 import controllers.Security;
 import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import notifiers.RegistrationNotifier;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import play.db.jpa.Model;
 
 /**
  *
@@ -30,12 +22,13 @@ public class User extends Model {
 	public String firstName;
 	public String surname;
 	public String cardNumber;
+	@Column(unique=true)
 	public String email;
 	public String password;
 	public Date registrationDate;
 	public Date confirmationDate;
 	public boolean admin = false;
-	@OneToOne
+	@ManyToOne
 	public Rank rank;
 	@ManyToMany
 	public List<Category> categories;

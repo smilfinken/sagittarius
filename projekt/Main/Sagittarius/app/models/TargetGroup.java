@@ -20,7 +20,7 @@ public class TargetGroup extends Model {
 
 	public String label;
 	public int range;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Target> targets;
 
 	public TargetGroup() {
@@ -68,24 +68,13 @@ public class TargetGroup extends Model {
 		return targetGroupElement;
 	}
 
-	public void deleteTarget(long targetID) {
-		Target target = Target.findById(targetID);
-		if (target != null && this.targets.contains(target)) {
-			this.targets.remove(target);
-			this.save();
-			target.delete();
-		}
+	public void deleteTarget(Target target) {
+		targets.remove(target);
+		save();
 	}
 
 	public void deleteTargets() {
-		ArrayList<Long> ids = new ArrayList<>();
-		for (Target item : this.targets) {
-			ids.add(item.id);
-		}
-		for (long item : ids) {
-			deleteTarget(item);
-		}
-		this.targets = null;
-		this.save();
+		targets.removeAll(targets);
+		save();
 	}
 }

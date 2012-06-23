@@ -1,31 +1,31 @@
 #{extends "mainExt.html" /}
 #{set title: messages.get("registration.title") /}
-<div class="center box-mid center-container">
+<div class="center-container">
 	#{ifErrors}
-		<div class="error rounded-corners-top-mid-sized">
+		<div class="error rounded-corners-top">
 	   		<h1>&{'validation.error'}</h1>
 	   	</div>
 	#{/ifErrors}
-	<div class="labeled text-center padded rounded-corners-top-mid-sized bg_pink"	>
-		<form action="@{registration.doSignup()}" method="POST">
+	<form action="@{registration.doSignup()}" method="POST">
+		<div class="login-box rounded-corners-top">
 			<p>
-				<label for="firstname" class="gargantuan bold text-left">&{'models.user.firstname'}</label>
-				<input type="text" name="firstname" value="${flash.firstname}" class="gargantuan"/>
+				<label for="firstname" class="login-label">&{'models.user.firstname'}</label>
+				<input type="text" name="firstname" value="${flash.firstname}" class="login-input"/>
 				<span class="error">#{error 'firstname' /}</span>
 			</p>
 			<p>
-				<label for="surname" class="gargantuan bold text-left">&{'models.user.surname'}</label>
-				<input type="text" name="surname" value="${flash.surname}" class="gargantuan"/>
+				<label for="surname" class="login-label">&{'models.user.surname'}</label>
+				<input type="text" name="surname" value="${flash.surname}" class="login-input"/>
 				<span class="error">#{error 'surname' /}</span>
 			</p>
 			<p>
-				<label for="cardnumber" class="gargantuan bold text-left">&{'models.user.cardnumber'}</label>
-				<input type="text" name="cardnumber" value="${flash.cardnumber}" class="gargantuan"/>
+				<label for="cardnumber" class="login-label">&{'models.user.cardnumber'}</label>
+				<input type="text" name="cardnumber" value="${flash.cardnumber}" class="login-input"/>
 				<span class="error">#{error 'cardnumber' /}</span>
 			</p>
 			<p>
-				<label for="email" class="gargantuan bold text-left">&{'models.user.email'}</label>
-				<input type="text" name="email" value="${flash.email}" class="gargantuan"/>
+				<label for="email" class="login-label">&{'models.user.email'}</label>
+				<input type="text" name="email" value="${flash.email}" class="login-input"/>
 				<span class="error">#{error 'email' /}</span>
 			</p>
 			<p>
@@ -37,19 +37,24 @@
 				<span class="error">#{error 'categoryID' /}</span>
 			</p>
 			<p>
-				<label for="email" class="gargantuan bold text-left">&{'models.user.password'}</label>
-				<input type="password" name="password"" class="gargantuan"/>
+				<label for="email" class="login-label">&{'models.user.password'}</label>
+				<input type="password" name="password"" class="login-input"/>
 				<span class="error">#{error 'password' /}</span>
 			</p>
 			<p>
-				<label for="email" class="gargantuan bold text-left">&{'controller.registration.passwordVerification'}</label>
-				<input type="password" name="passwordVerification" class="gargantuan"/>
+				<label for="email" class="login-label">&{'controller.registration.passwordVerification'}</label>
+				<input type="password" name="passwordVerification" class="login-input"/>
 				<span class="error">#{error 'passwordVerification' /}</span>
 			</p>
+			<br/>
+			<p class="text-center">
+				<input type="submit" value="&{'registration.submit'}" class="bold"/>
+				<input type="button" value="&{'registration.cancel'}" onClick="location.href='@{application.index}';" class="bold"/>
+			</p>
 		</div>
-		<div class="rounded-corners-bottom-mid-sized padded top-border normal-font bg_sicklygreenish border-sicklygreenish text-center">
-			<input type="submit" value="&{'registration.submit'}"/>
-			<input type="button" value="&{'registration.cancel'}" onClick="location.href='@{application.index}';"/>
-		</form>
-	</div>
+		<div class="login-box-lower rounded-corners-bottom border-remove-top">
+			<h3>&{'signin.heading'}</h3>
+			<p>&{'signin.msg'}</p>
+		</div>
+	</form>
 </div>

@@ -1,3 +1,4 @@
+@IMPORT url("colors.scss");
 /*
     Document   : menu
     Created on : Jun 8, 2012, 11:12:52 AM
@@ -35,11 +36,15 @@ ul.menu {
 	text-decoration: 		none;
 }
 
-.menu a:hover {
+.menu a:hover, .menu a:active {
 	color: 					#fff;
 	background-color: 		#369;
 	text-decoration: 		none;
 }
+.menu a:active {
+	color:					red;
+}
+
 .border-bottom {
 	border-bottom-width: 	2px;
 }

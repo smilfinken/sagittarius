@@ -152,6 +152,9 @@ results.title=Resultat
 scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
 scoringtype.sumpointsonly=Räkna enbart poäng
 
+signin.heading=Registering
+signin.msg=Efter att du matat in uppgifterna kommer ett registreringsmail skickas till angiven mailadress. I mailet kommer vidare instruktioner för hur du aktiverar ditt konto ges. 
+
 squads.label=Patrull
 
 stages.scoring=Poängräkning

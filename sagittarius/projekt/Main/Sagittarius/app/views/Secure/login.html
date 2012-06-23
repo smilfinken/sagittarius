@@ -11,28 +11,28 @@
 		$('#signin').click();
 	}
 </script>
-<div id="login" class="center box-mid center-container">
+<div id="login" class="center-container">
 
 	#{form @authenticate()}
 
 	#{if flash.error}
-	<div class="error rounded-corners-top-mid-sized">
+	<div class="error rounded-corners-top">
 		&{flash.error}
 	</div>
 	#{/if}
 	#{if flash.success}
-	<div class="success rounded-corners-top-mid-sized">
+	<div class="success rounded-corners-top">
 		&{flash.success}
 	</div>
 	#{/if}	
-	<div class="labeled text-center padded rounded-corners-top-mid-sized bg_pink border-gray border">
+	<div class="login-box rounded-corners-top">
 		<p id="username-field">
-			<label for="username" class="gargantuan bold text-left">&{'secure.username'}</label>
-			<input type="text" name="username" id="username" value="${flash.username}" class="gargantuan"/>
+			<label for="username" class="login-label">&{'secure.username'}</label>
+			<input type="text" name="username" id="username" value="${flash.username}" class="login-input"/>
 		</p>
 		<p id="password-field">
-			<label for="password" class="gargantuan bold text-left">&{'secure.password'}</label>
-			<input type="password" name="password" id="password" value="" class="gargantuan"/>
+			<label for="password" class="login-label">&{'secure.password'}</label>
+			<input type="password" name="password" id="password" value="" class="login-input"/>
 		</p>
 		<p id="remember-field" class="text-center bold">
 			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
@@ -44,7 +44,7 @@
 		</p>
 	</div>
 	#{/form}
-	<div class="rounded-corners-bottom-mid-sized padded top-border normal-font bg_sicklygreenish border-gray border border-except-top">
+	<div class="login-box-lower rounded-corners-bottom border-remove-top">
 
 		<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
 		<p>

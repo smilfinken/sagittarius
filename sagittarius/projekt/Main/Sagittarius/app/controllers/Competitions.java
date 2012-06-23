@@ -1,27 +1,20 @@
 package controllers;
 
+import static common.Sorting.*;
+import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import models.Category;
-import models.Competition;
-import models.CompetitionType;
-import models.Competitor;
-import models.Division;
-import models.Rank;
-import models.ScoringType;
-import models.Stage;
-import models.User;
-import play.mvc.Controller;
-import play.mvc.With;
-import static common.Sorting.*;
-import java.io.File;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.dom4j.*;
+import models.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
+import play.mvc.Controller;
+import play.mvc.With;
 
 /**
  *
@@ -49,7 +42,7 @@ public class Competitions extends Controller {
 		flash.put("competitionTypeID", competition.competitionType.id);
 		List<ScoringType> scoringTypes = ScoringType.all().fetch();
 		flash.put("scoringTypeID", competition.scoringType.id);
-		renderTemplate("Competitions/edit.html", competition, competitionTypes, scoringTypes, sortStages(competition.stages));
+		renderTemplate("Competitions/edit.html", competition, competitionTypes, scoringTypes, competition.stages);
 	}
 
 	@Check("admin")

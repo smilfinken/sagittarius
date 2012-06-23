@@ -1,18 +1,15 @@
 package models;
 
+import static common.Sorting.sortCompetitors;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import play.db.jpa.Model;
-import static common.Sorting.*;
 
 /**
  *
@@ -28,6 +25,7 @@ public class Competition extends Model {
 	@OneToOne
 	public ScoringType scoringType;
 	@OneToMany(cascade = CascadeType.ALL)
+	@OrderBy(value = "stageIndex")
 	public List<Stage> stages;
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Competitor> competitors;
@@ -101,7 +99,7 @@ public class Competition extends Model {
 			competitionElement.add(competitor.toXML());
 		}
 
-		for (Iterator<Stage> it = sortStages(stages).iterator(); it.hasNext();) {
+		for (Iterator<Stage> it = stages.iterator(); it.hasNext();) {
 			Stage stage = it.next();
 			competitionElement.add(stage.toXML());
 		}

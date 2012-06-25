@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import play.db.jpa.Model;
@@ -12,6 +13,7 @@ import play.i18n.Messages;
 @Entity
 public class TargetClass extends Model {
 
+	@Column(nullable = false)
 	public String classification;
 	public int maximumRange;
 	@OneToOne

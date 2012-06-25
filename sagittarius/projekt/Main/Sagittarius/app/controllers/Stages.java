@@ -27,9 +27,9 @@ public class Stages extends Controller {
 			double timings[] = common.Timings.getExtremes(stageID, 1);
 			String minTime = String.format("%.1f", timings[0]);
 			String maxTime = String.format("%.1f", timings[1]);
-			renderTemplate("Stages/edit.html", competition, stage, targetShapes, targetColours, startingPositions, minTime, maxTime);
+			render(competition, stage, targetShapes, targetColours, startingPositions, minTime, maxTime);
 		} catch (Exception e) {
-			renderTemplate("Stages/edit.html", competition, stage, targetShapes, targetColours, startingPositions);
+			render(competition, stage, targetShapes, targetColours, startingPositions);
 		}
 	}
 

@@ -35,13 +35,13 @@ public class Registration extends Controller {
 
 		Rank rank = Rank.findById(rankID);
 		Category category = Category.findById(categoryID);
-		User user = new User(firstname, surname, cardnumber, rank, Arrays.asList(category), email, password);
+		User user = new User(firstname, surname, cardnumber, email, rank, Arrays.asList(category), password);
 		if (user.create()) {
 			user.sendRegistration();
 			render();
 		}
 	}
-	
+
 	public static void confirm(@Required String hash, @Required String email) {
 		User user = User.find("byEmail", email).first();
 		if (user != null && user.confirmRegistration(hash)) {

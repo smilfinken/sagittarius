@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import play.db.jpa.Model;
@@ -12,6 +13,7 @@ import play.db.jpa.Model;
 @Entity
 public class Division extends Model {
 
+	@Column(nullable = false, unique = true)
 	public String label;
 	@ManyToMany
 	public List<CompetitionType> competitionTypes;

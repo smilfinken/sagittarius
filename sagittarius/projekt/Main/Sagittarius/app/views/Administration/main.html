@@ -2,7 +2,7 @@
 #{set title: messages.get('administration.title') /}
 
 #{secure.check "admin"}
-<hr class="clear" />
+<br class="clear" />
 <div class="menu">
 	<ul class="menu">
 		<li>#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
@@ -23,4 +23,5 @@
 </div>
 #{/secure.check}
 
+<br class="clear" />
 #{doLayout /}

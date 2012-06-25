@@ -27,24 +27,28 @@ Rank(rank3):
 User(userJunior):
         firstName: Young
         surname: Shooter
+        email: young@shooter
         rank: rank1
         category: categoryJunior
 
 User(userAdult):
         firstName: Sharp
         surname: Shooter
+        email: adult@shooter
         rank: rank2
         category: categoryAdult
 
 User(userLady):
         firstName: Girl
         surname: Shooter
+        email: girl@shooter
         rank: rank3
         category: categoryLady
 
 User(userSenior):
         firstName: Old
         surname: Shooter
+        email: old@shooter
         rank: rank3
         category: categorySenior
 

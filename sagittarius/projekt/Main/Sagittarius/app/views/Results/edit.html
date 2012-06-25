@@ -1,9 +1,10 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get('common.changeobject', 'Resultat') /}
 
-<hr class="clear" />
-
+<br class="clear" />
 &{'results.editlabel', competitor?.toString(), competitor?.getDivisionAsString()}
+
+<br class="clear" />
 <form action="@{Results.edit}" method="POST" autocomplete="off">
 	<input type="hidden" name="competitionID" value="${competition.id}" />
 	<input type="hidden" name="competitorID" value="${competitor.id}" />
@@ -14,16 +15,23 @@
 				<input type="hidden" name="newResults[${_index-1}].stageIndex" value="${_.stageIndex}" />
 				<div style="text-align: center; clear: all">Station ${_index}</div>
 				<label for="newResults[${_index-1}].hits">&{'results.hits'}</label>
-				<input class="scoring" type="text" size="2" maxlength="1" name="newResults[${_index-1}].hits" value="${_.hits}" /><br />
+				<input class="scoring" type="text" size="2" maxlength="1" name="newResults[${_index-1}].hits" value="${_.hits}" />
+
+				<br />
 				<label for="newResults[${_index-1}].targets">&{'results.targets'}</label>
-				<input class="scoring" type="text" size="2" maxlength="1" name="newResults[${_index-1}].targets" value="${_.targets}" /><br />
+				<input class="scoring" type="text" size="2" maxlength="1" name="newResults[${_index-1}].targets" value="${_.targets}" />
+
+				<br />
 				#{if (competition.stages[_index-1].hasPoints())}
 				<label for="newResults[${_index-1}].points">&{'results.points'}</label>
-				<input class="scoring" type="text" size="2" maxlength="2" name="newResults[${_index-1}].points" value="${_.points}" /><br />
+				<input class="scoring" type="text" size="2" maxlength="2" name="newResults[${_index-1}].points" value="${_.points}" />
 				#{/if}
 			</td>
 			#{/list}
 		</tr>
 	</table>
-	<button type="submit" name="useraction" value="save">&{'common.save'}</button>
+
+	<br />
+	<button type="submit" class="enter" name="useraction" value="save">&{'common.save'}</button>
+	<button type="submit" class="delete" name="useraction" value="delete">&{'common.delete'}</button>
 </form>

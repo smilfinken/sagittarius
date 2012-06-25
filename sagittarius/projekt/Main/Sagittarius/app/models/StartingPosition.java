@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import play.db.jpa.Model;
@@ -11,6 +12,7 @@ import play.db.jpa.Model;
 @Entity
 public class StartingPosition extends Model {
 
+	@Column(nullable = false, unique = true)
 	public String label;
 	public String description;
 	@ManyToOne

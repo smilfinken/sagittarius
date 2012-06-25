@@ -11,10 +11,10 @@ public class ResultTest extends UnitTest {
 
 	@Test
 	public void ResultComparatorTest() {
-		User userFirst = new User("First", "Shooter");
-		User userSecond = new User("Second", "Shooter");
-		User userThird = new User("Third", "Shooter");
-		User userFourth = new User("Fourth", "Shooter");
+		User userFirst = new User("First", "Shooter", "first@shooter");
+		User userSecond = new User("Second", "Shooter", "second@shooter");
+		User userThird = new User("Third", "Shooter", "third@shooter");
+		User userFourth = new User("Fourth", "Shooter", "fourth@shooter");
 
 		Category category = new Category("J");
 		userFirst.categories = Arrays.asList(category);

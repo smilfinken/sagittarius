@@ -1,0 +1,16 @@
+#{extends 'Competitions/main.html' /}
+#{set title: messages.get("competitions.enrollment") /}
+
+<br class="clear" />
+<div class="menu">
+	<ul class="menu">
+		#{list availableDivisions}
+		<li>#{a @Competitions.enroll(competition.id, _.id, "enroll")}&{'competitions.enroll'} ${_.label}#{/a}</li>
+		#{/list}
+	</ul>
+	<ul>
+		#{list enrolledDivisions}
+		<li>#{a @Competitions.enroll(competition.id, _.id, "unroll")}&{'competitions.unroll'} ${_.label}#{/a}</li>
+		#{/list}
+	</ul>
+</div>

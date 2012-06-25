@@ -1,9 +1,9 @@
 package models;
 
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import play.db.jpa.Model;
 
 /**
@@ -13,6 +13,7 @@ import play.db.jpa.Model;
 @Entity
 public class TargetShape extends Model {
 
+	@Column(nullable = false, unique = true)
 	public String label;
 	public int classification;
 	public boolean scoring;

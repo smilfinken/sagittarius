@@ -18,7 +18,7 @@ public class Competitor extends Model {
 
 	@ManyToOne
 	public User user;
-	@OneToOne
+	@ManyToOne
 	public Division division;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderBy(value = "stageIndex")
@@ -116,6 +116,12 @@ public class Competitor extends Model {
 		}
 
 		return score;
+	}
+
+	public void addResults(List<Result> results) {
+		deleteResults();
+		this.results.addAll(results);
+		this.save();
 	}
 
 	public void deleteResults() {

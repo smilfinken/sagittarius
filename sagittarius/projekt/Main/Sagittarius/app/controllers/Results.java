@@ -24,61 +24,42 @@ public class Results extends Controller {
 
 	public static void list(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> allcompetitors = competition.competitors;
 
-		List<Competitor> competitors = new ArrayList<>();
-		List<Competitor> results = new ArrayList<>();
-		for (Competitor competitor : allcompetitors) {
-			if (!competitor.isScored()) {
-				competitors.add(competitor);
-			} else {
-				results.add(competitor);
-			}
-		}
-
-		renderTemplate("Results/list.html", competition, sortResults(results), sortCompetitors(competitors));
+		List<Competitor> competitors = competition.getUnScoredCompetitors();
+		List<Competitor> results = competition.getScoredCompetitors();
+		render(competition, sortResults(results), sortCompetitors(competitors));
 	}
 
 	public static void add(long competitionID, long competitorID, List<Result> results) {
 		Competitor competitor = Competitor.findById(competitorID);
-		System.out.println(String.format("%d", results.size()));
-		if (competitor != null) {
-			competitor.results.addAll(results);
-			competitor.save();
-		}
-		list(competitionID);
-	}
 
-	public static void delete(long competitionID, long competitorID) {
-		Competitor competitor = Competitor.findById(competitorID);
 		if (competitor != null) {
-			competitor.deleteResults();
+			competitor.addResults(results);
 		}
+
 		list(competitionID);
 	}
 
 	public static void edit(long competitionID, long competitorID, List<Result> newResults, String useraction) {
 		Competition competition = Competition.findById(competitionID);
 		Competitor competitor = Competitor.findById(competitorID);
-		Result[] results = null;
 
 		if (competitor != null) {
 			if (params._contains("useraction")) {
 				switch (useraction) {
 					case "save":
-						if (newResults != null && newResults.size() == competitor.results.size()) {
-							competitor.deleteResults();
-							competitor.results.addAll(newResults);
-							competitor.save();
-						}
+						competitor.addResults(newResults);
+						list(competitionID);
+						break;
+					case "delete":
+						competitor.deleteResults();
 						list(competitionID);
 						break;
 				}
 			}
-			results = competitor.results.toArray(new Result[competitor.results.size()]);
 		}
 
-		render(competition, competitor, results);
+		render(competition, competitor);
 	}
 
 	public static void export(long competitionID) throws IOException {
@@ -183,13 +164,7 @@ public class Results extends Controller {
 
 	public static void generatePDF(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> results = sortResults(competition.competitors);
-		List<Competitor> competitors = new ArrayList<>();
-		for (Competitor competitor : results) {
-			if (!competitor.isScored()) {
-				competitors.add(competitor);
-			}
-		}
+		List<Competitor> results = sortResults(competition.getScoredCompetitors());
 
 		Date currentDate = new Date();
 		String timeStamp = String.format("%s %s", DateFormat.getDateInstance(DateFormat.LONG).format(currentDate), DateFormat.getTimeInstance(DateFormat.SHORT).format(currentDate));
@@ -199,34 +174,6 @@ public class Results extends Controller {
 		options.HEADER_TEMPLATE = "Results/header.html";
 		options.FOOTER_TEMPLATE = "Results/footer.html";
 		options.FOOTER = "public/stylesheets/results.css";
-		renderPDF("Results/print.html", options, competition, results, sortCompetitors(competitors), timeStamp);
-	}
-
-	public static void unregisterUser(long competitionID, long competitorID) {
-		Competition competition = Competition.findById(competitionID);
-		if (competition != null) {
-			competition.deleteCompetitor(competitorID);
-		}
-
-		list(competitionID);
-	}
-
-	public static void addUser(long competitionID, String firstName, String surname, long rankID, long categoryID, long divisionID) {
-		Competition competition = Competition.findById(competitionID);
-
-		if (firstName.length() > 0 && surname.length() > 0) {
-			competition.willBeSaved = true;
-			Rank rank = Rank.findById(rankID);
-			Category category = Category.findById(categoryID);
-			User user = new User(firstName, surname, rank, Arrays.asList(category));
-			user.save();
-
-			Division division = Division.findById(divisionID);
-			Competitor competitor = new Competitor(user, division);
-			competitor.willBeSaved = true;
-			competition.competitors.add(competitor);
-		}
-
-		list(competitionID);
+		renderPDF("Results/print.html", options, competition, results, timeStamp);
 	}
 }

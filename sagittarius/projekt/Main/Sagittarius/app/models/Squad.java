@@ -2,6 +2,7 @@ package models;
 
 import java.util.Iterator;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -19,10 +20,11 @@ import play.i18n.Messages;
 public class Squad extends Model {
 
 	public String label;
+	@Column(nullable = false)
 	public int squadNumber;
 	public int slots;
-	@OneToMany(mappedBy="squad")
-	@OrderBy(value="squadIndex")
+	@OneToMany(mappedBy = "squad")
+	@OrderBy(value = "squadIndex")
 	public List<Competitor> competitors;
 
 	public Squad(int squadIndex) {
@@ -50,7 +52,11 @@ public class Squad extends Model {
 
 	@Override
 	public String toString() {
-		return String.format("%s %d (%s)", Messages.get("squad.label"), squadNumber, label);
+		if (label != null && label.length() != 0) {
+			return String.format("%s %d (%s)", Messages.get("squad.label"), squadNumber, label);
+		} else {
+			return String.format("%s %d", Messages.get("squad.label"), squadNumber);
+		}
 	}
 
 	public Element toXML() {

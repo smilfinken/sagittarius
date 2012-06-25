@@ -25,9 +25,10 @@
 		}
 	};
 </script>
-<hr class="clear" />
+
+<br class="clear" />
 <div>
-	<form action="@{Competitions.registerUser()}" method="POST">
+	<form action="@{Competitions.enrollUser()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		#{include "Common/selectUser.html" /}
 		#{include "Common/selectDivision.html" /}
@@ -35,8 +36,7 @@
 	</form>
 </div>
 
-<hr class="clear" />
-
+<br class="clear" />
 <div>
 	<form action="@{Users.add()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -44,14 +44,20 @@
 		<input type="text" name="firstName" />
 		<label for="surname">&{'models.user.surname'}</label>
 		<input type="text" name="surname" />
+		<label for="email">&{'models.user.email'}</label>
+		<input type="text" name="email" />
+
+		<br />
 		#{include "Common/selectCategory.html" /}
 		#{include "Common/selectRank.html" /}
+
+		<br />
 		<button class="enter" type="submit">&{'competitors.createuser'}</button>
 	</form>
 </div>
 #{/secure.check}
 
-<hr class="clear" />
+<br class="clear" />
 <div class="multicolumn-block-4col">
 	#{list competitors}
 	<div>

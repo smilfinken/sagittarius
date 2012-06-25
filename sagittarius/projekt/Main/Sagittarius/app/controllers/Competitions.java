@@ -42,7 +42,7 @@ public class Competitions extends Controller {
 		flash.put("competitionTypeID", competition.competitionType.id);
 		List<ScoringType> scoringTypes = ScoringType.all().fetch();
 		flash.put("scoringTypeID", competition.scoringType.id);
-		renderTemplate("Competitions/edit.html", competition, competitionTypes, scoringTypes, competition.stages);
+		render(competition, competitionTypes, scoringTypes, competition.stages);
 	}
 
 	@Check("admin")
@@ -93,7 +93,7 @@ public class Competitions extends Controller {
 				case "delete":
 					competition = Competition.findById(competitionID);
 					if (competition != null) {
-						competition.deleteCompetitors();
+						competition.clearCompetitors();
 						competition.deleteStages();
 						competition.delete();
 					}
@@ -115,68 +115,46 @@ public class Competitions extends Controller {
 
 	public static void competitors(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-		List<Competitor> competitors = competition.competitors;
+		List<Competitor> competitors = sortCompetitors(competition.competitors);
 		List<User> users = User.all().fetch();
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
 
-		render(competition, sortCompetitors(competitors), sortUsers(users), categories, ranks, divisions);
+		render(competition, competitors, sortUsers(users), categories, ranks, divisions);
 	}
 
-	public static void enroll(long competitionID, long divisionID) {
+	public static void enrollment(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
+
 		User user = User.find("byEmail", session.get("username")).first();
-		//List<Division> divisions = Division.find("byCategories", user.categories).fetch();
-
-		if (params._contains("divisionID")) {
-			Division division = Division.findById(divisionID);
-			Competitor competitor = new Competitor(user, division);
-			competition.competitors.add(competitor);
-			competition.save();
-		}
-
-		List<Division> divisions = new ArrayList<>();
-		List<Division> allDivisions = Division.all().fetch();
-		for (Category category : user.categories) {
-			for (Division division : allDivisions) {
-				if (division.categories.contains(category) && !divisions.contains(division) && !competition.isEnrolled(user.email, division.id)) {
-					divisions.add(division);
-				}
-			}
-		}
-
-		render(competition, divisions);
+		List<Division> availableDivisions = competition.getAvailableEntries(user);
+		List<Division> enrolledDivisions = competition.getEnrolledEntries(user);
+		render(competition, availableDivisions, enrolledDivisions);
 	}
 
-	public static void unroll(long competitionID, long divisionID) {
+	public static void enroll(long competitionID, long divisionID, String useraction) {
 		Competition competition = Competition.findById(competitionID);
 		User user = User.find("byEmail", session.get("username")).first();
+		Division division = Division.findById(divisionID);
 
-		if (params._contains("divisionID")) {
-			Competitor competitor = null;
-			for (Competitor candidate : competition.competitors) {
-				if (candidate.division.id == divisionID) {
-					competitor = candidate;
-				}
-			}
-			if (competitor != null) {
-				competition.competitors.remove(competitor);
-				competition.save();
-				competitor.delete();
+		if (params._contains("useraction")) {
+			switch (useraction) {
+				case "enroll":
+					if (user != null && division != null) {
+						Competitor competitor = new Competitor(user, division);
+						competition.enrollCompetitor(competitor);
+					}
+					break;
+				case "unroll":
+					if (user != null && division != null) {
+						competition.unrollUser(user, division);
+					}
+					break;
 			}
 		}
 
-		List<Division> divisions = new ArrayList<>();
-		List<Division> allDivisions = Division.all().fetch();
-		for (Category category : user.categories) {
-			for (Division division : allDivisions) {
-				if (division.categories.contains(category) && !divisions.contains(division) && competition.isEnrolled(user.email, division.id)) {
-					divisions.add(division);
-				}
-			}
-		}
-		renderTemplate("Competitions/enroll.html", competition, divisions);
+		enrollment(competitionID);
 	}
 
 	@Check("admin")
@@ -205,7 +183,7 @@ public class Competitions extends Controller {
 	}
 
 	@Check("admin")
-	public static void registerUser(long competitionID, long userID, long divisionID) {
+	public static void enrollUser(long competitionID, long userID, long divisionID) {
 		Competition competition = Competition.findById(competitionID);
 		User user = User.findById(userID);
 		Division division = Division.findById(divisionID);
@@ -216,17 +194,6 @@ public class Competitions extends Controller {
 			competitor.save();
 			competition.competitors.add(competitor);
 			competition.save();
-		}
-
-		competitors(competitionID);
-	}
-
-	@Check("admin")
-	public static void unregisterUser(long competitionID, long competitorID) {
-		Competition competition = Competition.findById(competitionID);
-
-		if (competition != null) {
-			competition.deleteCompetitor(competitorID);
 		}
 
 		competitors(competitionID);

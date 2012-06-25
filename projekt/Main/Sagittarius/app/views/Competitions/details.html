@@ -2,7 +2,7 @@
 #{set title: messages.get("common.changeobject", competition.label)  /}
 
 #{secure.check "admin"}
-<hr class="clear" />
+<br class="clear" />
 <div>
 	<form action="@{Competitions.edit()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -21,8 +21,17 @@
 	</form>
 </div>
 
+<br class="clear" />
+#{secure.check "admin"}
+<div class="menu">
+	<ul class="menu">
+		<li>#{a @Results.exportXML(competition.id)}&{'export.destination.file', messages.get('export.format.xml')}#{/a}</li>
+	</ul>
+</div>
+#{/secure.check}
+
 #{if (competition.hasStages())}
-<hr class="clear" />
+<br class="clear" />
 <div>
 	<table>
 		#{list competition.stages, as:'stage'}

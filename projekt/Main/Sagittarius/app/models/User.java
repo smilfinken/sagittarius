@@ -21,9 +21,9 @@ public class User extends Model {
 
 	public String firstName;
 	public String surname;
-	public String cardNumber;
-	@Column(unique=true)
+	@Column(unique = true, nullable = false)
 	public String email;
+	public String cardNumber;
 	public String password;
 	public Date registrationDate;
 	public Date confirmationDate;
@@ -33,24 +33,26 @@ public class User extends Model {
 	@ManyToMany
 	public List<Category> categories;
 
-	public User(String firstName, String surname) {
+	public User(String firstName, String surname, String email) {
 		this.firstName = firstName;
 		this.surname = surname;
+		this.email = email;
 	}
 
-	public User(String firstName, String surname, String cardNumber, Rank rank, List<Category> categories, String email, String password) {
+	public User(String firstName, String surname, String cardNumber, String email, Rank rank, List<Category> categories, String password) {
 		this.firstName = firstName;
 		this.surname = surname;
+		this.email = email;
 		this.cardNumber = cardNumber;
 		this.rank = rank;
 		this.categories = categories;
-		this.email = email;
 		this.password = Security.hashPassword(password);
 	}
 
-	public User(String firstName, String surname, Rank rank, List<Category> categories) {
+	public User(String firstName, String surname, String email, Rank rank, List<Category> categories) {
 		this.firstName = firstName;
 		this.surname = surname;
+		this.email = email;
 		this.rank = rank;
 		this.categories = categories;
 	}
@@ -60,6 +62,9 @@ public class User extends Model {
 		this.surname = user.valueOf("@surname");
 		this.cardNumber = user.valueOf("@cardnumber");
 		this.email = user.valueOf("@email");
+		if (this.email == null || this.email.length() == 0) {
+			this.email = String.format("%s.%s@%s", firstName, surname, surname);
+		}
 		this.rank = Rank.find("byLabel", user.valueOf("@rank")).first();
 		this.categories = new ArrayList<>();
 		for (Iterator it = user.selectNodes("Category").iterator(); it.hasNext();) {

@@ -1,4 +1,4 @@
-'<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 	<head>
@@ -21,23 +21,20 @@
 			<div class="left bg_bluegray full border-bottom border-pink">
 				<div class="right">
 					<span class="currentuser">
-						Inloggad som: ${session.username}
+						Inloggad som: #{a @Users.profile()}${session.username}#{/a}
 					</span>
 				</div>
 				<div class="menu" class="left">
-					<ul class="menu level1 rounded-corners-mid-sized" class="bg_main">
-						<li class="rounded-corners-mid-sized">
-							<div class="rounded-corners-mid-sized">
-								#{a @Competitions.list()}&{'common.competitions'}#{/a}
-							</div>
-						</li>
+					<ul class="menu level1 rounded-corners-mid-sized bg_main">
+						<li>#{a @Application.index()}&{'navigation.start'}#{/a}</li>
+						<li>#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
 						#{secure.check "admin"}
 						<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
 						#{/secure.check}
 						<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
 						<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
 					</ul>
-				</div>			
+				</div>
 			</div>
 
 			#{doLayout /}

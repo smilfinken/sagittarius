@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import org.dom4j.DocumentHelper;
@@ -14,6 +15,7 @@ import play.db.jpa.Model;
 @Entity
 public class Category extends Model {
 
+	@Column(nullable = false, unique = true)
 	public String label;
 	@ManyToMany(mappedBy = "categories")
 	public List<Division> divisions;

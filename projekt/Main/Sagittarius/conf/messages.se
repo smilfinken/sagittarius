@@ -95,7 +95,7 @@ divisions.competitiontypes=Tävlingstyper
 export.application.shooter=Shooter
 export.destination.file=Export (%s)
 export.destination.integration=Exportera till %s
-export.destination.print=Utskrift
+export.destination.print=Skriv ut
 export.format.csv=CSV
 export.format.xml=XML
 export.heading.competitorname=Namn
@@ -122,6 +122,7 @@ navigation.nextstage=Nästa station
 navigation.parameters=Parametrar (debug)
 navigation.previousstage=Föregående station
 navigation.profile=Profil
+navigation.start=Startsidan
 navigation.tocompetition=Tillbaks till tävlingen
 
 notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
@@ -153,7 +154,7 @@ scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
 scoringtype.sumpointsonly=Räkna enbart poäng
 
 signin.heading=Registering
-signin.msg=Efter att du matat in uppgifterna kommer ett registreringsmail skickas till angiven mailadress. I mailet kommer vidare instruktioner för hur du aktiverar ditt konto ges. 
+signin.msg=Efter att du matat in uppgifterna kommer ett registreringsmail skickas till angiven mailadress. I mailet kommer vidare instruktioner för hur du aktiverar ditt konto ges.
 
 squads.label=Patrull
 

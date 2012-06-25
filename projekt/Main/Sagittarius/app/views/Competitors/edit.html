@@ -1,7 +1,7 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get('common.changeobject', 'anmälan') /}
 
-<hr class="clear" />
+<br class="clear" />
 <form action="@{Competitors.edit}" method="POST" autocomplete="off">
 	<input type="hidden" name="competitionID" value="${competition.id}" />
 	<input type="hidden" name="competitorID" value="${competitor.id}" />

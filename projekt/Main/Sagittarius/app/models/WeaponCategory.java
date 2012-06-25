@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import play.db.jpa.Model;
 
@@ -9,7 +10,9 @@ import play.db.jpa.Model;
  */
 @Entity
 public class WeaponCategory extends Model{
+	@Column(nullable=false)
 	public String label;
+	@Column(nullable=false)
 	public String shortLabel;
 	public double shotInterval;
 

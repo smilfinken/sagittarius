@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -13,7 +14,6 @@ import play.db.jpa.Model;
 @Entity
 public class Result extends Model {
 
-	//TODO: add stage id or index to ensure correctness
 	public int stageIndex;
 	public int hits;
 	public int targets;

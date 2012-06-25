@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -36,24 +37,19 @@ public class Users extends Controller {
 	}
 
 	@Check("admin")
-	public static void add(long competitionID, String firstName, String surname, long categoryID, long rankID) {
-		Competition competition = Competition.findById(competitionID);
+	public static void add(long competitionID, String firstName, String surname, @Required String email, long categoryID, long rankID) {
 		Category category = Category.findById(categoryID);
 		Rank rank = Rank.findById(rankID);
 		long userID = -1;
 
 		if (firstName != null && surname != null && category != null && rank != null) {
-			User user = new User(firstName, surname, rank, Arrays.asList(category));
+			User user = new User(firstName, surname, email, rank, Arrays.asList(category));
 			user.save();
 			userID = user.id;
 		}
 
-		List<User> users = User.all().fetch();
-		List<Competitor> competitors = competition.competitors;
-		List<Category> categories = Category.all().fetch();
-		List<Rank> ranks = Rank.all().fetch();
-		List<Division> divisions = Division.all().fetch();
-		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
+		flash.put("userID", userID);
+		Competitions.competitors(competitionID);
 	}
 
 	@Check("admin")
@@ -113,9 +109,7 @@ public class Users extends Controller {
 						item.categories = Arrays.asList((Category) Category.findById(categoryID));
 						item.save();
 
-						List<Competition> competitions = Competition.all().fetch();
-						List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
-						renderTemplate("Application/index.html", competitions, competitionTypes);
+						Application.index();
 						break;
 				}
 			}
@@ -126,23 +120,6 @@ public class Users extends Controller {
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		render(item, categories, ranks);
-	}
-
-	@Check("admin")
-	public static void delete(long competitionID, long userID) {
-		Competition competition = Competition.findById(competitionID);
-		User user = User.findById(userID);
-
-		if (user != null) {
-			user.delete();
-		}
-
-		List<User> users = User.all().fetch();
-		List<Competitor> competitors = competition.competitors;
-		List<Category> categories = Category.all().fetch();
-		List<Rank> ranks = Rank.all().fetch();
-		List<Division> divisions = Division.all().fetch();
-		renderTemplate("Competitions/competitors.html", competition, common.Sorting.sortUsers(users), common.Sorting.sortCompetitors(competitors), categories, ranks, divisions, userID);
 	}
 
 	private static Document parseXML(File file) throws DocumentException {

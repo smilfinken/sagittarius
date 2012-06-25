@@ -1,7 +1,5 @@
 package controllers;
 
-import static common.Sorting.sortCompetitors;
-import static common.Sorting.sortUsers;
 import java.util.List;
 import java.util.Set;
 import models.*;
@@ -37,16 +35,10 @@ public class Competitors extends Controller {
 							competitor.save();
 
 							Competitions.competitors(competitionID);
-							//List<Competitor> competitors = competition.competitors;
-							//List<User> users = User.all().fetch();
-							//List<Category> categories = Category.all().fetch();
-							//List<Rank> ranks = Rank.all().fetch();
-							//List<Division> divisions = Division.all().fetch();
-							//renderTemplate("Competitions/competitors.html", competition, sortCompetitors(competitors), sortUsers(users), categories, ranks, divisions);
 						}
 						break;
 					case "delete":
-						competition.deleteCompetitor(competitor.id);
+						competition.unrollCompetitor(competitor);
 						Competitions.competitors(competitionID);
 						break;
 				}

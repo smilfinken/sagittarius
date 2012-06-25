@@ -3,6 +3,7 @@
 
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
+<br class="clear" />
 <div class="padded">
 	<form action="@{Results.add()}" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -16,14 +17,22 @@
 				#{list items:competition.stages}
 				<td class="scoring">
 					<input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
-					<div style="text-align: center; clear: all">Station ${_.stageIndex}</div>
+					<span style="text-align: center; clear: all">Station ${_.stageIndex}</span>
+
+					<br />
 					<label for="results[${_.stageIndex - 1}].hits">&{'results.hits'}</label>
-					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" /><br />
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" />
+
+					<br />
 					<label for="results[${_.stageIndex - 1}].targets">&{'results.targets'}</label>
-					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" /><br />
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" />
+
+					<br />
 					#{if (_.hasPoints())}
 					<label for="results[${_.stageIndex - 1}].points">&{'results.points'}</label>
-					<input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" /><br />
+					<input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" />
+
+					<br />
 					#{/if}
 				</td>
 				#{/list}
@@ -44,17 +53,18 @@
 #{/else}
 
 #{if (results?.size() > 0)}
-<hr class="clear" />
+<br class="clear" />
 <div class="menu">
 	<ul class="menu">
 		<li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.destination.print'}</a></li>
+		#{secure.check "admin"}
 		<li>#{a @Results.export(competition.id)}&{'export.destination.file', messages.get('export.format.csv')}#{/a}</li>
-		<li>#{a @Results.exportXML(competition.id)}&{'export.destination.file', messages.get('export.format.xml')}#{/a}</li>
 		<li>#{a @Results.exportToShooter(competition.id)}&{'export.destination.integration', messages.get('Shooter')}#{/a}</li>
+		#{/secure.check}
 	</ul>
 </div>
 
-<hr class="clear" />
+<br class="clear" />
 <div>
 	%{
 	int totalHits;
@@ -113,15 +123,6 @@
 			<td>
 				${totalHits}/${totalTargets}
 				<span style="font-weight: bold">${totalHits + totalTargets} (${totalPoints})</span>
-			</td>
-			<td>
-				#{secure.check "admin"}
-				<form action="@{Results.delete()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="competitorID" value="${entry.id}" />
-					<button class="delete" type="submit">&{'common.delete'}</button>
-				</form>
-				#{/secure.check}
 			</td>
 		</tr>
 		%{

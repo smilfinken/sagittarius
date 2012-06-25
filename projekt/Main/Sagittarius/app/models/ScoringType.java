@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import play.db.jpa.Model;
 
@@ -10,6 +11,7 @@ import play.db.jpa.Model;
 @Entity
 public class ScoringType extends Model {
 
+	@Column(nullable = false, unique = true)
 	public String label;
 	public boolean sumPointsAndTargets;
 	public boolean sumPointsOnly;

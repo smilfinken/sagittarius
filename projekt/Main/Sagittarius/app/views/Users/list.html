@@ -9,8 +9,8 @@
 	#{/list}
 </div>
 
-<br class="clear"/>
 #{secure.check "admin"}
+<br class="clear"/>
 <div>
 	<form action="@{Users.importUsers()}" method="POST" enctype="multipart/form-data">
 		<input type="file" name="file" />

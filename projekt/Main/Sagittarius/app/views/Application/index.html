@@ -1,15 +1,25 @@
 #{extends 'main.html' /}
 #{set title: messages.get("application.name") /}
 
-#{secure.check "basic"}
-<p>Dina anmälningar:</p>
-<p>...</p>
-<p>...</p>
-#{/secure.check}
+Tävlingar du eventuellt är anmäld till:
+#{if (entries?.size() != 0)}
+<div class="menu">
+	#{list entries}
+	<ul class="menu">
+		<li>#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
+	</ul>
+	#{/list}
+</div>
+#{/if}
 
-#{secure.check "admin"}
-<br />
-<p>Tävlingar du administrerar:</p>
-<p>...</p>
-<p>...</p>
-#{/secure.check}
+#{if (competitions?.size() != 0)}
+<br class="clear" />
+Tävlingar du administrerar:
+<div class="menu">
+	#{list competitions}
+	<ul class="menu">
+		<li>#{a @Competitions.details(_.id)}${_.label} (${_.date})#{/a}</li>
+	</ul>
+	#{/list}
+</div>
+#{/if}

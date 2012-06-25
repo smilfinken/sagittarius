@@ -18,9 +18,10 @@ import play.db.jpa.Model;
 @Entity
 public class Competition extends Model {
 
+	@Column(nullable = false)
 	public String label;
 	public Date date;
-	@OneToOne
+	@ManyToOne
 	public CompetitionType competitionType;
 	@OneToOne
 	public ScoringType scoringType;
@@ -29,7 +30,7 @@ public class Competition extends Model {
 	public List<Stage> stages;
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Competitor> competitors;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<Squad> squads;
 
 	public Competition(String label) {
@@ -148,8 +149,12 @@ public class Competition extends Model {
 		this.save();
 	}
 
-	public void deleteCompetitor(long competitorID) {
-		Competitor competitor = Competitor.findById(competitorID);
+	public void enrollCompetitor(Competitor competitor) {
+		this.competitors.add(competitor);
+		save();
+	}
+
+	public void unrollCompetitor(Competitor competitor) {
 		if (competitor != null) {
 			this.competitors.remove(competitor);
 			this.save();
@@ -158,25 +163,34 @@ public class Competition extends Model {
 		}
 	}
 
-	public void deleteCompetitors() {
-		ArrayList<Long> ids = new ArrayList<>();
+	public void unrollUser(User user, Division division) {
+		for (Competitor competitor : competitors) {
+			if (competitor.user == user && competitor.division == division) {
+				unrollCompetitor(competitor);
+				return;
+			}
+		}
+	}
+
+	public void clearCompetitors() {
+		List<Long> ids = new ArrayList<>();
 		for (Competitor item : this.competitors) {
 			ids.add(item.id);
 		}
-		for (long item : ids) {
-			deleteCompetitor(item);
+		for (long id : ids) {
+			Competitor competitor = Competitor.findById(id);
+			unrollCompetitor(competitor);
 		}
 		this.competitors = null;
 		this.save();
 	}
 
-	public boolean isEnrolled(String username) {
+	public boolean isEnrolled(User user, Division division) {
 		boolean result = false;
-		User user = User.find("byEmail", username).first();
 
 		if (user != null) {
 			for (Competitor competitor : this.competitors) {
-				if (competitor.user != null && competitor.user.id == user.id) {
+				if (competitor.user == user && competitor.division == division) {
 					result = true;
 				}
 			}
@@ -185,15 +199,27 @@ public class Competition extends Model {
 		return result;
 	}
 
-	public boolean isEnrolled(String username, long divisionID) {
-		boolean result = false;
-
-		User user = User.find("byEmail", username).first();
+	public List<Division> getEnrolledEntries(User user) {
+		List<Division> result = new ArrayList<>();
 
 		if (user != null) {
-			for (Competitor competitor : this.competitors) {
-				if (competitor.user != null && competitor.user.id == user.id && competitor.division.id == divisionID) {
-					result = true;
+			for (Competitor competitor : competitors) {
+				if (competitor.user == user) {
+					result.add(competitor.division);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public List<Division> getAvailableEntries(User user) {
+		List<Division> result = new ArrayList<>();
+
+		if (user != null) {
+			for (Division division : user.getValidDivisions()) {
+				if (!isEnrolled(user, division)) {
+					result.add(division);
 				}
 			}
 		}
@@ -231,16 +257,28 @@ public class Competition extends Model {
 		return result;
 	}
 
-	public List<Competitor> getScoredCompetitors() {
-		List<Competitor> scoredCompetitors = new ArrayList<>();
+	public List<Competitor> getUnScoredCompetitors() {
+		List<Competitor> result = new ArrayList<>();
 
 		for (Competitor competitor : competitors) {
-			if (competitor.isScored()) {
-				scoredCompetitors.add(competitor);
+			if (!competitor.isScored()) {
+				result.add(competitor);
 			}
 		}
 
-		return scoredCompetitors;
+		return result;
+	}
+
+	public List<Competitor> getScoredCompetitors() {
+		List<Competitor> result = new ArrayList<>();
+
+		for (Competitor competitor : competitors) {
+			if (competitor.isScored()) {
+				result.add(competitor);
+			}
+		}
+
+		return result;
 	}
 
 	public String getDate() {

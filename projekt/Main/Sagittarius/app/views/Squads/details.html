@@ -1,0 +1,57 @@
+#{extends "Competitions/main.html" /}
+#{set title: "${competition.label}, &{'competitions.squad'} ${squad.squadNumber}" /}
+
+<br class="clear" />
+<div>
+	<h2>${competition.label}, &{'competitions.squad'} ${squad.squadNumber}</h2>
+</div>
+
+<div>
+	<form action="@{Squads.edit()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="squadID" value="${squad.id}" />
+		<div>
+			<label for="label">&{'common.label'}</label>
+			<input type="text" name="label" value="${squad.label}" />
+			<label for="slots">&{'squads.slots'}</label>
+			<input type="text" name="slots" value="#{if (squad.slots < 0)}#{/if}#{else}${squad.slots}#{/else}" />
+
+			<br />
+			<button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
+			<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+		</div>
+	</form>
+</div>
+
+<br class="clear" />
+<div>
+	<h2>&{'common.participants'}</h2>
+	#{if (squad.competitors?.size() != 0)}
+	#{list squad.competitors}
+	<form action="@{Squads.edit()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="squadID" value="${squad.id}" />
+		<input type="hidden" name="competitorID" value="${_.id}" />
+		<button class="delete" type="submit" name="useraction" value="removecompetitor">&{'common.delete'}</button>
+		${_.user.getFullName(true)}
+	</form>
+	#{/list}
+	#{/if}
+	#{else}
+	&{'squads.empty'}
+	#{/else}
+	<br class="clear" />
+	#{if (squad.slots < 0 || squad.competitors?.size() < squad.slots)}
+	#{if (competitors?.size() > 0)}
+	<form action="@{Squads.edit()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="squadID" value="${squad.id}" />
+		#{include "Common/selectCompetitor.html" /}
+		<button class="enter" type="submit" name="useraction" value="addcompetitor">&{'common.add'}</button>
+	</form>
+	#{/if}
+	#{else}
+	&{'squads.nocompetitors'}
+	#{/else}
+	#{/if}
+</div>

@@ -31,6 +31,7 @@ public class Competition extends Model {
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Competitor> competitors;
 	@OneToMany(cascade = CascadeType.ALL)
+	@OrderBy(value = "squadNumber")
 	public List<Squad> squads;
 
 	public Competition(String label) {
@@ -79,6 +80,12 @@ public class Competition extends Model {
 			this.stages.add(new Stage(stage));
 		}
 
+		this.squads = new ArrayList<>();
+		for (Iterator it = competition.selectNodes("Squad").iterator(); it.hasNext();) {
+			Node squad = (Node) it.next();
+			this.squads.add(new Squad(squad));
+		}
+
 		this.save();
 	}
 
@@ -88,7 +95,6 @@ public class Competition extends Model {
 	}
 
 	public Element toXML() {
-		//TODO: finish the importing routine for all sub-elements
 		Element competitionElement = DocumentHelper.createElement(this.getClass().getSimpleName());
 		competitionElement.addAttribute("label", label);
 		competitionElement.addAttribute("date", getDate());
@@ -105,10 +111,10 @@ public class Competition extends Model {
 			competitionElement.add(stage.toXML());
 		}
 
-		//for (Iterator<Squad> it = squads.iterator(); it.hasNext();) {
-		//Squad squad = it.next();
-		//competitionElement.add(squad.toXML());
-		//}
+		for (Iterator<Squad> it = squads.iterator(); it.hasNext();) {
+			Squad squad = it.next();
+			competitionElement.add(squad.toXML());
+		}
 
 		return competitionElement;
 	}
@@ -117,12 +123,23 @@ public class Competition extends Model {
 		return (stages != null && stages.size() > 0);
 	}
 
-	public void deleteStage(long stageID) {
-		Stage stage = Stage.findById(stageID);
+	public boolean hasSquads() {
+		return (squads != null && squads.size() > 0);
+	}
+
+	public void addStage(Stage stage) {
+		if (stage != null) {
+			stage.save();
+			this.stages.add(stage);
+			this.save();
+		}
+	}
+
+	public Stage deleteStage(Stage stage) {
 		if (stage != null && this.stages.contains(stage)) {
 			stage.deleteTargetGroups();
 
-			long nextID = getNextStage(stageID);
+			long nextID = getNextStage(stage.id);
 			while (nextID != -1) {
 				Stage nextStage = Stage.findById(nextID);
 				nextID = getNextStage(nextID);
@@ -133,8 +150,9 @@ public class Competition extends Model {
 			}
 			this.stages.remove(stage);
 			this.save();
-			stage.delete();
 		}
+
+		return stage;
 	}
 
 	public void deleteStages() {
@@ -143,15 +161,43 @@ public class Competition extends Model {
 			ids.add(item.id);
 		}
 		for (long item : ids) {
-			deleteStage(item);
+			deleteStage((Stage) Stage.findById(item)).delete();
 		}
-		this.stages = null;
+		this.save();
+	}
+
+	public void addSquad(Squad squad) {
+		if (squad != null) {
+			squad.save();
+			this.squads.add(squad);
+			this.save();
+		}
+	}
+
+	public Squad deleteSquad(Squad squad) {
+		//TODO: fix sorting when deleting a squad
+		if (squad != null && this.squads.contains(squad)) {
+			this.squads.remove(squad);
+			squad.removeCompetitors();
+			this.save();
+		}
+		return squad;
+	}
+
+	public void deleteSquads() {
+		List<Long> ids = new ArrayList<>();
+		for (Squad item : this.squads) {
+			ids.add(deleteSquad(item).id);
+		}
+		for (long item : ids) {
+			deleteSquad((Squad) Squad.findById(item)).delete();
+		}
 		this.save();
 	}
 
 	public void enrollCompetitor(Competitor competitor) {
 		this.competitors.add(competitor);
-		save();
+		this.save();
 	}
 
 	public void unrollCompetitor(Competitor competitor) {

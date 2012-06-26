@@ -23,7 +23,7 @@
 
 <div>
 	<br class="clear" />
-	<form action="@{Stages.update}" method="POST">
+	<form action="@{Stages.edit}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<input type="hidden" name="stageID" value="${stage.id}" />
 		<div>
@@ -34,7 +34,8 @@
 			#{include "Common/selectStartingPosition.html" /}
 
 			<br />
-			<button class="enter" type="submit">&{'common.change'}</button>
+			<button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
+			<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
 		</div>
 	</form>
 </div>

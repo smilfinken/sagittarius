@@ -235,12 +235,24 @@ Competitor(4):
   user: 6
   division: 3
 
+Squad(1):
+  squadNumber: 0
+  label: Nollpatrull
+  slots: -1
+  competitors: [1,2]
+
+Squad(2):
+  squadNumber: 1
+  label: 1
+  slots: 6
+
 Competition(1):
   label: Fältskjutning 1
   competitionType: 1
   date: 2012-05-01
   stages: [1,2,3,4,5,6]
   competitors: [1,2]
+  squads: [1,2]
   scoringType: 1
 
 Competition(2):

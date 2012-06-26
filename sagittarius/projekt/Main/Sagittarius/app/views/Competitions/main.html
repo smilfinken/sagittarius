@@ -6,7 +6,7 @@
 	<ul class="menu">
 		<li>#{a @Results.list(competition.id)}&{'results.title'}#{/a}</li>
 		<!--		#{a @Competitions.enroll(competition.id)}&{'competitions.application'}#{/a} -->
-		<li>#{a @Competitions.competitors(competition.id)}&{'competitions.participants'}#{/a}</li>
+		<li>#{a @Competitions.competitors(competition.id)}&{'common.participants'}#{/a}</li>
 		#{secure.check "admin"}
 		<li>#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}</li>
 		#{/secure.check}

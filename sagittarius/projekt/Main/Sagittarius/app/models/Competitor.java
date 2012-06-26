@@ -23,8 +23,6 @@ public class Competitor extends Model {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderBy(value = "stageIndex")
 	public List<Result> results;
-	@ManyToOne
-	public Squad squad;
 	public int squadIndex;
 
 	public Competitor(User user) {

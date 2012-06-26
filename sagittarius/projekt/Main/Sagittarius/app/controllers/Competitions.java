@@ -42,7 +42,7 @@ public class Competitions extends Controller {
 		flash.put("competitionTypeID", competition.competitionType.id);
 		List<ScoringType> scoringTypes = ScoringType.all().fetch();
 		flash.put("scoringTypeID", competition.scoringType.id);
-		render(competition, competitionTypes, scoringTypes, competition.stages);
+		render(competition, competitionTypes, scoringTypes);
 	}
 
 	@Check("admin")
@@ -77,7 +77,7 @@ public class Competitions extends Controller {
 						competition.save();
 					}
 
-					Stages.edit(competitionID, competition.stages.get(0).id);
+					Stages.details(competitionID, competition.stages.get(0).id);
 					break;
 				case "save":
 					competition = Competition.findById(competitionID);
@@ -93,8 +93,9 @@ public class Competitions extends Controller {
 				case "delete":
 					competition = Competition.findById(competitionID);
 					if (competition != null) {
-						competition.clearCompetitors();
+						competition.deleteSquads();
 						competition.deleteStages();
+						competition.clearCompetitors();
 						competition.delete();
 					}
 
@@ -176,7 +177,32 @@ public class Competitions extends Controller {
 		Competition competition = Competition.findById(competitionID);
 
 		if (competition != null) {
-			competition.deleteStage(stageID);
+			competition.deleteStage((Stage) Stage.findById(stageID)).delete();
+		}
+
+		details(competitionID);
+	}
+
+	@Check("admin")
+	public static void addSquad(long competitionID, String label) {
+		Competition competition = Competition.findById(competitionID);
+
+		if (competition != null) {
+			Squad squad = new Squad(label, competition.squads.size() + 1);
+			squad.save();
+			competition.squads.add(squad);
+			competition.save();
+		}
+
+		details(competitionID);
+	}
+
+	@Check("admin")
+	public static void deleteSquad(long competitionID, long squadID) {
+		Competition competition = Competition.findById(competitionID);
+
+		if (competition != null) {
+			competition.deleteSquad((Squad) Squad.findById(squadID)).delete();
 		}
 
 		details(competitionID);

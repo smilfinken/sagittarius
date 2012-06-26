@@ -13,16 +13,13 @@ import play.mvc.With;
 @With(Secure.class)
 public class Stages extends Controller {
 
-	@Check("admin")
-	public static void edit(long competitionID, long stageID) {
+	public static void details(long competitionID, long stageID) {
 		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 		List<TargetShape> targetShapes = TargetShape.all().fetch();
 		List<TargetColour> targetColours = TargetColour.all().fetch();
 		List<StartingPosition> startingPositions = StartingPosition.all().fetch();
-		if (stage.startingPosition != null) {
-			flash.put("startingPositionID", stage.startingPosition.id);
-		}
+		flash.put("startingPositionID", stage.startingPosition.id);
 		try {
 			double timings[] = common.Timings.getExtremes(stageID, 1);
 			String minTime = String.format("%.1f", timings[0]);
@@ -33,18 +30,32 @@ public class Stages extends Controller {
 		}
 	}
 
+	//TODO: refactor - move the external user actions (ie TargetGroup, Target) into the respective controller
 	@Check("admin")
-	public static void update(long competitionID, long stageID, String label, long startingPositionID) {
+	public static void edit(long competitionID, long stageID, String label, long startingPositionID, String useraction) {
+		Competition competition = Competition.findById(competitionID);
 		Stage stage = Stage.findById(stageID);
 		StartingPosition startingPosition = StartingPosition.findById(startingPositionID);
 
 		if (stage != null) {
-			stage.label = label;
-			stage.startingPosition = startingPosition;
-			stage.save();
+			if (params._contains("useraction")) {
+				switch (useraction) {
+					case "save":
+						stage.label = label;
+						stage.startingPosition = startingPosition;
+						stage.save();
+						break;
+					case "delete":
+						if (competition != null) {
+							competition.deleteStage(stage);
+						}
+						Competitions.details(competitionID);
+						break;
+				}
+			}
 		}
 
-		edit(competitionID, stageID);
+		details(competitionID, stageID);
 	}
 
 	@Check("admin")
@@ -58,7 +69,7 @@ public class Stages extends Controller {
 			stage.save();
 		}
 
-		edit(competitionID, stageID);
+		details(competitionID, stageID);
 	}
 
 	@Check("admin")
@@ -83,7 +94,7 @@ public class Stages extends Controller {
 			}
 		}
 
-		edit(competitionID, stageID);
+		details(competitionID, stageID);
 	}
 
 	@Check("admin")
@@ -99,7 +110,7 @@ public class Stages extends Controller {
 			targetGroup.save();
 		}
 
-		edit(competitionID, stageID);
+		details(competitionID, stageID);
 	}
 
 	@Check("admin")
@@ -125,6 +136,6 @@ public class Stages extends Controller {
 			}
 		}
 
-		edit(competitionID, stageID);
+		details(competitionID, stageID);
 	}
 }

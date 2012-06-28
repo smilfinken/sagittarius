@@ -222,10 +222,12 @@ Competitor(1):
   user: 1
   division: 1
   results: [1,2,3,4,5,6]
+  squadIndex: 1
 
 Competitor(2):
   user: 3
   division: 2
+  squadIndex: 2
 
 Competitor(3):
   user: 3

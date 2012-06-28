@@ -1,0 +1,47 @@
+#{extends "Competitions/main.html" /}
+#{set title: messages.get('results.title') /}
+
+<br class="clear" />
+<div class="padded">
+	<form action="@{Results.addSquad()}" method="POST" autocomplete="off">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		<input type="hidden" name="squadID" value="${squad.id}" />
+		<table>
+			#{list items:squad.competitors, as:'competitor'}
+			<tr class="scoring">
+				<th>
+					<input type="hidden" name="competitors[${competitor_index - 1}]" value="${competitor.id}" />
+					<span style="text-align: center; clear: all">${competitor}</span>
+				</th>
+				#{list items:competition.stages, as:'stage'}
+				<td class="scoring">
+					<input type="hidden" name="results[${competitor_index - 1}][${stage.stageIndex - 1}].stageIndex" value="${stage.stageIndex}" />
+					<span style="text-align: center; clear: all">Station ${stage.stageIndex}</span>
+
+					<br />
+					<label for="results[${competitor_index - 1}][${stage.stageIndex - 1}].hits">&{'results.hits'}</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${competitor_index - 1}][${stage.stageIndex - 1}].hits" />
+
+					<br />
+					<label for="results[${competitor_index - 1}][${stage.stageIndex - 1}].targets">&{'results.targets'}</label>
+					<input class="scoring" type="text" size="2" maxlength="1" name="results[${competitor_index - 1}][${stage.stageIndex - 1}].targets" />
+
+					<br />
+					#{if (stage.hasPoints())}
+					<label for="results[${competitor_index - 1}][${stage.stageIndex - 1}].points">&{'results.points'}</label>
+					<input class="scoring" type="text" size="2" maxlength="2" name="results[${competitor_index - 1}][${stage.stageIndex - 1}].points" />
+
+					<br />
+					#{/if}
+				</td>
+				#{/list}
+			</tr>
+			#{/list}
+			<tr>
+				<td class="buttons" colspan="7">
+					<button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

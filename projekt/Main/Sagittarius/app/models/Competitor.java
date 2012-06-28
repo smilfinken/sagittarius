@@ -78,6 +78,7 @@ public class Competitor extends Model {
 		Element competitorElement = DocumentHelper.createElement(this.getClass().getSimpleName());
 		competitorElement.addAttribute("user", user.toString());
 		competitorElement.addAttribute("division", division.toString());
+		competitorElement.addAttribute("squadindex", String.format("%d", squadIndex));
 		competitorElement.add(user.toXML());
 		for (Iterator<Result> it = results.iterator(); it.hasNext();) {
 			Result result = it.next();

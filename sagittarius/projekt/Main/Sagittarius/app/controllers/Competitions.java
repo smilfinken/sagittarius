@@ -69,7 +69,7 @@ public class Competitions extends Controller {
 					if (competition != null) {
 						List<Stage> newstages = new ArrayList<>();
 						for (int i = 1; i <= stages; i++) {
-							Stage stage = new Stage(1, String.format("Station %d", i), i);
+							Stage stage = new Stage(1, String.format("%d", i), i);
 							stage.save();
 							newstages.add(stage);
 						}
@@ -87,7 +87,6 @@ public class Competitions extends Controller {
 						competition.save();
 					}
 
-					List<CompetitionType> competitionTypes = CompetitionType.all().fetch();
 					details(competitionID);
 					break;
 				case "delete":

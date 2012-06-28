@@ -46,6 +46,18 @@
 	</form>
 </div>
 #{/if}
+
+#{if (competition.squads?.size() != 0)}
+<br class="clear" />
+<div>
+	<form action="@{Results.squad()}" method="POST">
+		<input type="hidden" name="competitionID" value="${competition.id}" />
+		#{include "Common/selectSquad.html" /}
+		<button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
+	</form>
+</div>
+#{/if}
+
 #{else}
 <div>
 	&{'competitors.nocompetitors'}

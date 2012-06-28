@@ -1,5 +1,5 @@
 #{extends "Competitions/main.html" /}
-#{set title: "${competition.label}, &{'competitions.squad'} ${squad.squadNumber}" /}
+#{set title: "${competition.label}, " + messages.get('competitions.squad') + " ${squad.squadNumber}" /}
 
 <br class="clear" />
 <div>
@@ -33,7 +33,7 @@
 		<input type="hidden" name="squadID" value="${squad.id}" />
 		<input type="hidden" name="competitorID" value="${_.id}" />
 		<button class="delete" type="submit" name="useraction" value="removecompetitor">&{'common.delete'}</button>
-		${_.user.getFullName(true)}
+		${common.Strings.capitaliseFirst(messages.get("squads.slot"))} ${_.squadIndex}: ${_.user.getFullName(true)}
 	</form>
 	#{/list}
 	#{/if}

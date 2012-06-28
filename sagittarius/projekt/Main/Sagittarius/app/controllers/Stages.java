@@ -19,7 +19,9 @@ public class Stages extends Controller {
 		List<TargetShape> targetShapes = TargetShape.all().fetch();
 		List<TargetColour> targetColours = TargetColour.all().fetch();
 		List<StartingPosition> startingPositions = StartingPosition.all().fetch();
-		flash.put("startingPositionID", stage.startingPosition.id);
+		if (stage.startingPosition != null) {
+			flash.put("startingPositionID", stage.startingPosition.id);
+		}
 		try {
 			double timings[] = common.Timings.getExtremes(stageID, 1);
 			String minTime = String.format("%.1f", timings[0]);

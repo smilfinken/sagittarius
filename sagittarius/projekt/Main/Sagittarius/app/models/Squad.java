@@ -3,10 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -24,7 +21,7 @@ public class Squad extends Model {
 	@Column(nullable = false)
 	public int squadNumber;
 	public int slots;
-	@OneToMany
+	@ManyToMany
 	@OrderBy(value = "squadIndex")
 	public List<Competitor> competitors;
 
@@ -95,10 +92,18 @@ public class Squad extends Model {
 			this.competitors.remove(competitor);
 			this.save();
 		}
+		int i = 1;
+		for (Competitor item : competitors) {
+			item.squadIndex = i++;
+			item.save();
+		}
 		return competitor;
 	}
 
 	public void removeCompetitors() {
+		for (Competitor item : competitors) {
+			item.squadIndex = 0;
+		}
 		this.competitors.removeAll(this.competitors);
 	}
 }

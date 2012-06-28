@@ -40,6 +40,21 @@ public class Results extends Controller {
 		list(competitionID);
 	}
 
+	public static void addSquad(long competitionID, long squadID, Result[][] results, long[] competitors) {
+		Squad squad = Squad.findById(squadID);
+		if (squad != null) {
+			for (int i = 0; i < results.length; i++) {
+				Result[] resultlist = results[i];
+				Competitor competitor = Competitor.findById(competitors[i]);
+				if (competitor != null && squad.competitors.contains(competitor) && (competitor.results == null || competitor.results.size() == 0)) {
+					competitor.addResults(Arrays.asList(resultlist));
+				}
+			}
+		}
+
+		list(competitionID);
+	}
+
 	public static void edit(long competitionID, long competitorID, List<Result> newResults, String useraction) {
 		Competition competition = Competition.findById(competitionID);
 		Competitor competitor = Competitor.findById(competitorID);
@@ -60,6 +75,17 @@ public class Results extends Controller {
 		}
 
 		render(competition, competitor);
+	}
+
+	public static void squad(long competitionID, long squadID) {
+		Competition competition = Competition.findById(competitionID);
+		Squad squad = Squad.findById(squadID);
+
+		if (squad != null && squad.competitors != null && squad.competitors.size() != 0) {
+			render(competition, squad);
+		} else {
+			list(competitionID);
+		}
 	}
 
 	public static void export(long competitionID) throws IOException {

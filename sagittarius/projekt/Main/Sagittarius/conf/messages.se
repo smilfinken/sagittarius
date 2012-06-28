@@ -37,6 +37,7 @@ common.division=Klass
 common.label=Beteckning
 common.name=Namn
 common.next=Gå vidare
+common.noobjects=Inga %s
 common.or=eller
 common.person=Person
 common.participant=Deltagare
@@ -163,6 +164,7 @@ squads.free=lediga
 squads.label=Patrull
 squads.empty=Inga platser tilldelade
 squads.nocompetitors=Inga fler deltagare finns
+squads.slot=plats
 squads.slots=platser
 
 stages.scoring=Poängräkning
@@ -172,10 +174,10 @@ stages.suggestedtimings=Föreslagen skjuttid
 statistics.scores=Bästa resultat var %s av en maxpoäng på %s.
 statistics.totals=%s tävlande genomförde totalt %s starter.
 
-targets.target=Mål
-targets.shape=Figur
-targets.scoreable=Poängmål
 targets.add=Lägg till figur
+targets.scoreable=Poängmål
+targets.target=Figur
+targets.targets=figurer
 
 targetclass.classification=Figurgrupp
 targetclass.label=Figurkategori
@@ -185,6 +187,7 @@ targetclass.weaponcategory=Vapengrupp
 targetgroups.add=Lägg till målgrupp
 targetgroups.range=Avstånd
 targetgroups.targetgroup=Målgrupp
+targetgroups.targetgroups=målgrupper
 
 users.delete=Radera användare
 users.import=Importera användarlista

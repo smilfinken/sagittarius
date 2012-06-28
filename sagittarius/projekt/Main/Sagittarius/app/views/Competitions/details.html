@@ -42,8 +42,7 @@
 					<input type="hidden" name="stageID" value="${_.id}" />
 					<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
 					#{a @Stages.edit(competition.id, _.id)}&{'competitions.stage'} ${_.stageIndex}#{if (_.label != _.stageIndex.toString())} (${_.label})#{/if}#{/a}:
-					#{if (_.hasPoints())}&{'stages.scoring'}#{/if}
-					${_.startingPosition?.toString()}
+					#{if (_.targetGroups?.size() != 0)}${_.targetGroups.size()} &{'targetgroups.targetgroups'}#{/if}#{else}&{'common.noobject', 'targetgroups.targetgroups'}#{/else}#{if (_.startingPosition != null)}, ${_.startingPosition}#{/if}#{if (_.hasPoints())}, &{'stages.scoring'}#{/if}
 				</form>
 			</td>
 		</tr>

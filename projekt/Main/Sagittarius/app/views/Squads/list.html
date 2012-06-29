@@ -1,0 +1,25 @@
+#{extends "Competitions/main.html" /}
+#{set title: common.Strings.capitaliseFirst(messages.get("competitions.squads")) + " ${competition.label}" /}
+
+<br class="clear" />
+#{if (competition.squads?.size() > 0)}
+<div class="padded">
+	<table>
+		#{list competition.squads}
+		<form action="@{Squads.register()}" method="POST">
+			<input type="hidden" name="competitionID" value="${competition.id}" />
+			<input type="hidden" name="squadID" value="${_.id}" />
+			<tr>
+				<td>
+					&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber)} (${_.label})#{/if}
+				</td>
+				<td>
+					#{include "Common/selectCompetitor.html" /}
+					<button class="enter" type="submit" name="useraction" value="register">&{'squads.register'}</button>
+				</td>
+			</tr>
+		</form>
+		#{/list}
+	</table>
+</div>
+#{/if}

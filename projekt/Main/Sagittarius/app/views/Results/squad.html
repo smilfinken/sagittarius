@@ -9,9 +9,9 @@
 		<table>
 			#{list items:squad.competitors, as:'competitor'}
 			<tr class="scoring">
-				<th>
+				<th class="scoring">
 					<input type="hidden" name="competitors[${competitor_index - 1}]" value="${competitor.id}" />
-					<span style="text-align: center; clear: all">${competitor}</span>
+					<span class="#{if (competitor.results?.size() != 0)}entered#{/if}#{else}empty#{/else}">${competitor}</span>
 				</th>
 				#{list items:competition.stages, as:'stage'}
 				<td class="scoring">

@@ -1,4 +1,7 @@
 #{extends "main.html" /}
+#{set 'moreStyles'}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/results.scss'}" />
+#{/set}
 
 <br class="clear" />
 <div class="menu">
@@ -6,6 +9,7 @@
 		<li>#{a @Results.list(competition.id)}&{'results.title'}#{/a}</li>
 		<!--		#{a @Competitions.enroll(competition.id)}&{'competitions.application'}#{/a} -->
 		<li>#{a @Competitions.competitors(competition.id)}&{'common.participants'}#{/a}</li>
+		<li>#{a @Squads.list(competition.id)}${common.Strings.capitaliseFirst(messages.get("competitions.squads"))}#{/a}</li>
 		#{secure.check "admin"}
 		<li>#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}</li>
 		#{/secure.check}

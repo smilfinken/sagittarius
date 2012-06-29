@@ -13,15 +13,6 @@ table, tr, td {
 	width: 				auto;
 }
 
-tr.scoring
-{
-	vertical-align: 	text-top;
-}
-
-td.scoring {
-	text-align: 		right;
-}
-
 td.buttons {
 	text-align: 		left;
 }
@@ -42,11 +33,6 @@ button[type=submit].delete {
 
 button[type=submit].enter {
 	border: 			1px solid green;
-}
-
-input.scoring {
-	border: 			1px solid gray;
-	width: 				30px;
 }
 
 /* CLASSES */

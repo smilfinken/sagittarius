@@ -1,9 +1,12 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import models.Competition;
 import models.Competitor;
 import models.Squad;
+import models.User;
 import play.mvc.Controller;
 
 /**
@@ -11,6 +14,21 @@ import play.mvc.Controller;
  * @author johan
  */
 public class Squads extends Controller {
+
+	public static void list(long competitionID) {
+		Competition competition = Competition.findById(competitionID);
+
+		User user = User.find("byEmail", session.get("username")).first();
+		List<Competitor> competitors = new ArrayList<>();
+		for (Iterator<Object> it = Competitor.find("byUser", user).fetch().iterator(); it.hasNext();) {
+			Competitor competitor = (Competitor) it.next();
+			if (competition.competitors.contains(competitor)) {
+				competitors.add(competitor);
+			}
+		}
+
+		render(competition, competitors);
+	}
 
 	public static void details(long competitionID, long squadID) {
 		Competition competition = Competition.findById(competitionID);
@@ -63,5 +81,16 @@ public class Squads extends Controller {
 		}
 
 		details(competitionID, squadID);
+	}
+
+	public static void register(long competitionID, long squadID, long competitorID) {
+		Squad squad = Squad.findById(squadID);
+		Competitor competitor = Competitor.findById(competitorID);
+
+		if (squad != null && competitor != null && !squad.competitors.contains(competitor)) {
+			squad.addCompetitor(competitor);
+		}
+
+		list(competitionID);
 	}
 }

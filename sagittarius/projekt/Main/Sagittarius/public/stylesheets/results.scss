@@ -13,7 +13,7 @@ hr {
 	border: 1px solid #ff9600;
 }
 
-table {
+table.scoring {
 	-fs-table-paginate: paginate;
 	width: 100%;
 	border: none;
@@ -26,6 +26,11 @@ tr.spacer {
 
 tr.header {
 	background-color: #ffe0b3;
+}
+
+tr.scoring
+{
+	vertical-align: 	text-top;
 }
 
 th {
@@ -57,6 +62,23 @@ td.stages {
 td.totals {
 	text-align: left;
 	width: 10%;
+}
+
+td.scoring {
+	text-align: 		right;
+}
+
+input.scoring {
+	border: 			1px solid gray;
+	width: 				30px;
+}
+
+.scoring .empty {
+	color: green;
+}
+
+.scoring .entered {
+	color: red;
 }
 
 .footitle {

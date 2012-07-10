@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string-array name="dummy_stages">
+		<item>Station 1</item>
+		<item>Station 2</item>
+		<item>Station 3</item>
+		<item>Station 4</item>
+		<item>Station 5</item>
+		<item>Station 6</item>
+		<item>Station 7</item>
+		<item>Station 8</item>
+		<item>Station 9</item>
+		<item>Station 10</item>
+	</string-array>
+</resources>

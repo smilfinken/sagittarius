@@ -17,7 +17,7 @@ public class ErrorReporting extends Controller {
 	public static void submitReport(String exStackTrace, String exClass, String exMessage, SimpleDateFormat exDateTime, String extraMessage, String exThreadName, String appVersionCode, String appVersionName, String appPackageName, String devAvailableMemory, String devTotalMemory, String devModel, String devSdk, String devReleaseVersion) {
 		File logFile = new File(System.getProperty("java.io.tmpdir"), "sagittariusapp.log");
 		try (FileWriter logWriter = new FileWriter(logFile)) {
-			logWriter.write(String.format("exStackTrace: %s\nexClass: %s\nexMessage: %s\nexDateTime: %s\nextraMessage: %s\nexThreadName: %s\nappVersionCode: %s\nappVersionName: %s\nappPackageName: %s\ndevAvailableMemory: %s\ndevTotalMemory: %s\ndevModel: %s\ndevSdk: %s\ndevReleaseVersion: %s", exStackTrace, exClass, exMessage, exDateTime, extraMessage, exThreadName, appVersionCode, appVersionName, appPackageName, devAvailableMemory, devTotalMemory, devModel, devSdk, devReleaseVersion));
+			logWriter.write(String.format("exClass: %s\nexMessage: %s\nexDateTime: %s\nextraMessage: %s\nexThreadName: %s\nappVersionCode: %s\nappVersionName: %s\nappPackageName: %s\ndevAvailableMemory: %s\ndevTotalMemory: %s\ndevModel: %s\ndevSdk: %s\ndevReleaseVersion: %s\nexStackTrace: %s\n", exClass, exMessage, exDateTime, extraMessage, exThreadName, appVersionCode, appVersionName, appPackageName, devAvailableMemory, devTotalMemory, devModel, devSdk, devReleaseVersion, exStackTrace));
 		} catch (IOException ex) {
 			Logger.getLogger(ErrorReporting.class.getName()).log(Level.SEVERE, null, ex);
 		}

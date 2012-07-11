@@ -2,6 +2,15 @@
 <resources>
 	<string name="app_name">Sagittarius</string>
 
+	<string name="competitor">Skytt</string>
+	<string name="label_hits">Träff</string>
+	<string name="label_targets">Figurer</string>
+	<string name="label_points">Poäng</string>
+	<string name="next_competitor">Nästa deltagare</string>
+	<string name="next_stage">Nästa station</string>
+	<string name="select_squad">Välj patrull</string>
 	<string name="select_title">Patrull ej vald</string>
 	<string name="stage_title">Station X</string>
+
+	<string name="error_reporting_message_hint">Information</string>
 </resources>

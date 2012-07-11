@@ -12,5 +12,15 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="EnterResults" />
+		<activity android:name="de.quist.app.errorreporter.ExceptionReportActivity"
+				  android:process=":exceptionReporter"
+				  android:theme="@android:style/Theme.NoDisplay" />
+		<service android:name="de.quist.app.errorreporter.ExceptionReportService"
+				 android:process=":exceptionReporter" />
+		<meta-data android:name="de.quist.app.errorreporter.targetUrl"
+				   android:value="http://projects.smilfinken.net/sagittarius-main/errorreporting/submitreport" />
+		<meta-data android:name="de.quist.app.errorreporter.dialogMessageHint"
+				   android:resource="@string/error_reporting_message_hint" />
 	</application>
+	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

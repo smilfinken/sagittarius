@@ -12,4 +12,35 @@
 		<item>Station 9</item>
 		<item>Station 10</item>
 	</string-array>
+	<integer-array name="dummy_targets">
+		<item>3</item>
+		<item>2</item>
+		<item>4</item>
+		<item>6</item>
+		<item>1</item>
+		<item>5</item>
+		<item>4</item>
+		<item>4</item>
+		<item>3</item>
+		<item>6</item>
+	</integer-array>
+	<string-array name="dummy_points">
+		<item>true</item>
+		<item>false</item>
+		<item>false</item>
+		<item>false</item>
+		<item>false</item>
+		<item>false</item>
+		<item>false</item>
+		<item>true</item>
+		<item>false</item>
+		<item>false</item>
+	</string-array>
+	<string name="dummy_squadlabel">Patrull 1</string>
+	<string-array name="dummy_squad">
+		<item>Nils Nilsson</item>
+		<item>Anders Andersson</item>
+		<item>Per Persson</item>
+		<item>Kajsa Svensson</item>
+	</string-array>
 </resources>

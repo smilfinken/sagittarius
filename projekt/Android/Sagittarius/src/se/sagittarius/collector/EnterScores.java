@@ -13,19 +13,25 @@ import android.widget.TextView;
  *
  * @author johan
  */
-public class EnterResults extends Activity {
+public class EnterScores extends Activity {
 
 	Bundle data;
 	Bundle results = Bundle.EMPTY;
+	private int currentStage;
 	private int currentCompetitor = 0;
+	Score[] scores;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setResult(RESULT_CANCELED);
 		setContentView(R.layout.stage);
 
 		Intent intent = getIntent();
 		data = intent.getBundleExtra(SelectStage.BUNDLED_DATA);
+
+		currentStage = data.getInt(SelectStage.STAGE_INDEX);
+		scores = new Score[getCompetitors().length];
 
 		TextView stageTitle = (TextView) findViewById(R.id.stage_title);
 		stageTitle.setText(data.getString(SelectStage.STAGE_LABEL));
@@ -62,24 +68,70 @@ public class EnterResults extends Activity {
 
 	@Override
 	public void finish() {
-		// prepare results bundle
-		results = new Bundle();
-		results.putInt(SelectStage.STAGE_INDEX, data.getInt(SelectStage.STAGE_INDEX));
-
-		// return data to calling activity
-		Intent result = new Intent();
-		result.putExtra(SelectStage.BUNDLED_DATA, results);
-		setResult(RESULT_OK, result);
-
 		super.finish();
 	}
 
+	private String[] getCompetitors() {
+		return data.getStringArray(SelectStage.COMPETITOR_LIST);
+	}
+
+	private int getHits() {
+		NumberPicker view = (NumberPicker) findViewById(R.id.score_hits);
+		return view.getValue();
+	}
+
+	private int getTargets() {
+		NumberPicker view = (NumberPicker) findViewById(R.id.score_targets);
+		return view.getValue();
+	}
+
+	private int getPoints() {
+		NumberPicker view = (NumberPicker) findViewById(R.id.score_points);
+		return view.getValue();
+	}
+
+	private int[] getHitsArray() {
+		int[] values = new int[scores.length];
+		for (int i = 0; i < scores.length; i++) {
+			values[i] = scores[i].hits;
+		}
+		return values;
+	}
+
+	private int[] getTargetsArray() {
+		int[] values = new int[scores.length];
+		for (int i = 0; i < scores.length; i++) {
+			values[i] = scores[i].targets;
+		}
+		return values;
+	}
+
+	private int[] getPointsArray() {
+		int[] values = new int[scores.length];
+		for (int i = 0; i < scores.length; i++) {
+			values[i] = scores[i].points;
+		}
+		return values;
+	}
+
 	public void nextCompetitor(View view) {
-		String[] competitorList = data.getStringArray(SelectStage.COMPETITOR_LIST);
+		String[] competitorList = getCompetitors();
 		if (currentCompetitor >= competitorList.length) {
-			setResult(RESULT_OK);
+			// prepare results bundle
+			results = new Bundle();
+			results.putInt(SelectStage.STAGE_INDEX, currentStage);
+			results.putIntArray(SelectStage.SCORING_HITS, getHitsArray());
+			results.putIntArray(SelectStage.SCORING_TARGETS, getTargetsArray());
+			results.putIntArray(SelectStage.SCORING_POINTS, getPointsArray());
+
+			// return data to calling activity
+			Intent data = new Intent();
+			data.putExtra(SelectStage.BUNDLED_DATA, results);
+			setResult(RESULT_OK, data);
+
 			this.finish();
 		} else {
+			scores[currentCompetitor] = new Score(getHits(), getTargets(), getPoints());
 			TextView competitorName = (TextView) findViewById(R.id.competitor);
 			competitorName.setText(String.format("%s %d (%s)", getResources().getString(R.string.competitor), currentCompetitor + 1, competitorList[currentCompetitor++]));
 

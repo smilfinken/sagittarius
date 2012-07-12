@@ -3,5 +3,6 @@
 		  android:id="@+id/stage_label"
 		  android:layout_width="match_parent"
 		  android:layout_height="wrap_content"
+		  android:background="#ff8f00"
 		  android:textSize="24dp"
 		  android:padding="6dp" />

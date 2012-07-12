@@ -11,7 +11,8 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="EnterResults" />
+		<activity android:name="EnterScores" />
+		<activity android:name="ReviewScores" />
 		<activity android:name="de.quist.app.errorreporter.ExceptionReportActivity"
 				  android:process=":exceptionReporter"
 				  android:theme="@android:style/Theme.NoDisplay" />

@@ -8,8 +8,10 @@
 	<string name="label_points">Poäng</string>
 	<string name="next_competitor">Nästa deltagare</string>
 	<string name="next_stage">Nästa station</string>
+	<string name="review_scores">Visa resultat</string>
 	<string name="select_squad">Välj patrull</string>
 	<string name="select_title">Patrull ej vald</string>
+	<string name="scores_title">Resultat</string>
 	<string name="stage_title">Station X</string>
 
 	<string name="error_reporting_message_hint">Information</string>

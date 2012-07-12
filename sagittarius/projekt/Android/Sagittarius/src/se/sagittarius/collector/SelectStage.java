@@ -3,6 +3,7 @@ package se.sagittarius.collector;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
@@ -11,8 +12,14 @@ import de.quist.app.errorreporter.ExceptionReporter;
 
 public class SelectStage extends Activity {
 
+	private Score[][] scores;
 	public final static String BUNDLED_DATA = "se.sagittarius.collector.BUNDLED_DATA";
 	public final static String COMPETITOR_LIST = "se.sagittarius.collector.COMPETITOR_LIST";
+	public final static String SCORING_HITS = "se.sagittarius.collector.SCORING_HITS";
+	public final static String SCORING_TARGETS = "se.sagittarius.collector.SCORING_TARGETS";
+	public final static String SCORING_POINTS = "se.sagittarius.collector.SCORING_POINTS";
+	public final static String STAGE_COUNT = "se.sagittarius.collector.STAGE_COUNT";
+	public final static String STAGE_HASPOINTS = "se.sagittarius.collector.STAGE_POINTS";
 	public final static String STAGE_INDEX = "se.sagittarius.collector.STAGE_INDEX";
 	public final static String STAGE_LABEL = "se.sagittarius.collector.STAGE_LABEL";
 	public final static String STAGE_POINTS = "se.sagittarius.collector.STAGE_POINTS";
@@ -41,6 +48,8 @@ public class SelectStage extends Activity {
 		});
 		StageListAdapter adapter = new StageListAdapter(this);
 		stages.setAdapter(adapter);
+
+		scores = new Score[getCompetitors().length][getStageCount()];
 	}
 
 	@Override
@@ -48,6 +57,19 @@ public class SelectStage extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.select_squad:
+				return true;
+			case R.id.review_scores:
+				reviewScores();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	private String getSquadLabel() {
@@ -78,7 +100,7 @@ public class SelectStage extends Activity {
 
 	public void enterResults(AdapterView<?> stages, int position) {
 		if (position >= 0 && position <= getStageCount() - 1) {
-			Intent intent = new Intent(this, EnterResults.class);
+			Intent intent = new Intent(this, EnterScores.class);
 			Bundle data = new Bundle();
 
 			// pass the current stage index (using position from ListView)
@@ -101,13 +123,48 @@ public class SelectStage extends Activity {
 		}
 	}
 
+	public void reviewScores() {
+		Intent intent = new Intent(this, ReviewScores.class);
+		Bundle data = new Bundle();
+
+		boolean[] stageHasPoints = new boolean[getStageCount()];
+		for (int i = 0; i < getStageCount(); i++) {
+			stageHasPoints[i] = getStagePoints(i);
+		}
+		data.putBooleanArray(STAGE_HASPOINTS, stageHasPoints);
+		data.putInt(STAGE_COUNT, getStageCount());
+		data.putStringArray(COMPETITOR_LIST, getCompetitors());
+		intent.putExtra(BUNDLED_DATA, data);
+
+		startActivity(intent);
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == ENTER_RESULTS) {
 			if (data.hasExtra(BUNDLED_DATA)) {
+				// get return values
 				Bundle result = data.getBundleExtra(BUNDLED_DATA);
+				int position = result.getInt(STAGE_INDEX);
+				int[] hits = result.getIntArray(SCORING_HITS);
+				int[] targets = result.getIntArray(SCORING_HITS);
+				int[] points = result.getIntArray(SCORING_HITS);
+
+				// store scores
+				for (int i = 0; i < getCompetitors().length; i++) {
+					scores[i][position] = new Score(hits[i], targets[i], points[i]);
+				}
+
+				// get the stages listview
 				ListView stages = (ListView) findViewById(R.id.list_stages);
-				enterResults(stages, result.getInt(STAGE_INDEX) + 1);
+
+				// set color for scored stage
+				TextView item = (TextView) stages.getChildAt(position);
+				item.setBackgroundColor(Color.parseColor("#29cf00"));
+				item.setTextColor(Color.parseColor("#ffffff"));
+
+				// bring up activity for the next stage
+				enterResults(stages, position + 1);
 			}
 		}
 	}

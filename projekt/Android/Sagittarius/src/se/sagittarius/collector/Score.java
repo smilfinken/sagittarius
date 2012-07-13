@@ -1,27 +1,44 @@
 package se.sagittarius.collector;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 /**
  *
  * @author johan
  */
+@Root
 public class Score {
 
-	public int hits;
-	public int targets;
-	public int points;
-	public boolean scored;
+	private int hits;
+	private int targets;
+	private int points;
+	private boolean scored;
 
-	public Score() {
-		this.hits = 0;
-		this.targets = 0;
-		this.points = 0;
-		this.scored = false;
-	}
-
-	public Score(int hits, int targets, int points) {
+	public Score(@Attribute(name = "hits") int hits, @Attribute(name = "points") int targets, @Attribute(name = "points") int points) {
 		this.hits = hits;
 		this.targets = targets;
 		this.points = points;
 		this.scored = true;
+	}
+
+	@Attribute
+	public int getHits() {
+		return hits;
+	}
+
+	@Attribute
+	public int getTargets() {
+		return targets;
+	}
+
+	@Attribute
+	public int getPoints() {
+		return points;
+	}
+
+	public boolean isScored() {
+		return scored;
 	}
 }

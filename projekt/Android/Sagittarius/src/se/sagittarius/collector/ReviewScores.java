@@ -49,6 +49,7 @@ public class ReviewScores extends Activity {
 	}
 
 	private void editResults(int competitor) {
+		// do we really want to do this?
 	}
 
 	private class ScoreListAdapter extends BaseAdapter {

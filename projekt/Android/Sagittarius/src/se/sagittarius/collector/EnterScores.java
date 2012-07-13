@@ -93,7 +93,7 @@ public class EnterScores extends Activity {
 	private int[] getHitsArray() {
 		int[] values = new int[scores.length];
 		for (int competitorIndex = 0; competitorIndex < scores.length; competitorIndex++) {
-			values[competitorIndex] = scores[competitorIndex].hits;
+			values[competitorIndex] = scores[competitorIndex].getHits();
 		}
 		return values;
 	}
@@ -101,7 +101,7 @@ public class EnterScores extends Activity {
 	private int[] getTargetsArray() {
 		int[] values = new int[scores.length];
 		for (int competitorIndex = 0; competitorIndex < scores.length; competitorIndex++) {
-			values[competitorIndex] = scores[competitorIndex].targets;
+			values[competitorIndex] = scores[competitorIndex].getTargets();
 		}
 		return values;
 	}
@@ -109,7 +109,7 @@ public class EnterScores extends Activity {
 	private int[] getPointsArray() {
 		int[] values = new int[scores.length];
 		for (int competitorIndex = 0; competitorIndex < scores.length; competitorIndex++) {
-			values[competitorIndex] = scores[competitorIndex].points;
+			values[competitorIndex] = scores[competitorIndex].getPoints();
 		}
 		return values;
 	}

@@ -9,6 +9,12 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import de.quist.app.errorreporter.ExceptionReporter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 public class SelectStage extends Activity {
 
@@ -25,8 +31,10 @@ public class SelectStage extends Activity {
 	public final static String STAGE_POINTS = "se.sagittarius.collector.STAGE_POINTS";
 	public final static String STAGE_TARGETCOUNT = "se.sagittarius.collector.STAGE_TARGETCOUNT";
 	static final int ENTER_RESULTS = 10001;
-	// score matrix
-	private Score[][] scores;
+	// file name for data storage
+	private final static String DATA_FILE = "sagittarius_data";
+	// competitors
+	private Competitor[] competitors;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,10 @@ public class SelectStage extends Activity {
 		StageListAdapter adapter = new StageListAdapter(this);
 		stages.setAdapter(adapter);
 
-		scores = new Score[getCompetitors().length][getStageCount()];
+		competitors = new Competitor[getCompetitors().length];
+		for (int competitorIndex = 0; competitorIndex < competitors.length; competitorIndex++) {
+			competitors[competitorIndex] = new Competitor(getCompetitors()[competitorIndex], getStageCount());
+		}
 	}
 
 	@Override
@@ -97,6 +108,18 @@ public class SelectStage extends Activity {
 		return getResources().getStringArray(R.array.dummy_squad);
 	}
 
+	private void storeData() throws Exception {
+		Serializer serializer = new Persister();
+		//FileOutputStream dataStream = openFileOutput(DATA_FILE, Context.MODE_WORLD_READABLE);
+		File data = new File("/sdcard/sagittarius_data2");
+		FileOutputStream dataStream = new FileOutputStream(data);
+
+		Score score = competitors[0].getScores()[0];
+		serializer.write(score, dataStream);
+		//serializer.write(competitors[0], data);
+		dataStream.close();
+	}
+
 	public void enterResults(AdapterView<?> stages, int position) {
 		if (position >= 0 && position <= getStageCount() - 1) {
 			Intent intent = new Intent(this, EnterScores.class);
@@ -139,10 +162,11 @@ public class SelectStage extends Activity {
 			int[] targets = new int[getStageCount()];
 			int[] points = new int[getStageCount()];
 			for (int stageIndex = 0; stageIndex < getStageCount(); stageIndex++) {
-				if (scores[competitorIndex][stageIndex] != null) {
-					hits[stageIndex] = scores[competitorIndex][stageIndex].hits;
-					targets[stageIndex] = scores[competitorIndex][stageIndex].targets;
-					points[stageIndex] = scores[competitorIndex][stageIndex].points;
+				Score score = competitors[competitorIndex].getScores()[stageIndex];
+				if (score != null) {
+					hits[stageIndex] = score.getHits();
+					targets[stageIndex] = score.getTargets();
+					points[stageIndex] = score.getPoints();
 				}
 			}
 			data.putIntArray(SCORING_HITS + getCompetitors()[competitorIndex], hits);
@@ -167,7 +191,12 @@ public class SelectStage extends Activity {
 
 				// store scores
 				for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
-					scores[competitorIndex][stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
+					competitors[competitorIndex].getScores()[stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
+				}
+				try {
+					storeData();
+				} catch (Exception ex) {
+					Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
 				}
 
 				// get the stages listview

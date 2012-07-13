@@ -20,9 +20,6 @@ public class ReviewScores extends Activity {
 
 	int stageCount;
 	boolean[] stageHasPoints;
-	int[] stageHits;
-	int[] stageTargets;
-	int[] stagePoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,7 @@ public class ReviewScores extends Activity {
 			}
 		} catch (Exception e) {
 			stageCount = -1;
-			stagePoints = null;
+			stageHasPoints = null;
 		}
 
 		ListView scores = (ListView) findViewById(R.id.list_scores);
@@ -82,6 +79,8 @@ public class ReviewScores extends Activity {
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view;
+			String competitor = competitors[position];
+			Bundle data = getIntent().getExtras().getBundle(SelectStage.BUNDLED_DATA);
 
 			if (convertView == null) {
 				view = inflater.inflate(R.layout.score_item, null);
@@ -90,19 +89,28 @@ public class ReviewScores extends Activity {
 			}
 
 			TextView label = (TextView) view.findViewById(R.id.score_label);
-			label.setText(competitors[position]);
+			label.setText(String.format("%d. %s", position + 1, competitor));
+
+			int[] hits = data.getIntArray(SelectStage.SCORING_HITS + competitor);
+			int[] targets = data.getIntArray(SelectStage.SCORING_TARGETS + competitor);
+			int[] points = data.getIntArray(SelectStage.SCORING_POINTS + competitor);
 
 			String scores = "";
-			for (int i = 0; i < stageCount; i++) {
-				if (stageHasPoints[i]) {
-					scores += String.format("%d/%d (%d)", 0, 0, 0);
+			for (int stageIndex = 0; stageIndex < stageCount; stageIndex++) {
+				if (stageHasPoints[stageIndex]) {
+					scores += String.format("%d/%d (%d)", hits[stageIndex], targets[stageIndex], points[stageIndex]);
 				} else {
-					scores += String.format("%d/%d", 0, 0);
+					scores += String.format("%d/%d", hits[stageIndex], targets[stageIndex]);
 				}
-				if (i < stageCount - 1) {
-					scores += ", ";
+				if (stageIndex < stageCount - 1) {
+					if (stageIndex == 5) {
+						scores += "\n";
+					} else {
+						scores += ", ";
+					}
 				}
 			}
+
 			TextView display = (TextView) view.findViewById(R.id.score_display);
 			display.setText(scores);
 

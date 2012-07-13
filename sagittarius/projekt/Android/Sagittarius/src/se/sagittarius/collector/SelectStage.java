@@ -12,23 +12,22 @@ import de.quist.app.errorreporter.ExceptionReporter;
 
 public class SelectStage extends Activity {
 
-	private Score[][] scores;
+	// constants for extra data
 	public final static String BUNDLED_DATA = "se.sagittarius.collector.BUNDLED_DATA";
 	public final static String COMPETITOR_LIST = "se.sagittarius.collector.COMPETITOR_LIST";
 	public final static String SCORING_HITS = "se.sagittarius.collector.SCORING_HITS";
 	public final static String SCORING_TARGETS = "se.sagittarius.collector.SCORING_TARGETS";
 	public final static String SCORING_POINTS = "se.sagittarius.collector.SCORING_POINTS";
 	public final static String STAGE_COUNT = "se.sagittarius.collector.STAGE_COUNT";
-	public final static String STAGE_HASPOINTS = "se.sagittarius.collector.STAGE_POINTS";
+	public final static String STAGE_HASPOINTS = "se.sagittarius.collector.STAGE_HASPOINTS";
 	public final static String STAGE_INDEX = "se.sagittarius.collector.STAGE_INDEX";
 	public final static String STAGE_LABEL = "se.sagittarius.collector.STAGE_LABEL";
 	public final static String STAGE_POINTS = "se.sagittarius.collector.STAGE_POINTS";
 	public final static String STAGE_TARGETCOUNT = "se.sagittarius.collector.STAGE_TARGETCOUNT";
 	static final int ENTER_RESULTS = 10001;
+	// score matrix
+	private Score[][] scores;
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		ExceptionReporter reporter = ExceptionReporter.register(this);
@@ -103,7 +102,7 @@ public class SelectStage extends Activity {
 			Intent intent = new Intent(this, EnterScores.class);
 			Bundle data = new Bundle();
 
-			// pass the current stage index (using position from ListView)
+			// pass the current stage index (using stageIndex from ListView)
 			data.putInt(STAGE_INDEX, position);
 
 			// pass the current stage name to the new activity
@@ -113,7 +112,7 @@ public class SelectStage extends Activity {
 			data.putInt(STAGE_TARGETCOUNT, getStageTargetCount(position));
 
 			// pass the status of targets with point values on them to the new activity
-			data.putBoolean(STAGE_POINTS, getStagePoints(position));
+			data.putBoolean(STAGE_HASPOINTS, getStagePoints(position));
 
 			// pass the competitor names to the new activity
 			data.putStringArray(COMPETITOR_LIST, getCompetitors());
@@ -134,8 +133,24 @@ public class SelectStage extends Activity {
 		data.putBooleanArray(STAGE_HASPOINTS, stageHasPoints);
 		data.putInt(STAGE_COUNT, getStageCount());
 		data.putStringArray(COMPETITOR_LIST, getCompetitors());
-		intent.putExtra(BUNDLED_DATA, data);
 
+		for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
+			int[] hits = new int[getStageCount()];
+			int[] targets = new int[getStageCount()];
+			int[] points = new int[getStageCount()];
+			for (int stageIndex = 0; stageIndex < getStageCount(); stageIndex++) {
+				if (scores[competitorIndex][stageIndex] != null) {
+					hits[stageIndex] = scores[competitorIndex][stageIndex].hits;
+					targets[stageIndex] = scores[competitorIndex][stageIndex].targets;
+					points[stageIndex] = scores[competitorIndex][stageIndex].points;
+				}
+			}
+			data.putIntArray(SCORING_HITS + getCompetitors()[competitorIndex], hits);
+			data.putIntArray(SCORING_TARGETS + getCompetitors()[competitorIndex], targets);
+			data.putIntArray(SCORING_POINTS + getCompetitors()[competitorIndex], points);
+		}
+
+		intent.putExtra(BUNDLED_DATA, data);
 		startActivity(intent);
 	}
 
@@ -145,26 +160,26 @@ public class SelectStage extends Activity {
 			if (data.hasExtra(BUNDLED_DATA)) {
 				// get return values
 				Bundle result = data.getBundleExtra(BUNDLED_DATA);
-				int position = result.getInt(STAGE_INDEX);
+				int stageIndex = result.getInt(STAGE_INDEX);
 				int[] hits = result.getIntArray(SCORING_HITS);
-				int[] targets = result.getIntArray(SCORING_HITS);
-				int[] points = result.getIntArray(SCORING_HITS);
+				int[] targets = result.getIntArray(SCORING_TARGETS);
+				int[] points = result.getIntArray(SCORING_POINTS);
 
 				// store scores
-				for (int i = 0; i < getCompetitors().length; i++) {
-					scores[i][position] = new Score(hits[i], targets[i], points[i]);
+				for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
+					scores[competitorIndex][stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
 				}
 
 				// get the stages listview
 				ListView stages = (ListView) findViewById(R.id.list_stages);
 
 				// set color for scored stage
-				TextView item = (TextView) stages.getChildAt(position);
+				TextView item = (TextView) stages.getChildAt(stageIndex);
 				item.setBackgroundColor(Color.parseColor("#29cf00"));
 				item.setTextColor(Color.parseColor("#ffffff"));
 
 				// bring up activity for the next stage
-				enterResults(stages, position + 1);
+				enterResults(stages, stageIndex + 1);
 			}
 		}
 	}

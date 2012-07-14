@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.*;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import de.quist.app.errorreporter.ExceptionReporter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -111,12 +114,11 @@ public class SelectStage extends Activity {
 	private void storeData() throws Exception {
 		Serializer serializer = new Persister();
 		//FileOutputStream dataStream = openFileOutput(DATA_FILE, Context.MODE_WORLD_READABLE);
-		File data = new File("/sdcard/sagittarius_data2");
+		File data = new File("/sdcard/sagittarius_data");
 		FileOutputStream dataStream = new FileOutputStream(data);
 
-		Score score = competitors[0].getScores()[0];
-		serializer.write(score, dataStream);
-		//serializer.write(competitors[0], data);
+		serializer.write(new Squad(competitors), data);
+
 		dataStream.close();
 	}
 

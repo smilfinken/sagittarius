@@ -2,6 +2,8 @@ package controllers;
 
 import static common.Sorting.*;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,8 @@ import java.util.logging.Logger;
 import models.*;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -275,5 +279,32 @@ public class Competitions extends Controller {
 		}
 
 		render();
+	}
+
+	public static void listAsXML() {
+		Document document = DocumentHelper.createDocument();
+		List<Competition> competitions = Competition.all().fetch();
+		Element root = document.addElement("root").addElement(Competitions.class.getSimpleName().toLowerCase());
+		for (Competition competition : competitions) {
+			Element element = root.addElement(competition.getClass().getSimpleName().toLowerCase());
+			element.addAttribute("id", String.format("%d", competition.id));
+			element.addAttribute("label", competition.label);
+		}
+
+		try {
+			File exportFile = File.createTempFile("sgt", "xml");
+			exportFile.deleteOnExit();
+
+			FileWriter exportWriter = new FileWriter(exportFile);
+			document.write(exportWriter);
+			exportWriter.write('\n');
+			exportWriter.close();
+
+			response.setHeader("Content-Length", String.format("%d", exportFile.length()));
+			response.setHeader("Content-Type", "text/xml; charset=utf-8");
+			renderBinary(exportFile);
+		} catch (IOException ex) {
+			Logger.getLogger(Competitions.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

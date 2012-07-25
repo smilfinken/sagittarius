@@ -12,10 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.quist.app.errorreporter.ExceptionReporter;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -46,23 +54,7 @@ public class SelectStage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		TextView selectTitle = (TextView) findViewById(R.id.select_title);
-		selectTitle.setText(getSquadLabel());
-
-		ListView stages = (ListView) findViewById(R.id.list_stages);
-		stages.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				enterResults(parent, position);
-			}
-		});
-		StageListAdapter adapter = new StageListAdapter(this);
-		stages.setAdapter(adapter);
-
-		competitors = new Competitor[getCompetitors().length];
-		for (int competitorIndex = 0; competitorIndex < competitors.length; competitorIndex++) {
-			competitors[competitorIndex] = new Competitor(getCompetitors()[competitorIndex], getStageCount());
-		}
+		//selectSquad();
 	}
 
 	@Override
@@ -73,9 +65,25 @@ public class SelectStage extends Activity {
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		boolean enabled = (competitors != null);
+
+		menu.findItem(R.id.upload_scores).setEnabled(enabled);
+		menu.findItem(R.id.upload_scores).setVisible(enabled);
+		menu.findItem(R.id.review_scores).setEnabled(enabled);
+		menu.findItem(R.id.review_scores).setVisible(enabled);
+
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.select_squad:
+				selectSquad();
+				return true;
+			case R.id.upload_scores:
+				uploadScores();
 				return true;
 			case R.id.review_scores:
 				reviewScores();
@@ -111,15 +119,125 @@ public class SelectStage extends Activity {
 		return getResources().getStringArray(R.array.dummy_squad);
 	}
 
-	private void storeData() throws Exception {
-		Serializer serializer = new Persister();
-		//FileOutputStream dataStream = openFileOutput(DATA_FILE, Context.MODE_WORLD_READABLE);
-		File data = new File("/sdcard/sagittarius_data");
-		FileOutputStream dataStream = new FileOutputStream(data);
+	private void storeData() {
+		FileOutputStream dataStream = null;
+		try {
+			Serializer serializer = new Persister();
+			//FileOutputStream dataStream = openFileOutput(DATA_FILE, Context.MODE_PRIVATE);
+			File data = new File(String.format("/sdcard/%s", DATA_FILE));
+			dataStream = new FileOutputStream(data);
+			serializer.write(new Squad(competitors), data);
+			dataStream.close();
+		} catch (Exception ex) {
+			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				dataStream.close();
+			} catch (IOException ex) {
+				Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
 
-		serializer.write(new Squad(competitors), data);
+	private DefaultHttpClient doLogin() {
+		DefaultHttpClient result = null;
 
-		dataStream.close();
+		try {
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+			nameValuePairs.add(new BasicNameValuePair("username", getResources().getString(R.string.username)));
+			nameValuePairs.add(new BasicNameValuePair("password", getResources().getString(R.string.password)));
+
+			HttpPost loginURL = new HttpPost(String.format("%s%s", getResources().getString(R.string.url_base), getResources().getString(R.string.url_loginform)));
+			loginURL.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+
+			// login
+			if (httpClient.execute(loginURL).getStatusLine().getStatusCode() < 400) {
+				// login successful
+				result = httpClient;
+			}
+		} catch (UnsupportedEncodingException ex) {
+			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (ClientProtocolException ex) {
+			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return result;
+	}
+
+	private ArrayList<Competition> getCompetitions() {
+		ArrayList<Competition> competitions = new ArrayList<Competition>();
+		DefaultHttpClient httpClient = doLogin();
+
+		if (httpClient != null) {
+			try {
+				// get competition list
+				HttpResponse response;
+				HttpGet dataURL = new HttpGet(String.format("%s%s", getResources().getString(R.string.url_base), getResources().getString(R.string.url_competitionlist)));
+				response = httpClient.execute(dataURL);
+				if (response.getStatusLine().getStatusCode() < 400) {
+					// read response
+					Persister serialiser = new Persister();
+					competitions = (ArrayList<Competition>) serialiser.read(CompetitionContainer.class, response.getEntity().getContent()).competitions;
+				}
+			} catch (Exception ex) {
+				Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+		return competitions;
+	}
+
+	private ArrayList<Squad> getSquads(Competition competition) {
+		ArrayList<Squad> squads = new ArrayList<Squad>();
+		DefaultHttpClient httpClient = doLogin();
+
+		if (httpClient != null) {
+			try {
+				// get squad list
+				HttpResponse response;
+				HttpGet dataURL = new HttpGet(String.format("%s%s?competitionID=%d", getResources().getString(R.string.url_base), getResources().getString(R.string.url_squadlist), competition.getId()));
+				response = httpClient.execute(dataURL);
+				if (response.getStatusLine().getStatusCode() < 400) {
+					// read response
+					Persister serialiser = new Persister();
+					squads = (ArrayList<Squad>) serialiser.read(SquadContainer.class, response.getEntity().getContent()).squads;
+				}
+			} catch (Exception ex) {
+				Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+		return squads;
+	}
+
+	private void selectSquad() {
+		for (Competition competition : getCompetitions()) {
+			for (Squad squad : getSquads(competition)) {
+				squad.getLabel();
+			}
+		}
+
+		TextView selectTitle = (TextView) findViewById(R.id.select_title);
+		selectTitle.setText(getSquadLabel());
+
+		ListView stages = (ListView) findViewById(R.id.list_stages);
+		stages.setVisibility(View.VISIBLE);
+		stages.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				enterResults(parent, position);
+			}
+		});
+		StageListAdapter adapter = new StageListAdapter(this);
+		stages.setAdapter(adapter);
+
+		competitors = new Competitor[getCompetitors().length];
+		for (int competitorIndex = 0; competitorIndex < competitors.length; competitorIndex++) {
+			competitors[competitorIndex] = new Competitor(getCompetitors()[competitorIndex], getStageCount());
+		}
 	}
 
 	public void enterResults(AdapterView<?> stages, int position) {
@@ -143,6 +261,7 @@ public class SelectStage extends Activity {
 			data.putStringArray(COMPETITOR_LIST, getCompetitors());
 
 			intent.putExtra(BUNDLED_DATA, data);
+
 			startActivityForResult(intent, ENTER_RESULTS);
 		}
 	}
@@ -150,16 +269,20 @@ public class SelectStage extends Activity {
 	public void reviewScores() {
 		Intent intent = new Intent(this, ReviewScores.class);
 		Bundle data = new Bundle();
-
 		boolean[] stageHasPoints = new boolean[getStageCount()];
-		for (int i = 0; i < getStageCount(); i++) {
+		for (int i = 0;
+				i < getStageCount();
+				i++) {
 			stageHasPoints[i] = getStagePoints(i);
 		}
+
 		data.putBooleanArray(STAGE_HASPOINTS, stageHasPoints);
+
 		data.putInt(STAGE_COUNT, getStageCount());
 		data.putStringArray(COMPETITOR_LIST, getCompetitors());
 
-		for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
+		for (int competitorIndex = 0;
+				competitorIndex < getCompetitors().length; competitorIndex++) {
 			int[] hits = new int[getStageCount()];
 			int[] targets = new int[getStageCount()];
 			int[] points = new int[getStageCount()];
@@ -177,7 +300,18 @@ public class SelectStage extends Activity {
 		}
 
 		intent.putExtra(BUNDLED_DATA, data);
+
 		startActivity(intent);
+	}
+
+	private void uploadScores() {
+		File data = new File(String.format("/sdcard/%s", DATA_FILE));
+		if (data.exists()) {
+			data.delete();
+		}
+		competitors = null;
+		ListView stages = (ListView) findViewById(R.id.list_stages);
+		stages.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -195,11 +329,7 @@ public class SelectStage extends Activity {
 				for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
 					competitors[competitorIndex].getScores()[stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
 				}
-				try {
-					storeData();
-				} catch (Exception ex) {
-					Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
-				}
+				storeData();
 
 				// get the stages listview
 				ListView stages = (ListView) findViewById(R.id.list_stages);

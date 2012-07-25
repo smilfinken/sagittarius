@@ -5,5 +5,10 @@
 		  android:showAsAction="ifRoom" />
 	<item android:id="@+id/review_scores"
 		  android:title="@string/review_scores"
+		  android:titleCondensed="@string/review_scores_short"
+		  android:showAsAction="ifRoom" />
+	<item android:id="@+id/upload_scores"
+		  android:title="@string/upload_scores"
+		  android:titleCondensed="@string/upload_scores_short"
 		  android:showAsAction="ifRoom" />
 </menu>

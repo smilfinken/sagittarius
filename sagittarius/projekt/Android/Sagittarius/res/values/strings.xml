@@ -20,8 +20,8 @@
 	<string name="error_reporting_message_hint">Information</string>
 
 	<string name="url_base_main">http://projects.smilfinken.net/sagittarius-main</string>
-	<string name="url_base_dev">http://localhost:9000</string>
-	<string name="url_base">http://192.168.101.130:9000</string>
+	<string name="url_base_dev">http://192.168.101.130:9000</string>
+	<string name="url_base">http://projects.smilfinken.net/sagittarius-main</string>
 	<string name="url_loginform">/login</string>
 	<string name="url_competitionlist">/competitions/listasxml</string>
 	<string name="url_squadlist">/squads/listasxml</string>

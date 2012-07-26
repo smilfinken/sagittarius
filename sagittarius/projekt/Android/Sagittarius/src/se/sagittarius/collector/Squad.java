@@ -27,6 +27,11 @@ public class Squad {
 		this.competitors = competitors;
 	}
 
+	@Override
+	public String toString() {
+		return label;
+	}
+
 	@ElementList(name = "competitors", required = false)
 	public ArrayList<Competitor> getCompetitors() {
 		return competitors;

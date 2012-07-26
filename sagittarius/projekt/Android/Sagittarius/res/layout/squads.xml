@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:id="@+id/main_view"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent" >
+	<Spinner android:id="@+id/select_competition"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:textSize="18dp" />
+	<Spinner android:id="@+id/select_squad"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:textSize="18dp" />
+</LinearLayout>

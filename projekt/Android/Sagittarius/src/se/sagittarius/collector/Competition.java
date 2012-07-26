@@ -16,6 +16,11 @@ public class Competition {
 		this.label = label;
 	}
 
+	@Override
+	public String toString() {
+		return label;
+	}
+
 	@Attribute(name = "id")
 	public int getId() {
 		return id;

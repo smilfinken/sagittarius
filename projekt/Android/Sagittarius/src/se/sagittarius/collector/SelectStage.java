@@ -13,17 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import de.quist.app.errorreporter.ExceptionReporter;
 import java.io.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -49,10 +40,8 @@ public class SelectStage extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		ExceptionReporter reporter = ExceptionReporter.register(this);
-
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.stages);
 
 		//selectSquad();
 	}
@@ -80,7 +69,7 @@ public class SelectStage extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.select_squad:
-				selectSquad();
+				listStages();
 				return true;
 			case R.id.upload_scores:
 				uploadScores();
@@ -139,89 +128,9 @@ public class SelectStage extends Activity {
 		}
 	}
 
-	private DefaultHttpClient doLogin() {
-		DefaultHttpClient result = null;
-
-		try {
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-			nameValuePairs.add(new BasicNameValuePair("username", getResources().getString(R.string.username)));
-			nameValuePairs.add(new BasicNameValuePair("password", getResources().getString(R.string.password)));
-
-			HttpPost loginURL = new HttpPost(String.format("%s%s", getResources().getString(R.string.url_base), getResources().getString(R.string.url_loginform)));
-			loginURL.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-
-			// login
-			if (httpClient.execute(loginURL).getStatusLine().getStatusCode() < 400) {
-				// login successful
-				result = httpClient;
-			}
-		} catch (UnsupportedEncodingException ex) {
-			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (ClientProtocolException ex) {
-			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (IOException ex) {
-			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		return result;
-	}
-
-	private ArrayList<Competition> getCompetitions() {
-		ArrayList<Competition> competitions = new ArrayList<Competition>();
-		DefaultHttpClient httpClient = doLogin();
-
-		if (httpClient != null) {
-			try {
-				// get competition list
-				HttpResponse response;
-				HttpGet dataURL = new HttpGet(String.format("%s%s", getResources().getString(R.string.url_base), getResources().getString(R.string.url_competitionlist)));
-				response = httpClient.execute(dataURL);
-				if (response.getStatusLine().getStatusCode() < 400) {
-					// read response
-					Persister serialiser = new Persister();
-					competitions = (ArrayList<Competition>) serialiser.read(CompetitionContainer.class, response.getEntity().getContent()).competitions;
-				}
-			} catch (Exception ex) {
-				Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-
-		return competitions;
-	}
-
-	private ArrayList<Squad> getSquads(Competition competition) {
-		ArrayList<Squad> squads = new ArrayList<Squad>();
-		DefaultHttpClient httpClient = doLogin();
-
-		if (httpClient != null) {
-			try {
-				// get squad list
-				HttpResponse response;
-				HttpGet dataURL = new HttpGet(String.format("%s%s?competitionID=%d", getResources().getString(R.string.url_base), getResources().getString(R.string.url_squadlist), competition.getId()));
-				response = httpClient.execute(dataURL);
-				if (response.getStatusLine().getStatusCode() < 400) {
-					// read response
-					Persister serialiser = new Persister();
-					squads = (ArrayList<Squad>) serialiser.read(SquadContainer.class, response.getEntity().getContent()).squads;
-				}
-			} catch (Exception ex) {
-				Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-
-		return squads;
-	}
-
-	private void selectSquad() {
-		for (Competition competition : getCompetitions()) {
-			for (Squad squad : getSquads(competition)) {
-				squad.getLabel();
-			}
-		}
-
-		TextView selectTitle = (TextView) findViewById(R.id.select_title);
-		selectTitle.setText(getSquadLabel());
+	private void listStages() {
+		TextView title = (TextView) findViewById(R.id.select_stage);
+		title.setText(getSquadLabel());
 
 		ListView stages = (ListView) findViewById(R.id.list_stages);
 		stages.setVisibility(View.VISIBLE);

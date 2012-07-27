@@ -107,7 +107,7 @@ public class Squads extends Controller {
 		Competition competition = Competition.findById(competitionID);
 		if (competition != null) {
 			List<Squad> squads = competition.squads;
-			Element root = document.addElement("root").addElement(Squads.class.getSimpleName().toLowerCase());
+			Element root = document.addElement("data").addElement(Squads.class.getSimpleName().toLowerCase());
 			for (Squad squad : squads) {
 				Element element = root.addElement(squad.getClass().getSimpleName().toLowerCase());
 				element.addAttribute("id", String.format("%d", squad.id));

@@ -284,7 +284,7 @@ public class Competitions extends Controller {
 	public static void listAsXML() {
 		Document document = DocumentHelper.createDocument();
 		List<Competition> competitions = Competition.all().fetch();
-		Element root = document.addElement("root").addElement(Competitions.class.getSimpleName().toLowerCase());
+		Element root = document.addElement("data").addElement(Competitions.class.getSimpleName().toLowerCase());
 		for (Competition competition : competitions) {
 			Element element = root.addElement(competition.getClass().getSimpleName().toLowerCase());
 			element.addAttribute("id", String.format("%d", competition.id));

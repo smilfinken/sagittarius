@@ -62,11 +62,12 @@ public class Competitors extends Controller {
 		Document document = DocumentHelper.createDocument();
 		Squad squad = Squad.findById(squadID);
 		List<Competitor> competitors = squad.competitors;
-		Element root = document.addElement("data").addElement(Competitor.class.getSimpleName().toLowerCase());
+		Element root = document.addElement("data").addElement(Competitors.class.getSimpleName().toLowerCase());
 		for (Competitor competitor : competitors) {
 			Element element = root.addElement(competitor.getClass().getSimpleName().toLowerCase());
 			element.addAttribute("id", String.format("%d", competitor.id));
-			element.addAttribute("label", competitor.toString());
+			element.addAttribute("position", String.format("%d", competitor.squadIndex));
+			element.addAttribute("name", competitor.toString());
 		}
 
 		try {

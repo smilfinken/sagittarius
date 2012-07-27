@@ -11,23 +11,32 @@ import org.simpleframework.xml.ElementList;
  */
 public class Competitor {
 
+	private int id;
+	private int position;
 	private String name;
 	private Score[] scores;
 
-	public Competitor(String name, int stageCount) {
+	//public Competitor(@Attribute(name = "id") int id, @Attribute(name = "name") String name, @ElementList(name = "scores", required = false, empty = true) ArrayList<Score> scores) {
+	public Competitor(@Attribute(name = "id") int id, @Attribute(name = "position") int position, @Attribute(name = "name") String name, @ElementList(name = "scores", required = false, empty = true) ArrayList<Score> scores) {
+		this.id = id;
+		this.position = position;
 		this.name = name;
-		this.scores = new Score[stageCount];
+		//this.scores = scores.toArray(new Score[scores.size()]);
 	}
 
-	public Competitor(@Attribute(name = "name") String name, Score[] scores) {
-		this.name = name;
-		this.scores = scores;
+	@Override
+	public String toString() {
+		return String.format("%d. %s", id, name);
 	}
 
-	public Competitor(@Attribute(name = "name") String name, @ElementList(name = "scores") ArrayList<Score> scores) {
-		this.name = name;
-		this.scores = new Score[scores.size()];
-		this.scores = (Score[]) scores.toArray();
+	@Attribute(name = "id")
+	public int getId() {
+		return id;
+	}
+
+	@Attribute(name = "position")
+	public int getPosition() {
+		return position;
 	}
 
 	@Attribute(name = "name")
@@ -35,12 +44,16 @@ public class Competitor {
 		return name;
 	}
 
-	@ElementList(name = "scores")
-	public ArrayList<Score> getScoresArray() {
-		return new ArrayList<Score>(Arrays.asList(scores));
+	@ElementList(name = "scores", required = false, empty = true)
+	public ArrayList<Score> getScores() {
+		if (scores != null) {
+			return new ArrayList<Score>(Arrays.asList(scores));
+		} else {
+			return null;
+		}
 	}
 
-	public Score[] getScores() {
+	public Score[] getScoresAsArray() {
 		return scores;
 	}
 }

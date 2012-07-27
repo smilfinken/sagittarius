@@ -11,7 +11,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import de.quist.app.errorreporter.ExceptionReporter;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -145,7 +144,8 @@ public class SelectStage extends Activity {
 
 		competitors = new Competitor[getCompetitors().length];
 		for (int competitorIndex = 0; competitorIndex < competitors.length; competitorIndex++) {
-			competitors[competitorIndex] = new Competitor(getCompetitors()[competitorIndex], getStageCount());
+			//TODO: fix constructor properly
+			competitors[competitorIndex] = new Competitor(0, 0, getCompetitors()[competitorIndex], null);
 		}
 	}
 
@@ -196,7 +196,7 @@ public class SelectStage extends Activity {
 			int[] targets = new int[getStageCount()];
 			int[] points = new int[getStageCount()];
 			for (int stageIndex = 0; stageIndex < getStageCount(); stageIndex++) {
-				Score score = competitors[competitorIndex].getScores()[stageIndex];
+				Score score = competitors[competitorIndex].getScoresAsArray()[stageIndex];
 				if (score != null) {
 					hits[stageIndex] = score.getHits();
 					targets[stageIndex] = score.getTargets();
@@ -236,7 +236,7 @@ public class SelectStage extends Activity {
 
 				// store scores
 				for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
-					competitors[competitorIndex].getScores()[stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
+					competitors[competitorIndex].getScoresAsArray()[stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
 				}
 				storeData();
 

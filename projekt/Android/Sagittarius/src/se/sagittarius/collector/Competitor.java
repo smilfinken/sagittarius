@@ -11,17 +11,28 @@ import org.simpleframework.xml.ElementList;
  */
 public class Competitor {
 
-	private int id;
+	private long id;
 	private int position;
 	private String name;
 	private Score[] scores;
 
-	//public Competitor(@Attribute(name = "id") int id, @Attribute(name = "name") String name, @ElementList(name = "scores", required = false, empty = true) ArrayList<Score> scores) {
-	public Competitor(@Attribute(name = "id") int id, @Attribute(name = "position") int position, @Attribute(name = "name") String name, @ElementList(name = "scores", required = false, empty = true) ArrayList<Score> scores) {
+	public Competitor(long id, int position, String name, int stageCount) {
 		this.id = id;
 		this.position = position;
 		this.name = name;
-		//this.scores = scores.toArray(new Score[scores.size()]);
+		this.scores = new Score[stageCount];
+		for (int i = 0; i < stageCount; i++) {
+			scores[i] = new Score();
+		}
+	}
+
+	public Competitor(@Attribute(name = "id") long id, @Attribute(name = "position") int position, @Attribute(name = "name") String name, @ElementList(name = "scores", required = false, empty = true) ArrayList<Score> scores) {
+		this.id = id;
+		this.position = position;
+		this.name = name;
+		if (scores != null) {
+			this.scores = scores.toArray(new Score[scores.size()]);
+		}
 	}
 
 	@Override
@@ -30,7 +41,7 @@ public class Competitor {
 	}
 
 	@Attribute(name = "id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -55,5 +66,24 @@ public class Competitor {
 
 	public Score[] getScoresAsArray() {
 		return scores;
+	}
+
+	public boolean setScore(int stageIndex, Score score) {
+		boolean result = false;
+		if (scores != null && scores.length >= stageIndex + 1) {
+			scores[stageIndex] = score;
+			result = true;
+		}
+		return result;
+	}
+
+	public boolean isScored(){
+		boolean result = (scores != null && scores.length !=0);
+
+		for (Score score : scores){
+			result = result && score.isScored();
+		}
+
+		return result;
 	}
 }

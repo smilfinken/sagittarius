@@ -2,20 +2,18 @@
 <resources>
 	<string name="app_name">Sagittarius</string>
 
+	<string name="closeActivity">Stäng</string>
 	<string name="competitor">Skytt</string>
+	<string name="enter_scores">Registrera resultat</string>
 	<string name="label_hits">Träff</string>
 	<string name="label_targets">Figurer</string>
 	<string name="label_points">Poäng</string>
 	<string name="next_competitor">Nästa deltagare</string>
 	<string name="next_stage">Nästa station</string>
 	<string name="review_scores">Visa resultat</string>
-	<string name="review_scores_short">Visa</string>
-	<string name="select_squad">Välj patrull</string>
-	<string name="select_title">Patrull ej vald</string>
 	<string name="scores_title">Resultat</string>
-	<string name="stage_title">Station X</string>
+	<string name="stage">Station</string>
 	<string name="upload_scores">Rapportera resultat</string>
-	<string name="upload_scores_short">Rapportera</string>
 
 	<string name="message_no_competitors">Patrullen har inga deltagare</string>
 	<string name="message_no_squads">Tavlingen har inga patruller</string>
@@ -29,6 +27,8 @@
 	<string name="url_competitionlist">/competitions/listasxml</string>
 	<string name="url_competitorlist">/competitors/listasxml</string>
 	<string name="url_squadlist">/squads/listasxml</string>
+	<string name="url_stagelist">/stages/listasxml</string>
+	<string name="url_upload">/results/uploadxml</string>
 	<string name="username">per@pelle.se</string>
 	<string name="password">123</string>
 </resources>

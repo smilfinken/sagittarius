@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.simpleframework.xml.Serializer;
@@ -19,92 +20,98 @@ import org.simpleframework.xml.core.Persister;
 
 public class SelectStage extends Activity {
 
-	// constants for extra data
-	public final static String BUNDLED_DATA = "se.sagittarius.collector.BUNDLED_DATA";
-	public final static String COMPETITOR_LIST = "se.sagittarius.collector.COMPETITOR_LIST";
-	public final static String SCORING_HITS = "se.sagittarius.collector.SCORING_HITS";
-	public final static String SCORING_TARGETS = "se.sagittarius.collector.SCORING_TARGETS";
-	public final static String SCORING_POINTS = "se.sagittarius.collector.SCORING_POINTS";
-	public final static String STAGE_COUNT = "se.sagittarius.collector.STAGE_COUNT";
-	public final static String STAGE_HASPOINTS = "se.sagittarius.collector.STAGE_HASPOINTS";
-	public final static String STAGE_INDEX = "se.sagittarius.collector.STAGE_INDEX";
-	public final static String STAGE_LABEL = "se.sagittarius.collector.STAGE_LABEL";
-	public final static String STAGE_POINTS = "se.sagittarius.collector.STAGE_POINTS";
-	public final static String STAGE_TARGETCOUNT = "se.sagittarius.collector.STAGE_TARGETCOUNT";
-	static final int ENTER_RESULTS = 10001;
-	// file name for data storage
-	private final static String DATA_FILE = "sagittarius_data";
-	// competitors
-	private Competitor[] competitors;
+	// parameters receieved from calling activity
+	Bundle parameters;
+	ArrayList<Competitor> competitors = null;
+	ArrayList<Stage> stages = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stages);
 
-		//selectSquad();
+		Intent intent = getIntent();
+		parameters = intent.getBundleExtra(Constants.BUNDLED_DATA);
+		listStages();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		boolean enabled = (competitors != null);
-
-		menu.findItem(R.id.upload_scores).setEnabled(enabled);
-		menu.findItem(R.id.upload_scores).setVisible(enabled);
-		menu.findItem(R.id.review_scores).setEnabled(enabled);
-		menu.findItem(R.id.review_scores).setVisible(enabled);
-
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.select_squad:
-				listStages();
-				return true;
-			case R.id.upload_scores:
-				uploadScores();
-				return true;
-			case R.id.review_scores:
-				reviewScores();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
+	private Long getSquadID() {
+		return parameters.getLong(Constants.SQUAD_ID);
 	}
 
 	private String getSquadLabel() {
-		return getResources().getString(R.string.dummy_squadlabel);
+		return parameters.getString(Constants.SQUAD_LABEL);
+	}
+
+	private Stage[] getStages() {
+		if (stages == null) {
+			String[] labels = parameters.getStringArray(Constants.STAGE_LABEL);
+			int[] targets = parameters.getIntArray(Constants.STAGE_TARGETCOUNT);
+			boolean[] points = parameters.getBooleanArray(Constants.STAGE_HASPOINTS);
+			if (labels.length != 0 && labels.length == targets.length && targets.length == points.length) {
+				stages = new ArrayList<Stage>();
+				for (int i = 0; i < labels.length; i++) {
+					stages.add(new Stage(i + 1, labels[i], targets[i], points[i]));
+				}
+			}
+		}
+		return stages.toArray(new Stage[stages.size()]);
 	}
 
 	private int getStageCount() {
-		ListView stages = (ListView) findViewById(R.id.list_stages);
-		return stages.getAdapter().getCount();
+		return getStages().length;
 	}
 
 	private String getStageLabel(int position) {
-		ListView stages = (ListView) findViewById(R.id.list_stages);
-		return stages.getAdapter().getItem(position).toString();
+		String result = "";
+
+		if (position < getStages().length) {
+			result = getStages()[position].getLabel();
+		}
+
+		return result;
 	}
 
 	private int getStageTargetCount(int position) {
-		return getResources().getIntArray(R.array.dummy_targets)[position];
+		int result = -1;
+
+		if (position < getStages().length) {
+			result = getStages()[position].getTargetCount();
+		}
+
+		return result;
 	}
 
 	private boolean getStagePoints(int position) {
-		return Boolean.valueOf(getResources().getStringArray(R.array.dummy_points)[position]);
+		boolean result = false;
+
+		if (position < getStages().length) {
+			result = getStages()[position].getHasPoints();
+		}
+
+		return result;
 	}
 
-	private String[] getCompetitors() {
-		return getResources().getStringArray(R.array.dummy_squad);
+	private String[] getCompetitorNames() {
+		ArrayList<String> competitorNames = new ArrayList<String>();
+		for (Competitor competitor : getCompetitors()) {
+			competitorNames.add(competitor.getName());
+		}
+		return competitorNames.toArray(new String[competitorNames.size()]);
+	}
+
+	private ArrayList<Competitor> getCompetitors() {
+		if (competitors == null) {
+			long[] competitorIds = parameters.getLongArray(Constants.COMPETITOR_IDS);
+			String[] competitorNames = parameters.getStringArray(Constants.COMPETITOR_NAMES);
+			if (competitorNames != null && competitorNames.length != 0 && competitorNames.length == competitorIds.length) {
+				competitors = new ArrayList<Competitor>();
+				for (int i = 0; i < competitorNames.length; i++) {
+					competitors.add(new Competitor(competitorIds[i], i + 1, competitorNames[i], getStageCount()));
+				}
+			}
+		}
+		return competitors;
 	}
 
 	private void storeData() {
@@ -112,9 +119,10 @@ public class SelectStage extends Activity {
 		try {
 			Serializer serializer = new Persister();
 			//FileOutputStream dataStream = openFileOutput(DATA_FILE, Context.MODE_PRIVATE);
-			File data = new File(String.format("/sdcard/%s", DATA_FILE));
+			File data = new File(String.format("/sdcard/%s", Constants.DATA_FILE));
 			dataStream = new FileOutputStream(data);
-			serializer.write(new Squad(competitors), data);
+			Squad squad = new Squad(getSquadID(), getSquadLabel(), getCompetitors());
+			serializer.write(squad, data);
 			dataStream.close();
 		} catch (Exception ex) {
 			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,22 +139,16 @@ public class SelectStage extends Activity {
 		TextView title = (TextView) findViewById(R.id.select_stage);
 		title.setText(getSquadLabel());
 
-		ListView stages = (ListView) findViewById(R.id.list_stages);
-		stages.setVisibility(View.VISIBLE);
-		stages.setOnItemClickListener(new OnItemClickListener() {
+		ListView stageList = (ListView) findViewById(R.id.list_stages);
+		stageList.setVisibility(View.VISIBLE);
+		stageList.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				enterResults(parent, position);
 			}
 		});
 		StageListAdapter adapter = new StageListAdapter(this);
-		stages.setAdapter(adapter);
-
-		competitors = new Competitor[getCompetitors().length];
-		for (int competitorIndex = 0; competitorIndex < competitors.length; competitorIndex++) {
-			//TODO: fix constructor properly
-			competitors[competitorIndex] = new Competitor(0, 0, getCompetitors()[competitorIndex], null);
-		}
+		stageList.setAdapter(adapter);
 	}
 
 	public void enterResults(AdapterView<?> stages, int position) {
@@ -155,118 +157,103 @@ public class SelectStage extends Activity {
 			Bundle data = new Bundle();
 
 			// pass the current stage index (using stageIndex from ListView)
-			data.putInt(STAGE_INDEX, position);
+			data.putInt(Constants.STAGE_INDEX, position);
 
 			// pass the current stage name to the new activity
-			data.putString(STAGE_LABEL, getStageLabel(position));
+			data.putString(Constants.STAGE_LABEL, getStageLabel(position));
 
 			// pass the target count for the current stage to the new activity
-			data.putInt(STAGE_TARGETCOUNT, getStageTargetCount(position));
+			data.putInt(Constants.STAGE_TARGETCOUNT, getStageTargetCount(position));
 
 			// pass the status of targets with point values on them to the new activity
-			data.putBoolean(STAGE_HASPOINTS, getStagePoints(position));
+			data.putBoolean(Constants.STAGE_HASPOINTS, getStagePoints(position));
 
-			// pass the competitor names to the new activity
-			data.putStringArray(COMPETITOR_LIST, getCompetitors());
+			// pass the competitor info to the new activity
+			data.putStringArray(Constants.COMPETITOR_NAMES, getCompetitorNames());
 
-			intent.putExtra(BUNDLED_DATA, data);
+			intent.putExtra(Constants.BUNDLED_DATA, data);
 
-			startActivityForResult(intent, ENTER_RESULTS);
+			startActivityForResult(intent, Constants.ENTER_SCORES);
 		}
 	}
 
-	public void reviewScores() {
+	public void reviewScores(View view) {
 		Intent intent = new Intent(this, ReviewScores.class);
 		Bundle data = new Bundle();
 		boolean[] stageHasPoints = new boolean[getStageCount()];
-		for (int i = 0;
-				i < getStageCount();
-				i++) {
+		for (int i = 0; i < getStageCount(); i++) {
 			stageHasPoints[i] = getStagePoints(i);
 		}
 
-		data.putBooleanArray(STAGE_HASPOINTS, stageHasPoints);
+		data.putBooleanArray(Constants.STAGE_HASPOINTS, stageHasPoints);
 
-		data.putInt(STAGE_COUNT, getStageCount());
-		data.putStringArray(COMPETITOR_LIST, getCompetitors());
+		data.putInt(Constants.STAGE_COUNT, getStageCount());
+		data.putStringArray(Constants.COMPETITOR_NAMES, getCompetitorNames());
 
-		for (int competitorIndex = 0;
-				competitorIndex < getCompetitors().length; competitorIndex++) {
+		for (Competitor competitor : getCompetitors()) {
 			int[] hits = new int[getStageCount()];
 			int[] targets = new int[getStageCount()];
 			int[] points = new int[getStageCount()];
 			for (int stageIndex = 0; stageIndex < getStageCount(); stageIndex++) {
-				Score score = competitors[competitorIndex].getScoresAsArray()[stageIndex];
+				Score score = competitor.getScoresAsArray()[stageIndex];
 				if (score != null) {
 					hits[stageIndex] = score.getHits();
 					targets[stageIndex] = score.getTargets();
 					points[stageIndex] = score.getPoints();
 				}
 			}
-			data.putIntArray(SCORING_HITS + getCompetitors()[competitorIndex], hits);
-			data.putIntArray(SCORING_TARGETS + getCompetitors()[competitorIndex], targets);
-			data.putIntArray(SCORING_POINTS + getCompetitors()[competitorIndex], points);
+			data.putIntArray(Constants.SCORING_HITS + competitor.getName(), hits);
+			data.putIntArray(Constants.SCORING_TARGETS + competitor.getName(), targets);
+			data.putIntArray(Constants.SCORING_POINTS + competitor.getName(), points);
 		}
 
-		intent.putExtra(BUNDLED_DATA, data);
+		intent.putExtra(Constants.BUNDLED_DATA, data);
 
 		startActivity(intent);
 	}
 
-	private void uploadScores() {
-		File data = new File(String.format("/sdcard/%s", DATA_FILE));
-		if (data.exists()) {
-			data.delete();
-		}
-		competitors = null;
-		ListView stages = (ListView) findViewById(R.id.list_stages);
-		stages.setVisibility(View.INVISIBLE);
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK && requestCode == ENTER_RESULTS) {
-			if (data.hasExtra(BUNDLED_DATA)) {
+		if (resultCode == RESULT_OK && requestCode == Constants.ENTER_SCORES) {
+			if (data.hasExtra(Constants.BUNDLED_DATA)) {
 				// get return values
-				Bundle result = data.getBundleExtra(BUNDLED_DATA);
-				int stageIndex = result.getInt(STAGE_INDEX);
-				int[] hits = result.getIntArray(SCORING_HITS);
-				int[] targets = result.getIntArray(SCORING_TARGETS);
-				int[] points = result.getIntArray(SCORING_POINTS);
+				Bundle result = data.getBundleExtra(Constants.BUNDLED_DATA);
+				int stageIndex = result.getInt(Constants.STAGE_INDEX);
+				int[] hits = result.getIntArray(Constants.SCORING_HITS);
+				int[] targets = result.getIntArray(Constants.SCORING_TARGETS);
+				int[] points = result.getIntArray(Constants.SCORING_POINTS);
 
 				// store scores
-				for (int competitorIndex = 0; competitorIndex < getCompetitors().length; competitorIndex++) {
-					competitors[competitorIndex].getScoresAsArray()[stageIndex] = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
+				for (Competitor competitor : getCompetitors()) {
+					int competitorIndex = getCompetitors().indexOf(competitor);
+					Score score = new Score(hits[competitorIndex], targets[competitorIndex], points[competitorIndex]);
+					competitor.setScore(stageIndex, score);
 				}
 				storeData();
 
-				// get the stages listview
-				ListView stages = (ListView) findViewById(R.id.list_stages);
+				// get the stageList listview
+				ListView stageList = (ListView) findViewById(R.id.list_stages);
 
 				// set color for scored stage
-				TextView item = (TextView) stages.getChildAt(stageIndex);
+				TextView item = (TextView) stageList.getChildAt(stageIndex);
 				item.setBackgroundColor(Color.parseColor("#29cf00"));
 				item.setTextColor(Color.parseColor("#ffffff"));
 
 				// bring up activity for the next stage
-				enterResults(stages, stageIndex + 1);
+				enterResults(stageList, stageIndex + 1);
 			}
 		}
-	}
-
-	public void exitApp(View view) {
-		this.finish();
 	}
 
 	private class StageListAdapter extends BaseAdapter {
 
 		private Activity activity;
-		private String[] stages;
+		private Stage[] stages;
 		private LayoutInflater inflater = null;
 
 		public StageListAdapter(Activity activity) {
 			this.activity = activity;
-			stages = getResources().getStringArray(R.array.dummy_stages);
+			stages = getStages();
 			inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 
@@ -292,9 +279,46 @@ public class SelectStage extends Activity {
 			}
 
 			TextView label = (TextView) view.findViewById(R.id.stage_label);
-			label.setText(stages[position]);
+			label.setText(stages[position].toString());
 
 			return view;
 		}
+	}
+
+	private Intent fetchData() {
+		Intent result = new Intent();
+
+		FileInputStream dataStream = null;
+		try {
+			Serializer serializer = new Persister();
+			//FileInputStream dataStream = openFileInput(Constants.DATA_FILE);
+			File data = new File(String.format("/sdcard/%s", Constants.DATA_FILE));
+			dataStream = new FileInputStream(data);
+			Squad squad = serializer.read(Squad.class, data);
+			dataStream.close();
+
+			StringWriter xmldata = new StringWriter();
+			serializer.write(squad, xmldata);
+
+			Bundle bundle = new Bundle();
+			bundle.putString(Constants.XMLDATA, xmldata.toString());
+			result.putExtra(Constants.BUNDLED_DATA, bundle);
+		} catch (Exception ex) {
+			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				dataStream.close();
+			} catch (IOException ex) {
+				Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+		return result;
+	}
+
+	public void closeActivity(View view) {
+		Intent result = fetchData();
+		setResult(RESULT_OK, result);
+		this.finish();
 	}
 }

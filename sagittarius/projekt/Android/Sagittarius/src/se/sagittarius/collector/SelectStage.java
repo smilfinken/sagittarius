@@ -118,11 +118,9 @@ public class SelectStage extends Activity {
 		FileOutputStream dataStream = null;
 		try {
 			Serializer serializer = new Persister();
-			//FileOutputStream dataStream = openFileOutput(DATA_FILE, Context.MODE_PRIVATE);
-			File data = new File(String.format("/sdcard/%s", Constants.DATA_FILE));
-			dataStream = new FileOutputStream(data);
+			dataStream = openFileOutput(Constants.DATA_FILE, Context.MODE_PRIVATE);
 			Squad squad = new Squad(getSquadID(), getSquadLabel(), getCompetitors());
-			serializer.write(squad, data);
+			serializer.write(squad, dataStream);
 			dataStream.close();
 		} catch (Exception ex) {
 			Logger.getLogger(SelectStage.class.getName()).log(Level.SEVERE, null, ex);
@@ -291,10 +289,8 @@ public class SelectStage extends Activity {
 		FileInputStream dataStream = null;
 		try {
 			Serializer serializer = new Persister();
-			//FileInputStream dataStream = openFileInput(Constants.DATA_FILE);
-			File data = new File(String.format("/sdcard/%s", Constants.DATA_FILE));
-			dataStream = new FileInputStream(data);
-			Squad squad = serializer.read(Squad.class, data);
+			dataStream = openFileInput(Constants.DATA_FILE);
+			Squad squad = serializer.read(Squad.class, dataStream);
 			dataStream.close();
 
 			StringWriter xmldata = new StringWriter();

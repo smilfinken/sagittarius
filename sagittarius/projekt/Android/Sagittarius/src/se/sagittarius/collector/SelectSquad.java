@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import de.quist.app.errorreporter.ExceptionReporter;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -147,11 +144,6 @@ public class SelectSquad extends Activity implements OnItemSelectedListener {
 				dataURL.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				if (httpClient.execute(dataURL).getStatusLine().getStatusCode() < 400) {
 					// reset
-					File data = new File(String.format("/sdcard/%s", Constants.DATA_FILE));
-					if (data.exists()) {
-						data.delete();
-					}
-
 					Button select = (Button) findViewById(R.id.btn_select_squad);
 					select.setVisibility(View.VISIBLE);
 					Button upload = (Button) findViewById(R.id.btn_upload_scores);

@@ -7,7 +7,7 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="wrap_content"
 			  android:textSize="18dp"
-			  android:text="@string/stage_title" />
+			  android:text="@string/stage" />
 	<TextView android:id="@+id/competitor"
 			  android:layout_below="@id/stage_title"
 			  android:layout_width="match_parent"

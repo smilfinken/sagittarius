@@ -28,13 +28,13 @@ public class EnterScores extends Activity {
 		setContentView(R.layout.stage);
 
 		Intent intent = getIntent();
-		data = intent.getBundleExtra(SelectStage.BUNDLED_DATA);
+		data = intent.getBundleExtra(Constants.BUNDLED_DATA);
 
-		currentStage = data.getInt(SelectStage.STAGE_INDEX);
+		currentStage = data.getInt(Constants.STAGE_INDEX);
 		scores = new Score[getCompetitors().length];
 
 		TextView stageTitle = (TextView) findViewById(R.id.stage_title);
-		stageTitle.setText(data.getString(SelectStage.STAGE_LABEL));
+		stageTitle.setText(data.getString(Constants.STAGE_LABEL));
 
 		nextCompetitor(null);
 
@@ -51,7 +51,7 @@ public class EnterScores extends Activity {
 			NumberPicker targetsView = (NumberPicker) findViewById(R.id.score_targets);
 			//targetsView.setWrapSelectorWheel(false);
 			targetsView.setMinValue(0);
-			targetsView.setMaxValue(data.getInt(SelectStage.STAGE_TARGETCOUNT));
+			targetsView.setMaxValue(data.getInt(Constants.STAGE_TARGETCOUNT));
 		} catch (Error e) {
 			Log.e(this.getClass().toString(), e.toString(), new Throwable(e));
 		}
@@ -72,7 +72,7 @@ public class EnterScores extends Activity {
 	}
 
 	private String[] getCompetitors() {
-		return data.getStringArray(SelectStage.COMPETITOR_LIST);
+		return data.getStringArray(Constants.COMPETITOR_NAMES);
 	}
 
 	private int getHits() {
@@ -126,14 +126,14 @@ public class EnterScores extends Activity {
 		if (nextCompetitor >= competitorList.length) {
 			// prepare results bundle
 			results = new Bundle();
-			results.putInt(SelectStage.STAGE_INDEX, currentStage);
-			results.putIntArray(SelectStage.SCORING_HITS, getHitsArray());
-			results.putIntArray(SelectStage.SCORING_TARGETS, getTargetsArray());
-			results.putIntArray(SelectStage.SCORING_POINTS, getPointsArray());
+			results.putInt(Constants.STAGE_INDEX, currentStage);
+			results.putIntArray(Constants.SCORING_HITS, getHitsArray());
+			results.putIntArray(Constants.SCORING_TARGETS, getTargetsArray());
+			results.putIntArray(Constants.SCORING_POINTS, getPointsArray());
 
 			// return result to calling activity
 			Intent result = new Intent();
-			result.putExtra(SelectStage.BUNDLED_DATA, results);
+			result.putExtra(Constants.BUNDLED_DATA, results);
 			setResult(RESULT_OK, result);
 
 			// finish the activity
@@ -153,7 +153,7 @@ public class EnterScores extends Activity {
 
 			// set visibility on points input
 			View pointsContainer = (View) findViewById(R.id.container_points);
-			if (!data.getBoolean(SelectStage.STAGE_HASPOINTS)) {
+			if (!data.getBoolean(Constants.STAGE_HASPOINTS)) {
 				pointsContainer.setVisibility(View.INVISIBLE);
 			} else {
 				pointsContainer.setVisibility(View.VISIBLE);

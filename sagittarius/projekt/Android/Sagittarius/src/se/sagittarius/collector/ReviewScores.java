@@ -27,10 +27,10 @@ public class ReviewScores extends Activity {
 		setContentView(R.layout.scores);
 
 		try {
-			Bundle data = getIntent().getExtras().getBundle(SelectStage.BUNDLED_DATA);
+			Bundle data = getIntent().getExtras().getBundle(Constants.BUNDLED_DATA);
 			if (data != null) {
-				stageCount = data.getInt(SelectStage.STAGE_COUNT);
-				stageHasPoints = data.getBooleanArray(SelectStage.STAGE_HASPOINTS);
+				stageCount = data.getInt(Constants.STAGE_COUNT);
+				stageHasPoints = data.getBooleanArray(Constants.STAGE_HASPOINTS);
 			}
 		} catch (Exception e) {
 			stageCount = -1;
@@ -61,8 +61,8 @@ public class ReviewScores extends Activity {
 		public ScoreListAdapter(Activity activity) {
 			this.activity = activity;
 
-			Bundle data = getIntent().getExtras().getBundle(SelectStage.BUNDLED_DATA);
-			competitors = data.getStringArray(SelectStage.COMPETITOR_LIST);
+			Bundle data = getIntent().getExtras().getBundle(Constants.BUNDLED_DATA);
+			competitors = data.getStringArray(Constants.COMPETITOR_NAMES);
 			inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 
@@ -81,7 +81,7 @@ public class ReviewScores extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view;
 			String competitor = competitors[position];
-			Bundle data = getIntent().getExtras().getBundle(SelectStage.BUNDLED_DATA);
+			Bundle data = getIntent().getExtras().getBundle(Constants.BUNDLED_DATA);
 
 			if (convertView == null) {
 				view = inflater.inflate(R.layout.score_item, null);
@@ -92,9 +92,9 @@ public class ReviewScores extends Activity {
 			TextView label = (TextView) view.findViewById(R.id.score_label);
 			label.setText(String.format("%d. %s", position + 1, competitor));
 
-			int[] hits = data.getIntArray(SelectStage.SCORING_HITS + competitor);
-			int[] targets = data.getIntArray(SelectStage.SCORING_TARGETS + competitor);
-			int[] points = data.getIntArray(SelectStage.SCORING_POINTS + competitor);
+			int[] hits = data.getIntArray(Constants.SCORING_HITS + competitor);
+			int[] targets = data.getIntArray(Constants.SCORING_TARGETS + competitor);
+			int[] points = data.getIntArray(Constants.SCORING_POINTS + competitor);
 
 			String scores = "";
 			for (int stageIndex = 0; stageIndex < stageCount; stageIndex++) {
@@ -117,5 +117,9 @@ public class ReviewScores extends Activity {
 
 			return view;
 		}
+	}
+
+	public void closeActivity(View view) {
+		this.finish();
 	}
 }

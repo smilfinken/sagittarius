@@ -1,7 +1,6 @@
 package se.sagittarius.collector;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 
@@ -11,17 +10,11 @@ import org.simpleframework.xml.ElementList;
  */
 public class Squad {
 
-	private int id;
+	private long id;
 	private String label;
 	private ArrayList<Competitor> competitors;
 
-	public Squad(Competitor[] competitors) {
-		this.id = -1;
-		this.label = "dummy";
-		this.competitors = new ArrayList<Competitor>(Arrays.asList(competitors));
-	}
-
-	public Squad(@Attribute(name = "id") int id, @Attribute(name = "label") String label, @ElementList(name = "competitors", required = false, empty = true) ArrayList<Competitor> competitors) {
+	public Squad(@Attribute(name = "id") long id, @Attribute(name = "label") String label, @ElementList(name = "competitors", required = false, empty = true) ArrayList<Competitor> competitors) {
 		this.id = id;
 		this.label = label;
 		this.competitors = competitors;
@@ -38,12 +31,22 @@ public class Squad {
 	}
 
 	@Attribute(name = "id", required = false)
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@Attribute(name = "label", required = false)
 	public String getLabel() {
 		return label;
+	}
+
+	public boolean isScored() {
+		boolean result = (competitors != null && !competitors.isEmpty());
+
+		for (Competitor competitor : competitors) {
+			result = result && competitor.isScored();
+		}
+
+		return result;
 	}
 }

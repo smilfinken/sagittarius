@@ -1,6 +1,5 @@
 package models;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;

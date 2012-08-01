@@ -1,5 +1,6 @@
 package controllers;
 
+import com.lowagie.text.Element;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,8 +11,12 @@ import play.i18n.Messages;
 import play.modules.pdf.PDF.Options;
 import static play.modules.pdf.PDF.renderPDF;
 import static common.Sorting.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Node;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -201,5 +206,30 @@ public class Results extends Controller {
 		options.FOOTER_TEMPLATE = "Results/footer.html";
 		options.FOOTER = "public/stylesheets/results.css";
 		renderPDF("Results/print.html", options, competition, results, timeStamp);
+	}
+
+	public static void uploadXML(String xmlData) {
+		try {
+			Document document = DocumentHelper.parseText(xmlData);
+			for (Iterator competitorNodeIterator = document.selectNodes("//competitors/competitor").iterator(); competitorNodeIterator.hasNext();) {
+				Node competitorNode = (Node) competitorNodeIterator.next();
+				try {
+					Competitor competitor = Competitor.findById(Long.parseLong(competitorNode.valueOf("@id")));
+					if (competitor != null) {
+						ArrayList<Result> results = new ArrayList<>();
+						for (Iterator scoreNodeIterator = competitorNode.selectNodes("scores/score").iterator(); scoreNodeIterator.hasNext();) {
+							Node scoreNode = (Node) scoreNodeIterator.next();
+							results.add(new Result(Integer.parseInt(scoreNode.valueOf("@hits")), Integer.parseInt(scoreNode.valueOf("@targets")), Integer.parseInt(scoreNode.valueOf("@points")), results.size() + 1));
+						}
+						competitor.addResults(results);
+					}
+				} catch (NumberFormatException ex) {
+					Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+
+		} catch (DocumentException ex) {
+			Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

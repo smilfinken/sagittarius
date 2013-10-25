@@ -1,4 +1,3 @@
-
 import models.*;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;

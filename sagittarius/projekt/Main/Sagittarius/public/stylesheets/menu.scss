@@ -1,4 +1,3 @@
-@IMPORT url("colors.scss");
 /*
     Document   : menu
     Created on : Jun 8, 2012, 11:12:52 AM
@@ -6,45 +5,50 @@
     Description:
         Purpose of the stylesheet follows.
 */
+@import "colors.scss";
+
+
+/* MAIN MENU */
 .menu {
-	padding-left:			0.4em;
-}
-
-div .menu .level2 {
-	width:					100%
-}
-
-ul.menu {
-	margin: 				0px;
-	padding: 				0px;
-	margin: 				0.4em 0 0.4em 0em;
-	white-space: 			nowrap;
+	margin-left:			0.4em;
 }
 
 .menu li {
 	display: 				inline-block;
 	list-style-type: 		none;
+	margin:					4px 0em;
 }
 
-.menu a {
-	padding: 				3px 10px;
+.menu li a {
+	font: 					bold small-caps 1.2em Helvetica, Arial, "Luxi Sans", sans-serif;
+	padding:				4px 0.3em;
 }
 
 .menu a:link, .menu a:visited {
-	color: 					#000;
-	background-color: 		#EAF1F2;
+	color: 					$color12;
+	background-color: 		$color15;
 	text-decoration: 		none;
 }
 
 .menu a:hover, .menu a:active {
-	color: 					#fff;
-	background-color: 		#369;
+	color: 					$color100;
+	background-color: 		$color12;
 	text-decoration: 		none;
 }
 .menu a:active {
-	color:					red;
+	color:					$color103;
+}
+li.active a:link, li.active a:visited {
+	background-color: 		white;
+}
+li.active a:hover {
+	color: 					$color100;
+	background-color: 		$color12;
 }
 
-.border-bottom {
-	border-bottom-width: 	2px;
+/* SUB MENU */
+.submenu {
+	visibility:				hidden;
+	display:				none;
+	background-color: 		$color104;
 }

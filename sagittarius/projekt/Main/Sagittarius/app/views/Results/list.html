@@ -7,42 +7,35 @@
 <div class="padded">
 	<form action="@{Results.add()}" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
-		<table>
-			<tr>
-				<td colspan="6">
+		<p>
 					#{include "Common/selectCompetitor.html" /}
-				</td>
-			</tr>
-			<tr class="scoring">
+		</p>
+		<p>
 				#{list items:competition.stages}
-				<td class="scoring">
+				<p class="left" style="color:red">
 					<input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
 					<span style="text-align: center; clear: all">Station ${_.stageIndex}</span>
-
-					<br />
+				</p>
+				<p class="left">
 					<label for="results[${_.stageIndex - 1}].hits">&{'results.hits'}</label>
 					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" />
-
-					<br />
+				</p>
+				<p class="left">
 					<label for="results[${_.stageIndex - 1}].targets">&{'results.targets'}</label>
 					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" />
-
-					<br />
+				</p>
+				<p class="left">
 					#{if (_.hasPoints())}
 					<label for="results[${_.stageIndex - 1}].points">&{'results.points'}</label>
 					<input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" />
-
-					<br />
+				</p>
+				<p class="left">
 					#{/if}
-				</td>
 				#{/list}
-			</tr>
-			<tr>
-				<td class="buttons" colspan="7">
+				</p>
+			<p>
 					<button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
-				</td>
-			</tr>
-		</table>
+			</p>
 	</form>
 </div>
 #{/if}

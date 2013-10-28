@@ -2,12 +2,18 @@
 @import "foundation.scss";
 @import "common.scss";
 @import "colors.scss";
+@import "content.scss";
 
-/* DEFAULTS */
-h1 {font-size: 20pt;font-weight: bold;}
-h2 {font-size: 14pt;font-weight: bold;}
-h3 {font-size: 12pt;font-weight: bold;}
-h4 {font-size: 10pt;font-weight: bold;}
+#main .header {
+	float:				left;
+	width:				100%;
+	background-color: 	$color15;
+	padding:			0.3em 0 0 0;
+}
+#main .content {
+	float:				left;
+	padding:			1em 0 0 0.4em;
+}
 
 table, tr, td {
 	width: 				auto;
@@ -23,8 +29,8 @@ fieldset {
 	width:				100%;
 }
 
-button, input {
-	border: 			1px solid blue;
+button, input, select {
+	border: 			1px solid darkgrey;
 }
 
 button[type=submit].delete {
@@ -89,7 +95,8 @@ span.competitioninfo {
 }
 
 span.currentuser {
-	font-style:			italic;
+	margin-right:		0.5em;
+	font-weight:		bold;			
 	font-size:			small;
 }
 

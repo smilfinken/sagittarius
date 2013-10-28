@@ -132,6 +132,8 @@ notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
 
+profile.header=Din profil
+
 ranks.ranking=Klass
 
 registration.cancel=Till inloggninssidan

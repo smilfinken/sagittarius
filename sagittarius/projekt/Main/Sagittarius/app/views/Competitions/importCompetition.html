@@ -4,7 +4,11 @@
 <br class="clear" />
 <div>
 	<form action="@{Competitions.importCompetition()}" method="POST" enctype="multipart/form-data">
-		<input type="file" name="file" />
-		<button type="submit" name="useraction" value="upload">&{'competitions.import'}</button>
+		<p>
+			<input type="file" name="file" />
+		</p>
+		<p>
+			<button type="submit" name="useraction" value="upload">&{'competitions.import'}</button>
+		</p>
 	</form>
 </div>

@@ -7,37 +7,59 @@
 		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.scss'}">
 		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/menu.scss'}">
 		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/watermark.scss'}">
-		#{get 'moreStyles' /}
 		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
 		<script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 		<script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-		#{get 'moreScripts' /}
 	</head>
 	<body>
-		<div id="logo" class="bg_main">
+		<div id="logo">
 			<div id="logo-text" class="tilted"><span class="logo-font">#{a @Application.index()}Sagittarius</span>#{/a}</span></div>
 		</div>
 		<div id="main">
-			<div class="left bg_bluegray full border-bottom border-pink">
+			<div class="header left">
+				<div class="menu left">
+					<ul>
+						#{secure.check "admin"}
+							<li class="#{if request.controller == 'Administration' }active#{/if}">#{a @Administration.index()}&{'navigation.administration'}#{/a}
+								<div class="submenu">
+									<ul class="submenu">
+										<li>#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
+										<li>#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}</li>
+										<li>#{a @Administration.list_category()}&{'administration.categories'}#{/a}</li>
+										<li>#{a @Administration.list_rank()}&{'administration.ranks'}#{/a}</li>
+										<li>#{a @Administration.list_division()}&{'administration.divisions'}#{/a}</li>
+										<li>#{a @Administration.list_weaponcategory()}&{'administration.weaponcategory'}#{/a}</li>
+										<li>#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}</li>
+										<li>#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}</li>
+										<li>#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}</li>
+										<li>#{a @Users.list()}&{'administration.users'}#{/a}</li>
+									</ul>
+								</div>
+							</li>
+						#{/secure.check}
+						<li class="#{if request.controller == 'Competitions' }active#{/if}">#{a @Competitions.list()}&{'common.competitions'}#{/a}
+							#{secure.check "admin"}
+							<div class="submenu">
+								<ul class="submenu">
+									<li>#{a @Competitions.create()}&{'competitions.createnew'}#{/a}</li>
+									<li>#{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</li>
+								</ul>
+							</div>
+							#{/secure.check}
+						</li>
+						<li class="#{if request.controller == 'Users' }active#{/if}">#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
+						<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
+					</ul>
+				</div>			
 				<div class="right">
 					<span class="currentuser">
 						Inloggad som: #{a @Users.profile()}${session.username}#{/a}
 					</span>
 				</div>
-				<div class="menu" class="left">
-					<ul class="menu level1 rounded-corners-mid-sized bg_main">
-						<li>#{a @Application.index()}&{'navigation.start'}#{/a}</li>
-						<li>#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
-						#{secure.check "admin"}
-						<li>#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
-						#{/secure.check}
-						<li>#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
-						<li>#{a @Secure.logout()}&{'navigation.logout'}#{/a}</li>
-					</ul>
-				</div>
 			</div>
-
-			#{doLayout /}
+			<div class="content">
+				#{doLayout /}
+			</div>
 		</div>
 	</body>
 </html>

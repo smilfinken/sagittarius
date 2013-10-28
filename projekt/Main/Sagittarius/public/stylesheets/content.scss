@@ -1,0 +1,26 @@
+h1 {font-size: 20pt;font-weight: bold;}
+h2 {font-size: 14pt;font-weight: bold;}
+h3 {font-size: 12pt;font-weight: bold;}
+h4 {font-size: 10pt;font-weight: bold;}
+
+button, input[type="submit"] {
+	float:			right;
+}
+
+label { 
+	display: 		table-cell; 
+	width: 			150px; 
+	float:left; 
+}
+
+form input, textarea, select { 
+	display: 		table-cell; 
+}
+ 
+p {
+	line-height:	2em;
+}
+
+select {
+	width:			182px;
+}

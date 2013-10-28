@@ -1,11 +1,9 @@
 #{extends 'main.html' /}
 #{set title: messages.get("common.competitions") /}
 
-<br class="clear" />
-
 #{secure.check "admin"}
-<div class="menu level2 bg_pink">
-	<ul class="menu">
+<div>
+	<ul>
 		<li>#{a @Competitions.create()}&{'competitions.createnew'}#{/a}</li>
 		<li>#{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</li>
 	</ul>
@@ -13,9 +11,9 @@
 #{/secure.check}
 
 #{secure.check "basic"}
-<div class="menu">
+<div>
 	#{list competitions}
-	<ul class="menu">
+	<ul>
 		<li>#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
 	</ul>
 	#{/list}

@@ -16,6 +16,7 @@
 		<li class="#{if request.path == '/users' }active#{/if}">#{a @Users.list()}&{'administration.users'}#{/a}</li>
 	</ul>
 </div>
+%{ out.print(request.path) }%
 #{/secure.check}
 
 #{doLayout /}

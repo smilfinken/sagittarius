@@ -51,6 +51,9 @@ common.type=Typ
 common.unregister=Avregistrera
 common.update=Uppdatera
 
+competitions.registered.text=Tävlingar du eventuellt är anmäld till
+competitions.administration.text=Tävlingar du administrerar
+
 competitions.addsquad=Lägg till patrull
 competitions.addstage=Lägg till station
 competitions.application=Tävlingsanmälan
@@ -158,6 +161,7 @@ results.title=Resultat
 scoringtype.sumpointsandtargets=Lägg ihop träff och figurer
 scoringtype.sumpointsonly=Räkna enbart poäng
 
+signin.form.heading=Skapa användarkonto
 signin.heading=Registering
 signin.msg=Efter att du matat in uppgifterna kommer ett registreringsmail skickas till angiven mailadress. I mailet kommer vidare instruktioner för hur du aktiverar ditt konto ges.
 

@@ -1,4 +1,4 @@
-<label for="categoryID">&{'models.user.category'}</label>
+<label for="categoryID">&{'models.user.category'} <span class="error">#{error 'categoryID' /}</span></label>
 #{select 'categoryID', items: categories, value:flash.categoryID, valueProperty:'id', labelProperty:'label'}
-#{option -1}#{/option}
+#{option -1}&{'models.user.category'}#{/option}
 #{/select}

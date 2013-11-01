@@ -1,9 +1,8 @@
 #{extends "main.html" /}
 #{set title: messages.get('administration.title') /}
 
-<br class="clear" />
 #{secure.check "admin"}
-<div class="menu">
+<div class="submenu menu">
 	<ul class="menu">
 		<li>#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
 		<li>#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}</li>

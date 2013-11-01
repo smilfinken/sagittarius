@@ -1,4 +1,4 @@
-#{extends "mainExt.html" /}
+#{extends "main-login.html" /}
 
 <script>
 	$(document).ready(function(){
@@ -15,37 +15,41 @@
 
 	#{form @authenticate()}
 
-	#{if flash.error}
-	<div class="error rounded-corners-top">
-		&{flash.error}
-	</div>
-	#{/if}
-	#{if flash.success}
-	<div class="success rounded-corners-top">
-		&{flash.success}
-	</div>
-	#{/if}	
-	<div class="login-box rounded-corners-top rounded-corners-bottom">
-		<p id="username-field">
-			<label for="username" class="login-label">&{'secure.username'}</label>
-			<input type="text" name="username" id="username" value="${flash.username}" class="login-input"/>
-		</p>
-		<p id="password-field">
-			<label for="password" class="login-label">&{'secure.password'}</label>
-			<input type="password" name="password" id="password" value="" class="login-input"/>
-		</p>
-		<br/>
-		<p id="signin-field" class="text-center">
-			<input type="submit" id="signin" value="&{'secure.login'}" class="bold medium"/>
-		</p>
-		<p id="remember-field" class="text-center">
-			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-			<label for="remember" class="medium">&{'secure.remember'}</label>
-		</p>
+	<div class="login-box rounded-corners">
+		<h2>&{'secure.login'}</h2>
+		
+		#{if flash.error}
+			<div class="error">
+				<h1>&{flash.error}</h1>
+			</div>
+		#{/if}
+		#{if flash.success}
+			<div class="success">
+				&{flash.success}
+			</div>
+		#{/if}		
+		
+		<div class="login-box-content">
+			<p id="username-field">
+				<label for="username">&{'secure.username'}</label>
+				<input type="text" name="username" id="username" value="${flash.username}"  placeholder="&{'secure.username'}" />
+			</p>
+			<p id="password-field">
+				<label for="password"">&{'secure.password'}</label>
+				<input type="password" name="password" id="password" value="" placeholder="&{'secure.password'} "/>
+			</p>
+			<br/>
+			<p id="signin-field">
+				<input type="submit" id="signin" value="&{'secure.login'}"/>
+			</p>
+			<p id="remember-field">
+				<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+				<label for="remember" class="visible">&{'secure.remember'}</label>
+			</p>		
+		</div>
 	</div>
 	#{/form}
-	<div>
-
+	<div class="login-box-lower">
 		<p>&{'secure.noaccount'} <a href="@{Registration.signup()}">&{'secure.noaccount.create'}</a></p>
 		<p>
 			&{'demo.heading'}

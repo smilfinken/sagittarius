@@ -2,33 +2,35 @@
 #{set title: item /}
 
 <div>
-	<h2>&{'profile.header'}</h2>
+	<h1>&{'profile.header'}</h1>
 	<hr/>
-	<form action="@{Users.profile()}" method="POST">
-		<p>
-			<label for="firstName">&{'models.user.firstname'}</label>
-			<input type="text" name="firstName" value="${item.firstName}" />
-		</p>
-		<p>
-			<label for="surname">&{'models.user.surname'}</label>
-			<input type="text" name="surname" value="${item.surname}" />
-		</p>
-		<p>
-			<label for="cardNumber">&{'models.user.cardnumber'}</label>
-			<input type="text" name="cardNumber" value="${item.cardNumber}" />
-		</p>
-		<p>
-			<label for="email">&{'models.user.email'}</label>
-			<input type="text" name="email" value="${item.email}" />
-		</p>
-		<p>			
-			#{include "Common/selectCategory.html" /}
-		</p>
-		<p>			
-			#{include "Common/selectRank.html" /}
-		</p>
-		<p>			
-			<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
-		</p>			
-	</form>
+	<div class="form">
+		<form action="@{Users.profile()}" method="POST">
+			<p>
+				<label for="firstName">&{'models.user.firstname'}</label>
+				<input type="text" name="firstName" value="${item.firstName}" />
+			</p>
+			<p>
+				<label for="surname">&{'models.user.surname'}</label>
+				<input type="text" name="surname" value="${item.surname}" />
+			</p>
+			<p>
+				<label for="cardNumber">&{'models.user.cardnumber'}</label>
+				<input type="text" name="cardNumber" value="${item.cardNumber}" />
+			</p>
+			<p>
+				<label for="email">&{'models.user.email'}</label>
+				<input type="text" name="email" value="${item.email}" />
+			</p>
+			<p>			
+				#{include "Common/selectCategory.html" /}
+			</p>
+			<p>			
+				#{include "Common/selectRank.html" /}
+			</p>
+			<p>			
+				<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
+			</p>			
+		</form>
+	</div>
 </div>

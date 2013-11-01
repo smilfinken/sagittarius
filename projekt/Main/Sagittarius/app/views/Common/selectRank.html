@@ -1,4 +1,4 @@
-<label for="rankID">&{'models.user.rank'}</label>
+<label for="rankID">&{'models.user.rank'} <span class="error">#{error 'rankID' /}</span></label>
 #{select 'rankID', items:ranks, value:flash.rankID, valueProperty:'id', labelProperty:'label'}
-#{option -1}#{/option}
+#{option -1}&{'models.user.rank'}#{/option}
 #{/select}

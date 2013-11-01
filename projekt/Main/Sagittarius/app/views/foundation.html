@@ -4,18 +4,14 @@
 	<head>
 		<title>#{get 'title' /}</title>
 		<meta charset="${_response_encoding}">
-		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/mainExt.scss'}">
-		#{get 'moreStyles' /}
+		<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/foundation.scss'}">
 		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+		#{get 'styleMain' /}
 		<script src="@{'/public/javascripts/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 		<script src="@{'/public/javascripts/global.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-		#{get 'moreScripts' /}
 	</head>
-	<body class="bg_bluegray">
-		<div id="logo" class="bg_main">
-			<div id="logo-text" class="tilted"><span class="logo-font">Sa<span class="none">g</span>ittarius</span></div>
-		</div>
-		<div id="main" style="margin-top: 4%;">
+	<body>
+		<div id="foundation-pane">
 			#{doLayout /}
 		</div>
 	</body>

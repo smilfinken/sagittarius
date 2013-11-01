@@ -2,10 +2,6 @@
 @import "colors.scss";
 @import "watermark.scss";
 
-#login p {
-	margin-top:				3px;
-}
-
 /* CLASSES */
 .center-container {
 	position:				relative;
@@ -14,27 +10,52 @@
 	width:					95%;
 	max-width:				500px;	
 }
+
 .login-box {
 	padding:				1em 0.5em 1em 0.5em;
 	border:					solid 2px $color12;
 	text-align: 			center;
 }
 
+.login-box h2 {
+	@extend .rounded-corners-top;
+	background-color:		$color12;
+	color:					$color100;
+	text-align: 			left;
+	margin:					-1em -0.5em 1em -0.5em;
+	padding:				0 0 0 1em;
+	line-height:			1.5em;
+}
+
 .login-box-lower {
 	@extend .login-box;
+	border:					solid 2px $color100;
 	text-align: 			left;
 }
+
 .login-box p {
+	margin-top:				3px;
+	width:					80%;
+	margin-left: 			auto;
+  	margin-right: 			auto;		
+}
+
+.login-box-lower p {
 	width:					100%;
 }
-label {
+
+.login-box label {
 	display:				inline-block;
 	font-weight:			bold;
 	text-align:				left;
-	width:					80%;
+	width:					100%;
+}
+
+.login-box label.checkbox {
+	float:					none;	
 }
 input, select {
-	width:					80%;
+	width:					100%;
 }
 input[type="checkbox"] {
 	width:					20px;
@@ -42,13 +63,19 @@ input[type="checkbox"] {
 
 /* ELEMENTS */
 span.error {
-	/*padding:				0.3em 0.5em 0.3em 0.5em;*/
+	float:					right;
+	font-weight:			normal;
+	font-style:				italic;
+	color:					red;
 }
 div.error {
+	color:					red;
+	background-color:		yellow;
 	text-align:				center;
-	padding:				0.5em 0 0.5em 0;
-	font-size:				14pt;
+	padding:				0.2em 0 0.2em 0;
+	font-size:				12pt;
 	font-weight:			bold;
+	margin:					-1.2em -0.5em 1em -0.5em;	
 }
 
 /* WATERMARK OVERRIDE */

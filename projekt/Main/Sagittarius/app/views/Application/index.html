@@ -1,7 +1,11 @@
 #{extends 'main.html' /}
 #{set title: messages.get("application.name") /}
 
-Tävlingar du eventuellt är anmäld till:
+<h1>&{'common.competitions'}</h1>
+<hr/>
+
+<h2>&{'competitions.registered.text'}</h2>
+<hr/>
 #{if (entries?.size() != 0)}
 <div class="menu">
 	#{list entries}
@@ -13,8 +17,8 @@ Tävlingar du eventuellt är anmäld till:
 #{/if}
 
 #{if (competitions?.size() != 0)}
-<br class="clear" />
-Tävlingar du administrerar:
+<h2>&{'competitions.administration.text'}</h2>
+<hr/>
 <div class="menu">
 	#{list competitions}
 	<ul class="menu">

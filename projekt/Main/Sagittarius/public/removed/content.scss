@@ -10,17 +10,13 @@ button, input[type="submit"] {
 label { 
 	display: 		table-cell; 
 	width: 			150px; 
-	float:left; 
+	float:			left; 
 }
 
 form input, textarea, select { 
 	display: 		table-cell; 
 }
  
-p {
-	line-height:	2em;
-}
-
 select {
-	width:			182px;
+	width:			100%;
 }

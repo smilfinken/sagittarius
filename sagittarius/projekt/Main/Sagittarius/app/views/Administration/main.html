@@ -4,19 +4,18 @@
 #{secure.check "admin"}
 <div class="submenu left">
 	<ul>
-		<li class="#{if request.path == '/administration/list_competitiontype' }active#{/if}">#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_scoringtype' }active#{/if}">#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_category' }active#{/if}">#{a @Administration.list_category()}&{'administration.categories'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_rank' }active#{/if}">#{a @Administration.list_rank()}&{'administration.ranks'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_division' }active#{/if}">#{a @Administration.list_division()}&{'administration.divisions'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_weaponcategory' }active#{/if}">#{a @Administration.list_weaponcategory()}&{'administration.weaponcategory'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_targetcolour' }active#{/if}">#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_targetclass' }active#{/if}">#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}</li>
-		<li class="#{if request.path == '/administration/list_targetshape' }active#{/if}">#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}</li>
-		<li class="#{if request.path == '/users' }active#{/if}">#{a @Users.list()}&{'administration.users'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_competitiontype') }active#{/if}">#{a @Administration.list_competitiontype()}&{'administration.competitiontypes'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_scoringtype') }active#{/if}">#{a @Administration.list_scoringtype()}&{'administration.scoringtype'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_category') }active#{/if}">#{a @Administration.list_category()}&{'administration.categories'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_rank') }active#{/if}">#{a @Administration.list_rank()}&{'administration.ranks'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_division') }active#{/if}">#{a @Administration.list_division()}&{'administration.divisions'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_weaponcategory') }active#{/if}">#{a @Administration.list_weaponcategory()}&{'administration.weaponcategory'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_targetcolour') }active#{/if}">#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_targetclass') }active#{/if}">#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/list_targetshape') }active#{/if}">#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/users') }active#{/if}">#{a @Users.list()}&{'administration.users'}#{/a}</li>
 	</ul>
 </div>
-%{ out.print(request.path) }%
 #{/secure.check}
 
-#{doLayout /}
+#{doLayout /}	

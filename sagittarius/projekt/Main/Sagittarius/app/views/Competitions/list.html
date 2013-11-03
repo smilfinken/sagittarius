@@ -1,26 +1,27 @@
 #{extends 'main.html' /}
 #{set title: messages.get("common.competitions") /}
 
+<div class="content">
 <h1>&{'common.competitions'}</h1>
 <hr/>
+    #{secure.check "admin"}
+    <p>
+            <h2>&{'competitions.administration.text'}</h2>
+            <ul>
+                    <li>#{a @Competitions.create()}&{'competitions.createnew'}#{/a}</li>
+                    <li>#{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</li>
+            </ul>
+    </p>
+    #{/secure.check}
 
-#{secure.check "admin"}
-<div class="left">
-	<h2>&{'competitions.administration.text'}</h2>
-	<ul>
-		<li>#{a @Competitions.create()}&{'competitions.createnew'}#{/a}</li>
-		<li>#{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</li>
-	</ul>
+    #{secure.check "basic"}
+    <p>
+            <h2>&{'competitions.registered.text'}</h2>
+            #{list competitions}
+            <ul>
+                    <li class="${_parity}">#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
+            </ul>
+            #{/list}
+    </p>
+    #{/secure.check}
 </div>
-#{/secure.check}
-
-#{secure.check "basic"}
-<div class="left">
-	<h2>&{'competitions.registered.text'}</h2>
-	#{list competitions}
-	<ul>
-		<li>#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
-	</ul>
-	#{/list}
-</div>
-#{/secure.check}

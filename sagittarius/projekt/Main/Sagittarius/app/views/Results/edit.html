@@ -1,10 +1,10 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get('common.changeobject', 'Resultat') /}
 
-<br class="clear" />
+
 &{'results.editlabel', competitor?.toString(), competitor?.getDivisionAsString()}
 
-<br class="clear" />
+
 <form action="@{Results.edit}" method="POST" autocomplete="off">
 	<input type="hidden" name="competitionID" value="${competition.id}" />
 	<input type="hidden" name="competitorID" value="${competitor.id}" />

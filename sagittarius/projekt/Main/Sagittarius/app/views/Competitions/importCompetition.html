@@ -1,14 +1,14 @@
 #{extends "main.html" /}
 #{set title: messages.get("competitions.createnew") /}
 
-<br class="clear" />
-<div>
-	<form action="@{Competitions.importCompetition()}" method="POST" enctype="multipart/form-data">
-		<p>
-			<input type="file" name="file" />
-		</p>
-		<p>
-			<button type="submit" name="useraction" value="upload">&{'competitions.import'}</button>
-		</p>
-	</form>
+
+<div class="content">
+    <form action="@{Competitions.importCompetition()}" method="POST" enctype="multipart/form-data">
+        <p>
+            <input type="file" name="file" />
+        </p>
+        <p>
+            <button type="submit" name="useraction" value="upload">&{'competitions.import'}</button>
+        </p>
+    </form>
 </div>

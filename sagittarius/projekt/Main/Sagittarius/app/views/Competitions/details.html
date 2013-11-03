@@ -1,96 +1,98 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get("common.changeobject", competition.label)  /}
 
-#{secure.check "admin"}
-<br class="clear" />
-<div>
-	<h2>&{'competitions.details'}</h2>
-	<form action="@{Competitions.edit()}" method="POST">
-		<input type="hidden" name="competitionID" value="${competition.id}" />
-		<label for="label">&{'competitions.competitionname'}</label>
-		<input type="text" name="label" value="${competition.label}" />
-		<label for="date">&{'competitions.competitiondate'}</label>
-		<input type="text" name="date" value="${competition.date}" />
+<div class="content">
+    #{secure.check "admin"}
 
-		<br />
-		#{include "Common/selectCompetitionType.html" /}
-		#{include "Common/selectScoringType.html" /}
+    <div>
+        <h2>&{'competitions.details'}</h2>
+        <form action="@{Competitions.edit()}" method="POST">
+            <input type="hidden" name="competitionID" value="${competition.id}" />
+            <label for="label">&{'competitions.competitionname'}</label>
+            <input type="text" name="label" value="${competition.label}" />
+            <label for="date">&{'competitions.competitiondate'}</label>
+            <input type="text" name="date" value="${competition.date}" />
 
-		<br />
-		<button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
-		<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
-	</form>
+            <br />
+            #{include "Common/selectCompetitionType.html" /}
+            #{include "Common/selectScoringType.html" /}
+
+            <br />
+            <button class="enter" type="submit" name="useraction" value="save">&{'common.change'}</button>
+            <button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+        </form>
+    </div>
+
+
+    <div class="menu">
+        <ul class="menu">
+            <li>#{a @Results.exportXML(competition.id)}&{'export.destination.file', messages.get('export.format.xml')}#{/a}</li>
+        </ul>
+    </div>
+
+
+    <div>
+        <h2>${common.Strings.capitaliseFirst(messages.get("competitions.stages"))}</h2>
+        #{if (competition.hasStages())}
+        <table>
+            #{list competition.stages}
+            <tr>
+                <td>
+                    <form action="@{Stages.edit()}" method="POST">
+                        <input type="hidden" name="competitionID" value="${competition.id}" />
+                        <input type="hidden" name="stageID" value="${_.id}" />
+                        <button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
+                        #{a @Stages.edit(competition.id, _.id)}&{'competitions.stage'} ${_.stageIndex}#{if (_.label != _.stageIndex.toString())} (${_.label})#{/if}#{/a}:
+                        #{if (_.targetGroups?.size() != 0)}${_.targetGroups.size()} &{'targetgroups.targetgroups'}#{/if}#{else}&{'common.noobject', 'targetgroups.targetgroups'}#{/else}#{if (_.startingPosition != null)}, ${_.startingPosition}#{/if}#{if (_.hasPoints())}, &{'stages.scoring'}#{/if}
+                    </form>
+                </td>
+            </tr>
+            #{/list}
+        </table>
+        #{/if}
+    </div>
+
+    <div>
+        <form action="@{Competitions.addStage()}" method="POST">
+            <input type="text" name="label" />
+            <input type="hidden" name="competitionID" value="${competition.id}" />
+            <button type="submit" class="enter" name="useraction" value="create">&{'competitions.addstage'}</button>
+        </form>
+    </div>
+
+
+    <div>
+        <h2>${common.Strings.capitaliseFirst(messages.get("competitions.squads"))}</h2>
+        #{if (competition.hasSquads())}
+        <table>
+            #{list competition.squads}
+            <tr>
+                <td>
+                    <form action="@{Competitions.deleteSquad()}" method="POST">
+                        <input type="hidden" name="competitionID" value="${competition.id}" />
+                        <input type="hidden" name="squadID" value="${_.id}" />
+                        <button class="delete" type="submit">&{'common.delete'}</button>
+                        #{a @Squads.details(competition.id, _.id)}&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber.toString())} (${_.label})#{/if}#{/a}:
+                        #{if (_.slots < 0)}
+                        #{if (_.competitors?.size() != 0)}${_.competitors.size()} &{'squads.slots'} &{'squads.assigned'}#{/if}#{else}&{'squads.empty'}#{/else}
+                        #{/if}
+                        #{else}
+                        ${_.slots} &{'squads.slots'}#{if (_.competitors?.size() != 0)}, ${_.competitors.size()} &{'squads.assigned'}#{/if}#{else} &{'squads.free'}#{/else}
+                        #{/else}
+                    </form>
+                </td>
+            </tr>
+            #{/list}
+        </table>
+        #{/if}
+    </div>
+
+    <div>
+        <form action="@{Competitions.addSquad()}" method="POST">
+            <input type="text" name="label" />
+            <input type="hidden" name="competitionID" value="${competition.id}" />
+            <button type="submit" class="enter" name="useraction" value="create">&{'competitions.addsquad'}</button>
+        </form>
+    </div>
+    #{/secure.check}
 </div>
-
-<br class="clear" />
-<div class="menu">
-	<ul class="menu">
-		<li>#{a @Results.exportXML(competition.id)}&{'export.destination.file', messages.get('export.format.xml')}#{/a}</li>
-	</ul>
-</div>
-
-<br class="clear" />
-<div>
-	<h2>${common.Strings.capitaliseFirst(messages.get("competitions.stages"))}</h2>
-	#{if (competition.hasStages())}
-	<table>
-		#{list competition.stages}
-		<tr>
-			<td>
-				<form action="@{Stages.edit()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="stageID" value="${_.id}" />
-					<button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
-					#{a @Stages.edit(competition.id, _.id)}&{'competitions.stage'} ${_.stageIndex}#{if (_.label != _.stageIndex.toString())} (${_.label})#{/if}#{/a}:
-					#{if (_.targetGroups?.size() != 0)}${_.targetGroups.size()} &{'targetgroups.targetgroups'}#{/if}#{else}&{'common.noobject', 'targetgroups.targetgroups'}#{/else}#{if (_.startingPosition != null)}, ${_.startingPosition}#{/if}#{if (_.hasPoints())}, &{'stages.scoring'}#{/if}
-				</form>
-			</td>
-		</tr>
-		#{/list}
-	</table>
-	#{/if}
-</div>
-
-<div>
-	<form action="@{Competitions.addStage()}" method="POST">
-		<input type="text" name="label" />
-		<input type="hidden" name="competitionID" value="${competition.id}" />
-		<button type="submit" class="enter" name="useraction" value="create">&{'competitions.addstage'}</button>
-	</form>
-</div>
-
-<br class="clear" />
-<div>
-	<h2>${common.Strings.capitaliseFirst(messages.get("competitions.squads"))}</h2>
-	#{if (competition.hasSquads())}
-	<table>
-		#{list competition.squads}
-		<tr>
-			<td>
-				<form action="@{Competitions.deleteSquad()}" method="POST">
-					<input type="hidden" name="competitionID" value="${competition.id}" />
-					<input type="hidden" name="squadID" value="${_.id}" />
-					<button class="delete" type="submit">&{'common.delete'}</button>
-					#{a @Squads.details(competition.id, _.id)}&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber.toString())} (${_.label})#{/if}#{/a}:
-					#{if (_.slots < 0)}
-					#{if (_.competitors?.size() != 0)}${_.competitors.size()} &{'squads.slots'} &{'squads.assigned'}#{/if}#{else}&{'squads.empty'}#{/else}
-					#{/if}
-					#{else}
-					${_.slots} &{'squads.slots'}#{if (_.competitors?.size() != 0)}, ${_.competitors.size()} &{'squads.assigned'}#{/if}#{else} &{'squads.free'}#{/else}
-					#{/else}
-				</form>
-			</td>
-		</tr>
-		#{/list}
-	</table>
-	#{/if}
-</div>
-
-<div>
-	<form action="@{Competitions.addSquad()}" method="POST">
-		<input type="text" name="label" />
-		<input type="hidden" name="competitionID" value="${competition.id}" />
-		<button type="submit" class="enter" name="useraction" value="create">&{'competitions.addsquad'}</button>
-	</form>
-</div>
-#{/secure.check}

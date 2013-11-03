@@ -1,7 +1,7 @@
 #{extends "Administration/main.html" /}
 #{set title: item.label /}
 
-<div>
+<div class="content">
 	<form action="@{Administration.edit_division()}" method="POST">
 		<input type="hidden" name="ID" value="${item.id}" />
 		<label for="label">&{'common.division'}</label>

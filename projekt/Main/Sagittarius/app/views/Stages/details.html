@@ -1,7 +1,7 @@
 #{extends "Competitions/main.html" /}
 #{set title: "${competition.label}, station ${stage.stageIndex}" /}
 
-<br class="clear" />
+
 <div>
 	<h2>${competition.label}, &{'competitions.stage'} ${stage.stageIndex}</h2>
 	#{if (minTime != "0,0" && maxTime != "0,0")}
@@ -22,7 +22,7 @@
 </div>
 
 <div>
-	<br class="clear" />
+	
 	<form action="@{Stages.edit}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
 		<input type="hidden" name="stageID" value="${stage.id}" />
@@ -41,7 +41,7 @@
 </div>
 
 #{list stage.targetGroups, as:'targetGroup'}
-<br class="clear" />
+
 <div>
 	<form action="@{Stages.editTargetGroup()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -57,7 +57,7 @@
 </div>
 
 #{if (targetGroup.targets?.size() > 0)}
-<br class="clear" />
+
 <div>
 	#{list targetGroup.targets, as:'target'}
 	<form action="@{Stages.editTarget()}" method="POST">
@@ -76,7 +76,7 @@
 </div>
 #{/if}
 
-<br class="clear" />
+
 <div>
 	<form action="@{Stages.addTarget()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />
@@ -91,7 +91,7 @@
 	#{/list}
 </div>
 
-<br class="clear" />
+
 <div>
 	<form action="@{Stages.addTargetGroup()}" method="POST">
 		<input type="hidden" name="competitionID" value="${competition.id}" />

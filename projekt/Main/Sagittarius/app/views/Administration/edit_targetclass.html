@@ -1,7 +1,7 @@
 #{extends "Administration/main.html" /}
 #{set title: item.classification /}
 
-<div>
+<div class="content">
 	<form action="@{Administration.edit_targetclass()}" method="POST">
 		<input type="hidden" name="ID" value="${item.id}" />
 		<label for="classification">&{'targetclass.classification'}</label>

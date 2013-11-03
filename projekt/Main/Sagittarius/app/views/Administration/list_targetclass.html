@@ -1,10 +1,8 @@
 #{extends "Administration/main.html" /}
 #{set title: messages.get('administration.targetclass') /}
 
-<div class="multicolumn-block-3col">
+<div class="content">
 	#{list list}
-	<div>
 		#{a @Administration.edit_targetclass(_.id)}${_}#{/a}
-	</div>
 	#{/list}
 </div>

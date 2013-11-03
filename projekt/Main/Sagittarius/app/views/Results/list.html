@@ -3,163 +3,167 @@
 
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
-<br class="clear" />
-<div class="padded">
-	<form action="@{Results.add()}" method="POST" autocomplete="off">
-		<input type="hidden" name="competitionID" value="${competition.id}" />
-		#{include "Common/selectCompetitor.html" /}
-		<table border="1">
-			<tr>
-				#{list items:competition.stages}
-				<th>
-					<input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
-					<span style="text-align: center; clear: all">Station ${_.stageIndex}</span>
-				</th>
-				#{/list}
-			</tr>
-			
-			<tr>
-				#{list items:competition.stages}
-				<td>
-					<label for="results[${_.stageIndex - 1}].hits">&{'results.hits'}</label>
-					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" />
-				</td>
-				#{/list}
-			</tr>
-			
-			<tr>
-				#{list items:competition.stages}
-				<td>
-					<label for="results[${_.stageIndex - 1}].targets">&{'results.targets'}</label>
-					<input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" />
-				</td>
-				#{/list}
-			</tr>			
-		
-		
-			<tr>
-				#{list items:competition.stages}
-				<td>
-					#{if (_.hasPoints())}
-					<label for="results[${_.stageIndex - 1}].points">&{'results.points'}</label>
-					<input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" />
-					#{/if}
-				</td>
-				#{/list}
-			</tr>				
-		</table>
-		<button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
-	</form>
-</div>
-#{/if}
 
-#{if (competition.squads?.size() != 0)}
-<br class="clear" />
-<div>
-	<form action="@{Results.squad()}" method="POST">
-		<input type="hidden" name="competitionID" value="${competition.id}" />
-		#{include "Common/selectSquad.html" /}
-		<button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
-	</form>
-</div>
-#{/if}
+<div class="content">
+    <div>
+        <form action="@{Results.add()}" method="POST" autocomplete="off">
+            <input type="hidden" name="competitionID" value="${competition.id}" />
+            #{include "Common/selectCompetitor.html" /}
+            <table border="1">
+                <tr></tr>
+                <tr>
+                    <th></th>
+                    #{list items:competition.stages}
+                    <th>
+                        <input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
+                        <span style="text-align: center; clear: all">Station ${_.stageIndex}</span>
+                    </th>
+                    #{/list}
+                </tr>
 
-#{else}
-<div>
-	&{'competitors.nocompetitors'}
-</div>
-#{/else}
+                <tr>
+                    <th>&{'results.hits'}</th>
+                    #{list items:competition.stages}
+                    <td>
+                        <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" />
+                    </td>
+                    #{/list}
+                </tr>
 
-#{if (results?.size() > 0)}
-<br class="clear" />
-<div class="menu">
-	<ul class="menu">
-		<li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.destination.print'}</a></li>
-		#{secure.check "admin"}
-		<li>#{a @Results.export(competition.id)}&{'export.destination.file', messages.get('export.format.csv')}#{/a}</li>
-		<li>#{a @Results.exportToShooter(competition.id)}&{'export.destination.integration', messages.get('Shooter')}#{/a}</li>
-		#{/secure.check}
-	</ul>
-</div>
+                <tr>
+                    <th>&{'results.targets'}</th>
+                    #{list items:competition.stages}
+                    <td>
+                        <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" />
+                    </td>
+                    #{/list}
+                </tr>			
 
-<br class="clear" />
-<div>
-	%{
-	int totalHits;
-	int totalTargets;
-	int totalPoints;
-	int place = 1;
-	}%
-	<table>
-		<tr>
-			<th style="text-align: left">&{'common.name'}</th>
-			<th>&{'common.division'}</th>
-			<th colspan="3">&{'results.title'}</th>
-		</tr>
-		%{
-		if (results.size() > 0) {
-		String previousClass = results.first().getDivisionAsString();
-		for(entry in results){
-		if (entry.results != null && entry.results.size() == competition.stages.size()) {
-		if (!entry.getDivisionAsString().equals(previousClass)){
-		place = 1;
-		}%
-		<tr><td colspan="4">&nbsp;</td></tr>
-		%{
-		}
-		previousClass = entry.getDivisionAsString();
-		}%
-		<tr>
-			<td style="font-weight: bold; text-align: left">
-				#{a @Results.edit(competition.id, entry.id)}
-				<span style="font-style: italic">${place}</span> ${entry}
-				#{/a}
-			</td>
-			<td style="font-weight: bold">
-				${entry.getDivisionAsString()}
-			</td>
-			<td>
-				%{
-				totalHits = 0;
-				totalTargets = 0;
-				totalPoints = 0;
-				for(result in entry.results){
-				totalHits += result.hits;
-				totalTargets += result.targets;
-				}%
-				${result.hits}/${result.targets}&nbsp;
-				%{
-				if (result.points > 0){
-				totalPoints += result.points;
-				}%
-				(${result.points})&nbsp;
-				%{
-				}
-				}
-				}%
-			</td>
-			<td>
-				${totalHits}/${totalTargets}
-				<span style="font-weight: bold">${totalHits + totalTargets} (${totalPoints})</span>
-			</td>
-		</tr>
-		%{
-		place++;
-		}
-		}
-		}
-		}%
-	</table>
+
+                <tr>
+                    <th>&{'results.points'}</th>
+                    #{list items:competition.stages}
+                    <td>
+                        #{if (_.hasPoints())}
+                        <input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" />
+                        #{/if}
+                    </td>
+                    #{/list}
+                </tr>				
+            </table>
+            <button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
+        </form>
+    </div>
+    #{/if}
+
+    #{if (competition.squads?.size() != 0)}
+
+    <div>
+        <form action="@{Results.squad()}" method="POST">
+            <input type="hidden" name="competitionID" value="${competition.id}" />
+            #{include "Common/selectSquad.html" /}
+            <button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button>
+        </form>
+    </div>
+    #{/if}
+
+    #{else}
+    <div>
+        &{'competitors.nocompetitors'}
+    </div>
+    #{/else}
+
+    #{if (results?.size() > 0)}
+
+    <div class="menu">
+        <ul class="menu">
+            <li><a target="_blank" href="@{Results.generatePDF(competition.id)}">&{'export.destination.print'}</a></li>
+            #{secure.check "admin"}
+            <li>#{a @Results.export(competition.id)}&{'export.destination.file', messages.get('export.format.csv')}#{/a}</li>
+            <li>#{a @Results.exportToShooter(competition.id)}&{'export.destination.integration', messages.get('Shooter')}#{/a}</li>
+            #{/secure.check}
+        </ul>
+    </div>
+
+
+    <div>
+        %{
+        int totalHits;
+        int totalTargets;
+        int totalPoints;
+        int place = 1;
+        }%
+        <table>
+            <tr>
+                <th style="text-align: left">&{'common.name'}</th>
+                <th>&{'common.division'}</th>
+                <th colspan="3">&{'results.title'}</th>
+            </tr>
+            %{
+            if (results.size() > 0) {
+            String previousClass = results.first().getDivisionAsString();
+            for(entry in results){
+            if (entry.results != null && entry.results.size() == competition.stages.size()) {
+            if (!entry.getDivisionAsString().equals(previousClass)){
+            place = 1;
+            }%
+            <tr><td colspan="4">&nbsp;</td></tr>
+            %{
+            }
+            previousClass = entry.getDivisionAsString();
+            }%
+            <tr>
+                <td style="font-weight: bold; text-align: left">
+                    #{a @Results.edit(competition.id, entry.id)}
+                    <span style="font-style: italic">${place}</span> ${entry}
+                    #{/a}
+                </td>
+                <td style="font-weight: bold">
+                    ${entry.getDivisionAsString()}
+                </td>
+                <td>
+                    %{
+                    totalHits = 0;
+                    totalTargets = 0;
+                    totalPoints = 0;
+                    for(result in entry.results){
+                    totalHits += result.hits;
+                    totalTargets += result.targets;
+                    }%
+                    ${result.hits}/${result.targets}&nbsp;
+                    %{
+                    if (result.points > 0){
+                    totalPoints += result.points;
+                    }%
+                    (${result.points})&nbsp;
+                    %{
+                    }
+                    }
+                    }%
+                </td>
+                <td>
+                    ${totalHits}/${totalTargets}
+                    <span style="font-weight: bold">${totalHits + totalTargets} (${totalPoints})</span>
+                </td>
+            </tr>
+            %{
+            place++;
+            }
+            }
+            }
+            }%
+        </table>
+    </div>
+    #{/if}
+    #{else}
+    <div>
+        &{'results.noresults'}
+    </div>
+    #{/else}
+    #{/if}
+    #{else}
+    <div>
+        &{'competitions.nostages'}
+    </div>
+    #{/else}
 </div>
-#{/if}
-#{else}
-<div>
-	&{'results.noresults'}
-</div>
-#{/else}
-#{/if}
-#{else}
-<div>
-	&{'competitions.nostages'}
-</div>
-#{/else}

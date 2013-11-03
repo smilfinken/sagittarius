@@ -1,9 +1,9 @@
 #{extends "Competitions/main.html" /}
 #{set title: common.Strings.capitaliseFirst(messages.get("competitions.squads")) + " ${competition.label}" /}
 
-<br class="clear" />
+
 #{if (competition.squads?.size() > 0)}
-<div class="padded">
+<div class="content">
 	<table>
 		#{list competition.squads}
 		<form action="@{Squads.register()}" method="POST">

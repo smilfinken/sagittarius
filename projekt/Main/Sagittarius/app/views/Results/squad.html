@@ -1,7 +1,7 @@
 #{extends "Competitions/main.html" /}
 #{set title: messages.get('results.title') /}
 
-<br class="clear" />
+
 <div class="padded">
 	<form action="@{Results.addSquad()}" method="POST" autocomplete="off">
 		<input type="hidden" name="competitionID" value="${competition.id}" />

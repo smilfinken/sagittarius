@@ -2,19 +2,22 @@
 #{set 'moreStyles'}
 
 #{/set}
+<div class="content">
+	<h1>${competition.label}</h1>
+	<hr>
+	<div class="submenu">
+		<ul>
+			<li class="#{if request.path.endsWith('/results') }active#{/if}">#{a @Results.list(competition.id)}&{'results.title'}#{/a}</li>
+			<li class="#{if request.path.endsWith('/competitions/competitors') }active#{/if}">#{a @Competitions.competitors(competition.id)}&{'common.participants'}#{/a}</li>
+			<li class="#{if request.path.endsWith('/squads') }active#{/if}">#{a @Squads.list(competition.id)}${common.Strings.capitaliseFirst(messages.get("competitions.squads"))}#{/a}</li>
 
-<div class="submenu">
-	<ul>
-		<li>#{a @Results.list(competition.id)}&{'results.title'}#{/a}</li>
-		<!--		#{a @Competitions.enroll(competition.id)}&{'competitions.application'}#{/a} -->
-		<li>#{a @Competitions.competitors(competition.id)}&{'common.participants'}#{/a}</li>
-		<li>#{a @Squads.list(competition.id)}${common.Strings.capitaliseFirst(messages.get("competitions.squads"))}#{/a}</li>
-		#{secure.check "admin"}
-		<li>#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}</li>
-		#{/secure.check}
-		<li><a target="_Blank" href="@{Competitions.billboard(competition.id)}">&{'competitions.billboard'}</a></li>
-		<li>#{a @Competitions.enrollment(competition.id)}&{'competitions.enrollment'}#{/a}</li>
-	</ul>
+			#{secure.check "admin"}
+				<li class="#{if request.path.endsWith('/competitions/details') }active#{/if}">#{a @Competitions.edit(competition.id)}&{'competitions.details'}#{/a}</li>
+			#{/secure.check}
+
+			<li class="#{if request.path.endsWith('/competitions/enrollment') }active#{/if}">#{a @Competitions.enrollment(competition.id)}&{'competitions.enrollment'}#{/a}</li>
+		</ul>
+	</div>
+	%{ out.print(request.path) }%
+	#{doLayout /}
 </div>
-
-#{doLayout /}

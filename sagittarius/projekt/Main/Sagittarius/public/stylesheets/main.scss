@@ -147,40 +147,36 @@ body {background-color:	$color13;}
             p {
                 padding:                        0 0 0.4em 0;
             }
-
             h1 {
                 font:				$fontContentH1;
             }
             h2 {
                 font:				$fontContentH2;
                 padding:			0.3em 0 0 0;
-                border-bottom:			solid 1px gray;
+                border-bottom:		solid 1px gray;
+                
+                span.menu {
+                	font:			$fontContentH2Menu;
+                }
             }            
-
             li {
                 padding:                        2px;
-                border:                         solid 0px $color103;
+                border:                         solid 0px $color104;
                 border-bottom-width:            1px;
             }
-
             li.even {
                 background-color:                $color105;
             }
-
             input, textarea, select {
                 font-size: 			18px;
             }
-
             label {
                 display:			inline-block;
                 font:				$contentLabel;
             }
-
             button {
                 margin:				1em 0 0 0;
-                float:				right;
             }
-            
             table, tr, th, td {
                 border:                         solid 1px $color102;
             }
@@ -189,6 +185,29 @@ body {background-color:	$color13;}
             }
             td {
                 padding:                        2px;
+            }
+            .submenu {
+            	margin:							0 0 0 -1em;
+            	
+            	li {
+            		border-bottom-width:		0px;
+            		margin:						0 0 -1px 0;
+            	}
+                
+            }
+            .column {
+            	margin:						0 1em 0 0;
+            	width:						100%;
+            	max-width:					48%;
+            }
+            form {
+            
+		    	input, textarea, select {
+		        	width:					200px;
+		        }
+		        label {
+		        	width:					200px;
+		        }
             }
         }        
     }

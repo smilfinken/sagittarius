@@ -2,26 +2,31 @@
 #{set title: messages.get("common.competitions") /}
 
 <div class="content">
-<h1>&{'common.competitions'}</h1>
-<hr/>
+	<h1>&{'common.competitions'}</h1>
+	<hr/>
     #{secure.check "admin"}
-    <p>
-            <h2>&{'competitions.administration.text'}</h2>
+    <div class="column left">
+            <h2>
+            	&{'competitions.administration.text'}
+				<span class="menu right">#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
+                    #{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</span>
+            </h2>
             <ul>
-                    <li>#{a @Competitions.create()}&{'competitions.createnew'}#{/a}</li>
-                    <li>#{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</li>
+		            #{list entries}
+		                    <li class="${_parity}">#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
+		            #{/list}            		
             </ul>
-    </p>
+    </div>
     #{/secure.check}
 
     #{secure.check "basic"}
-    <p>
+    <div class="column left">
             <h2>&{'competitions.registered.text'}</h2>
-            #{list competitions}
             <ul>
+            #{list competitions}
                     <li class="${_parity}">#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
-            </ul>
             #{/list}
-    </p>
+            </ul>
+    <div>
     #{/secure.check}
 </div>

@@ -1,6 +1,7 @@
 package controllers;
 
 import static common.Sorting.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,12 +12,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import models.*;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -29,7 +33,8 @@ public class Competitions extends Controller {
 
 	public static void list() {
 		List<Competition> competitions = Competition.all().fetch();
-		render(competitions);
+		List<Competition> entries = competitions;
+		render(competitions, entries);
 	}
 
 	@Check("admin")

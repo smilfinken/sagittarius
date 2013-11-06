@@ -8,7 +8,7 @@
 		<div class="menu left">
 			<ul>
 				#{secure.check "admin"}
-					<li class="#{if request.controller == 'Administration' or request.controller == 'Administration'}active#{/if}">#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
+					<li class="#{if request.controller == 'Administration'}active#{/if}">#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
 				#{/secure.check}
 				<li class="#{if request.controller == 'Competitions' }active#{/if}">#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
 				<li class="#{if request.controller == 'Users' }active#{/if}">#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>

@@ -1,5 +1,5 @@
 <label for="competitorID">&{'common.participant'}</label>
-#{select 'competitorID', value:flash.competitorID}
+#{select 'competitorID', value:flash.competitorID, tabindex:tabindexCounter++}
 #{option -1}#{/option}
 #{list competitors}
 #{option _.id}${_.user.getFullName(true)} ${_.getDivisionAsString()}#{/option}

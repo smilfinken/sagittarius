@@ -3,18 +3,20 @@
 
 #{if (competition.stages != null && competition.stages.size() > 0)}
 #{if (competitors?.size() > 0)}
-
+{%
+	tabindexCounter = 1;
+%}
 <div>
         <form action="@{Results.add()}" method="POST" autocomplete="off">
             <input type="hidden" name="competitionID" value="${competition.id}" />
             <p>#{include "Common/selectCompetitor.html" /}</p>
-            <table border="1">
+            <table border="1"  class="narrow">
                 <tr></tr>
                 <tr>
                     <th></th>
                     #{list items:competition.stages}
                     <th>
-                        <input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}" />
+                        <input type="hidden" name="results[${_.stageIndex - 1}].stageIndex" value="${_.stageIndex}"  />
                         <span style="text-align: center; clear: all">Station ${_.stageIndex}</span>
                     </th>
                     #{/list}
@@ -24,7 +26,7 @@
                     <th>&{'results.hits'}</th>
                     #{list items:competition.stages}
                     <td>
-                        <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits" />
+                        <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].hits"  tabindex="${tabindexCounter + _.stageIndex}"/>
                     </td>
                     #{/list}
                 </tr>
@@ -33,7 +35,7 @@
                     <th>&{'results.targets'}</th>
                     #{list items:competition.stages}
                     <td>
-                        <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets" />
+                        <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets"   tabindex="${tabindexCounter + _.stageIndex}" />
                     </td>
                     #{/list}
                 </tr>			
@@ -44,13 +46,13 @@
                     #{list items:competition.stages}
                     <td>
                         #{if (_.hasPoints())}
-                        <input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points" />
+                        <input class="scoring" type="text" size="2" maxlength="2" name="results[${_.stageIndex - 1}].points"   tabindex="${tabindexCounter + _.stageIndex}" />
                         #{/if}
                     </td>
                     #{/list}
                 </tr>				
             </table>
-            <p><button class="enter" type="submit" name="useraction" value="addresults">&{'results.register'}</button></p>
+            <p><button class="enter" type="submit" name="useraction" value="addresults" tabindex="${tabindexCounter++ * 100}">&{'results.register'}</button></p>
         </form>
     #{/if}
 

@@ -13,7 +13,7 @@
             </h2>
             <ul>
 		            #{list entries}
-		                    <li class="${_parity}">#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
+		                    <li class="${_parity}">#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
 		            #{/list}            		
             </ul>
     </div>
@@ -24,7 +24,7 @@
             <h2>&{'competitions.registered.text'}</h2>
             <ul>
             #{list competitions}
-                    <li class="${_parity}">#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
+            		<li class="${_parity}">#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
             #{/list}
             </ul>
     <div>

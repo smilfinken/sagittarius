@@ -4,23 +4,22 @@
 <div class="content">
 	<h1>&{'common.competitions'}</h1>
 	<hr/>
-    #{if (entries?.size() != 0)}
-    <div class="column left">
-            <h2>&{'competitions.registered.text'}</h2>
-            <ul>
-            #{list entries}
-                    <li class="${_parity}">#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
-            #{/list}
-            </ul>
-    </div>
-    #{/if}
-
     #{if (competitions?.size() != 0)}
     <div class="column left">
             <h2>&{'competitions.administration.text'}</h2>
             <ul>
             #{list competitions}
                     <li class="${_parity}">#{a @Competitions.details(_.id)}${_.label} (${_.date})#{/a}</li>
+            #{/list}
+            </ul>
+    </div>
+    #{/if}	
+    #{if (entries?.size() != 0)}
+    <div class="column left">
+            <h2>&{'competitions.registered.text'}</h2>
+            <ul>
+            #{list entries}
+                    <li class="${_parity}">#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
             #{/list}
             </ul>
     </div>

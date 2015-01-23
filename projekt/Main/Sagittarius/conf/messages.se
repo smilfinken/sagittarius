@@ -44,6 +44,7 @@ common.participant=Deltagare
 common.participants=Deltagare
 common.register=Registrera
 common.save=Spara
+common.savenew=Spara och skapa ny
 common.seconds=sekunder
 common.selectcategory=Välj kategori
 common.shortlabel=Förkortning
@@ -51,8 +52,9 @@ common.type=Typ
 common.unregister=Avregistrera
 common.update=Uppdatera
 
-competitions.registered.text=Tävlingar du eventuellt är anmäld till
 competitions.administration.text=Tävlingar du administrerar
+competitions.registered.text=Tävlingar du eventuellt är anmäld till
+competitions.scheduled.text=Tävlingsschema
 
 competitions.addsquad=Lägg till patrull
 competitions.addstage=Lägg till station

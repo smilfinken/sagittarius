@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,6 +73,24 @@ public class Competitions extends Controller {
 					} else {
 						competitors(competition.id);
 					}
+					break;
+				case "createadd":
+					competition = new Competition(label);
+					competition.date = date;
+					competition.competitionType = CompetitionType.findById(competitionTypeID);
+					competition.scoringType = ScoringType.findById(scoringTypeID);
+					competition.save();
+
+					create();
+					break;
+				case "finish":
+					competition = new Competition(label);
+					competition.date = date;
+					competition.competitionType = CompetitionType.findById(competitionTypeID);
+					competition.scoringType = ScoringType.findById(scoringTypeID);
+					competition.save();
+
+					schedule();
 					break;
 				case "addstages":
 					competition = Competition.findById(competitionID);
@@ -259,6 +278,42 @@ public class Competitions extends Controller {
 			Set<Division> divisions = user.getValidDivisions();
 			renderTemplate("Common/selectDivision.html", divisions);
 		}
+	}
+
+	public static void schedule() {
+		List<Competition> competitions = null;
+		Integer year = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
+		try {
+			Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(String.format("%d-01-01", year));
+			Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(String.format("%d-01-01", year + 1));
+			competitions = Competition.find("date >= :startDate and date < :endDate").setParameter("startDate", startDate).setParameter("endDate", endDate).fetch();
+		} catch (ParseException e) {
+			competitions = Competition.all().fetch();
+		}
+		List<User> users = User.all().fetch();
+		render("Competitions/schedule.html", sortCompetitions(competitions), sortUsers(users), year);
+	}
+
+	@Check("admin")
+	public static void addStaff(long competitionID, long userID) {
+		Competition competition = Competition.findById(competitionID);
+		if (competition != null) {
+			User staff = User.findById(userID);
+			competition.addStaff(staff);
+		}
+
+		schedule();
+	}
+
+	@Check("admin")
+	public static void removeStaff(long competitionID, long userID) {
+		Competition competition = Competition.findById(competitionID);
+		if (competition != null) {
+			User staff = User.findById(userID);
+			competition.removeStaff(staff);
+		}
+
+		schedule();
 	}
 
 	private static Document parseXML(File file) throws DocumentException {

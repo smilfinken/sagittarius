@@ -8,13 +8,15 @@
     <div class="column left">
             <h2>
             	&{'competitions.administration.text'}
-				<span class="menu right">#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
-                    #{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}</span>
+				<span class="menu right">
+					#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
+                    #{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}
+				</span>
             </h2>
             <ul>
 		            #{list entries}
 		                    <li class="${_parity}">#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
-		            #{/list}            		
+		            #{/list}
             </ul>
     </div>
     #{/secure.check}

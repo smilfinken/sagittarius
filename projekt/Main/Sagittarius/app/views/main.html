@@ -1,6 +1,6 @@
 #{extends 'foundation.html' /}
 #{set 'styleMain'}
-	<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.scss'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.scss'}" />
 #{/set}
 <div id="main">
 	<div class="header">
@@ -8,12 +8,13 @@
 		<div class="menu left">
 			<ul>
 				#{secure.check "admin"}
-					<li class="#{if request.controller == 'Administration'}active#{/if}">#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
+				<li class="#{if request.controller == 'Administration'}active#{/if}">#{a @Administration.index()}&{'navigation.administration'}#{/a}</li>
 				#{/secure.check}
 				<li class="#{if request.controller == 'Competitions' }active#{/if}">#{a @Competitions.list()}&{'common.competitions'}#{/a}</li>
+				<li class="#{if request.controller == 'Competitions' }active#{/if}">#{a @Competitions.schedule()}&{'competitions.scheduled.text'}#{/a}</li>
 				<li class="#{if request.controller == 'Users' }active#{/if}">#{a @Users.profile()}&{'navigation.profile'}#{/a}</li>
 			</ul>
-		</div>	
+		</div>
 		<div class="profile right">
 			<span class="currentuser">
 				#{a @Users.profile()}${session.username}#{/a}

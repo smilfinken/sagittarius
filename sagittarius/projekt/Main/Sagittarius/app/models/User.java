@@ -24,6 +24,7 @@ public class User extends Model {
 	@Column(unique = true, nullable = false)
 	public String email;
 	public String cardNumber;
+	public String organisation;
 	public String password;
 	public Date registrationDate;
 	public Date confirmationDate;

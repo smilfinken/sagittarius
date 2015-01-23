@@ -33,6 +33,8 @@ public class Competition extends Model {
 	@OneToMany(cascade = CascadeType.ALL)
 	@OrderBy(value = "squadNumber")
 	public List<Squad> squads;
+	@ManyToMany(cascade = CascadeType.ALL)
+	public List<User> staff;
 
 	public Competition(String label) {
 		this.label = label;
@@ -271,6 +273,18 @@ public class Competition extends Model {
 		}
 
 		return result;
+	}
+
+	public void addStaff(User staff) {
+		this.staff.add(staff);
+		this.save();
+	}
+
+	public void removeStaff(User staff) {
+		if (staff != null) {
+			this.staff.remove(staff);
+			this.save();
+		}
 	}
 
 	public int getMaxScore() {

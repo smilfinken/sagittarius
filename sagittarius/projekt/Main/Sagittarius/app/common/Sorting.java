@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import models.Competition;
 import models.Competitor;
 import models.Result;
 import models.User;
@@ -146,6 +147,23 @@ public class Sorting {
 
 		List<Competitor> out = competitors;
 		ResultListComparator c = new ResultListComparator();
+
+		Collections.sort(out, c);
+		return out;
+	}
+
+	public static List<Competition> sortCompetitions(List<Competition> competitions) {
+		class CompetitionComparator implements Comparator<Competition> {
+
+			@Override
+			public int compare(Competition A, Competition B) {
+				//return A.date.compareTo(B.date); // WTF?
+				return A.getDate().compareTo(B.getDate());
+			}
+		}
+
+		List<Competition> out = competitions;
+		CompetitionComparator c = new CompetitionComparator();
 
 		Collections.sort(out, c);
 		return out;

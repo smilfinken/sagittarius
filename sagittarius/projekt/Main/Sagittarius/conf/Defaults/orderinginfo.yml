@@ -1,0 +1,38 @@
+# ordering information for target matierals
+
+# B100
+Orderinfo(1):
+    TargetShape: 2
+    TargetColour: 2
+    Reseller: 1
+    Ordernumber: 156185-gul
+
+Orderinfo(1):
+    TargetShape: 2
+    TargetColour: 3
+    Reseller: 1
+    Ordernumber:
+
+Orderinfo(1):
+    TargetShape: 2
+    TargetColour: 4
+    Reseller: 1
+    Ordernumber:
+
+Orderinfo(1):
+    TargetShape: 2
+    TargetColour: 5
+    Reseller: 1
+    Ordernumber:
+
+Orderinfo(1):
+    TargetShape: 2
+    TargetColour: 6
+    Reseller: 1
+    Ordernumber:
+
+Orderinfo(1):
+    TargetShape: 2
+    TargetColour: 7
+    Reseller: 1
+    Ordernumber:

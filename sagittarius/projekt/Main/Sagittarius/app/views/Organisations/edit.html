@@ -1,16 +1,15 @@
 #{extends "Competitions/main.html" /}
-#{set title: messages.get('common.changeobject', messages.get('competitions.registration')) /}
+#{set title: messages.get('common.changeobject', messages.get('common.organisation')) /}
 
 <div class="content">
-    <form action="@{Competitors.edit}" method="POST" autocomplete="off">
-        <input type="hidden" name="competitionID" value="${competition.id}" />
-        <input type="hidden" name="competitorID" value="${competitor.id}" />
+    <form action="@{Organisations.edit}" method="POST" autocomplete="off">
+        <input type="hidden" name="organisationID" value="${organisation.id}" />
 
         #{secure.check "admin"}
         <button class="delete" type="submit" name="useraction" value="delete">&{'common.delete'}</button>
         #{/secure.check}
-        ${competitor}
-        #{include "Common/selectDivision.html" /}
+
+		${organisation}
 
         #{secure.check "admin"}
         <button class="enter" type="submit" name="useraction" value="save">&{'common.save'}</button>

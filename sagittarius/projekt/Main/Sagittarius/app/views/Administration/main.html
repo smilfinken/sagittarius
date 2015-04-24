@@ -13,10 +13,11 @@
 		<li class="#{if request.path.endsWith('/list_targetcolour') }active#{/if}">#{a @Administration.list_targetcolour()}&{'administration.targetcolour'}#{/a}</li>
 		<li class="#{if request.path.endsWith('/list_targetclass') }active#{/if}">#{a @Administration.list_targetclass()}&{'administration.targetclass'}#{/a}</li>
 		<li class="#{if request.path.endsWith('/list_targetshape') }active#{/if}">#{a @Administration.list_targetshape()}&{'administration.targetshape'}#{/a}</li>
+		<li class="#{if request.path.endsWith('/organisations') }active#{/if}">#{a @Organisations.list()}&{'common.organisations'}#{/a}</li>
 		<li class="#{if request.path.endsWith('/users') }active#{/if}">#{a @Users.list()}&{'administration.users'}#{/a}</li>
 	</ul>
 </div>
 %{ out.print(request.path) }%
 #{/secure.check}
 
-#{doLayout /}	
+#{doLayout /}

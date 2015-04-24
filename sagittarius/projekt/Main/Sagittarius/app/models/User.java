@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import notifiers.RegistrationNotifier;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -24,7 +25,8 @@ public class User extends Model {
 	@Column(unique = true, nullable = false)
 	public String email;
 	public String cardNumber;
-	public String organisation;
+	@OneToOne
+	public Organisation organisation;
 	public String password;
 	public Date registrationDate;
 	public Date confirmationDate;

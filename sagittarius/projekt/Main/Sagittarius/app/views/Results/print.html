@@ -39,23 +39,27 @@
 	}%
 	<tr>
 		<td class="competitor">
-			<span class="place">${place++}</span> <span class="name">${entry}</span>
+			<span class="place">${place++}</span>
+			<span class="name">${entry}</span>
+			<span class="organisation">${entry.getOrganisation()}</span>
 		</td>
 		<td class="stages">
+			<span class="stageresults">
 			%{
-			totalHits = 0;
-			totalTargets = 0;
-			totalPoints = 0;
-			count = 1;
-			for(result in entry.results){
-			totalHits += result.hits;
-			totalTargets += result.targets;
-			totalPoints += result.points;
-			}%
-			${result.hits}/${result.targets}#{if result.points > 0} (${result.points})#{/if}#{if count++ < entry.results.size()}, #{/if}
-			%{
-			}
-			}%
+				totalHits = 0;
+				totalTargets = 0;
+				totalPoints = 0;
+				count = 1;
+				for(result in entry.results){
+				totalHits += result.hits;
+				totalTargets += result.targets;
+				totalPoints += result.points;
+				}%
+				${result.hits}/${result.targets}#{if result.points > 0} (${result.points})#{/if}#{if count++ < entry.results.size()}, #{/if}
+				%{
+				}
+				}%
+			</span>
 		</td>
 		<td class="totals">
 			#{if competition.scoringType == null || competition.scoringType.sumPointsAndTargets == true}

@@ -38,7 +38,7 @@
                         <input class="scoring" type="text" size="2" maxlength="1" name="results[${_.stageIndex - 1}].targets"   tabindex="${tabindexCounter + _.stageIndex}" />
                     </td>
                     #{/list}
-                </tr>			
+                </tr>
 
 
                 <tr>
@@ -50,7 +50,7 @@
                         #{/if}
                     </td>
                     #{/list}
-                </tr>				
+                </tr>
             </table>
             <p><button class="enter" type="submit" name="useraction" value="addresults" tabindex="${tabindexCounter++ * 100}">&{'results.register'}</button></p>
         </form>
@@ -90,6 +90,7 @@
         <table>
             <tr>
                 <th style="text-align: left">&{'common.name'}</th>
+                <th>&{'common.organisation'}</th>
                 <th>&{'common.division'}</th>
                 <th colspan="3">&{'results.title'}</th>
             </tr>
@@ -111,6 +112,9 @@
                     #{a @Results.edit(competition.id, entry.id)}
                     <span style="font-style: italic">${place}</span> ${entry}
                     #{/a}
+                </td>
+                <td style="font-weight: bold">
+                    ${entry.getShortOrganisation()}
                 </td>
                 <td style="font-weight: bold">
                     ${entry.getDivisionAsString()}

@@ -33,8 +33,8 @@
     </div>
     <script>
 
-        $(document).ready(function() {
-            $('#userID').change(function() {
+        $(document).ready(function () {
+            $('#userID').change(function () {
                 var userId = $('#userID').val();
                 console.log('Selected userId: ' + userId);
                 sagittarius.competitors.loadUsersDivisions(userId);
@@ -43,17 +43,17 @@
 
         var sagittarius = sagittarius || {};
         sagittarius.competitors = {
-            loadUsersDivisions: function(userId) {
+            loadUsersDivisions: function (userId) {
                 $.get(
                         '@{Competitions.userDivisions()}',
                         {userId: userId},
-                function(data) {
+                function (data) {
                     $('#divisionID').html(data);
                 }
                 );
             }
         };
-    </script>    
+    </script>
     #{/secure.check}
 
 
@@ -61,10 +61,17 @@
         #{list competitors}
         <div>
             #{a @Competitors.edit(competition.id, _.id)}
-            <span style="float:left">${_}</span>
-            <span style="float: right">${_.getDivisionAsString()}</span>
+            <span>${_}</span>
+            <span>${_.getOrganisation()}</span>
+            <span>${_.getDivisionAsString()}</span>
             #{/a}
+			#{if _.hasSquad()}
+            #{a @Squads.details(competition.id, _.getSquadId())}
+			<span>&{'squads.label'} ${_.getSquadNumber()}</span>
+            <span>${_.getStartTime()}</span>
+            #{/a}
+			#{/if}
         </div>
         #{/list}
-    </div>    
+    </div>
 </div>

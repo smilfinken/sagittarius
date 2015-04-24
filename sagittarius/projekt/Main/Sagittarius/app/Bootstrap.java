@@ -1,3 +1,5 @@
+import java.util.Iterator;
+import java.util.List;
 import models.*;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
@@ -52,6 +54,13 @@ public class Bootstrap extends Job {
 		}
 		if (Competition.count() == 0) {
 			Fixtures.loadModels("Testdata/dummy-competitions.yml");
+			List<Squad> squads = Squad.findAll();
+			for (Squad squad : squads){
+				for (Competitor competitor : squad.competitors){
+					competitor.squad = squad;
+					competitor.save();
+				}
+			}
 		}
 	}
 }

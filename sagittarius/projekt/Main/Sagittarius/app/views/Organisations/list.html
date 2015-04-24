@@ -1,0 +1,22 @@
+#{extends "Administration/main.html" /}
+#{set title: messages.get('common.organisations') /}
+
+<div class="content">
+	<h1>&{'common.organisations'}</h1>
+	<hr/>
+	<div class="column left">
+		<h2>
+		&{'common.organisations'}
+		#{secure.check "administrator"}
+		<span class="menu right">
+			#{a @Organisations.create()}&{'organisations.createnew'}#{/a}&nbsp;
+		</span>
+		#{/secure.check}
+		</h2>
+		<ul>
+			#{list organisations}
+			<li class="${_parity}">${_.label} (${_.shortname})</li>
+			#{/list}
+		</ul>
+	</div>
+</div>

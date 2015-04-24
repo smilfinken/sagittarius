@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.*;
@@ -18,11 +19,12 @@ import play.i18n.Messages;
 public class Squad extends Model {
 
 	public String label;
+	public Date startTime;
 	@Column(nullable = false)
 	public int squadNumber;
 	public int slots;
-	@ManyToMany
-	@OrderBy(value = "squadIndex")
+	@OneToMany
+	//@OrderBy(value = "squadIndex")
 	public List<Competitor> competitors;
 
 	public Squad(int squadIndex) {
@@ -70,7 +72,6 @@ public class Squad extends Model {
 		userElement.addAttribute("label", label);
 		userElement.addAttribute("squadnumber", String.format("%d", squadNumber));
 		userElement.addAttribute("slots", String.format("%d", slots));
-
 		for (Competitor competitor : competitors) {
 			userElement.add(competitor.toXML());
 		}
@@ -80,9 +81,10 @@ public class Squad extends Model {
 	public Competitor addCompetitor(Competitor competitor) {
 		if (competitor != null) {
 			this.competitors.add(competitor);
-			competitor.squadIndex = this.competitors.size();
-			competitor.save();
 			this.save();
+
+			competitor.squad = this;
+			competitor.save();
 		}
 		return competitor;
 	}
@@ -91,18 +93,16 @@ public class Squad extends Model {
 		if (competitor != null && this.competitors.contains(competitor)) {
 			this.competitors.remove(competitor);
 			this.save();
-		}
-		int i = 1;
-		for (Competitor item : competitors) {
-			item.squadIndex = i++;
-			item.save();
+
+			competitor.squad = null;
+			competitor.save();
 		}
 		return competitor;
 	}
 
 	public void removeCompetitors() {
 		for (Competitor item : competitors) {
-			item.squadIndex = 0;
+			item.squad = null;
 		}
 		this.competitors.removeAll(this.competitors);
 	}

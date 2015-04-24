@@ -11,11 +11,11 @@
 			<input type="hidden" name="squadID" value="${_.id}" />
 			<tr>
 				<td>
-					&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber)} (${_.label})#{/if}
+					#{a @Squads.details(competition.id, _.id)}&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber)} (${_.label})#{/if}#{/a}
 				</td>
 				<td>
 					#{include "Common/selectCompetitor.html" /}
-					<button class="enter" type="submit" name="useraction" value="register">&{'squads.register'}</button>
+					<button class="enter" type="submit" name="useraction" value="register">&{'common.register'}</button>
 				</td>
 			</tr>
 		</form>

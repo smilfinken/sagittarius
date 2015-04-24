@@ -33,6 +33,8 @@ public class Competition extends Model {
 	@OneToMany(cascade = CascadeType.ALL)
 	@OrderBy(value = "squadNumber")
 	public List<Squad> squads;
+	@OneToOne
+	public User organiser;
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<User> staff;
 
@@ -273,6 +275,18 @@ public class Competition extends Model {
 		}
 
 		return result;
+	}
+
+	public void setOrganiser(User staff) {
+		this.organiser = staff;
+		this.save();
+	}
+
+	public void removeOrganiser(User staff) {
+		if (this.organiser == staff) {
+			this.organiser = null;
+		}
+		this.save();
 	}
 
 	public void addStaff(User staff) {

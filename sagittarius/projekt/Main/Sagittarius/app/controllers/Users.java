@@ -53,7 +53,7 @@ public class Users extends Controller {
 	}
 
 	@Check("admin")
-	public static void edit(long userID, String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, boolean admin, String useraction) {
+	public static void edit(long userID, String firstName, String surname, String cardNumber, String email, long organisationID, long categoryID, long rankID, boolean admin, String useraction) {
 		User item = User.findById(userID);
 		String message = "";
 
@@ -65,6 +65,7 @@ public class Users extends Controller {
 						item.surname = surname;
 						item.cardNumber = cardNumber;
 						item.email = email;
+						item.organisation = (Organisation) Organisation.findById(organisationID);
 						item.rank = (Rank) Rank.findById(rankID);
 						item.categories = Arrays.asList((Category) Category.findById(categoryID));
 						item.admin = admin;
@@ -87,11 +88,15 @@ public class Users extends Controller {
 			}
 		}
 
+		if (item.organisation != null) {
+			flash.put("organisationID", item.organisation.id);
+		}
 		flash.put("categoryID", item.categories.get(0).id);
 		flash.put("rankID", item.rank.id);
+		List<Organisation> organisations = Organisation.all().fetch();
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
-		render(item, categories, ranks, message);
+		render(item, organisations, categories, ranks, message);
 	}
 
 	public static void profile(String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, String useraction) {

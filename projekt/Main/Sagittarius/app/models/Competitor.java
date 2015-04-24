@@ -1,5 +1,8 @@
 package models;
 
+import common.Formatting;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,26 +26,24 @@ public class Competitor extends Model {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderBy(value = "stageIndex")
 	public List<Result> results;
-	public int squadIndex;
+	@ManyToOne(cascade = CascadeType.ALL)
+	public Squad squad;
 
 	public Competitor(User user) {
 		this.user = user;
 		this.results = null;
-		this.squadIndex = 0;
 	}
 
 	public Competitor(User user, Division division) {
 		this.user = user;
 		this.division = division;
 		this.results = null;
-		this.squadIndex = 0;
 	}
 
 	public Competitor(User user, Division division, List<Result> results) {
 		this.user = user;
 		this.division = division;
 		this.results = results;
-		this.squadIndex = 0;
 
 		if (results != null) {
 			for (Result result : results) {
@@ -78,7 +79,6 @@ public class Competitor extends Model {
 		Element competitorElement = DocumentHelper.createElement(this.getClass().getSimpleName());
 		competitorElement.addAttribute("user", user.toString());
 		competitorElement.addAttribute("division", division.toString());
-		competitorElement.addAttribute("squadindex", String.format("%d", squadIndex));
 		competitorElement.add(user.toXML());
 		for (Iterator<Result> it = results.iterator(); it.hasNext();) {
 			Result result = it.next();
@@ -87,16 +87,72 @@ public class Competitor extends Model {
 		return competitorElement;
 	}
 
+	public String getOrganisation() {
+		String result = "";
+
+		if (user.organisation != null) {
+			result = String.format("%s", user.organisation.label);
+		}
+
+		return result;
+	}
+
+	public String getShortOrganisation() {
+		String result = "";
+
+		if (user.organisation != null) {
+			result = String.format("%s", user.organisation.shortname);
+		}
+
+		return result;
+	}
+
 	public String getDivisionAsString() {
+		String result = "";
+
 		if (division != null) {
 			if (division.ranks) {
-				return String.format("%s%s", division.label, user.rank.ranking);
+				result = String.format("%s%s", division.label, user.rank.ranking);
 			} else {
-				return String.format("%s", division.label);
+				result = String.format("%s", division.label);
 			}
-		} else {
-			return "";
 		}
+
+		return result;
+	}
+
+	public boolean hasSquad() {
+		return (squad != null);
+	}
+
+	public long getSquadId() {
+		long result = -1;
+
+		if (squad != null) {
+			result = squad.id;
+		}
+
+		return result;
+	}
+
+	public int getSquadNumber() {
+		int result = -1;
+
+		if (squad != null) {
+			result = squad.squadNumber;
+		}
+
+		return result;
+	}
+
+	public String getStartTime() {
+		String result = "";
+
+		if (squad != null && squad.startTime != null) {
+			result = Formatting.dateToStartTime(squad.startTime);
+		}
+
+		return result;
 	}
 
 	public boolean isScored() {

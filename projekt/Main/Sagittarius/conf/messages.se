@@ -39,6 +39,8 @@ common.name=Namn
 common.next=Gå vidare
 common.noobjects=Inga %s
 common.or=eller
+common.organisations=Föreningar
+common.organisation=Förening
 common.person=Person
 common.participant=Deltagare
 common.participants=Deltagare
@@ -74,11 +76,14 @@ competitions.import=Importera
 competitions.nostages=Tävlingen har inga stationer.
 competitions.points=Poäng
 competitions.registerparticipant=Registrera deltagare
+competitions.registration=anmälan
 competitions.return=Tillbaks till tävlingen
 competitions.select=Välj
 competitions.selectlabel=Välj en tävling
 competitions.squad=Patrull
 competitions.squads=patruller
+competitions.staff.organiser=Ansvarig
+competitions.staff.members=Funktionärer
 competitions.stage=Station
 competitions.stages=stationer
 competitions.unroll=Avanmäl dig
@@ -137,6 +142,8 @@ notifiers.registrationnotifier.welcome.link=Verifiera ditt konto här!
 notifiers.registrationnotifier.welcome.subject=Din registrering på Sagittarius!
 notifiers.registrationnotifier.welcome.title=Välkommen till Sagittarius
 
+organisations.createnew=Registrera en ny förening
+
 profile.header=Din profil
 
 ranks.ranking=Klass
@@ -174,6 +181,7 @@ squads.empty=Inga platser tilldelade
 squads.nocompetitors=Inga fler deltagare finns
 squads.slot=plats
 squads.slots=platser
+squads.starttime=Starttid
 
 stages.scoring=Poängräkning
 stages.startingposition=Startposition

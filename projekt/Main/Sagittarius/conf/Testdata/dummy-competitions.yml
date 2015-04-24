@@ -218,16 +218,47 @@ Result(6):
   hits: 6
   targets: 6
 
+Result(7):
+  stageIndex: 1
+  hits: 4
+  targets: 4
+
+Result(8):
+  stageIndex: 2
+  hits: 6
+  targets: 1
+  points: 21
+
+Result(9):
+  stageIndex: 3
+  hits: 6
+  targets: 3
+
+Result(10):
+  stageIndex: 4
+  hits: 5
+  targets: 2
+  points: 9
+
+Result(11):
+  stageIndex: 5
+  hits: 6
+  targets: 3
+
+Result(12):
+  stageIndex: 6
+  hits: 5
+  targets: 4
+
 Competitor(1):
   user: 1
   division: 1
   results: [1,2,3,4,5,6]
-  squadIndex: 1
 
 Competitor(2):
-  user: 3
+  user: 4
   division: 2
-  squadIndex: 2
+  results: [7,8,9,10,11,12]
 
 Competitor(3):
   user: 3
@@ -241,19 +272,21 @@ Squad(1):
   squadNumber: 0
   label: Nollpatrull
   slots: -1
+  startTime: 2015-05-01 09:40:00
   competitors: [1,2]
 
 Squad(2):
   squadNumber: 1
   label: 1
   slots: 6
+  startTime: 2015-05-01 10:00:00
 
 Competition(1):
   label: Fältskjutning 1
   competitionType: 1
   date: 2015-05-01
   stages: [1,2,3,4,5,6]
-  competitors: [1,2]
+  competitors: [1,2,3]
   squads: [1,2]
   scoringType: 1
   staff: [1,5]
@@ -268,5 +301,5 @@ Competition(3):
   label: Precision 1
   competitionType: 2
   date: 2015-08-21
-  competitors: [3,4]
+  competitors: [4]
   scoringType: 3

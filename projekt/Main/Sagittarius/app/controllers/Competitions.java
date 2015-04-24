@@ -295,6 +295,28 @@ public class Competitions extends Controller {
 	}
 
 	@Check("admin")
+	public static void setOrganiser(long competitionID, long userID) {
+		Competition competition = Competition.findById(competitionID);
+		if (competition != null) {
+			User staff = User.findById(userID);
+			competition.setOrganiser(staff);
+		}
+
+		schedule();
+	}
+
+	@Check("admin")
+	public static void removeOrganiser(long competitionID, long userID) {
+		Competition competition = Competition.findById(competitionID);
+		if (competition != null) {
+			User staff = User.findById(userID);
+			competition.removeOrganiser(staff);
+		}
+
+		schedule();
+	}
+
+	@Check("admin")
 	public static void addStaff(long competitionID, long userID) {
 		Competition competition = Competition.findById(competitionID);
 		if (competition != null) {

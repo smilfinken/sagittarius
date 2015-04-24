@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Category;
+import play.i18n.Messages;
 
 /**
  *
@@ -11,6 +12,6 @@ public class Categories extends CRUD {
 
 	@Override
 	public String toString() {
-		return "Kategorier";
+		return Messages.get("divisions.categories");
 	}
 }

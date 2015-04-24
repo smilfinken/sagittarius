@@ -53,7 +53,9 @@ public class Competitors extends Controller {
 			}
 		}
 
-		flash.put("divisionID", competitor.division.id);
+		if (competitor.division != null) {
+			flash.put("divisionID", competitor.division.id);
+		}
 		Set<Division> divisions = competitor.user.getValidDivisions();
 		render(competition, competitor, divisions);
 	}
@@ -66,7 +68,7 @@ public class Competitors extends Controller {
 		for (Competitor competitor : competitors) {
 			Element element = root.addElement(competitor.getClass().getSimpleName().toLowerCase());
 			element.addAttribute("id", String.format("%d", competitor.id));
-			element.addAttribute("position", String.format("%d", competitor.squadIndex));
+			//element.addAttribute("position", String.format("%d", competitor.squadIndex));
 			element.addAttribute("name", competitor.toString());
 		}
 
@@ -74,10 +76,10 @@ public class Competitors extends Controller {
 			File exportFile = File.createTempFile("sgt", "xml");
 			exportFile.deleteOnExit();
 
-			FileWriter exportWriter = new FileWriter(exportFile);
-			document.write(exportWriter);
-			exportWriter.write('\n');
-			exportWriter.close();
+			try (FileWriter exportWriter = new FileWriter(exportFile)) {
+				document.write(exportWriter);
+				exportWriter.write('\n');
+			}
 
 			response.setHeader("Content-Length", String.format("%d", exportFile.length()));
 			response.setHeader("Content-Type", "text/xml; charset=utf-8");

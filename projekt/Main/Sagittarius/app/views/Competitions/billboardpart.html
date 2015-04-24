@@ -41,7 +41,9 @@
 	}%
 	<tr #{if rowCount++ % 2 != 0}class="even"#{/if}>
 		<td class="competitor">
-			<span class="place">${place++}</span> <span class="name">${entry}</span>
+			<span class="place">${place++}</span>
+			<span class="name">${entry}</span>
+			<span class="organisation">${entry.getShortOrganisation()}</span>
 		</td>
 		<td class="stages">
 			%{

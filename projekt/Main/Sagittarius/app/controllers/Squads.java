@@ -1,5 +1,6 @@
 package controllers;
 
+import common.Formatting;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,11 +48,12 @@ public class Squads extends Controller {
 		}
 
 		Squad squad = Squad.findById(squadID);
-		render(competition, squad, competitors);
+		String time = Formatting.dateToStartTime(squad.startTime);
+		render(competition, squad, time, competitors);
 	}
 
 	@Check("admin")
-	public static void edit(long competitionID, long squadID, long competitorID, String label, int slots, String useraction) {
+	public static void edit(long competitionID, long squadID, long competitorID, String label, int slots, String time, String useraction) {
 		Competition competition = Competition.findById(competitionID);
 		Squad squad = Squad.findById(squadID);
 		Competitor competitor = Competitor.findById(competitorID);

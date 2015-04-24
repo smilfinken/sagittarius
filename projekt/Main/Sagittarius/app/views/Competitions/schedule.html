@@ -5,42 +5,56 @@
 	<h1>&{'common.competitions'}</h1>
 	<hr/>
 
-    #{secure.check "basic"}
-    <div>
-		<h2>&{'competitions.scheduled.text'} ${year}</h2>
-		#{secure.check "admin"}
-		<div>
-			#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
-		</div>
-		#{/secure.check}
+	#{secure.check "basic"}
+	<div class="content">
+		<h2>&{'competitions.scheduled.text'} ${year}
+			#{secure.check "admin"}
+			<span class="menu right">
+				#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
+			</span>
+			#{/secure.check}
+		</h2>
 		<ul>
-            #{list items:competitions, as:'competition'}
-			<li class="${_parity}">
-                <form action="@{Competitions.addStaff()}" method="POST">
+			#{list items:competitions, as:'competition'}
+				<form action="@{Competitions.addStaff()}" method="POST">
 					<input type="hidden" name="competitionID" value="${competition.id}" />
-					${competition.date} ${competition.label}
-					#{list items:competition.staff, as:'member'}
-					${member.getFullName(true)}
-					#{secure.check "admin"}
-					#{a @Competitions.removeStaff(competition.id, member.id)}X#{/a}
-					#{/secure.check}
-					#{/list}
-					#{secure.check "admin"}
-					#{ifnot competition.staff.containsAll(users)}
-					<select name='userID' id='userID'>
-						<option value='-1' />
-						#{list items:users, as:'user'}
-						#{ifnot competition.staff.contains(user)}
-						<option value='${user.id}'>${user.getFullName(true)}</option>
+					<li class="${_parity}">
+						#{a @Results.list(competition.id)}${competition.label} (${competition.date})#{/a}
+						#{if competition.organiser != null}
+						<div>
+						&{'competitions.staff.organiser'}
+						${competition.organiser}
+						#{a @Competitions.removeOrganiser(competition.id, competition.organizer.id)}X#{/a}
+						</div>
+						#{/if}
+						<div>
+						&{'competitions.staff.members'}
+						#{list items:competition.staff, as:'member'}
+						${member.getFullName()}
+						#{secure.check "admin"}
+						#{ifnot competition.organiser == member}
+						#{a @Competitions.setOrganiser(competition.id, member.id)}@#{/a}
+						#{a @Competitions.removeStaff(competition.id, member.id)}X#{/a}
 						#{/ifnot}
+						#{/secure.check}
 						#{/list}
-					</select>
-					<button class="save" type="submit">&{'common.add'}</button>
-					#{/ifnot}
-					#{/secure.check}
+						#{secure.check "admin"}
+						#{ifnot competition.staff.containsAll(users)}
+						<select name='userID' id='userID'>
+							<option value='-1' />
+							#{list items:users, as:'user'}
+							#{ifnot competition.staff.contains(user) && competition.organiser == user}
+							<option value='${user.id}'>${user.getFullName(true)}</option>
+							#{/ifnot}
+							#{/list}
+						</select>
+						<button class="save" type="submit">&{'common.add'}</button>
+						#{/ifnot}
+						#{/secure.check}
+						</div>
+					</li>
 				</form>
-			</li>
-            #{/list}
+			#{/list}
 		</ul>
 	</div>
     #{/secure.check}

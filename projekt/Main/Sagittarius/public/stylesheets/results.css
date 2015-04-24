@@ -1,0 +1,107 @@
+/*
+    Document   : results
+    Created on : May 28, 2012, 11:44:36 PM
+    Author     : johan
+    Description: CSS definitions for the competition results PDF output
+*/
+
+root {
+	display: block;
+}
+
+hr {
+	border: 1px solid #ff9600;
+}
+
+table.scoring {
+	-fs-table-paginate: paginate;
+	width: 100%;
+	border: none;
+	padding-top: 1em;
+}
+
+tr.spacer {
+	height: 1em;
+}
+
+tr.header {
+	background-color: #ffe0b3;
+}
+
+tr.scoring
+{
+	vertical-align: 	text-top;
+}
+
+th td {
+	text-align: left;
+}
+
+th.competitor td.competitor {
+	width: 30%;
+}
+
+th.stages td.stages {
+	width: 60%;
+}
+
+th.totals td.totals {
+	width: 10%;
+}
+
+td.scoring {
+	text-align: 		right;
+}
+
+input.scoring {
+	border: 			1px solid gray;
+	width: 				30px;
+}
+
+.scoring .empty {
+	color: green;
+}
+
+.scoring .entered {
+	color: red;
+}
+
+.date {
+	float: right;
+	width: 50%;
+	text-align: right;
+	font-size: larger;
+}
+
+.place {
+	font-style: italic;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.organisation {
+	font-style: normal;
+}
+
+.stageresults {
+	font-size: small;
+}
+
+.content {
+}
+
+.statistics {
+	page-break-before: always;
+	font-style: italic;
+	font-size: large;
+}
+
+.sum {
+	font-weight: bold;
+}
+
+.max {
+	color: green;
+}

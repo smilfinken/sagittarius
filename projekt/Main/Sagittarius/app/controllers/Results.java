@@ -29,10 +29,11 @@ public class Results extends Controller {
 
 	public static void list(long competitionID) {
 		Competition competition = Competition.findById(competitionID);
-
 		List<Competitor> competitors = competition.getUnScoredCompetitors();
 		List<Competitor> results = competition.getScoredCompetitors();
-		render(competition, sortResults(results), sortCompetitors(competitors));
+		List<Squad> squads = Squad.all().fetch();
+
+		render(competition, sortResults(results), sortCompetitors(competitors), squads);
 	}
 
 	public static void add(long competitionID, long competitorID, List<Result> results) {

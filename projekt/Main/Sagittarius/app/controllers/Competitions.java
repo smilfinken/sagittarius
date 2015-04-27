@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -148,8 +149,15 @@ public class Competitions extends Controller {
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
 		List<Division> divisions = Division.all().fetch();
+		List<Squad> squads = Squad.all().fetch();
 
-		render(competition, competitors, sortUsers(users), categories, ranks, divisions);
+		for (Squad squad : squads) {
+			if (squad.slots != 0 && squad.competitors.size() >= squad.slots) {
+				squads.remove(squad);
+			}
+		}
+
+		render(competition, competitors, sortUsers(users), categories, ranks, divisions, squads);
 	}
 
 	public static void enrollment(long competitionID) {

@@ -63,6 +63,7 @@ public class Squads extends Controller {
 				switch (useraction) {
 					case "save":
 						squad.label = label;
+						squad.startTime = Formatting.timeStringToDate(time);
 						if (slots > 0) {
 							squad.slots = slots;
 						} else {

@@ -1,5 +1,6 @@
 package models;
 
+import common.Formatting;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -42,6 +43,13 @@ public class Squad extends Model {
 		this.label = label;
 		this.squadNumber = squadIndex;
 		this.slots = slots;
+	}
+
+	public Squad(String label, int squadIndex, int slots, String time) {
+		this.label = label;
+		this.squadNumber = squadIndex;
+		this.slots = slots;
+		this.startTime = Formatting.timeStringToDate(time);
 	}
 
 	public Squad(Node squad) {
@@ -105,5 +113,15 @@ public class Squad extends Model {
 			item.squad = null;
 		}
 		this.competitors.removeAll(this.competitors);
+	}
+
+	public String getStartTimeAsString() {
+		String result = "";
+
+		if (startTime != null) {
+			result = Formatting.dateToStartTime(startTime);
+		}
+
+		return result;
 	}
 }

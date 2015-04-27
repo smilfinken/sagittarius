@@ -11,7 +11,8 @@
 			<input type="hidden" name="squadID" value="${_.id}" />
 			<tr>
 				<td>
-					#{a @Squads.details(competition.id, _.id)}&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber)} (${_.label})#{/if}#{/a}
+					#{a @Squads.details(competition.id, _.id)}&{'competitions.squad'} ${_.squadNumber}#{if (_.label != _.squadNumber.toString())} (${_.label})#{/if}#{/a}
+					#{if (_.startTime != null)}<br>${_.getStartTimeAsString()}#{/if}
 				</td>
 				<td>
 					#{include "Common/selectCompetitor.html" /}

@@ -148,8 +148,9 @@ public class Competitor extends Model {
 	public String getStartTime() {
 		String result = "";
 
-		if (squad != null && squad.startTime != null) {
-			result = Formatting.dateToStartTime(squad.startTime);
+		if (squad != null) { // && squad.startTime != null) {
+			result = squad.getStartTimeAsString();
+			//result = Formatting.dateToStartTime(squad.startTime);
 		}
 
 		return result;

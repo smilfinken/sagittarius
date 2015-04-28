@@ -6,29 +6,34 @@
 	<hr/>
     #{secure.check "admin"}
     <div class="column left">
-            <h2>
-            	&{'competitions.administration.text'}
-				<span class="menu right">
-					#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
-                    #{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}
-				</span>
-            </h2>
-            <ul>
-		            #{list entries}
-		                    <li class="${_parity}">#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}</li>
-		            #{/list}
-            </ul>
+		<h2>
+			&{'competitions.administration.text'}
+			<span class="menu right">
+				#{a @Competitions.create()}&{'competitions.createnew'}#{/a}&nbsp;
+				#{a @Competitions.importCompetition()}&{'competitions.import'}#{/a}
+			</span>
+		</h2>
+		<ul>
+			#{list entries}
+			<li class="${_parity}">
+				#{a @Results.list(_.id)}${_.label} (${_.date})#{/a}
+			</li>
+			#{/list}
+		</ul>
     </div>
     #{/secure.check}
 
     #{secure.check "basic"}
     <div class="column left">
-            <h2>&{'competitions.registered.text'}</h2>
-            <ul>
+		<h2>&{'competitions.registered.text'}</h2>
+		<ul>
             #{list competitions}
-            		<li class="${_parity}">#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}</li>
+			<li class="${_parity}">
+				#{a @Competitions.enrollment(_.id)}${_.label} (${_.date})#{/a}
+				#{if (_.isEnrolledAny(session.get('username')))}#{a @Competitions.enroll(_.id, 0, "unrollall")}&{'competitions.unroll'}#{/a}#{/if}
+			</li>
             #{/list}
-            </ul>
-    <div>
-    #{/secure.check}
-</div>
+		</ul>
+		<div>
+			#{/secure.check}
+		</div>

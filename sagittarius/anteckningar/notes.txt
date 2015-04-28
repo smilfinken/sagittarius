@@ -1,5 +1,4 @@
 todo:
-- låta användarna ändra lösenord
 - extra uppgifter för användare: tel, adress, datum för medlemsskap, födelsedatum (år)
 - mer funktionärsinfo: vad gjort, vad kan, missade uppdrag
 - loggbok för användarna: tillfällen, mängd skott

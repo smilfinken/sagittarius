@@ -11,6 +11,7 @@ import notifiers.RegistrationNotifier;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.yecht.Data;
 import play.db.jpa.Model;
 
 /**
@@ -35,6 +36,12 @@ public class User extends Model {
 	public Rank rank;
 	@ManyToMany
 	public List<Category> categories;
+	public String phone;
+	public String address;
+	public String postalCode;
+	public String city;
+	public Date memberSince;
+	public Date birthDate;
 
 	public User(String firstName, String surname, String email) {
 		this.firstName = firstName;

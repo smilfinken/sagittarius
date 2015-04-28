@@ -5,11 +5,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.*;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import play.db.jpa.Model;
+import play.mvc.Http;
 
 /**
  *
@@ -213,11 +217,24 @@ public class Competition extends Model {
 		}
 	}
 
+	public void unrollUser(User user) {
+		List<Competitor> workList = new ArrayList<>();
+		workList.addAll(competitors);
+
+		for (Competitor competitor : workList) {
+			if (competitor.user == user) {
+				unrollCompetitor(competitor);
+			}
+		}
+	}
+
 	public void unrollUser(User user, Division division) {
-		for (Competitor competitor : competitors) {
+		List<Competitor> workList = new ArrayList<>();
+		workList.addAll(competitors);
+
+		for (Competitor competitor : workList) {
 			if (competitor.user == user && competitor.division == division) {
 				unrollCompetitor(competitor);
-				return;
 			}
 		}
 	}
@@ -241,6 +258,32 @@ public class Competition extends Model {
 		if (user != null) {
 			for (Competitor competitor : this.competitors) {
 				if (competitor.user == user && competitor.division == division) {
+					result = true;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public boolean isEnrolledAny(String username) {
+		boolean result = false;
+
+		User user = User.find("byEmail", username).first();
+		if (user != null) {
+			result = isEnrolledAny(user.id);
+		}
+
+		return result;
+	}
+
+	public boolean isEnrolledAny(long userID) {
+		boolean result = false;
+
+		User user = User.findById(userID);
+		if (user != null) {
+			for (Competitor competitor : this.competitors) {
+				if (competitor.user == user) {
 					result = true;
 				}
 			}

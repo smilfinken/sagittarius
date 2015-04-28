@@ -44,7 +44,9 @@ common.organisation=Förening
 common.person=Person
 common.participant=Deltagare
 common.participants=Deltagare
+common.password=lösenord
 common.register=Registrera
+common.results=resultat
 common.save=Spara
 common.savenew=Spara och skapa ny
 common.seconds=sekunder
@@ -55,7 +57,7 @@ common.unregister=Avregistrera
 common.update=Uppdatera
 
 competitions.administration.text=Tävlingar du administrerar
-competitions.registered.text=Tävlingar du eventuellt är anmäld till
+competitions.registered.text=Tillgängliga tävlingar
 competitions.scheduled.text=Tävlingsschema
 
 competitions.addsquad=Lägg till patrull
@@ -227,6 +229,7 @@ secure.noaccount=Har du inget konto?
 secure.noaccount.create=Skapa ett här
 secure.password=Lösenord
 secure.passwordreset=Lösenordet har återställts
+secure.passwordnotverified=Felaktigt lösenord
 secure.remember=Kom ihåg lösenord
 secure.resetpassword=Återställ lösenordet
 secure.title=

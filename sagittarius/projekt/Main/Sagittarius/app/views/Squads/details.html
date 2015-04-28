@@ -34,7 +34,7 @@
             <input type="hidden" name="squadID" value="${squad.id}" />
             <input type="hidden" name="competitorID" value="${_.id}" />
             <button class="delete" type="submit" name="useraction" value="removecompetitor">&{'common.delete'}</button>
-            ${common.Strings.capitaliseFirst(messages.get("squads.slot"))} _.squadIndex: ${_.user.getFullName(true)}
+            ${common.Strings.capitaliseFirst(messages.get("squads.slot"))} _.squadIndex: ${_.user.getFullName(true)} ${_.getDivisionAsString()}
         </form>
         #{/list}
         #{/if}

@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -174,7 +173,7 @@ public class Competitions extends Controller {
 		User user = User.find("byEmail", session.get("username")).first();
 		Division division = Division.findById(divisionID);
 
-		if (params._contains("useraction")) {
+		if (competition != null && params._contains("useraction")) {
 			switch (useraction) {
 				case "enroll":
 					if (user != null && division != null) {
@@ -185,6 +184,12 @@ public class Competitions extends Controller {
 				case "unroll":
 					if (user != null && division != null) {
 						competition.unrollUser(user, division);
+					}
+					break;
+				case "unrollall":
+					if (user != null) {
+						competition.unrollUser(user);
+						list();
 					}
 					break;
 			}

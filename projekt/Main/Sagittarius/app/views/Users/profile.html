@@ -1,36 +1,38 @@
 #{extends "main.html" /}
-#{set title: item /}
+#{set title: user /}
 
 <div class="content">
 	<h1>&{'profile.header'}</h1>
 	<hr/>
 	<div class="column">
 		<form action="@{Users.profile()}" method="POST">
+            <input type="hidden" name="userID" value="${user.id}" />
 			<p>
 				<label for="firstName">&{'models.user.firstname'}</label>
-				<input type="text" name="firstName" value="${item.firstName}" />
+				<input type="text" name="firstName" value="${user.firstName}" />
 			</p>
 			<p>
 				<label for="surname">&{'models.user.surname'}</label>
-				<input type="text" name="surname" value="${item.surname}" />
+				<input type="text" name="surname" value="${user.surname}" />
 			</p>
 			<p>
 				<label for="cardNumber">&{'models.user.cardnumber'}</label>
-				<input type="text" name="cardNumber" value="${item.cardNumber}" />
+				<input type="text" name="cardNumber" value="${user.cardNumber}" />
 			</p>
 			<p>
 				<label for="email">&{'models.user.email'}</label>
-				<input type="text" name="email" value="${item.email}" />
+				<input type="text" name="email" value="${user.email}" />
 			</p>
-			<p>			
+			<p>
 				#{include "Common/selectCategory.html" /}
 			</p>
-			<p>			
+			<p>
 				#{include "Common/selectRank.html" /}
 			</p>
-			<p>			
+			<p>
 				<button type="submit" name="useraction" value="save" class="enter">&{'common.save'}</button>
-			</p>			
+				#{a @Users.editPassword(user.id)}&{'common.changeobject', messages.get('common.password')}#{/a}
+			</p>
 		</form>
 	</div>
 </div>

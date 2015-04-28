@@ -54,65 +54,65 @@ public class Users extends Controller {
 
 	@Check("admin")
 	public static void edit(long userID, String firstName, String surname, String cardNumber, String email, long organisationID, long categoryID, long rankID, boolean admin, String useraction) {
-		User item = User.findById(userID);
+		User user = User.findById(userID);
 		String message = "";
 
-		if (item != null) {
+		if (user != null) {
 			if (params._contains("useraction")) {
 				switch (useraction) {
 					case "save":
-						item.firstName = firstName;
-						item.surname = surname;
-						item.cardNumber = cardNumber;
-						item.email = email;
-						item.organisation = (Organisation) Organisation.findById(organisationID);
-						item.rank = (Rank) Rank.findById(rankID);
-						item.categories = Arrays.asList((Category) Category.findById(categoryID));
-						item.admin = admin;
-						item.save();
+						user.firstName = firstName;
+						user.surname = surname;
+						user.cardNumber = cardNumber;
+						user.email = email;
+						user.organisation = (Organisation) Organisation.findById(organisationID);
+						user.rank = (Rank) Rank.findById(rankID);
+						user.categories = Arrays.asList((Category) Category.findById(categoryID));
+						user.admin = admin;
+						user.save();
 						list();
 						break;
 					case "reactivate":
 						// TODO: This should send a message to the user with the new password,
 						//       or preferably a reactivation link
-						item.password = Security.hashPassword("123");
-						item.confirmationDate = new Date();
-						item.save();
+						user.password = Security.hashPassword("123");
+						user.confirmationDate = new Date();
+						user.save();
 						message = Messages.get("secure.passwordreset");
 						break;
 					case "delete":
-						item.delete();
+						user.delete();
 						list();
 						break;
 				}
 			}
 		}
 
-		if (item.organisation != null) {
-			flash.put("organisationID", item.organisation.id);
+		if (user.organisation != null) {
+			flash.put("organisationID", user.organisation.id);
 		}
-		flash.put("categoryID", item.categories.get(0).id);
-		flash.put("rankID", item.rank.id);
+		flash.put("categoryID", user.categories.get(0).id);
+		flash.put("rankID", user.rank.id);
 		List<Organisation> organisations = Organisation.all().fetch();
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
-		render(item, organisations, categories, ranks, message);
+		render(user, organisations, categories, ranks, message);
 	}
 
-	public static void profile(String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, String useraction) {
-		User item = User.find("byEmail", session.get("username")).first();
+	public static void profile(long userID, String firstName, String surname, String cardNumber, String email, long categoryID, long rankID, String useraction) {
+		User user = User.find("byEmail", session.get("username")).first();
 
-		if (item != null) {
+		if (user != null) {
 			if (params._contains("useraction")) {
 				switch (useraction) {
 					case "save":
-						item.firstName = firstName;
-						item.surname = surname;
-						item.cardNumber = cardNumber;
-						item.email = email;
-						item.rank = (Rank) Rank.findById(rankID);
-						item.categories = Arrays.asList((Category) Category.findById(categoryID));
-						item.save();
+						user.firstName = firstName;
+						user.surname = surname;
+						user.cardNumber = cardNumber;
+						user.email = email;
+						user.rank = (Rank) Rank.findById(rankID);
+						user.categories = Arrays.asList((Category) Category.findById(categoryID));
+						user.save();
 
 						Application.index();
 						break;
@@ -120,11 +120,43 @@ public class Users extends Controller {
 			}
 		}
 
-		flash.put("categoryID", item.categories.get(0).id);
-		flash.put("rankID", item.rank.id);
+		flash.put("categoryID", user.categories.get(0).id);
+		flash.put("rankID", user.rank.id);
 		List<Category> categories = Category.all().fetch();
 		List<Rank> ranks = Rank.all().fetch();
-		render(item, categories, ranks);
+		render(user, categories, ranks);
+	}
+
+	public static void editPassword(long userID, String oldPassword, String verifyPassword, String newPassword, String useraction) {
+		User user = User.find("byEmail", session.get("username")).first();
+		String message = "";
+
+		if (user != null) {
+			if (params._contains("useraction")) {
+				switch (useraction) {
+					case "save":
+						if (oldPassword.equals(verifyPassword) && Security.validatePassword(oldPassword, user.password)) {
+							user.password = Security.hashPassword(newPassword);
+							user.confirmationDate = new Date();
+							user.save();
+							message = Messages.get("secure.passwordreset");
+							flash.put("categoryID", user.categories.get(0).id);
+							flash.put("rankID", user.rank.id);
+							List<Organisation> organisations = Organisation.all().fetch();
+							List<Category> categories = Category.all().fetch();
+							List<Rank> ranks = Rank.all().fetch();
+
+							Application.index();
+						} else {
+							message = Messages.get("secure.passwordnotverified");
+							render(user);
+						}
+						break;
+				}
+			}
+		}
+
+		render(user);
 	}
 
 	private static Document parseXML(File file) throws DocumentException {

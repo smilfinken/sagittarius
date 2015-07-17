@@ -3,7 +3,13 @@
 		  package="se.sagittarius.collector"
 		  android:versionCode="1"
 		  android:versionName="1.0">
-	<application android:label="@string/app_name" android:icon="@drawable/sagittarius">
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-sdk android:minSdkVersion="3"
+		  android:targetSdkVersion="21" />
+	<application
+		android:label="@string/app_name"
+		android:icon="@drawable/sagittarius"
+		android:allowBackup="true">
 		<activity android:name="SelectSquad"
 				  android:label="@string/app_name">
 			<intent-filter>
@@ -24,5 +30,4 @@
 		<meta-data android:name="de.quist.app.errorreporter.dialogMessageHint"
 				   android:resource="@string/error_reporting_message_hint" />
 	</application>
-	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

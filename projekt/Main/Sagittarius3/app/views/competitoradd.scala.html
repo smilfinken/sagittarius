@@ -1,7 +1,6 @@
-@(competitionId: Long, squads: List[Squad], users: List[User])
+@(squads: List[Squad], users: List[User])
 @head(Messages("heading.common.addobject", Messages("label.competitor.competitor").toLowerCase())) {
     @helper.form(action = routes.Competitions.saveCompetitor()) {
-        <input type='hidden' name='competitionId' value='@competitionId' />
         <label for='squad'>@Messages("label.squad.squad")</label>
         <select id='squad' name='squadId'>
             @for(squad <- squads) {
@@ -20,7 +19,7 @@
         <input type='text' name='competitionSubclass' size='3' maxlength='2' value='' />
         <span class='menu-container action-menu'>
             <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
-            <a class='menu-link' href='/competition/show/@competitionId/competitors'>@Messages("button.cancel.title")</a>
+            <a class='menu-link' href='/competition/show/@session.get("competitionId")/competitors'>@Messages("button.cancel.title")</a>
         </span>
     }
 }

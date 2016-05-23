@@ -7,13 +7,16 @@ import views.html.userlist;
 import play.data.FormFactory;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
+import play.libs.Json;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import javax.persistence.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Users extends Controller {
     @Inject
@@ -46,5 +49,13 @@ public class Users extends Controller {
         }
 
         return redirect(routes.Users.list());
+    }
+
+    @Transactional(readOnly = true)
+    public Result export() {
+        Query query = JPA.em().createQuery("SELECT u FROM User u ORDER BY cardId, id");
+        List<User> users = (List<User>)query.getResultList();
+
+        return ok(Json.toJson(users));
     }
 }

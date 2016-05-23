@@ -1,6 +1,6 @@
-@(competitionId: Long, squads: List[Squad])
+@(squads: List[Squad])
 <span class='menu-container action-menu'>
-    <a class='menu-link' href='/competition/editTeam/@competitionId/0'>@Messages("button.add.title")</a>
+    <a class='menu-link' href='/competition/editTeam/0'>@Messages("button.add.title")</a>
 </span>
 <table>
     <thead>
@@ -18,7 +18,7 @@
         <td>@squad.rollcall</td>
         <td>@squad.competitors()/@squad.slots</td>
         <td>
-            <a class='menu-link' href='/competition/editTeam/@competitionId/@squad.id'>@Messages("button.edit.title")</a>
+            <a class='menu-link' href='/competition/editTeam/@squad.id'>@Messages("button.edit.title")</a>
         </td>
     </tr>
     }

@@ -113,6 +113,8 @@ public class Competitions extends Controller {
     @Transactional(readOnly = true)
     public Result show(Long competitionId, String tab) {
         Competition competition = JPA.em().find(Competition.class, competitionId);
+        session().put("competitionId", competitionId.toString());
+        session().put("tab", tab);
         return ok(competitionshow.render(competition, tab));
     }
 
@@ -149,7 +151,8 @@ public class Competitions extends Controller {
     }
 
     @Transactional(readOnly = true)
-    public Result editStage(Long competitionId, Long stageId) {
+    public Result editStage(Long stageId) {
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         if (stageId != 0) {
             return ok(stageedit.render(competitionId, JPA.em().find(Stage.class, stageId)));
         } else {
@@ -177,20 +180,22 @@ public class Competitions extends Controller {
     }
 
     @Transactional
-    public Result deleteStage(Long competitionId, Long stageId) {
+    public Result deleteStage(Long stageId) {
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
         competition.stages.remove(JPA.em().find(Stage.class, stageId));
         return redirect(routes.Competitions.show(competitionId, "stages"));
     }
 
     @Transactional(readOnly = true)
-    public Result editSquad(Long competitionId, Long squadId) {
+    public Result editSquad(Long squadId) {
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         if (squadId != 0) {
-            return ok(squadedit.render(competitionId, JPA.em().find(Squad.class, squadId)));
+            return ok(squadedit.render(JPA.em().find(Squad.class, squadId)));
         } else {
             Competition competition = JPA.em().find(Competition.class, competitionId);
             Squad squad = new Squad(competition.squadSize);
-            return ok(squadedit.render(competitionId, squad));
+            return ok(squadedit.render(squad));
         }
     }
 
@@ -212,7 +217,8 @@ public class Competitions extends Controller {
     }
 
     @Transactional
-    public Result deleteSquad(Long competitionId, Long squadId) {
+    public Result deleteSquad(Long squadId) {
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
         competition.squads.remove(JPA.em().find(Squad.class, squadId));
         return redirect(routes.Competitions.show(competitionId, "squads"));
@@ -221,7 +227,7 @@ public class Competitions extends Controller {
     @Transactional
     public Result generateSquads() {
         DynamicForm dynamicData = formFactory.form().bindFromRequest();
-        Long competitionId = Long.valueOf(dynamicData.get("competitionId"));
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         String action = dynamicData.get("action");
 
         switch (action) {
@@ -248,7 +254,8 @@ public class Competitions extends Controller {
     }
 
     @Transactional
-    public Result printSquad(Long competitionId, Long squadId) {
+    public Result printSquad(Long squadId) {
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
         Squad squad = JPA.em().find(Squad.class, squadId);
 
@@ -256,24 +263,24 @@ public class Competitions extends Controller {
     }
 
     @Transactional(readOnly = true)
-    public Result addCompetitor(Long competitionId) {
-        ArrayList<Squad> allSquads = (ArrayList<Squad>) JPA.em().createQuery("SELECT s from Squad s ORDER BY s.rollcall", Squad.class).getResultList();
+    public Result addCompetitor() {
         ArrayList<User> users = (ArrayList<User>) JPA.em().createQuery("SELECT u from User u ORDER BY u.firstName, u.lastName", User.class).getResultList();
 
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
         ArrayList<Squad> squads = new ArrayList<>();
-        for (Squad squad: allSquads) {
-            if (squad.competitors() < competition.squadSize) {
+        for (Squad squad: competition.squads) {
+            if (squad.competitors() < squad.slots) {
                 squads.add(squad);
             }
         }
-        return ok(competitoradd.render(competitionId, squads, users));
+        return ok(competitoradd.render(squads, users));
     }
 
     @Transactional
     public Result saveCompetitor() {
         DynamicForm dynamicData = formFactory.form().bindFromRequest();
-        Long competitionId = Long.valueOf(dynamicData.get("competitionId"));
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Long squadId = Long.valueOf(dynamicData.get("squadId"));
         Squad squad = JPA.em().find(Squad.class, squadId);
         Long userId = Long.valueOf(dynamicData.get("userId"));
@@ -287,21 +294,22 @@ public class Competitions extends Controller {
     }
 
     @Transactional
-    public Result moveCompetitor(Long competitionId, Long squadId, Long competitorId) {
-        return redirect(routes.Competitions.editSquad(competitionId, squadId));
+    public Result moveCompetitor(Long squadId, Long competitorId) {
+        return redirect(routes.Competitions.editSquad(squadId));
     }
 
     @Transactional
-    public Result removeCompetitor(Long competitionId, Long squadId, Long competitorId) {
+    public Result removeCompetitor(Long squadId, Long competitorId) {
         Squad squad = JPA.em().find(Squad.class, squadId);
         Competitor competitor = JPA.em().find(Competitor.class, competitorId);
         squad.competitors.remove(competitor);
 
-        return redirect(routes.Competitions.show(competitionId, "competitors"));
+        return redirect(routes.Competitions.show(Long.valueOf(session().get("competitionId")), "competitors"));
     }
 
     @Transactional(readOnly = true)
-    public Result editTeam(Long competitionId, Long teamId) {
+    public Result editTeam(Long teamId) {
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         return redirect(routes.Competitions.show(competitionId, "teams"));
     }
 

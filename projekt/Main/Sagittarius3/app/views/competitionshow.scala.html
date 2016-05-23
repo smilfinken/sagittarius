@@ -7,18 +7,18 @@
 }
 
 @if(tab == "stages") {
-@components.stages(competition.id, competition.stages, competition.stageStatistics())
+@components.stages(competition.stages, competition.stageStatistics())
 }
 
 @if(tab == "squads") {
-@components.squads(competition.id, competition.squads)
+@components.squads(competition.squads)
 }
 
 @if(tab == "competitors") {
-@components.competitors(competition.id, competition.squads, competition.entries())
+@components.competitors(competition.squads, competition.entries())
 }
 
 @if(tab == "teams") {
-@components.teams(competition.id, competition.squads)
+@components.teams(competition.squads)
 }
 }

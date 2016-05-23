@@ -63,6 +63,10 @@ label {
     width: 12em;
 }
 
+.menu-link-active {
+    background: #ffe9b8;
+}
+
 .menu-link {
     background: #ff9b20;
 }

@@ -1,9 +1,8 @@
-@(competitionId: Long, squads: List[Squad])
+@(squads: List[Squad])
 <span class='menu-container action-menu'>
-    <a class='menu-link' href='/competition/editSquad/@competitionId/0'>@Messages("button.add.title")</a>
+    <a class='menu-link' href='/competition/editSquad/0'>@Messages("button.add.title")</a>
     @if(squads.size() == 0) {
     @helper.form(action = routes.Competitions.generateSquads()) {
-        <input type='hidden' name='competitionId' value='@competitionId' />
         <button type='submit' name='action' value='add'>@Messages("button.generatesquads.title")</button>
     }
     }
@@ -24,15 +23,14 @@
             <td>@squad.competitors()/@squad.slots</td>
             <td>
                 <span class='menu-container action-menu'>
-                    <a class='menu-link' href='/competition/editSquad/@competitionId/@squad.id'>@Messages("button.edit.title")</a>
+                    <a class='menu-link' href='/competition/editSquad/@squad.id'>@Messages("button.edit.title")</a>
                     @if(squad.competitors() == 0) {
-                    <a class='menu-link' href='/competition/deleteSquad/@competitionId/@squad.id'>@Messages("button.delete.title")</a>
+                    <a class='menu-link' href='/competition/deleteSquad/@squad.id'>@Messages("button.delete.title")</a>
                     } else {
-                    <a class='menu-link' href='/competition/printSquad/@competitionId/@squad.id'>@Messages("button.printsquad.title")</a>
+                    <a class='menu-link' href='/competition/printSquad/@squad.id'>@Messages("button.printsquad.title")</a>
                     }
                     @if(!squad.scored && squad.competitors.size() != 0) {
                     @helper.form(action = routes.Results.scoreSquad()) {
-                        <input type='hidden' name='competitionId' value='@competitionId' />
                         <input type='hidden' name='squadId' value='@squad.id' />
                         <button type='submit' name='action' value='show'>@Messages("button.scoresquad.title")</button>
                     }

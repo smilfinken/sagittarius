@@ -101,7 +101,7 @@ public class Results extends Controller {
     public Result scoreSquad() {
         DynamicForm dynamicData = formFactory.form().bindFromRequest();
 
-        Long competitionId = Long.valueOf(dynamicData.get("competitionId"));
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
 
         Long squadId = Long.valueOf(dynamicData.get("squadId"));
@@ -154,16 +154,16 @@ public class Results extends Controller {
     }
 
     @Transactional()
-    public Result editResult(Long competitionId, Long competitorId) {
-        return redirect(routes.Results.list(competitionId));
+    public Result editResult(Long competitorId) {
+        return redirect(routes.Results.list(Long.valueOf(session().get("competitionId"))));
     }
 
     @Transactional()
-    public Result deleteResult(Long competitionId, Long competitorId) {
+    public Result deleteResult(Long competitorId) {
         Competitor competitor = JPA.em().find(Competitor.class, competitorId);
         competitor.scores.clear();
         competitor.scored = false;
 
-        return redirect(routes.Results.list(competitionId));
+        return redirect(routes.Results.list(Long.valueOf(session().get("competitionId"))));
     }
 }

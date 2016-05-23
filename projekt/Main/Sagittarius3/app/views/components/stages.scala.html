@@ -1,6 +1,6 @@
-@(competitionId: Long, stages: List[Stage], stageStatistics: HashMap[Integer, StageStatistics])
+@(stages: List[Stage], stageStatistics: HashMap[Integer, StageStatistics])
 <span class='menu-container action-menu'>
-    <a class='menu-link' href='/competition/editStage/@competitionId/0'>@Messages("button.add.title")</a>
+    <a class='menu-link' href='/competition/editStage/0'>@Messages("button.add.title")</a>
 </span>
 @if(stages.size() > 0) {
 <table>
@@ -22,8 +22,8 @@
         @if(stageStatistics.size() > 0){<td>@stageStatistics.get(stage.index).averageString()</td>}
         <td>
             <span class='menu-container action-menu'>
-                <a class='menu-link' href='/competition/editStage/@competitionId/@stage.id'>@Messages("button.edit.title")</a>
-                <a class='menu-link' href='/competition/deleteStage/@competitionId/@stage.id'>@Messages("button.delete.title")</a>
+                <a class='menu-link' href='/competition/editStage/@stage.id'>@Messages("button.edit.title")</a>
+                <a class='menu-link' href='/competition/deleteStage/@stage.id'>@Messages("button.delete.title")</a>
             </span>
         </td>
     </tr>

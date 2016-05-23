@@ -6,34 +6,35 @@ POST    /competition/save                                                   cont
 GET     /competition/printStartlist/:competitionId                          controllers.Competitions.printStartlist(competitionId: Long)
 GET     /competition/export/:competitionId                                  controllers.Competitions.export(competitionId: Long)
 
-GET     /competition/editStage/:competitionId/:stageId                      controllers.Competitions.editStage(competitionId: Long, stageId: Long)
+GET     /competition/editStage/:stageId                      controllers.Competitions.editStage(stageId: Long)
 POST    /competition/saveStage                                              controllers.Competitions.saveStage
-GET     /competition/deleteStage/:competitionId/:stageId                    controllers.Competitions.deleteStage(competitionId: Long, stageId: Long)
+GET     /competition/deleteStage/:stageId                    controllers.Competitions.deleteStage(stageId: Long)
 
 POST    /competition/generateSquads                                         controllers.Competitions.generateSquads
-GET     /competition/editSquad/:competitionId/:squadId                      controllers.Competitions.editSquad(competitionId: Long, squadId: Long)
+GET     /competition/editSquad/:squadId                      controllers.Competitions.editSquad(squadId: Long)
 POST    /competition/saveSquad                                              controllers.Competitions.saveSquad
-GET     /competition/deleteSquad/:competitionId/:squadId                    controllers.Competitions.deleteSquad(competitionId: Long, squadId: Long)
-GET     /competition/printSquad/:competitionId/:squadId                     controllers.Competitions.printSquad(competitionId: Long, squadId: Long)
+GET     /competition/deleteSquad/:squadId                    controllers.Competitions.deleteSquad(squadId: Long)
+GET     /competition/printSquad/:squadId                     controllers.Competitions.printSquad(squadId: Long)
 
-GET     /competition/editTeam/:competitionId/:teamId                        controllers.Competitions.editTeam(competitionId: Long, teamId: Long)
+GET     /competition/editTeam/:teamId                        controllers.Competitions.editTeam(teamId: Long)
 POST    /competition/saveTeam                                               controllers.Competitions.saveTeam
 
-GET     /competition/addCompetitor/:competitionId                           controllers.Competitions.addCompetitor(competitionId: Long)
+GET     /competition/addCompetitor                           controllers.Competitions.addCompetitor
 POST    /competition/saveCompetitor                                         controllers.Competitions.saveCompetitor
-GET     /competition/moveCompetitor/:competitionId/:squadId/:competitorId   controllers.Competitions.moveCompetitor(competitionId: Long, squadId: Long, competitorId: Long)
-GET     /competition/removeCompetitor/:competitionId/:squadId/:competitorId controllers.Competitions.removeCompetitor(competitionId: Long, squadId: Long, competitorId: Long)
+GET     /competition/moveCompetitor/:squadId/:competitorId   controllers.Competitions.moveCompetitor(squadId: Long, competitorId: Long)
+GET     /competition/removeCompetitor/:squadId/:competitorId controllers.Competitions.removeCompetitor(squadId: Long, competitorId: Long)
 
 GET     /results/list/:competitionId                                        controllers.Results.list(competitionId: Long)
 GET     /results/display/:competitionId                                     controllers.Results.display(competitionId: Long)
 GET     /results/print/:competitionId                                       controllers.Results.print(competitionId: Long)
 POST    /results/scoreSquad                                                 controllers.Results.scoreSquad
-GET     /results/edit/:competitionId/:competitorId                          controllers.Results.editResult(competitionId: Long, competitorId: Long)
-GET     /results/delete/:competitionId/:competitorId                        controllers.Results.deleteResult(competitionId: Long, competitorId: Long)
+GET     /results/edit/:competitorId                          controllers.Results.editResult(competitorId: Long)
+GET     /results/delete/:competitorId                        controllers.Results.deleteResult(competitorId: Long)
 
 GET     /user/list                                                          controllers.Users.list
 GET     /user/edit/:userId                                                  controllers.Users.edit(userId: Long)
 POST    /user/save                                                          controllers.Users.save
+GET     /user/export                                                  controllers.Users.export
 
 GET     /assets/*file                                                       controllers.Assets.versioned(path="/public", file: Asset)
 

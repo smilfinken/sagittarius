@@ -88,9 +88,10 @@ label.stage.points=Poängräkning
 label.stage.stage=Station
 label.stage.targets=Figurer
 
-label.squad.squad=Patrull
-label.squad.rollcall=Starttid
 label.squad.competitors=Deltagare
+label.squad.rollcall=Starttid
+label.squad.slots=Platser
+label.squad.squad=Patrull
 
 label.user.cardid=Skyttekortnummer
 label.user.club=Förening

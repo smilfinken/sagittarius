@@ -1,0 +1,112 @@
+button.add.title=Lägg till
+button.cancel.title=Avbryt
+button.createpdf.title=Skapa PDF
+button.delete.title=Ta bort
+button.displayresults.title=Presentera resultat
+button.edit.title=Redigera
+button.export.title=Exportera
+button.generatesquads.title=Generera patruller
+button.generatetestdata.title=Generera testdata
+button.listresults.title=Lista resultat
+button.move.title=Flytta
+button.printresults.title=Skriv ut resultat
+button.printsquad.title=Skriv ut
+button.printstartlist.title=Skriv ut startlista
+button.save.title=Spara
+button.scoresquad.title=Mata in resultat
+button.show.title=Visa
+
+heading.common.addobject=Lägg till {0}
+heading.common.editobject=Redigera {0}
+heading.common.printobject=Skriv ut {0}
+
+heading.competition.title=Tävlingar
+
+heading.main.title=Sagittarius
+
+heading.result.competitor=Namn
+heading.result.class=Klass
+heading.result.club=Förening
+heading.result.entries=Deltagare
+heading.result.points=Poäng
+heading.result.printedat=Utskrivet {0}
+heading.result.maxscore=Maxpoäng
+heading.result.results=Resultat
+heading.result.score=Resultat
+heading.result.scoringforobject=Resultat för patrull {0}
+heading.result.sum=Summa
+
+heading.squad.generate=Generera patruller
+heading.squad.squadobject=Patrull {0}
+heading.squad.squads=Patruller
+
+heading.stage.stages=Stationer
+
+heading.startlist.class=Klass
+heading.startlist.club=Förening
+heading.startlist.competitor=Namn
+heading.startlist.entries=Deltagare
+heading.startlist.printedat=Utskrivet {0}
+heading.startlist.rollcall=Upprop
+heading.startlist.squad=Patrull
+heading.startlist.startlist=Startlista
+
+heading.user.title=Användare
+
+label.common.competitiondate=Tävlingsdatum
+label.common.competitors=Deltagare
+label.common.count=Antal
+label.common.entries=Starter
+label.common.id=ID
+label.common.interval=Intervall
+label.common.label=Namn
+label.common.maxscore=Maxpoäng
+label.common.printobject=Skriv ut {0}
+label.common.shots=Skott
+label.common.squads=Patruller
+label.common.stages=Stationer
+label.common.targets=Figurer
+label.common.total=Totalt
+
+label.competition.squadsize=Patrullstorlek
+
+label.competitor.class=Klass
+label.competitor.club=Klubb
+label.competitor.competitor=Deltagare
+label.competitor.squad=Patrull
+label.competitor.subclass=Kategori
+label.competitor.rollcall=Starttid
+
+label.scoring.shots=Träffar
+label.scoring.stage=Station {0}
+label.scoring.targets=Figurer
+label.scoring.points=Poäng
+
+label.stage.average=Genomsnitt
+label.stage.index=Nummer
+label.stage.points=Poängräkning
+label.stage.stage=Station
+label.stage.targets=Figurer
+
+label.squad.squad=Patrull
+label.squad.rollcall=Starttid
+label.squad.competitors=Deltagare
+
+label.user.cardid=Skyttekortnummer
+label.user.club=Förening
+label.user.email=E-post
+label.user.firstname=Förnamn
+label.user.fullname=Namn
+label.user.lastname=Efternamn
+label.user.password=Lösenord
+label.user.ranking=Klass
+label.user.user=Användare
+
+menu.link.competitions=Tävlingar
+menu.link.users=Användare
+
+menu.tab.competitors=Deltagare
+menu.tab.information=Information
+menu.tab.squads=Patruller
+menu.tab.stages=Stationer
+menu.tab.teams=Lag

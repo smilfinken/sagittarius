@@ -1,0 +1,13 @@
+@(competitionId: Long)
+@head(Messages("heading.squad.generate")) {
+    @helper.form(action = routes.Competitions.generateSquads()) {
+        <input type='hidden' name='competitionId' value='@competitionId' />
+        <label for='squadcount'>@Messages("label.common.count")</label>
+        <input type='number' name='squadCount' value='' min='1' max='100' />
+        <label for='starttime'>@Messages("label.squad.rollcall")</label>
+        <input type='text' name='startTime' value='' size='6' maxlength='5' />
+        <label for='interval'>@Messages("label.common.interval")</label>
+        <input type='number' name='interval' value='' size='3' maxlength='2' />
+        <button type="submit" name="action" value="save">@Messages("button.generatesquads.title")</button>
+    }
+}

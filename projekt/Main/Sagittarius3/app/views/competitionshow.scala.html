@@ -1,0 +1,24 @@
+@(competition: Competition, tab: String)
+@head(competition.label) {
+@components.competitionsubmenu(competition.id)
+
+@if(tab == "information") {
+@components.competitioninfo(competition)
+}
+
+@if(tab == "stages") {
+@components.stages(competition.id, competition.stages, competition.stageStatistics())
+}
+
+@if(tab == "squads") {
+@components.squads(competition.id, competition.squads)
+}
+
+@if(tab == "competitors") {
+@components.competitors(competition.id, competition.squads, competition.entries())
+}
+
+@if(tab == "teams") {
+@components.teams(competition.id, competition.squads)
+}
+}

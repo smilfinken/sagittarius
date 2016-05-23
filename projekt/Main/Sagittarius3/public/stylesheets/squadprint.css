@@ -1,0 +1,85 @@
+.squad-page-heading {
+    width: 98%;
+    background: #ff9b20;
+    font-size: 24pt;
+    text-align: center;
+}
+
+.squad-fixed-table {
+    table-layout: fixed;
+    width: 98%;
+    white-space: nowrap;
+    border-collapse: collapse;
+}
+
+.squad-competitor-container {
+    width: 49%;
+    border: 1px solid black;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.squad-fixed-table tr {
+    height: 32%;
+}
+
+.squad-fixed-table span {
+    font-size: 16pt;
+}
+
+.squad-competitor-heading {
+    width: 100%;
+}
+
+.squad-competitor-heading td {
+    width: 100%;
+}
+
+.squad-competitor-slot {
+    display: inline;
+    float: left;
+}
+
+.squad-competitor-class {
+    display: inline;
+    float: right;
+}
+
+.squad-competitor-name {
+    display: inline;
+    float: left
+    clear: all;
+}
+
+.squad-competitor-club {
+    display: inline;
+    float: right;
+}
+
+.squad-score-container {
+    width: 100%;
+}
+
+.squad-score-stage {
+    vertical-align: top;
+}
+
+.squad-score-heading {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.squad-score-box {
+    border: 1px solid black;
+    width: 1.3em;
+    height: 1.1em;
+    display: block;
+    margin: 0.1em 0em;
+}
+
+.squad-score-points {
+    margin-top: 1.3em;
+}

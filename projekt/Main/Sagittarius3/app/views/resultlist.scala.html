@@ -1,0 +1,59 @@
+@(classes: List[ClassResults], flags: HashMap[Integer, Boolean], top: HashMap[String, Integer], limit: HashMap[String, Integer])
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>@Messages("heading.result.results")</title>
+    <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/main.css")'>
+    <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/resultlist.css")'>
+    <link rel='stylesheet' media='print' href='@routes.Assets.versioned("stylesheets/resultlist.css")'>
+    <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+</head>
+<body>
+    <table class='result-table'>
+        <thead>
+            <tr>
+                <th>@Messages("heading.result.competitor")</th>
+                <th>@Messages("heading.result.club")</th>
+                <th>@Messages("heading.result.class")</th>
+                <th>@Messages("heading.result.score")</th>
+                <th>@Messages("heading.result.sum")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(classResults <- classes) {
+                @for((score, item) <- classResults.scores.zipWithIndex) {
+                    <tr>
+                        <td>@(item + 1). @score.competitorName</td>
+                        <td>@score.competitorClub</td>
+                        <td>@score.competitorClass</td>
+                        <td>
+                            @for(stageScore <- score.scores) {
+                                <span>@stageScore.scoreString()</span>
+                                @if(flags.get(stageScore.index)) {<span>(@stageScore.points)</span>}
+                            }
+                        </td>
+                        <td class='result-sum'>
+                            @if(top.containsKey(score.competitorCategory) && top.get(score.competitorCategory) <= score.scoreTotal()) {
+                                S
+                            } else {
+                                @if(limit.containsKey(score.competitorCategory) && limit.get(score.competitorCategory) <= score.scoreTotal()) {
+                                    B
+                                }
+                            }
+                            @score.scoreString()
+                            @score.scoreTotal() (@score.points())</td>
+                        <td class='result-actionbuttons'>
+                            <span class='menu-container action-menu'>
+                                <a class='menu-link' href='/results/edit/@score.competitionId/@score.competitorId'>@Messages("button.edit.title")</a>
+                                <a class='menu-link' href='/results/delete/@score.competitionId/@score.competitorId'>@Messages("button.delete.title")</a>
+                            </span>
+                        </td>
+                    </tr>
+                    @if(item + 1 == Math.ceil(classResults.scores.size() / 4.0)) { <tr><td class='result-marker' colspan='6'><hr class='result-marker-divider-left' /><span class='result-marker-quarter'>&frac14;</span><hr class='result-marker-divider-right' /></td></tr> }
+                }
+                <tr><td class='result-spacer' colspan='6'>&nbsp;</td></tr>
+            }
+        </tbody>
+    </table>
+</body>

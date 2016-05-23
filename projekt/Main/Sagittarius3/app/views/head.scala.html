@@ -1,0 +1,14 @@
+@(title: String)(content: Html)
+<html lang='en'>
+    <head>
+        <title>@title</title>
+        <meta charset="UTF-8">
+        <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/main.css")'>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+    </head>
+    <body>
+        @components.mainmenu()
+        <span class='page-heading'>@title</span>
+        @content
+    </body>
+</html>

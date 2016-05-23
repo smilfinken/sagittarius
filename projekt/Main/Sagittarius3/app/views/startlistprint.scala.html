@@ -1,0 +1,36 @@
+@(entries: List[StartlistEntry], competitionTitle: String, competitionDate: String, printDate: String)
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>@Messages("heading.startlist.startlist")</title>
+        <link rel='stylesheet' media='print' href='@routes.Assets.versioned("stylesheets/startlistprint.css")'>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+        <style type="text/css"><!-- @@page { size : landscape } --></style>
+    </head>
+    <body>
+        <div class='startlist-header'><span class='startlist-header-title'>@Messages("heading.startlist.startlist") @competitionTitle</span> <span class='startlist-header-date'>@competitionDate</span></div>
+        <table class='startlist-fixed-table'>
+            <thead>
+            <tr>
+                <th class='startlist-competitorname'>@Messages("heading.startlist.competitor")</th>
+                <th class='startlist-clubname'>@Messages("heading.startlist.club")</th>
+                <th class='startlist-class'>@Messages("heading.startlist.class")</th>
+                <th class='startlist-squad'>@Messages("heading.startlist.squad")</th>
+                <th class='startlist-rollcall'>@Messages("heading.startlist.rollcall")</th>
+            </tr>
+            </thead>
+            <tbody>
+                @for(entry <- entries) {
+                <tr>
+                    <td class='startlist-competitorname'>@entry.competitor</td>
+                    <td class='startlist-clubname'>@entry.club</td>
+                    <td class='startlist-class'>@entry.competitionClass</td>
+                    <td class='startlist-squad'>@entry.squad</td>
+                    <td class='startlist-rollcall'>@entry.rollcall</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class='startlist-footer'><span class='startlist-footer-stats'>@entries.size() @Messages("heading.startlist.entries")</span><span class='startlist-footer-date'>@Messages("heading.startlist.printedat", printDate)</span></div>
+    </body>
+</html>

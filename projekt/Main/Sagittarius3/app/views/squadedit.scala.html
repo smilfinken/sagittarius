@@ -1,0 +1,42 @@
+@(competitionId: Long, squad: Squad)
+@head(Messages("heading.common.editobject", Messages("label.squad.squad").toLowerCase())) {
+    @helper.form(action = routes.Competitions.saveSquad()) {
+        <input type='hidden' name='competitionId' value='@competitionId' />
+        <input type='hidden' name='id' value='@if(squad.id == null){0}else{@squad.id}' />
+        <label for='label'>@Messages("label.common.label")</label>
+        <input type='text' name='label' value='@squad.label' />
+        <label for='rollcall'>@Messages("label.squad.rollcall")</label>
+        <input type='text' name='rollcall' value='@squad.rollcall' size='6' />
+        <span class='menu-container action-menu'>
+            <button type="submit" name="action" value="save">@Messages("button.save.title")</button>
+            <a class='menu-link' href='/competition/show/@competitionId/squads'>@Messages("button.cancel.title")</a>
+        </span>
+    }
+    @if(squad.id != null) {
+    <table>
+        <thead>
+            <th>@Messages("label.competitor.competitor")</th>
+            <th>@Messages("label.competitor.club")</th>
+            <th>@Messages("label.competitor.class")</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @for(competitor <- squad.competitors) {
+            <tr>
+                <td>@competitor.fullName()</td>
+                <td>@competitor.clubName()</td>
+                <td>@competitor.combinedClass()</td>
+                <td>
+                    <span class='menu-container action-menu'>
+                        <a class='menu-link' href='/competition/moveCompetitor/@competitionId/@squad.id/@competitor.id'>@Messages("button.move.title")</a>
+                        @if(!competitor.scored) {
+                        <a class='menu-link' href='/competition/removeCompetitor/@competitionId/@squad.id/@competitor.id'>@Messages("button.delete.title")</a>
+                        }
+                    </span>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+}

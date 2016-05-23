@@ -1,0 +1,91 @@
+@Media print {
+    .startlist-header {
+        width: 100%;
+        font-size: 28pt;
+        background: #ff9b20;
+        padding: 0.3em;
+        margin-bottom: 1em;
+        display: block;
+    }
+
+    .startlist-header-title {
+        text-align: left;
+        width: 50%;
+    }
+
+    .startlist-header-date {
+        position: absolute;
+        text-align: right;
+        width: 50%;
+        right: 0.3em;
+    }
+
+    .startlist-footer {
+        width: 100%;
+        font-size: 12pt;
+        background: #ff9b20;
+        padding: 0.3em;
+        margin-top: 2em;
+        margin-right: 0.3em;
+        display: block;
+    }
+
+    .startlist-footer-stats {
+        text-align: left;
+        width: 60%;
+    }
+
+    .startlist-footer-date {
+        position: absolute;
+        text-align: right;
+        width: 30%;
+        right: 0.3em;
+    }
+
+    .startlist-class-heading {
+        width: 100%;
+        font-size: 20pt;
+        background: #ff9b20;
+        padding: 0.2em;
+        padding-left: 0.3em;
+        margin-top: 1.3em;
+    }
+
+    /* table layout for lists */
+    .startlist-fixed-table {
+        table-layout: fixed;
+        width: 99%;
+        margin: 0.5em;
+        white-space: nowrap;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+
+    .startlist-fixed-table tr:nth-child(even) {
+        background: #eee;
+    }
+
+    .startlist-fixed-table tr:nth-child(odd) {
+        background: #fff;
+    }
+
+    .startlist-fixed-table td, th {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        text-align: left;
+        font-size: 16pt;
+    }
+
+    .startlist-fixed-table td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Column widths are based on these cells */
+    .startlist-fixed-table .startlist-competitorname { text-align: left; width: 40%; }
+    .startlist-fixed-table .startlist-clubname { text-align: left; width: 30%; }
+    .startlist-fixed-table .startlist-class { text-align: right; width: 10%; }
+    .startlist-fixed-table .startlist-squad { text-align: right; width: 10%; }
+    .startlist-fixed-table .startlist-rollcall { text-align: right; width: 10%; }
+}

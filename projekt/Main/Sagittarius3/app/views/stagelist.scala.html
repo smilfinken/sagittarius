@@ -1,0 +1,23 @@
+@(stages: List[Stage])
+@head(Messages("heading.stage.stages")) {
+<table>
+    <thead>
+        <tr>
+            <th>@Messages("label.common.id")</th>
+            <th>@Messages("label.label")</th>
+            <th>@Messages("label.stage.targets")</th>
+            <th>@Messages("label.stage.points")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(stage <- stages) {
+        <tr>
+            <td>@stage.id</td>
+            <td>@stage.label</td>
+            <td>@stage.targetCount</td>
+            <td><input type='checkbox' disabled @if(stage.points){checked} /></td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

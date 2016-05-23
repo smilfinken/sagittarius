@@ -1,0 +1,39 @@
+@(competitionId: Long, squads: List[Squad], competitors: Integer)
+@if(squads.size() != 0) {
+<span class='menu-container action-menu'>
+    <a class='menu-link' href='/competition/addCompetitor/@competitionId'>@Messages("button.add.title")</a>
+</span>
+}
+@if(competitors > 0) {
+<table>
+    <thead>
+        <th>@Messages("label.competitor.competitor")</th>
+        <th>@Messages("label.competitor.club")</th>
+        <th>@Messages("label.competitor.class")</th>
+        <th>@Messages("label.competitor.squad")</th>
+        <th>@Messages("label.competitor.rollcall")</th>
+        <th></th>
+    </thead>
+    <tbody>
+    @for(squad <- squads) {
+    @for(competitor <- squad.competitors) {
+        <tr>
+            <td>@competitor.fullName()</td>
+            <td>@competitor.clubName()</td>
+            <td>@competitor.combinedClass()</td>
+            <td>@squad.label</td>
+            <td>@squad.rollcall</td>
+            <td>
+                <span class='menu-container action-menu'>
+                    <a class='menu-link' href='/competition/moveCompetitor/@competitionId/@squad.id/@competitor.id'>@Messages("button.move.title")</a>
+                    @if(!competitor.scored) {
+                    <a class='menu-link' href='/competition/removeCompetitor/@competitionId/@squad.id/@competitor.id'>@Messages("button.delete.title")</a>
+                    }
+                </span>
+            </td>
+        </tr>
+    }
+    }
+    </tbody>
+</table>
+}

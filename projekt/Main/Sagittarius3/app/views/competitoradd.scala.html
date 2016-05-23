@@ -1,0 +1,26 @@
+@(competitionId: Long, squads: List[Squad], users: List[User])
+@head(Messages("heading.common.addobject", Messages("label.competitor.competitor").toLowerCase())) {
+    @helper.form(action = routes.Competitions.saveCompetitor()) {
+        <input type='hidden' name='competitionId' value='@competitionId' />
+        <label for='squad'>@Messages("label.squad.squad")</label>
+        <select id='squad' name='squadId'>
+            @for(squad <- squads) {
+                <option value='@squad.id'>@squad.label - @squad.rollcall</option>
+            }
+        </select>
+        <label for='user'>@Messages("label.user.user")</label>
+        <select id='user' name='userId'>
+            @for(user <- users) {
+                <option value='@user.id'>@user.fullName() - @user.club</option>
+            }
+        </select>
+        <label for='class'>@Messages("label.competitor.class")</label>
+        <input type='text' name='competitionClass' size='3' maxlength='2' value='' />
+        <label for='subclass'>@Messages("label.competitor.subclass")</label>
+        <input type='text' name='competitionSubclass' size='3' maxlength='2' value='' />
+        <span class='menu-container action-menu'>
+            <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+            <a class='menu-link' href='/competition/show/@competitionId/competitors'>@Messages("button.cancel.title")</a>
+        </span>
+    }
+}

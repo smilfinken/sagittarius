@@ -1,0 +1,30 @@
+@(users: List[User])
+@head(Messages("heading.user.title")) {
+    <span class='menu-container action-menu'>
+        <a class='menu-link' href='/user/edit/0'>@Messages("button.add.title")</a>
+    </span>
+    <table>
+        <thead>
+            <th>@Messages("label.user.fullname")</th>
+            <th>@Messages("label.user.email")</th>
+            <th>@Messages("label.user.cardid")</th>
+            <th>@Messages("label.user.club")</th>
+            <th></th>
+        </thead>
+        <tbody>
+        @for(user <- users) {
+            <tr>
+                <td>@user.fullName()</td>
+                <td>@user.email</td>
+                <td>@user.cardId</td>
+                <td>@user.club</td>
+                <td>
+                    <span class='menu-container action-menu'>
+                        <a class='menu-link' href='/user/edit/@user.id'>@Messages("button.edit.title")</a>
+                    </span>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

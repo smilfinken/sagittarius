@@ -1,0 +1,55 @@
+@(classes: List[ClassResults], flags: HashMap[Integer, Boolean], top: HashMap[String, Integer], limit: HashMap[String, Integer])
+<html lang='en'>
+    <head>
+        <title>@Messages("heading.result.results")</title>
+        <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/main.css")'>
+        <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/resultdisplay.css")'>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+        <script src='@routes.Assets.versioned("javascripts/resultdisplay.js")' type='text/javascript'></script>
+    </head>
+
+    <body onLoad='scroller.startScroll()'>
+        @for(classResults <- classes) {
+            <div class='result-class-heading'>@classResults.className</div>
+            <table class='result-fixed-table'>
+                <thead>
+                <tr>
+                    <th class='result-competitorname'>@Messages("heading.result.competitor")</th>
+                    <th class='result-clubname'>@Messages("heading.result.club")</th>
+                    <th class='result-score'>@Messages("heading.result.score")</th>
+                    <th></th>
+                    <th></th>
+                    <th class='result-points header'>@Messages("heading.result.points")</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for((score, item) <- classResults.scores.zipWithIndex) {
+                <tr>
+                    <td class='result-competitorname'>@(item + 1) @score.competitorName</td>
+                    <td class='result-clubname'>@score.competitorClub</td>
+                    <td class='result-score'>
+                        @for(stageScore <- score.scores) {
+                            <span>@stageScore.scoreString()</span>
+                            @if(flags.get(stageScore.index)) {<span>(@stageScore.points)</span>}
+                        }
+                    </td>
+                    <td class='result-sum'>
+                        <span>@score.scoreString()</span> <span>@score.scoreTotal()</span>
+                    </td>
+                    <td class='result-qualificationpoints'>
+                        @if(top.containsKey(score.competitorCategory) && top.get(score.competitorCategory) <= score.scoreTotal()) {
+                            S
+                        } else {
+                            @if(limit.containsKey(score.competitorCategory) && limit.get(score.competitorCategory) <= score.scoreTotal()) {
+                                B
+                            }
+                        }
+                    </td>
+                    <td class='result-points'>@score.points()</td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </body>
+</html>

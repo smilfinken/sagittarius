@@ -1,0 +1,51 @@
+.result-page-heading {
+    width: 98%;
+    background: #ff9b20;
+}
+
+.result-class-heading {
+    width: 98%;
+    font-size: 18pt;
+    background: #ff9b20;
+    padding: 0.2em;
+    padding-left: 0.3em;
+}
+
+/* table layout for lists */
+.result-fixed-table {
+    table-layout: fixed;
+    width: 98%;
+    margin: 0.5em;
+    white-space: nowrap;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.result-fixed-table tr:nth-child(even) {
+    background: #eee;
+}
+
+.result-fixed-table tr:nth-child(odd) {
+    background: #fff;
+}
+
+.result-fixed-table td, th {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-align: left;
+    font-size: 14pt;
+}
+
+.result-fixed-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Column widths are based on these cells */
+.result-fixed-table .result-competitorname { text-align: left; width: 15%; }
+.result-fixed-table .result-clubname { text-align: left; width: 15%; }
+.result-fixed-table .result-score { text-align: left; width: 40%; }
+.result-fixed-table .result-sum { text-align: left; width: 15%; }
+.result-fixed-table .result-qualificationpoints { text-align: right; width: 4%; }
+.result-fixed-table .result-points { text-align: left; width: 8%; }

@@ -1,0 +1,41 @@
+@(user: User)
+@head(Messages("heading.common.editobject", Messages("label.user.user").toLowerCase())) {
+    @helper.form(action = routes.Users.save()) {
+        <input type='hidden' name='id' value='@if(user.id == null){0}else{@user.id}' />
+        <table>
+            <tr>
+                <td>
+                    <label for='firstname'>@Messages("label.user.firstname")</label>
+                    <input id='firstname' type='text' name='firstName' value='@user.firstName' />
+                </td>
+                <td>
+                    <label for='lastname'>@Messages("label.user.lastname")</label>
+                    <input id='lastname' type='text' name='lastName' value='@user.lastName' />
+                </td>
+                <td>
+                    <label for='email'>@Messages("label.user.email")</label>
+                    <input id='email' type='text' name='email' value='@user.email' />
+                </td>
+                <td>
+                    <label for='password'>@Messages("label.user.password")</label>
+                    <input id='password' type='password' name='password' value='@user.password' />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for='cardid'>@Messages("label.user.cardid")</label>
+                    <input id='cardid' type='text' name='cardId' value='@user.cardId' size='6' maxlength='6' />
+                </td>
+                <td>
+                    <label for='ranking'>@Messages("label.user.ranking")</label>
+                    <input id='ranking' type='number' name='ranking' value='@user.ranking' min='1' max='3' />
+                </td>
+                <td>
+                    <label for='club'>@Messages("label.user.club")</label>
+                    <input id='club' type='text' name='club' value='@user.club' />
+                </td>
+            </tr>
+        </table>
+        <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+    }
+}

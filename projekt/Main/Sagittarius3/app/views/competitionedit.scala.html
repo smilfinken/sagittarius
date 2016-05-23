@@ -1,0 +1,14 @@
+@(competition: Competition)
+@head(Messages("heading.common.editobject", competition.label)) {
+@helper.form(action = routes.Competitions.save()) {
+    <input type='hidden' name='id' value='@if(competition.id == null){0}else{@competition.id}' />
+    <label for='competitionlabel'>@Messages("label.common.label")</label>
+    <input id='competitionlabel' type='text' name='label' value='@competition.label' />
+    <label for='squadsize'>@Messages("label.competition.squadsize")</label>
+    <input id='squadsize' type='number' name='squadSize' min='1' max='10' value='@competition.squadSize' />
+    <span class='menu-container action-menu'>
+        <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+        <a class='menu-link' href='/competition/show/@competition.id/information'>@Messages("button.cancel.title")</a>
+    </span>
+}
+}

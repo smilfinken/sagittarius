@@ -1,0 +1,52 @@
+@(classes: List[ClassResults], flags: HashMap[Integer, Boolean], top: HashMap[String, Integer], limit: HashMap[String, Integer], competitionTitle: String, competitionDate: String, printDate: String, maxScore: Integer, entries: Integer)
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>@Messages("heading.result.results")</title>
+        <link rel='stylesheet' media='print' href='@routes.Assets.versioned("stylesheets/resultprint.css")'>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+        <style type="text/css"><!-- @@page { size : landscape } --></style>
+    </head>
+    <body>
+        <div class='result-header'><span class='result-header-title'>@Messages("heading.result.results") @competitionTitle</span> <span class='result-header-date'>@competitionDate</span></div>
+        @for(classResults <- classes) {
+            <div class='result-class-heading'>@classResults.className</div>
+            <table class='result-fixed-table'>
+                <thead>
+                    <tr>
+                        <th class='result-competitorname'>@Messages("heading.result.competitor")</th>
+                        <th class='result-clubname'>@Messages("heading.result.club")</th>
+                        <th class='result-score-detail'>@Messages("heading.result.score")</th>
+                        <th class='result-score-sum'>@Messages("heading.result.sum")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for((score, item) <- classResults.scores.zipWithIndex) {
+                        <tr>
+                            <td class='result-competitorname'>@(item + 1) @score.competitorName</td>
+                            <td class='result-clubname'>@score.competitorClub</td>
+                            <td class='result-score-detail'>
+                                @for(stageScore <- score.scores) {
+                                    <span>@stageScore.scoreString()</span>
+                                    @if(flags.get(stageScore.index)) {<span>(@stageScore.points)</span>}
+                                }
+                            </td>
+                            <td class='result-score-sum'>
+                                @if(top.containsKey(score.competitorCategory) && top.get(score.competitorCategory) <= score.scoreTotal()) {
+                                    <span>S</span>
+                                } else {
+                                    @if(limit.containsKey(score.competitorCategory) && limit.get(score.competitorCategory) <= score.scoreTotal()) {
+                                        <span>B</span>
+                                    }
+                                }
+                                <span>@score.scoreString()</span> <span>@score.scoreTotal()</span> <span>(@score.points())</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <div class='result-footer'><span class='result-footer-stats'>@entries @Messages("heading.result.entries"), @Messages("heading.result.maxscore") @maxScore</span><span class='result-footer-date'>@Messages("heading.result.printedat", printDate)</span></div>
+    </body>
+</html>

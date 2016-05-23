@@ -1,0 +1,23 @@
+@(squads: List[Squad])
+@head(Messages("heading.squad.squads")) {
+<table>
+    <thead>
+        <tr>
+            <th>@Messages("label.common.id")</th>
+            <th>@Messages("label.common.label")</th>
+            <th>@Messages("label.squad.rollcall")</th>
+            <th>@Messages("label.squad.competitors")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(squad <- squads) {
+        <tr>
+            <td>@squad.id</td>
+            <td>@squad.label</td>
+            <td>@squad.rollcall</td>
+            <td>@squad.competitors()/@squad.slots</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

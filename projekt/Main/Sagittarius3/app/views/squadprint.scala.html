@@ -1,0 +1,56 @@
+@(squad: Squad, stages: List[Stage])
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>@Messages("heading.common.printobject", Messages("heading.squad.squadobject", squad.label))</title>
+        <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/main.css")'>
+        <link rel='stylesheet' media='screen' href='@routes.Assets.versioned("stylesheets/squadprint.css")'>
+        <link rel='stylesheet' media='print' href='@routes.Assets.versioned("stylesheets/squadprint.css")'>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.versioned("images/favicon.png")'>
+    </head>
+
+    <body onload="window.print()">
+        <div class='squad-page-heading'>@Messages("heading.squad.squadobject", squad.label) @squad.rollcall</div>
+        <table class='squad-fixed-table'>
+            <tr style='height: 32%'>
+                @for((competitor, item) <- squad.competitors.zipWithIndex) {
+                    @if(item > 0 && item % 2 == 0) {
+                        </tr>
+                        <tr>
+                    }
+                    <td class='squad-competitor-container'>
+                        <table class='squad-competitor-heading'>
+                            <tr>
+                                <td>
+                                    <span class='squad-competitor-slot'>@{item + 1}</span>
+                                    <span class='squad-competitor-class'>@competitor.combinedClass()</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class='squad-competitor-name'>@competitor.fullName()</span>
+                                    <span class='squad-competitor-club'>@competitor.clubName()</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class='squad-score-container'>
+                            <tr>
+                                @for(stage <- stages) {
+                                    <td class='squad-score-stage'>
+                                        <span class='squad-score-heading'>@stage.index</span>
+                                        @for(i <- 0 to stage.targetCount - 1) {
+                                            <span class='squad-score-box'></span>
+                                        }
+                                        @if(stage.points) {
+                                            <span class='squad-score-box squad-score-points'></span>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+                    </td>
+                }
+            </tr>
+        </table>
+    </body>
+</html>

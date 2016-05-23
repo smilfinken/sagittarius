@@ -1,0 +1,24 @@
+@(competitions: List[Competition])
+@head(Messages("heading.competition.title")) {
+    <span class='menu-container sub-menu'>
+        <a class='menu-link' href='/competition/edit/0'>@Messages("button.add.title")</a>
+    </span>
+
+    @for(competition <- competitions) {
+    <span class='menu-container sub-menu'>
+        <span class='fixed-first-cell'>
+            <a class='item-link' href='/competition/show/@competition.id/information'>@competition.label</a>
+        </span>
+        <a class='menu-link' href='/competition/printStartlist/@competition.id' target='_blank'>@Messages("button.printstartlist.title")</a>
+        <a class='menu-link' href='/results/display/@competition.id' target="_blank">@Messages("button.displayresults.title")</a>
+        <a class='menu-link' href='/results/print/@competition.id' target="_blank">@Messages("button.printresults.title")</a>
+        <a class='menu-link' href='/competition/export/@competition.id' target='_blank'>@Messages("button.export.title")</a>
+    </span>
+    }
+
+    @if(competitions.size() == 0) {
+    <span class='menu-container action-menu'>
+        <a class='menu-link' href='/competition/generateTestData'>@Messages("button.generatetestdata.title")</a>
+    </span>
+    }
+}

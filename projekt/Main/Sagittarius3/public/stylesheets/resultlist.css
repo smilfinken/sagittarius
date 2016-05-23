@@ -1,0 +1,66 @@
+@Media all {
+    .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0px;
+        white-space: nowrap;
+    }
+
+    .result-table hr.result-marker-divider-left {
+        width: 45%;
+        float: left;
+    }
+
+    .result-table hr.result-marker-divider-right {
+        width: 45%;
+        float: right;
+    }
+
+    .result-table .result-marker-quarter {
+        padding: 0 4%;
+        text-align: center;
+    }
+
+    .result-table .result-sum {
+        text-align: right;
+    }
+
+    .result-table tr {
+        vertical-align: initial;
+    }
+
+    button {
+        background: #ff9b20;
+        border-radius: 0.25em;
+        border: 1px solid darkgray;
+        font-family: serif;
+        font-size: 12pt;
+    }
+}
+
+@Media screen {
+    .result-table .result-spacer {
+        display: none;
+    }
+
+    .result-table .result-marker {
+        display: none;
+    }
+
+    .result-table .result-actionbuttons {
+        display: block;
+    }
+}
+
+@Media print {
+    .result-table .result-spacer {
+    }
+
+    .result-table .result-marker {
+        padding-bottom: 0.2em;
+    }
+
+    .result-table .result-actionbuttons {
+        display: none;
+    }
+}

@@ -1,0 +1,90 @@
+@Media print {
+    .result-header {
+        width: 100%;
+        font-size: 28pt;
+        background: #ff9b20;
+        padding: 0.3em;
+        margin-bottom: 1em;
+        display: block;
+    }
+
+    .result-header-title {
+        text-align: left;
+        width: 50%;
+    }
+
+    .result-header-date {
+        position: absolute;
+        text-align: right;
+        width: 50%;
+        right: 0.3em;
+    }
+
+    .result-footer {
+        width: 100%;
+        font-size: 12pt;
+        background: #ff9b20;
+        padding: 0.3em;
+        margin-top: 2em;
+        margin-right: 0.3em;
+        display: block;
+    }
+
+    .result-footer-stats {
+        text-align: left;
+        width: 60%;
+    }
+
+    .result-footer-date {
+        position: absolute;
+        text-align: right;
+        width: 30%;
+        right: 0.3em;
+    }
+
+    .result-class-heading {
+        width: 100%;
+        font-size: 20pt;
+        background: #ff9b20;
+        padding: 0.2em;
+        padding-left: 0.3em;
+        margin-top: 1.3em;
+    }
+
+    /* table layout for lists */
+    .result-fixed-table {
+        table-layout: fixed;
+        width: 100%;
+        margin: 0.5em;
+        white-space: nowrap;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+
+    .result-fixed-table tr:nth-child(even) {
+        background: #eee;
+    }
+
+    .result-fixed-table tr:nth-child(odd) {
+        background: #fff;
+    }
+
+    .result-fixed-table td, th {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        text-align: left;
+        font-size: 16pt;
+    }
+
+    .result-fixed-table td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Column widths are based on these cells */
+    .result-fixed-table .result-competitorname { text-align: left; width: 30%; }
+    .result-fixed-table .result-clubname { text-align: left; width: 20%; }
+    .result-fixed-table .result-score-detail { font-size: 11pt; text-align: left; width: 35%; }
+    .result-fixed-table .result-score-sum { text-align: right; width: 15%; }
+}

@@ -1,0 +1,118 @@
+body {
+    font-size: 12pt;
+}
+
+form, tr, td {
+    margin: 0;
+}
+
+form {
+    display: inline;
+}
+
+button {
+    background: #ff9b20;
+    border-radius: 0.25em;
+    border: 1px solid darkgray;
+    font-family: serif;
+    font-size: 12pt;
+}
+
+label {
+    border-radius: 0.251em;
+    border: none;
+    background: #ddd;
+    padding: 0.1em 0.2em;
+    margin-left: 0.1em;
+    margin-right: 0.2em;
+    font-family: serif;
+    font-size: 12pt;
+}
+
+.menu-container {
+    width: 100%;
+    display: block;
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+}
+
+.main-menu {
+    font-size: 24pt;
+}
+
+.sub-menu {
+    font-size: 16pt;
+}
+
+.action-menu {
+    font-size: 12pt;
+}
+
+.menu-container a, button {
+    border: 1px solid black;
+    border-radius: 0.2em;
+    padding: 0.1em 0.3em;
+    font-style: normal;
+    color: black;
+    text-decoration: initial;
+    margin-right: 0.2em;
+}
+
+.menu-container .fixed-first-cell {
+    float: left;
+    width: 12em;
+}
+
+.menu-link {
+    background: #ff9b20;
+}
+
+.item-link {
+    background: #ddd;
+}
+
+.page-heading {
+    width: 99%;
+    display: block;
+    background: #ff9b20;
+    padding: 0.1em 0.2em;
+    font-size: 28pt;
+    margin-bottom: 0.2em;
+}
+
+hr {
+    width: 100%;
+    background-color: #eee;
+    border: 0 none;
+    color: #eee;
+    height: 1px;
+}
+
+.scoring-competitor-container {
+    width: 100%;
+    background: #ff9b20;
+    font-size: 18pt;
+    display: block;
+    float: left;
+}
+
+.scoring-competitor-name {
+    float: left;
+}
+
+.scoring-competitor-class {
+    float: right;
+}
+
+.scoring-scores-container {
+    clear: both;
+}
+
+.competition-info {
+    margin: 0.4em 0;
+    font-size: 14pt;
+}
+
+.competition-info label {
+    font-size: 14pt;
+}

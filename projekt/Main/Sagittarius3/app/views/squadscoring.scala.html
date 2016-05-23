@@ -1,0 +1,31 @@
+@(competition: Competition, squad: Squad, competitor: Competitor)
+@head(Messages("heading.result.scoringforobject", squad.label)) {
+    @helper.form(action = routes.Results.scoreSquad()) {
+        <input type='hidden' name='competitionId' value='@competition.id' />
+        <input type='hidden' name='squadId' value='@squad.id' />
+        <input type='hidden' name='competitorId' value='@competitor.id' />
+        <span class='scoring-competitor-container'>
+            <span class='scoring-competitor-name'>@competitor.fullName()</span>
+            <span class='scoring-competitor-class'>@competitor.combinedClass()</span>
+        </span>
+        <table class='scoring-scores-container'>
+            @for(stage <- competition.stages) {
+                <tr>
+                    <td colspan='2'>
+                        <input type='hidden' name='index[@stage.index]' value='@stage.index' />
+                        <label>@Messages("label.scoring.stage", stage.index)</label>
+                        <label for='shots'>@Messages("label.scoring.shots")</label>
+                        <input id='shots' type='number' name='shots[@stage.index]' min='0' max='6' />
+                        <label for='targets'>@Messages("label.scoring.targets")</label>
+                        <input id='targets' type='number' name='targets[@stage.index]' min='0' max='@stage.targetCount' />
+                        @if(stage.points) {
+                            <label for='points'>@Messages("label.scoring.points")</label>
+                            <input id='points' type='number' name='points[@stage.index]' min='0' max='60' />
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+        <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+    }
+}

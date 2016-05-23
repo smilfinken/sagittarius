@@ -1,8 +1,8 @@
+/.idea
 logs
 target
-/.idea
-/.idea_modules
-/.classpath
-/.project
-/.settings
+project
 /RUNNING_PID
+LICENSE
+README
+activator*

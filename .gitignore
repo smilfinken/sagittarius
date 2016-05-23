@@ -1,0 +1,16 @@
+gen/
+nbandroid/
+bin/
+private/
+**/.idea/*
+*swp
+*~
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+*.lnk

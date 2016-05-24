@@ -2,6 +2,15 @@ body {
     font-size: 12pt;
 }
 
+.error-message {
+    width: 98%;
+    position: absolute;
+    bottom: 0;
+    background: #ff0000;
+    padding: 0.3em 0.4em;
+    margin: 0.4em 0em;
+}
+
 form, tr, td {
     margin: 0;
 }

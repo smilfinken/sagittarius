@@ -4,17 +4,17 @@
         <label for='squad'>@Messages("label.squad.squad")</label>
         <select id='squad' name='squadId'>
             @for(squad <- squads) {
-                <option value='@squad.id'>@squad.label - @squad.rollcall</option>
+                <option value='@squad.id' @if(flash.get("squadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcall</option>
             }
         </select>
         <label for='user'>@Messages("label.user.user")</label>
         <select id='user' name='userId'>
             @for(user <- users) {
-                <option value='@user.id'>@user.fullName() - @user.club</option>
+                <option value='@user.id' @if(flash.get("userId") == user.id.toString()){selected}>@user.fullName() - @user.club</option>
             }
         </select>
         <label for='class'>@Messages("label.competitor.class")</label>
-        <input type='text' name='competitionClass' size='3' maxlength='2' value='' />
+        <input type='text' name='competitionClass' size='3' maxlength='2' value='@flash.get("competitionClass")' />
         <label for='subclass'>@Messages("label.competitor.subclass")</label>
         <input type='text' name='competitionSubclass' size='3' maxlength='2' value='' />
         <span class='menu-container action-menu'>

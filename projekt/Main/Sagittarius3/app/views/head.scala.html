@@ -10,5 +10,6 @@
         @components.mainmenu()
         <span class='page-heading'>@title</span>
         @content
+        @if(flash.get("error")){<span class='error-message'>@Messages(flash.get("error"))</span>}
     </body>
 </html>

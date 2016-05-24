@@ -3,6 +3,7 @@ package controllers;
 import models.*;
 import views.html.*;
 
+import play.i18n.Messages;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.data.DynamicForm;
@@ -18,7 +19,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalTime;
+import org.joda.time.ReadableDuration;
 import org.joda.time.format.*;
 
 import it.innove.play.pdf.PdfGenerator;
@@ -202,7 +207,7 @@ public class Competitions extends Controller {
     @Transactional
     public Result saveSquad() {
         DynamicForm dynamicData = formFactory.form().bindFromRequest();
-        Long competitionId = Long.valueOf(dynamicData.get("competitionId"));
+        Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
         Squad requestData = formFactory.form(Squad.class).bindFromRequest().get();
         Squad squad = JPA.em().find(Squad.class, requestData.id);
@@ -281,12 +286,29 @@ public class Competitions extends Controller {
     public Result saveCompetitor() {
         DynamicForm dynamicData = formFactory.form().bindFromRequest();
         Long competitionId = Long.valueOf(session().get("competitionId"));
+        Competition competition = JPA.em().find(Competition.class, competitionId);
         Long squadId = Long.valueOf(dynamicData.get("squadId"));
         Squad squad = JPA.em().find(Squad.class, squadId);
         Long userId = Long.valueOf(dynamicData.get("userId"));
         User user = JPA.em().find(User.class, userId);
 
         Competitor competitor = formFactory.form(Competitor.class).bindFromRequest().get();
+        for (Squad squadMatch: competition.squads) {
+            for (Competitor competitorMatch: squadMatch.competitors) {
+                if (competitorMatch.user.equals(user)) {
+                    DateTime backwardLimit = squadMatch.rollcallTime().minusHours(1).minusMinutes(30);
+                    DateTime forwardLimit = squadMatch.rollcallTime().plusHours(1).plusMinutes(30);
+                    if (!(squad.rollcallTime().isBefore(backwardLimit) || squad.rollcallTime().isAfter(forwardLimit))) {
+                        flash().put("error", "message.error.bookingtooclose");
+                        flash().put("squadId", squadId.toString());
+                        flash().put("userId", userId.toString());
+                        flash().put("competitionClass", competitor.competitionClass);
+                        return redirect(routes.Competitions.addCompetitor());
+                    }
+                }
+            }
+        }
+
         competitor.user = user;
         squad.competitors.add(JPA.em().merge(competitor));
 

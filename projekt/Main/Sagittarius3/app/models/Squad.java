@@ -1,11 +1,14 @@
 package models;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.*;
+
 import javax.persistence.*;
 import play.data.validation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import org.joda.time.DateTime;
 
 @Entity
 public class Squad {
@@ -57,5 +60,14 @@ public class Squad {
             }
         }
         return true;
+    }
+
+    public DateTime rollcallTime() {
+        try {
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+            return formatter.parseDateTime(rollcall);
+        } catch (Exception ex) {
+            return new DateTime();
+        }
     }
 }

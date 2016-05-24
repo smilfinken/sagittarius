@@ -111,3 +111,5 @@ menu.tab.information=Information
 menu.tab.squads=Patruller
 menu.tab.stages=Stationer
 menu.tab.teams=Lag
+
+message.error.bookingtooclose=Uppropet för vald patrull är för nära en annan bokning

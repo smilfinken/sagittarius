@@ -15,7 +15,12 @@ libraryDependencies ++= Seq(
   javaWs,
   evolutions,
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
-  "it.innove" % "play2-pdf" % "1.5.0"
+  "it.innove" % "play2-pdf" % "1.5.0",
+  "org.pac4j" % "play-pac4j" % "2.1.0",
+  "org.pac4j" % "pac4j-oauth" % "1.8.8",
+  "org.pac4j" % "pac4j-openid" % "1.8.8"
 )
 
 fork in run := true
+
+herokuAppName in Compile := "secret-mesa-95653"

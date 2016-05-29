@@ -4,10 +4,12 @@
 /RUNNING_PID
 LICENSE
 README
+*iml
 
 activator*
 
 logs
+out
 target
 
 project/*

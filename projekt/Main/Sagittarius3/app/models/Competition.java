@@ -98,6 +98,18 @@ public class Competition {
         return result;
     }
 
+    public Integer results() {
+        Integer result = 0;
+        for (Squad squad: squads) {
+            for (Competitor competitor: squad.competitors) {
+                if (competitor.scored) {
+                    result++;
+                }
+            }
+        }
+        return result;
+    }
+
     public ArrayList<StartlistEntry> startlistEntries() {
         ArrayList<StartlistEntry> result = new ArrayList<>();
 

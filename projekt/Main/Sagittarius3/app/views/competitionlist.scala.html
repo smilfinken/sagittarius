@@ -9,9 +9,13 @@
         <span class='fixed-first-cell'>
             <a class='item-link' href='/competition/show/@competition.id/information'>@competition.label</a>
         </span>
+        @if(competition.entries() > 0) {
         <a class='menu-link' href='/competition/printStartlist/@competition.id' target='_blank'>@Messages("button.printstartlist.title")</a>
+        }
+        @if(competition.results() > 0) {
         <a class='menu-link' href='/results/display/@competition.id' target="_blank">@Messages("button.displayresults.title")</a>
         <a class='menu-link' href='/results/print/@competition.id' target="_blank">@Messages("button.printresults.title")</a>
+        }
         <a class='menu-link' href='/competition/export/@competition.id' target='_blank'>@Messages("button.export.title")</a>
     </span>
     }

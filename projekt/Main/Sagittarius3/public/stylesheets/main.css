@@ -72,7 +72,7 @@ label {
     width: 12em;
 }
 
-.menu-link-active {
+.menu-link-active, .menu-container a:active, .menu-container a:hover, button:hover {
     background: #ffe9b8;
 }
 

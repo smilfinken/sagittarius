@@ -1,6 +1,6 @@
 @(competition: Competition)
 <div class='competition-info'>
-    <label>@Messages("label.common.competitiondate")</label><span class='value'>@competition.date()</span>
+    <label>@Messages("label.common.competitiondate")</label><span class='value'>@competition.dateString()</span>
 </div>
 <div class='competition-info'>
     <label>@Messages("label.common.stages")</label><span class='value'>@competition.stages.size()</span>
@@ -21,4 +21,5 @@
 </div>
 <span class='menu-container action-menu'>
     <a class='menu-link' href='/competition/edit/@competition.id'>@Messages("button.edit.title")</a>
+    <a class='menu-link' href='/competition/export/@competition.id' target='_blank'>@Messages("button.export.title")</a>
 </span>

@@ -21,6 +21,6 @@ libraryDependencies ++= Seq(
   "org.pac4j" % "pac4j-openid" % "1.8.8"
 )
 
-fork in run := true
+fork in run := false
 
 herokuAppName in Compile := "secret-mesa-95653"

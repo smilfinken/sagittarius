@@ -28,7 +28,7 @@ button {
 }
 
 label {
-    border-radius: 0.251em;
+    border-radius: 0.25em;
     border: none;
     background: #ddd;
     padding: 0.1em 0.2em;
@@ -36,6 +36,17 @@ label {
     margin-right: 0.2em;
     font-family: serif;
     font-size: 12pt;
+}
+
+label.fileupload {
+    background: #ff9b20;
+    border: 1px solid black;
+    border-radius: 0.25em;
+    padding: 0.1em 0.3em;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 .menu-container {
@@ -59,7 +70,7 @@ label {
 
 .menu-container a, button {
     border: 1px solid black;
-    border-radius: 0.2em;
+    border-radius: 0.25em;
     padding: 0.1em 0.3em;
     font-style: normal;
     color: black;
@@ -68,16 +79,24 @@ label {
 }
 
 .menu-container .fixed-first-cell {
+    display: block;
+    clear: both;
     float: left;
     width: 12em;
 }
 
-.menu-link-active, .menu-container a:active, .menu-container a:hover, button:hover {
-    background: #ffe9b8;
-}
-
 .menu-link {
     background: #ff9b20;
+}
+
+.menu-link-disabled {
+    background: #ddd;
+    pointer-events: none;
+    cursor: default;
+}
+
+.menu-link-active, .menu-container a:active, .menu-container a:hover, button:hover {
+    background: #ffe9b8;
 }
 
 .item-link {
@@ -117,8 +136,24 @@ hr {
     float: right;
 }
 
-.scoring-scores-container {
+.scoring-score-container {
     clear: both;
+}
+
+.scoring-score-stage {
+    vertical-align: top;
+    padding-right: 1em;
+}
+
+.scoring-stage-label {
+    display: block;
+    clear: both;
+    padding-bottom: 0.8em;
+}
+
+.scoring-stage-scores {
+    display: block;
+    padding-bottom: 0.2em;
 }
 
 .competition-info {
@@ -128,4 +163,30 @@ hr {
 
 .competition-info label {
     font-size: 14pt;
+}
+
+.list-spacer {
+    height: 1em;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #ddd;
+    color: #000;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }

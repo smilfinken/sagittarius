@@ -1,5 +1,5 @@
-@(user: User)
-@head(Messages("heading.common.editobject", Messages("label.user.user").toLowerCase())) {
+@(user: User, subclasses: List[CompetitionSubclass], rankings: List[CompetitionRanking])
+@head(if (user.id != null) {Messages("heading.common.editobject", Messages("label.user.user").toLowerCase())} else {Messages("heading.common.addobject", Messages("label.user.user").toLowerCase())}) {
     @helper.form(action = routes.Users.save()) {
         <input type='hidden' name='id' value='@if(user.id == null){0}else{@user.id}' />
         <table>
@@ -16,10 +16,6 @@
                     <label for='email'>@Messages("label.user.email")</label>
                     <input id='email' type='text' name='email' value='@user.email' />
                 </td>
-                <td>
-                    <label for='password'>@Messages("label.user.password")</label>
-                    <input id='password' type='password' name='password' value='@user.password' />
-                </td>
             </tr>
             <tr>
                 <td>
@@ -27,15 +23,33 @@
                     <input id='cardid' type='text' name='cardId' value='@user.cardId' size='6' maxlength='6' />
                 </td>
                 <td>
-                    <label for='ranking'>@Messages("label.user.ranking")</label>
-                    <input id='ranking' type='number' name='ranking' value='@user.ranking' min='1' max='3' />
+                    <label for='rankingId'>@Messages("label.user.ranking")</label>
+                    <select id='rankingId' name='rankingId'>
+                        @for(ranking <- rankings) {
+                        <option value='@ranking.id' @if(flash.get("rankingId") == ranking.id.toString() || user.ranking == ranking){selected}>@ranking.ranking</option>
+                        }
+                    </select>
                 </td>
                 <td>
                     <label for='club'>@Messages("label.user.club")</label>
                     <input id='club' type='text' name='club' value='@user.club' />
                 </td>
             </tr>
+            @if(subclasses.size() > 0) {
+            <tr>
+                <td colspan='3'>
+                    <label>@Messages("label.user.categories")</label>
+                    @for((subclass, item) <- subclasses.zipWithIndex) {
+                    <input id='subclassIds[@subclass.id]' type='checkbox' name='subclassIds[]' value='@subclass.id' @if(user.subclasses.contains(subclass)) {checked} />
+                    <label for='subclassIds[@subclass.id]'>@subclass.label</label>
+                    }
+                </td>
+            </tr>
+            }
         </table>
-        <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+        <span class='menu-container action-menu'>
+            <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+            <a class='menu-link' href='/user/list'>@Messages("button.cancel.title")</a>
+        </span>
     }
 }

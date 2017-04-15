@@ -9,6 +9,6 @@ public class ClassResults {
 
     public ClassResults(String className) {
         this.className = className;
-        this.scores = new ArrayList<Score>();
+        this.scores = new ArrayList<>();
     }
 }

@@ -1,6 +1,6 @@
-@(squads: List[Squad])
+@(squads: Set[Squad])
 <span class='menu-container action-menu'>
-    <a class='menu-link' href='/competition/editSquad/0'>@Messages("button.add.title")</a>
+    <a class='menu-link' href='/squad/edit/0'>@Messages("button.add.title")</a>
     @if(squads.size() == 0) {
     @helper.form(action = routes.Competitions.generateSquads()) {
         <button type='submit' name='action' value='add'>@Messages("button.generatesquads.title")</button>
@@ -13,21 +13,27 @@
         <th>@Messages("label.squad.squad")</th>
         <th>@Messages("label.squad.rollcall")</th>
         <th>@Messages("label.squad.competitors")</th>
+        <th>@Messages("label.squad.allowedclasses")</th>
         <th></th>
     </thead>
     <tbody>
         @for(squad <- squads) {
         <tr>
             <td>@squad.label</td>
-            <td>@squad.rollcall</td>
+            <td>@squad.rollcallString()</td>
             <td>@squad.competitors()/@squad.slots</td>
             <td>
+                @for(competitionClass <- squad.allowedClasses) {
+                @competitionClass.label
+                }
+            </td>
+            <td>
                 <span class='menu-container action-menu'>
-                    <a class='menu-link' href='/competition/editSquad/@squad.id'>@Messages("button.edit.title")</a>
+                    <a class='menu-link' href='/squad/edit/@squad.id'>@Messages("button.edit.title")</a>
                     @if(squad.competitors() == 0) {
-                    <a class='menu-link' href='/competition/deleteSquad/@squad.id'>@Messages("button.delete.title")</a>
+                    <a class='menu-link' href='/squad/delete/@squad.id'>@Messages("button.delete.title")</a>
                     } else {
-                    <a class='menu-link' href='/competition/printSquad/@squad.id'>@Messages("button.printsquad.title")</a>
+                    <a class='menu-link' href='/squad/print/@squad.id' target='_blank'>@Messages("button.printsquad.title")</a>
                     }
                     @if(!squad.scored && squad.competitors.size() != 0) {
                     @helper.form(action = routes.Results.scoreSquad()) {

@@ -21,12 +21,24 @@
         text-align: center;
     }
 
+    .result-table .result-place {
+        width: 1em;
+    }
+
     .result-table .result-sum {
         text-align: right;
     }
 
+    .result-table .bold {
+        font-weight: bold;
+    }
+
     .result-table tr {
         vertical-align: initial;
+    }
+
+    .result-table th, td {
+        text-align: left;
     }
 
     button {

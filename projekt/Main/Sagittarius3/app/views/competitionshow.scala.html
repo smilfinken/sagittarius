@@ -1,24 +1,24 @@
 @(competition: Competition, tab: String)
 @head(competition.label) {
-@components.competitionsubmenu(competition.id)
+@components.menus.competitionsubmenu(competition)
 
 @if(tab == "information") {
 @components.competitioninfo(competition)
 }
 
 @if(tab == "stages") {
-@components.stages(competition.stages, competition.stageStatistics())
+@components.lists.stages(competition.stages, competition.stageStatistics())
 }
 
 @if(tab == "squads") {
-@components.squads(competition.squads)
+@components.lists.squads(competition.squads)
 }
 
 @if(tab == "competitors") {
-@components.competitors(competition.squads, competition.entries())
+@components.lists.competitors(competition.squads, competition.entries())
 }
 
 @if(tab == "teams") {
-@components.teams(competition.squads)
+@components.lists.teams(competition.teams)
 }
 }

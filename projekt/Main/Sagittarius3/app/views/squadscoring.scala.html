@@ -1,31 +1,44 @@
-@(competition: Competition, squad: Squad, competitor: Competitor)
+@(competition: Competition, squad: Squad, competitor: Competitor, stageIndex: Integer)
 @head(Messages("heading.result.scoringforobject", squad.label)) {
     @helper.form(action = routes.Results.scoreSquad()) {
         <input type='hidden' name='competitionId' value='@competition.id' />
         <input type='hidden' name='squadId' value='@squad.id' />
         <input type='hidden' name='competitorId' value='@competitor.id' />
+        <input type='hidden' name='stageIndex' value='@stageIndex' />
         <span class='scoring-competitor-container'>
             <span class='scoring-competitor-name'>@competitor.fullName()</span>
             <span class='scoring-competitor-class'>@competitor.combinedClass()</span>
         </span>
-        <table class='scoring-scores-container'>
-            @for(stage <- competition.stages) {
-                <tr>
-                    <td colspan='2'>
-                        <input type='hidden' name='index[@stage.index]' value='@stage.index' />
-                        <label>@Messages("label.scoring.stage", stage.index)</label>
-                        <label for='shots'>@Messages("label.scoring.shots")</label>
-                        <input id='shots' type='number' name='shots[@stage.index]' min='0' max='6' />
-                        <label for='targets'>@Messages("label.scoring.targets")</label>
-                        <input id='targets' type='number' name='targets[@stage.index]' min='0' max='@stage.targetCount' />
-                        @if(stage.points) {
-                            <label for='points'>@Messages("label.scoring.points")</label>
-                            <input id='points' type='number' name='points[@stage.index]' min='0' max='60' />
-                        }
-                    </td>
-                </tr>
-            }
+
+        <table class='scoring-score-container'>
+            <tr>
+                @for(stage <- competition.stages) {
+                    @if(stage.index <= stageIndex) {
+                        <td class='scoring-score-stage'>
+                            <span class='scoring-stage-label'>
+                                <label>@Messages("label.scoring.stage", stage.index)</label>
+                            </span>
+                            @for(targetIndex <- 0 to stage.targetCount - 1) {
+                                <span class='scoring-stage-scores'>
+                                    <label for='hits'>@Messages("label.scoring.target", targetIndex + 1)</label>
+                                    <input id='hits' type='number' name='hits[@targetIndex]' min='0' max='6' @if(stage.index != stageIndex) { disabled } @if(competitor.getStageScore(stage.index).scored()) { value='@competitor.getStageScore(stage.index).targetScores.get(targetIndex).value'} />
+                                </span>
+                            }
+                            @if(stage.points) {
+                                <span class='scoring-stage-scores'>
+                                    <label for='points'>@Messages("label.scoring.points")</label>
+                                    <input id='points' type='number' name='points' min='0' max='60' @if(stage.index != stageIndex) {value='@competitor.getStageScore(stage.index).points' disabled} />
+                                </span>
+                            }
+                        </td>
+                    }
+                }
+            </tr>
         </table>
-        <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+
+        <span class='menu-container action-menu'>
+            <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+            <a class='menu-link' href='/competition/show/@competition.id/squads'>@Messages("button.cancel.title")</a>
+        </span>
     }
 }

@@ -1,0 +1,13 @@
+@(status: Integer, response: String, claims: List[String])
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<div>@status</div>
+<div>@response</div>
+@for(claim <- claims) {
+<div>@claim</div>
+}
+</body>

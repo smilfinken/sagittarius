@@ -1,17 +1,16 @@
 package models;
 
+import play.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
-import org.joda.time.format.*;
 
 import javax.persistence.*;
 import play.data.validation.*;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-public class Squad {
+public class Squad implements Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,50 +23,72 @@ public class Squad {
     public int slots;
 
     @Column(nullable = true)
-    public String rollcall;
+    public DateTime rollcall;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Competitor> competitors;
+
+    @ManyToMany
+    public List<CompetitionClass> allowedClasses;
 
     public Squad() {
         this.label = "";
         this.slots = 0;
-        this.rollcall = "";
-        this.competitors = new ArrayList<Competitor>();
+        this.rollcall = null;
+        this.competitors = new ArrayList<>();
+        this.allowedClasses = new ArrayList<>();
     }
 
     public Squad(Integer slots) {
         this.label = "";
         this.slots = slots;
-        this.rollcall = "";
-        this.competitors = new ArrayList<Competitor>();
+        this.rollcall = null;
+        this.competitors = new ArrayList<>();
+        this.allowedClasses = new ArrayList<>();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        DateTime a = this.rollcall;
+        DateTime b = ((Squad)o).rollcall;
+        return (a != null && b != null) ? a.compareTo(b) : 0;
     }
 
     public void copyValues(Squad source) {
         this.label = source.label;
         this.slots = source.slots;
         this.rollcall = source.rollcall;
+        this.allowedClasses = source.allowedClasses;
     }
 
     public int competitors() {
         return this.competitors.size();
     }
 
+    public boolean available() {
+        return competitors.size() < slots;
+    }
+
     public boolean scored() {
         for (Competitor competitor : this.competitors) {
-            if (!competitor.scored) {
+            if (!competitor.scored()) {
                 return false;
             }
         }
-        return true;
+        return competitors() > 0;
     }
 
-    public DateTime rollcallTime() {
-        try {
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
-            return formatter.parseDateTime(rollcall);
-        } catch (Exception ex) {
-            return new DateTime();
+    public String rollcallString() {
+        return rollcall.toString("HH:mm");
+    }
+
+    public String allowedClassesString() {
+        String result = "";
+
+        for (CompetitionClass competitionClass : this.allowedClasses) {
+            result += competitionClass.label + " ";
         }
+
+        return result.trim();
     }
 }

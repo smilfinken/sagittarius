@@ -12,5 +12,5 @@ private/
 .DS_Store
 /build
 /captures
-
 *.lnk
+.sbtserver

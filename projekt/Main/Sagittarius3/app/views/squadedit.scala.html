@@ -1,13 +1,18 @@
-@(squad: Squad)
+@(squad: Squad, competitionClasses: List[CompetitionClass])
 @head(Messages("heading.common.editobject", Messages("label.squad.squad").toLowerCase())) {
     @helper.form(action = routes.Competitions.saveSquad()) {
-        <input type='hidden' name='id' value='@if(squad.id == null){0}else{@squad.id}' />
-        <label for='label'>@Messages("label.common.label")</label>
-        <input type='text' name='label' value='@squad.label' />
-        <label for='slots'>@Messages("label.squad.slots")</label>
-        <input type='number' name='slots' value='@squad.slots' size='3' min='1' max='99' />
-        <label for='rollcall'>@Messages("label.squad.rollcall")</label>
-        <input type='text' name='rollcall' value='@squad.rollcall' size='6' />
+        <div>
+            <input type='hidden' name='id' value='@if(squad.id == null){0}else{@squad.id}' />
+            <label for='label'>@Messages("label.common.label")</label>
+            <input id='label' type='text' name='label' value='@squad.label' />
+            <label for='slots'>@Messages("label.squad.slots")</label>
+            <input id='slots' type='number' name='slots' value='@squad.slots' size='3' min='1' max='99' />
+            <label for='rollcall'>@Messages("label.squad.rollcall")</label>
+            <input id='rollcall' type='text' name='rollcallRaw' value='squad.rollcall' size='6' />
+        </div>
+        <div>
+            @components.selectors.selectclasses(competitionClasses, squad.allowedClasses)
+        </div>
         <span class='menu-container action-menu'>
             <button type="submit" name="action" value="save">@Messages("button.save.title")</button>
             <a class='menu-link' href='/competition/show/@session.get("competitionId")/squads'>@Messages("button.cancel.title")</a>

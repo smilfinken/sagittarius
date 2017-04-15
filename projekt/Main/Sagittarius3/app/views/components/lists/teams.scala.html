@@ -1,0 +1,48 @@
+@(teams: List[Team])
+<span class='menu-container action-menu'>
+    <a class='menu-link' href='/team/edit/0'>@Messages("button.add.title")</a>
+</span>
+<table>
+    <thead style='vertical-align:top; text-align: left;'>
+        <th>@Messages("label.team.team")</th>
+        <th>@Messages("label.team.club")<br/>Deltagare</th>
+        <th>@Messages("label.team.allowedclasses")</th>
+        <th>@Messages("label.team.results")</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @for(team <- teams) {
+        <tr>
+            <td>@team.label</td>
+            <td>@team.club</td>
+            <td>
+                @for(competitionClass <- team.allowedClasses) {
+                @competitionClass.label
+                }
+            </td>
+            <td>@team.resultString()</td>
+            <td>
+                <span class='menu-container action-menu'>
+                    <a class='menu-link' href='/team/edit/@team.id'>@Messages("button.edit.title")</a>
+                    @if(team.competitors.size() == 0) {
+                    <a class='menu-link' href='/team/delete/@team.id'>@Messages("button.delete.title")</a>
+                    }
+                    <a class='menu-link' href='/team/addCompetitor/@team.id/0'>@Messages("button.addobject.title", Messages("label.competitor.competitor").toLowerCase())</a>
+                </span>
+            </td>
+        </tr>
+        @for(competitor <- team.competitors) {
+        <tr>
+            <td></td>
+            <td colspan='2'>@competitor.fullName()</td>
+            <td>@competitor.scoreString()</td>
+            <td>
+                <span class='menu-container action-menu'>
+                    <a class='menu-link' href='/team/removeCompetitor/@team.id/@competitor.id'>@Messages("button.delete.title")</a>
+                </span>
+            </td>
+        </tr>
+        }
+        }
+    </tbody>
+</table>

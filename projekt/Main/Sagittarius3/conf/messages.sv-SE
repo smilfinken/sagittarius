@@ -1,4 +1,5 @@
 button.add.title=Lägg till
+button.addobject.title=Lägg till {0}
 button.cancel.title=Avbryt
 button.createpdf.title=Skapa PDF
 button.delete.title=Ta bort
@@ -7,6 +8,7 @@ button.edit.title=Redigera
 button.export.title=Exportera
 button.generatesquads.title=Generera patruller
 button.generatetestdata.title=Generera testdata
+button.import.title=Importera
 button.listresults.title=Lista resultat
 button.move.title=Flytta
 button.printresults.title=Skriv ut resultat
@@ -14,10 +16,12 @@ button.printsquad.title=Skriv ut
 button.printstartlist.title=Skriv ut startlista
 button.save.title=Spara
 button.scoresquad.title=Mata in resultat
+button.selectfile.title=Välj fil
 button.show.title=Visa
 
 heading.common.addobject=Lägg till {0}
 heading.common.editobject=Redigera {0}
+heading.common.moveobject=Flytta {0}
 heading.common.printobject=Skriv ut {0}
 
 heading.competition.title=Tävlingar
@@ -35,6 +39,7 @@ heading.result.results=Resultat
 heading.result.score=Resultat
 heading.result.scoringforobject=Resultat för patrull {0}
 heading.result.sum=Summa
+heading.result.team=Lag
 
 heading.squad.generate=Generera patruller
 heading.squad.squadobject=Patrull {0}
@@ -70,17 +75,19 @@ label.common.total=Totalt
 
 label.competition.squadsize=Patrullstorlek
 
-label.competitor.class=Klass
+label.competitor.class=Vapengrupp
 label.competitor.club=Klubb
 label.competitor.competitor=Deltagare
+label.competitor.score=Resultat
 label.competitor.squad=Patrull
 label.competitor.subclass=Kategori
 label.competitor.rollcall=Starttid
 
-label.scoring.shots=Träffar
-label.scoring.stage=Station {0}
-label.scoring.targets=Figurer
+label.scoring.hits=Träffar
 label.scoring.points=Poäng
+label.scoring.stage=Station {0}
+label.scoring.target=Figur {0}
+label.scoring.targets=Figurer
 
 label.stage.average=Genomsnitt
 label.stage.index=Nummer
@@ -88,12 +95,20 @@ label.stage.points=Poängräkning
 label.stage.stage=Station
 label.stage.targets=Figurer
 
+label.squad.allowedclasses=Klasser
 label.squad.competitors=Deltagare
 label.squad.rollcall=Starttid
 label.squad.slots=Platser
 label.squad.squad=Patrull
 
+label.team.allowedclasses=Klasser
+label.team.club=Klubb
+label.team.competitors=Deltagare
+label.team.results=Resultat
+label.team.team=Lag
+
 label.user.cardid=Skyttekortnummer
+label.user.categories=Kategorier
 label.user.club=Förening
 label.user.email=E-post
 label.user.firstname=Förnamn
@@ -102,6 +117,9 @@ label.user.lastname=Efternamn
 label.user.password=Lösenord
 label.user.ranking=Klass
 label.user.user=Användare
+
+marker.qualifying.bronze=B
+marker.qualifying.silver=S
 
 menu.link.competitions=Tävlingar
 menu.link.users=Användare
@@ -113,3 +131,8 @@ menu.tab.stages=Stationer
 menu.tab.teams=Lag
 
 message.error.bookingtooclose=Uppropet för vald patrull är för nära en annan bokning
+message.error.classnotallowed=Fel vapengrupp för patrull eller lag
+message.error.invalidclass=Ingen vapengrupp angiven
+message.error.invalidinput=Ogiltigt val
+message.error.noavailablecompetitors=Det finns inga tillgängliga tävlande
+message.error.unreadableinputfile=Importfilen går inte att tolka

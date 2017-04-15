@@ -1,0 +1,36 @@
+@(sourceSquad: Squad, competitor: Competitor, squads: List[Squad])
+@head(Messages("heading.common.moveobject", Messages("label.competitor.competitor").toLowerCase())) {
+<table>
+    <thead>
+        <th>@Messages("label.competitor.competitor")</th>
+        <th>@Messages("label.competitor.club")</th>
+        <th>@Messages("label.competitor.class")</th>
+        <th>@Messages("label.competitor.squad")</th>
+        <th>@Messages("label.competitor.rollcall")</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@competitor.fullName()</td>
+            <td>@competitor.clubName()</td>
+            <td>@competitor.combinedClass()</td>
+            <td>@sourceSquad.label @if(sourceSquad.allowedClasses.size() != 0){(@sourceSquad.allowedClassesString())}</td>
+            <td>@sourceSquad.rollcall</td>
+        </tr>
+    </tbody>
+</table>
+@helper.form(action = routes.Competitions.moveCompetitor()) {
+    <input type='hidden' name='competitorId' value='@competitor.id' />
+    <input type='hidden' name='sourceSquadId' value='@sourceSquad.id' />
+    <label for='targetSquad'>@Messages("label.squad.squad")</label>
+    <select id='targetSquad' name='targetSquadId'>
+        <option value=''></option>
+        @for(squad <- squads) {
+        <option value='@squad.id' @if(flash.get("targetSquadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcall@if(squad.allowedClasses.size() != 0){ - @squad.allowedClassesString()}</option>
+        }
+    </select>
+    <span class='menu-container action-menu'>
+        <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+        <a class='menu-link' href='/competition/show/@session.get("competitionId")/competitors'>@Messages("button.cancel.title")</a>
+    </span>
+}
+}

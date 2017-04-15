@@ -1,13 +1,13 @@
 package controllers;
 
 import models.*;
+import play.Logger;
 import views.html.*;
 
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
-import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -34,14 +34,15 @@ public class Results extends Controller {
 
         HashMap<String, Integer> top = new HashMap<String, Integer>();
         HashMap<String, Integer> limit = new HashMap<String, Integer>();
-        ArrayList<ClassResults> results = competition.calculateResults(top, limit);
+        ArrayList<ClassResults> individualResults = competition.calculateIndividualResults(top, limit);
+        ArrayList<TeamResults> teamResults = competition.calculateTeamResults();
 
         HashMap<Integer, Boolean> flags = new HashMap<Integer, Boolean>();
         for (Stage stage : competition.stages) {
             flags.put(stage.index, stage.points);
         }
 
-        return ok(resultlist.render(results, flags, top, limit));
+        return ok(resultlist.render(individualResults, teamResults, flags, top, limit));
     }
 
     @Transactional(readOnly = true)
@@ -51,7 +52,7 @@ public class Results extends Controller {
         ArrayList<Score> scores = new ArrayList<Score>();
         for (Squad squad : competition.squads) {
             for (Competitor competitor : squad.competitors) {
-                if (competitor.scored) {
+                if (competitor.scored()) {
                     scores.add(new Score(competitionId, competitor));
                 }
             }
@@ -59,14 +60,14 @@ public class Results extends Controller {
 
         HashMap<String, Integer> top = new HashMap<String, Integer>();
         HashMap<String, Integer> limit = new HashMap<String, Integer>();
-        ArrayList<ClassResults> results = competition.calculateResults(top, limit);
+        ArrayList<ClassResults> individualResults = competition.calculateIndividualResults(top, limit);
 
         HashMap<Integer, Boolean> flags = new HashMap<Integer, Boolean>();
         for (Stage stage : competition.stages) {
             flags.put(stage.index, stage.points);
         }
 
-        return ok(resultdisplay.render(results, flags, top, limit));
+        return ok(resultdisplay.render(individualResults, flags, top, limit));
     }
 
     @Transactional(readOnly = true)
@@ -76,7 +77,7 @@ public class Results extends Controller {
         ArrayList<Score> scores = new ArrayList<Score>();
         for (Squad squad : competition.squads) {
             for (Competitor competitor : squad.competitors) {
-                if (competitor.scored) {
+                if (competitor.scored()) {
                     scores.add(new Score(competitionId, competitor));
                 }
             }
@@ -84,7 +85,8 @@ public class Results extends Controller {
 
         HashMap<String, Integer> top = new HashMap<String, Integer>();
         HashMap<String, Integer> limit = new HashMap<String, Integer>();
-        ArrayList<ClassResults> results = competition.calculateResults(top, limit);
+        ArrayList<ClassResults> individualResults = competition.calculateIndividualResults(top, limit);
+        ArrayList<TeamResults> teamResults = competition.calculateTeamResults();
 
         HashMap<Integer, Boolean> flags = new HashMap<Integer, Boolean>();
         for (Stage stage : competition.stages) {
@@ -94,7 +96,24 @@ public class Results extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String printDate = dateFormat.format(Calendar.getInstance().getTime());
         String httpRequest = String.format("http://%s", request().host());
-        return pdfGenerator.ok(resultprint.render(results, flags, top, limit, competition.label, competition.date(), printDate, competition.maxScore(), competition.entries()), httpRequest);
+        return pdfGenerator.ok(resultprint.render(individualResults, teamResults, flags, top, limit, competition.label, competition.dateString(), printDate, competition.maxScore(), competition.entries()), httpRequest);
+    }
+
+    @Transactional()
+    private void addScores(Long competitorId, Integer stageIndex, ScoreItem scoreItem) {
+        Competitor competitor = JPA.em().find(Competitor.class, competitorId);
+
+        if (competitor == null) {
+            Logger.error("Failed to find competitor");
+        } else {
+            StageScore stageScore = competitor.getStageScore(stageIndex);
+            stageScore.targetScores.clear();
+            for (Integer value: scoreItem.hits) {
+                stageScore.targetScores.add(JPA.em().merge(new TargetScore(value)));
+            }
+            stageScore.points = scoreItem.points == null ? 0 : scoreItem.points;
+            JPA.em().persist(stageScore);
+        }
     }
 
     @Transactional()
@@ -110,46 +129,41 @@ public class Results extends Controller {
         String action = dynamicData.get("action");
         switch (action) {
             case "show":
-                if (!squad.scored()) {
+                if (squad != null && !squad.scored()) {
                     for (Competitor competitor : squad.competitors) {
-                        if (!competitor.scored) {
-                            return ok(squadscoring.render(competition, squad, competitor));
+                        if (!competitor.scored()) {
+                            if (competitor.scores.isEmpty()) {
+                                for(Stage stage: competition.stages) {
+                                    competitor.scores.add(JPA.em().merge(new StageScore(stage.index)));
+                                }
+                            }
+                            return ok(squadscoring.render(competition, squad, competitor, 1));
                         }
                     }
                 }
 
-                return ok(competitionedit.render(competition));
+                return redirect(routes.Competitions.show(competition.id, "squads"));
             case "save":
                 Long competitorId = Long.valueOf(dynamicData.get("competitorId"));
-                Competitor scoringCompetitor = JPA.em().find(Competitor.class, competitorId);
-
-                ScoreSet scoreSet = formFactory.form(ScoreSet.class).bindFromRequest().get();
-
-                if (scoreSet.index.length > 0 && scoringCompetitor != null) {
-                    scoringCompetitor.scores.clear();
-                    for (int i = 0; i < scoreSet.index.length; i++) {
-                        if (scoreSet.index[i] != null) {
-                            StageScore score = new StageScore();
-                            score.index = scoreSet.index[i];
-                            score.shots = scoreSet.shots[i] == null ? 0 : scoreSet.shots[i];
-                            score.targets = scoreSet.targets[i] == null ? 0 : scoreSet.targets[i];
-                            score.points = scoreSet.points[i] == null ? 0 : scoreSet.points[i];
-                            scoringCompetitor.scores.add(JPA.em().merge(score));
-                        }
-                    }
-
-                    scoringCompetitor.scored = true;
+                Integer stageIndex = Integer.valueOf(dynamicData.get("stageIndex"));
+                ScoreItem scoreItem = formFactory.form(ScoreItem.class).bindFromRequest().get();
+                if (stageIndex <= 0 || stageIndex > competition.stages.size()) {
+                    Logger.error("Invalid stage index " + stageIndex);
+                } else {
+                    addScores(competitorId, stageIndex, scoreItem);
                 }
 
                 for (Competitor competitor: squad.competitors) {
-                    if (!competitor.scored) {
-                        return ok(squadscoring.render(competition, squad, competitor));
+                    for (Stage stage: competition.stages) {
+                        if (!competitor.getStageScore(stage.index).scored()) {
+                            return ok(squadscoring.render(competition, squad, competitor, stage.index));
+                        }
                     }
                 }
 
-                return ok(competitionedit.render(competition));
+                return redirect(routes.Competitions.show(competition.id, "squads"));
             default:
-                return ok(competitionedit.render(competition));
+                return redirect(routes.Competitions.show(competition.id, "squads"));
         }
     }
 
@@ -162,7 +176,6 @@ public class Results extends Controller {
     public Result deleteResult(Long competitorId) {
         Competitor competitor = JPA.em().find(Competitor.class, competitorId);
         competitor.scores.clear();
-        competitor.scored = false;
 
         return redirect(routes.Results.list(Long.valueOf(session().get("competitionId"))));
     }

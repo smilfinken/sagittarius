@@ -1,0 +1,12 @@
+@(teamId: Long, competitors: List[Competitor])
+@head(Messages("heading.common.addobject", Messages("label.competitor.competitor").toLowerCase())) {
+    <select id='competitor' name='competitorId' onchange='utils.addCompetitor(@teamId)'>
+        <option value=''></option>
+        @for(competitor <- competitors) {
+        <option value='@competitor.id'>@competitor.fullName() - @competitor.combinedClass() - @competitor.clubName()</option>
+        }
+    </select>
+    <span class='menu-container action-menu'>
+        <a class='menu-link' href='/competition/show/@session.get("competitionId")/teams'>@Messages("button.cancel.title")</a>
+    </span>
+}

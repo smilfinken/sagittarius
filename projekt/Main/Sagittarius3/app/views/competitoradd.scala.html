@@ -1,10 +1,10 @@
-@(squads: List[Squad], users: List[User])
+@(squads: List[Squad], users: List[User], competitionClasses: List[CompetitionClass], competitionSubclasses: List[CompetitionSubclass])
 @head(Messages("heading.common.addobject", Messages("label.competitor.competitor").toLowerCase())) {
     @helper.form(action = routes.Competitions.saveCompetitor()) {
         <label for='squad'>@Messages("label.squad.squad")</label>
         <select id='squad' name='squadId'>
             @for(squad <- squads) {
-                <option value='@squad.id' @if(flash.get("squadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcall</option>
+                <option value='@squad.id' @if(flash.get("squadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcall@if(squad.allowedClasses.size() != 0){ - @squad.allowedClassesString()}</option>
             }
         </select>
         <label for='user'>@Messages("label.user.user")</label>
@@ -13,10 +13,8 @@
                 <option value='@user.id' @if(flash.get("userId") == user.id.toString()){selected}>@user.fullName() - @user.club</option>
             }
         </select>
-        <label for='class'>@Messages("label.competitor.class")</label>
-        <input type='text' name='competitionClass' size='3' maxlength='2' value='@flash.get("competitionClass")' />
-        <label for='subclass'>@Messages("label.competitor.subclass")</label>
-        <input type='text' name='competitionSubclass' size='3' maxlength='2' value='' />
+        @components.selectors.selectclass(competitionClasses)
+        @components.selectors.selectsubclass(competitionSubclasses)
         <span class='menu-container action-menu'>
             <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
             <a class='menu-link' href='/competition/show/@session.get("competitionId")/competitors'>@Messages("button.cancel.title")</a>

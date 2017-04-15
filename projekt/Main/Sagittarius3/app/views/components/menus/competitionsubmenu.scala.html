@@ -1,0 +1,12 @@
+@(competition: Competition)
+<span class='menu-container sub-menu'>
+    <a class='menu-link@if(session.get("tab") == "information"){-active}' href='/competition/show/@competition.id/information'>@Messages("menu.tab.information")</a>
+    <a class='menu-link@if(session.get("tab") == "stages"){-active}' href='/competition/show/@competition.id/stages'>@Messages("menu.tab.stages")</a>
+    <a class='menu-link@if(session.get("tab") == "squads"){-active}' href='/competition/show/@competition.id/squads'>@Messages("menu.tab.squads")</a>
+    <a class='menu-link@if(session.get("tab") == "competitors"){-active}' href='/competition/show/@competition.id/competitors'>@Messages("menu.tab.competitors")</a>
+    <a class='menu-link@if(session.get("tab") == "teams"){-active}' href='/competition/show/@competition.id/teams'>@Messages("menu.tab.teams")</a>
+    <a class='menu-link@if(!competition.hasResults()){-disabled}' href='/results/list/@competition.id' target='_blank'>@Messages("button.listresults.title")</a>
+    <a class='menu-link@if(!competition.hasResults()){-disabled}' href='/results/display/@competition.id' target='_blank'>@Messages("button.displayresults.title")</a>
+    <a class='menu-link@if(!competition.hasResults()){-disabled}' href='/results/print/@competition.id' target='_blank'>@Messages("button.printresults.title")</a>
+</span>
+<hr />

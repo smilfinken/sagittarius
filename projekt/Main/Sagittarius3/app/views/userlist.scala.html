@@ -2,8 +2,14 @@
 @head(Messages("heading.user.title")) {
     <span class='menu-container action-menu'>
         <a class='menu-link' href='/user/edit/0'>@Messages("button.add.title")</a>
+        @helper.form(action = routes.Users.importUsers, 'id -> "fileselection", 'enctype -> "multipart/form-data") {
+            <label class='fileupload'><input type='file' name='users' onchange='form.submit()'>@Messages("button.import.title")</label>
+        }
+        @if(users.size() != 0) {
         <a class='menu-link' href='/user/export'>@Messages("button.export.title")</a>
+        }
     </span>
+    @if(users.size() != 0) {
     <table>
         <thead>
             <th>@Messages("label.user.fullname")</th>
@@ -22,10 +28,12 @@
                 <td>
                     <span class='menu-container action-menu'>
                         <a class='menu-link' href='/user/edit/@user.id'>@Messages("button.edit.title")</a>
+                        <a class='menu-link' href='/user/delete/@user.id'>@Messages("button.delete.title")</a>
                     </span>
                 </td>
             </tr>
         }
         </tbody>
     </table>
+    }
 }

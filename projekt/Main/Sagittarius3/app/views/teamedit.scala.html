@@ -1,0 +1,47 @@
+@(team: Team, competitionClasses: List[CompetitionClass])
+@head(Messages("heading.common.editobject", Messages("label.team.team").toLowerCase())) {
+    @helper.form(action = routes.Competitions.saveTeam()) {
+        <div>
+            <input type='hidden' name='id' value='@if(team.id == null){0}else{@team.id}' />
+            <label for='label'>@Messages("label.common.label")</label>
+            <input type='text' name='label' value='@team.label' />
+            <label for='slots'>@Messages("label.team.club")</label>
+            <input type='text' name='club' value='@team.club' />
+        </div>
+        <div>
+            @components.selectors.selectclasses(competitionClasses, team.allowedClasses)
+        </div>
+        <span class='menu-container action-menu'>
+            <button type="submit" name="action" value="save">@Messages("button.save.title")</button>
+            <a class='menu-link' href='/competition/show/@session.get("competitionId")/teams'>@Messages("button.cancel.title")</a>
+        </span>
+    }
+    @if(team.id != null && team.competitors.size() > 0) {
+    <table>
+        <thead>
+            <th>@Messages("label.competitor.competitor")</th>
+            <th>@Messages("label.competitor.club")</th>
+            <th>@Messages("label.competitor.class")</th>
+            <th>@Messages("label.competitor.score")</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @for(competitor <- team.competitors) {
+            <tr>
+                <td>@competitor.fullName()</td>
+                <td>@competitor.clubName()</td>
+                <td>@competitor.combinedClass()</td>
+                <td>@competitor.scoreString()</td>
+                <td>
+                    <span class='menu-container action-menu'>
+                        @if(!competitor.scored) {
+                        <a class='menu-link' href='/team/removeCompetitor/@team.id/@competitor.id'>@Messages("button.delete.title")</a>
+                        }
+                    </span>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+}

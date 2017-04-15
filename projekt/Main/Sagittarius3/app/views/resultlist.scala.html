@@ -1,4 +1,4 @@
-@(classes: List[ClassResults], flags: HashMap[Integer, Boolean], top: HashMap[String, Integer], limit: HashMap[String, Integer])
+@(classes: List[ClassResults], teams: List[TeamResults], flags: HashMap[Integer, Boolean], top: HashMap[String, Integer], limit: HashMap[String, Integer])
 <html lang='en'>
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
                 <th>@Messages("heading.result.club")</th>
                 <th>@Messages("heading.result.class")</th>
                 <th>@Messages("heading.result.score")</th>
-                <th>@Messages("heading.result.sum")</th>
+                <th class='result-sum'>@Messages("heading.result.sum")</th>
                 <th></th>
             </tr>
         </thead>
@@ -35,18 +35,18 @@
                         </td>
                         <td class='result-sum'>
                             @if(top.containsKey(score.competitorCategory) && top.get(score.competitorCategory) <= score.scoreTotal()) {
-                                S
+                                @Messages("marker.qualifying.silver")
                             } else {
                                 @if(limit.containsKey(score.competitorCategory) && limit.get(score.competitorCategory) <= score.scoreTotal()) {
-                                    B
+                                    @Messages("marker.qualifying.bronze")
                                 }
                             }
                             @score.scoreString()
                             @score.scoreTotal() (@score.points())</td>
                         <td class='result-actionbuttons'>
                             <span class='menu-container action-menu'>
-                                <a class='menu-link' href='/results/edit/@score.competitionId/@score.competitorId'>@Messages("button.edit.title")</a>
-                                <a class='menu-link' href='/results/delete/@score.competitionId/@score.competitorId'>@Messages("button.delete.title")</a>
+                                <a class='menu-link' href='/results/edit/@score.competitorId'>@Messages("button.edit.title")</a>
+                                <a class='menu-link' href='/results/delete/@score.competitorId'>@Messages("button.delete.title")</a>
                             </span>
                         </td>
                     </tr>
@@ -55,5 +55,34 @@
                 <tr><td class='result-spacer' colspan='6'>&nbsp;</td></tr>
             }
         </tbody>
+
+        @if(teams.size() > 0) {
+        <tr><td class='list-spacer' colspan='6'>&nbsp;</td></tr>
+        <thead>
+            <tr>
+                <th>@Messages("heading.result.team")</th>
+                <th>@Messages("heading.result.club")</th>
+                <th class='result-sum' colspan='3'>@Messages("heading.result.score")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for((team, item) <- teams.zipWithIndex) {
+            <tr>
+                <td class='result-place bold'>@(item + 1). @team.teamLabel</td>
+                <td>@team.teamClub</td>
+                <td class='result-sum bold' colspan='3'>@team.resultString()</td>
+                <td></td>
+            </tr>
+            @for(score <- team.scores) {
+            <tr>
+                <td colspan='4'><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>@score.competitorName</td>
+                <td class='result-sum'>@score.resultString()</td>
+                <td></td>
+            </tr>
+            }
+            }
+        </tbody>
+        }
     </table>
 </body>

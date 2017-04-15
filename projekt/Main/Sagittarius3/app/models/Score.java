@@ -41,8 +41,8 @@ public class Score {
         int shots = 0;
         int targets = 0;
         for (StageScore score : scores) {
-            shots += score.shots;
-            targets += score.targets;
+            shots += score.hits();
+            targets += score.targets();
         }
         return String.format("%s/%s", shots, targets);
     }
@@ -51,8 +51,8 @@ public class Score {
         int shots = 0;
         int targets = 0;
         for (StageScore score : scores) {
-            shots += score.shots;
-            targets += score.targets;
+            shots += score.hits();
+            targets += score.targets();
         }
         return shots + targets;
     }

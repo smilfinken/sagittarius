@@ -1,16 +1,21 @@
-@(competitionId: Long, stage: Stage)
+@(competitionId: Long, stage: Stage, competitionClasses: List[CompetitionClass])
 @head(Messages("heading.common.editobject", Messages("label.stage.stage").toLowerCase())) {
     @helper.form(action = routes.Competitions.saveStage()) {
-        <input type='hidden' name='competitionId' value='@competitionId' />
-        <input type='hidden' name='id' value='@if(stage.id == null){0}else{@stage.id}' />
-        <label for='index'>@Messages("label.stage.index")</label>
-        <input type='number' name='index' value='@stage.index' min='1' max='100' />
-        <label for='label'>@Messages("label.common.label")</label>
-        <input type='text' name='label' value='@stage.label' />
-        <label for='targetcount'>@Messages("label.stage.targets")</label>
-        <input type='number' name='targetCount' value='@stage.targetCount' min='1' max='6' />
-        <label for='points'>@Messages("label.stage.points")</label>
-        <input type='checkbox' name='points' @if(stage.points){checked} value='true' />
+        <div>
+            <input type='hidden' name='competitionId' value='@competitionId' />
+            <input type='hidden' name='id' value='@if(stage.id == null){0}else{@stage.id}' />
+            <label for='index'>@Messages("label.stage.index")</label>
+            <input type='number' name='index' value='@stage.index' min='1' max='100' />
+            <label for='label'>@Messages("label.common.label")</label>
+            <input type='text' name='label' value='@stage.label' />
+            <label for='targetcount'>@Messages("label.stage.targets")</label>
+            <input type='number' name='targetCount' value='@stage.targetCount' min='1' max='6' />
+            <label for='points'>@Messages("label.stage.points")</label>
+            <input type='checkbox' name='points' @if(stage.points){checked} value='true' />
+        </div>
+        <div>
+        @components.selectors.selectclasses(competitionClasses, stage.allowedClasses)
+        </div>
         <span class='menu-container action-menu'>
             <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
             <a class='menu-link' href='/competition/show/@competitionId/stages'>@Messages("button.cancel.title")</a>

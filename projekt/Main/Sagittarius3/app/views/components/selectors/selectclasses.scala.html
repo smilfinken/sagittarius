@@ -1,0 +1,6 @@
+@(competitionClasses: List[CompetitionClass], selectedClasses: List[CompetitionClass])
+<label>@Messages("label.user.categories")</label>
+@for((competitionClass, item) <- competitionClasses.zipWithIndex) {
+<input id='classIds[@competitionClass.id]' type='checkbox' name='classIds[]' value='@competitionClass.id' @if(selectedClasses.contains(competitionClass)){checked} />
+<label for='classIds[@competitionClass.id]'>@competitionClass.label</label>
+}

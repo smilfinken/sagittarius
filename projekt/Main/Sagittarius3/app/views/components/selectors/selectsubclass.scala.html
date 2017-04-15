@@ -1,0 +1,8 @@
+@(competitionSubclasses: List[CompetitionSubclass])
+<label for='competitionSubclassId'>@Messages("label.competitor.subclass")</label>
+<select id='competitionSubclassId' name='competitionSubclassId'>
+    <option value=''></option>
+    @for(competitionSubclass <- competitionSubclasses) {
+    <option value='@competitionSubclass.id' @if(flash.get("competitionSubclass") == competitionSubclass.id.toString()){selected}>@competitionSubclass.label</option>
+    }
+</select>

@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import play.data.validation.*;
 
@@ -23,22 +26,13 @@ public class User {
     public String lastName;
 
     @Column(nullable = false)
-    public int cardId;
+    public Integer cardId;
 
-    @Column(nullable = false)
-    public boolean female;
+    @ManyToMany
+    public List<CompetitionSubclass> subclasses;
 
-    @Column(nullable = false)
-    public boolean junior;
-
-    @Column(nullable = false)
-    public boolean senior;
-
-    @Column(nullable = false)
-    public boolean supersenior;
-
-    @Column(nullable = false)
-    public int ranking;
+    @ManyToOne
+    public CompetitionRanking ranking;
 
     @Column(nullable = false)
     public String club;
@@ -48,13 +42,21 @@ public class User {
         this.password = "";
         this.firstName = "";
         this.lastName = "";
-        this.cardId = 0;
-        this.female = false;
-        this.junior = false;
-        this.senior = false;
-        this.supersenior = false;
-        this.ranking = 2;
+        this.cardId = null;
+        this.subclasses = new ArrayList<>();
+        this.ranking = null;
         this.club = "";
+    }
+
+    public User(String email, String firstName, String lastName, Integer cardId, CompetitionRanking ranking, String club) {
+        this.email = email;
+        this.password = "";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cardId = cardId;
+        this.subclasses = new ArrayList<>();
+        this.ranking = ranking;
+        this.club = club;
     }
 
     public void copyValues(User source) {
@@ -63,10 +65,7 @@ public class User {
         this.firstName = source.firstName;
         this.lastName = source.lastName;
         this.cardId = source.cardId;
-        this.female = source.female;
-        this.junior = source.junior;
-        this.senior = source.senior;
-        this.supersenior = source.supersenior;
+        this.subclasses = source.subclasses;
         this.ranking = source.ranking;
         this.club = source.club;
     }

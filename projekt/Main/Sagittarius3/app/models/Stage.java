@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.swing.InternalFrameFocusTraversalPolicy;
 
@@ -24,11 +27,15 @@ public class Stage {
     @Column(nullable = false)
     public boolean points;
 
+    @ManyToMany
+    public List<CompetitionClass> allowedClasses;
+
     public Stage() {
         this.index = 0;
         this.label = "";
         this.targetCount = 0;
         this.points = false;
+        this.allowedClasses = new ArrayList<>();
     }
 
     public Stage(Integer index) {
@@ -36,6 +43,7 @@ public class Stage {
         this.label = "";
         this.targetCount = 0;
         this.points = false;
+        this.allowedClasses = new ArrayList<>();
     }
 
     public void copyValues(Stage source) {
@@ -43,5 +51,6 @@ public class Stage {
         this.label = source.label;
         this.targetCount = source.targetCount;
         this.points = source.points;
+        this.allowedClasses = source.allowedClasses;
     }
 }

@@ -1,7 +1,7 @@
-@(squads: List[Squad], competitors: Integer)
+@(squads: Set[Squad], competitors: Integer)
 @if(squads.size() != 0) {
 <span class='menu-container action-menu'>
-    <a class='menu-link' href='/competition/addCompetitor'>@Messages("button.add.title")</a>
+    <a class='menu-link' href='/competitor/add'>@Messages("button.add.title")</a>
 </span>
 }
 @if(competitors > 0) {
@@ -21,13 +21,17 @@
             <td>@competitor.fullName()</td>
             <td>@competitor.clubName()</td>
             <td>@competitor.combinedClass()</td>
-            <td>@squad.label</td>
+            <td>@squad.label @if(squad.allowedClasses.size() != 0){(@squad.allowedClassesString())}</td>
             <td>@squad.rollcall</td>
             <td>
                 <span class='menu-container action-menu'>
-                    <a class='menu-link' href='/competition/moveCompetitor/@squad.id/@competitor.id'>@Messages("button.move.title")</a>
+                    @helper.form(action = routes.Competitions.moveCompetitor()) {
+                        <input type='hidden' name='sourceSquadId' value='@squad.id' />
+                        <input type='hidden' name='competitorId' value='@competitor.id' />
+                        <button type='submit' name='action' value='show'>@Messages("button.move.title")</button>
+                    }
                     @if(!competitor.scored) {
-                    <a class='menu-link' href='/competition/removeCompetitor/@squad.id/@competitor.id'>@Messages("button.delete.title")</a>
+                    <a class='menu-link' href='/competitor/remove/@squad.id/@competitor.id'>@Messages("button.delete.title")</a>
                     }
                 </span>
             </td>

@@ -6,6 +6,8 @@
     <input id='competitionlabel' type='text' name='label' value='@competition.label' />
     <label for='squadsize'>@Messages("label.competition.squadsize")</label>
     <input id='squadsize' type='number' name='squadSize' min='1' max='10' value='@competition.squadSize' />
+    <label for='championship'>@Messages("label.competition.championship")</label>
+    <input id='championship' type='checkbox' name='championship' @if(competition.championship) { checked } />
     <span class='menu-container action-menu'>
         <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
         <a class='menu-link' href='/competition/show/@competition.id/information'>@Messages("button.cancel.title")</a>

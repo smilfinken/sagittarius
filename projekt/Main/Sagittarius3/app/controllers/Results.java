@@ -112,7 +112,6 @@ public class Results extends Controller {
                 stageScore.targetScores.add(JPA.em().merge(new TargetScore(value)));
             }
             stageScore.points = scoreItem.points == null ? 0 : scoreItem.points;
-            JPA.em().persist(stageScore);
         }
     }
 

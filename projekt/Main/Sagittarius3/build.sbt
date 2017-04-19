@@ -22,5 +22,6 @@ libraryDependencies ++= Seq(
 )
 
 fork in run := false
+routesGenerator := InjectedRoutesGenerator
 
 herokuAppName in Compile := "secret-mesa-95653"

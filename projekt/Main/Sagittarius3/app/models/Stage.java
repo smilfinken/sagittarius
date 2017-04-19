@@ -8,6 +8,9 @@ import javax.swing.InternalFrameFocusTraversalPolicy;
 
 import play.data.validation.*;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
+
 @Entity
 public class Stage {
 
@@ -52,5 +55,14 @@ public class Stage {
         this.targetCount = source.targetCount;
         this.points = source.points;
         this.allowedClasses = source.allowedClasses;
+    }
+
+    public ObjectNode toJson() {
+        return Json.newObject()
+            .put("id", this.id)
+            .put("index", this.index)
+            .put("label", this.label)
+            .put("targetCount", this.targetCount)
+            .put("points", this.points);
     }
 }

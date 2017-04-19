@@ -6,6 +6,9 @@ import play.data.validation.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
+
 @Entity
 public class Competitor implements Comparable {
 
@@ -126,5 +129,13 @@ public class Competitor implements Comparable {
         result = String.format("%d/%d %d (%d)", totalShotsScored(), totalTargetsScored(), totalShotsScored() + totalTargetsScored(), totalPointsScored());
 
         return result;
+    }
+
+    public ObjectNode toJson() {
+        return Json.newObject()
+            .put("id", this.id)
+            .put("name", this.fullName())
+            .put("class", this.combinedClass())
+            .put("club", this.clubName());
     }
 }

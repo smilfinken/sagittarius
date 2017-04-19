@@ -9,6 +9,9 @@ import org.joda.time.DateTime;
 import javax.persistence.*;
 import play.data.validation.*;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
+
 @Entity
 public class Squad implements Comparable {
 
@@ -90,5 +93,14 @@ public class Squad implements Comparable {
         }
 
         return result.trim();
+    }
+
+    public ObjectNode toJson() {
+        return Json.newObject()
+            .put("id", this.id)
+            .put("label", this.label)
+            .put("rollcall", this.rollcallString())
+            .put("count", this.competitors.size())
+            .put("scored", this.scored());
     }
 }

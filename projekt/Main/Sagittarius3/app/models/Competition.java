@@ -21,6 +21,9 @@ import javax.persistence.*;
 
 import play.data.validation.*;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
+
 @Entity
 public class Competition {
     private static class ScoreSorter implements Comparator<Score> {
@@ -63,7 +66,7 @@ public class Competition {
     @Column(nullable = true)
     public Integer squadSize;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     public Boolean championship;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -79,6 +82,7 @@ public class Competition {
     public Competition() {
         this.label = "";
         this.competitionDate = Calendar.getInstance().getTime();
+        this.championship = false;
         this.stages = new ArrayList<>();
         this.squads = new TreeSet<>();
         this.teams = new ArrayList<>();
@@ -88,6 +92,7 @@ public class Competition {
         this.label = source.label;
         this.competitionDate = source.competitionDate;
         this.squadSize = source.squadSize;
+        this.championship = source.championship;
         this.stages = new ArrayList<>();
         this.stages.addAll(source.stages);
         this.squads = new TreeSet<>();
@@ -329,5 +334,12 @@ public class Competition {
         }
 
         return result;
+    }
+
+    public ObjectNode toJson() {
+        return Json.newObject()
+            .put("id", this.id)
+            .put("label", this.label)
+            .put("competitionDate", this.dateString());
     }
 }

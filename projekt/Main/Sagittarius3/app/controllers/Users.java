@@ -60,7 +60,7 @@ public class Users extends Controller {
         }
 
         DynamicForm dynamicData = formFactory.form().bindFromRequest();
-        Logger.debug(dynamicData.toString());
+        //Logger.debug(dynamicData.toString());
         persistedData.ranking = JPA.em().find(CompetitionRanking.class, new Long(dynamicData.data().get("rankingId")));
         // the following is a completely ridiculous solution, but it's the only one I can get to work properly
         for (String key: dynamicData.data().keySet()) {

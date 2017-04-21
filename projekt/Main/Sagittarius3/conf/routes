@@ -69,3 +69,4 @@ GET     /api/v1/competition/:competitionId/squad/:squadId/competitors       cont
 GET     /api/v1/competition/:competitionId/stages                           controllers.RestAPI.getStages(competitionId: Long)
 GET     /api/v1/competition/:competitionId/stage/:stageId                   controllers.RestAPI.getStage(competitionId: Long, stageId: Long)
 POST    /api/v1/competition/:competitionId/competitor/:competitorId/score   controllers.RestAPI.scoreCompetitor(competitionId: Long, competitorId: Long)
+GET     /api/v1/export/competition/:competitionId                           controllers.RestAPI.exportCompetition(competitionId: Long)

@@ -17,7 +17,7 @@
         <th></th>
     </thead>
     <tbody>
-        @for(squad <- squads) {
+        @for(squad <- squads.iterator) {
         <tr>
             <td>@squad.label</td>
             <td>@squad.rollcallString()</td>

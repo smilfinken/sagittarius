@@ -20,7 +20,7 @@ import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import javax.inject.Inject;
+//import javax.inject.Inject;
 
 public class RestAPI extends Controller {
     @Transactional(readOnly = true)
@@ -37,6 +37,12 @@ public class RestAPI extends Controller {
     public Result getCompetition(Long competitionId) {
         Competition competition = JPA.em().find(Competition.class, competitionId);
         return ok(competition.toJson());
+    }
+
+    @Transactional(readOnly = true)
+    public Result exportCompetition(Long competitionId) {
+        Competition competition = JPA.em().find(Competition.class, competitionId);
+        return ok(Json.toJson(competition));
     }
 
     @Transactional(readOnly = true)

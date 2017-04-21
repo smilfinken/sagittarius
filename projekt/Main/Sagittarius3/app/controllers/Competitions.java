@@ -103,6 +103,7 @@ public class Competitions extends Controller {
         competitionRanking = new CompetitionRanking(3, "Riksmästarklass");
         CompetitionRanking ranking3 = JPA.em().merge(competitionRanking);
 
+        /*
         User user;
 
         user = new User("foo@foo", "foo", "foo", 12345, ranking1, "klubb 1");
@@ -167,6 +168,7 @@ public class Competitions extends Controller {
         Competitor mergedCompetitor = JPA.em().merge(competitor);
         mergedSquad.competitors.add(mergedCompetitor);
         mergedTeam.competitors.add(mergedCompetitor);
+        */
 
         return redirect(routes.Competitions.list());
     }
@@ -197,6 +199,7 @@ public class Competitions extends Controller {
     @Transactional
     public Result save() {
         Competition requestData = formFactory.form(Competition.class).bindFromRequest().get();
+        Logger.debug("requestData.id = " + requestData.id);
         Competition competition = JPA.em().find(Competition.class, requestData.id);
 
         if (competition != null) {

@@ -22,7 +22,7 @@
             <td>@competitor.clubName()</td>
             <td>@competitor.combinedClass()</td>
             <td>@squad.label @if(squad.allowedClasses.size() != 0){(@squad.allowedClassesString())}</td>
-            <td>@squad.rollcall</td>
+            <td>@squad.rollcallString()</td>
             <td>
                 <span class='menu-container action-menu'>
                     @helper.form(action = routes.Competitions.moveCompetitor()) {

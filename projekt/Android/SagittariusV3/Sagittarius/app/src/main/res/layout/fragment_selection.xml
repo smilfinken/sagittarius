@@ -7,16 +7,17 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/list_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_header"
-        android:text="@string/common_label_competitions"
-        />
+        android:text="@string/common_label_squads"
+    />
 
     <ListView
-        android:id="@+id/squad_list"
+        android:tag="listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+    />
 
 </android.support.v7.widget.LinearLayoutCompat>

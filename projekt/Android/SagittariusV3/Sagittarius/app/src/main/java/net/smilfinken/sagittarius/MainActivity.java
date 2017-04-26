@@ -21,8 +21,7 @@ public class MainActivity
     extends AppCompatActivity
     implements
         NavigationView.OnNavigationItemSelectedListener,
-        CompetitionSelectionFragment.OnCompetitionSelectedListener,
-        SquadSelectionFragment.OnSquadSelectedListener {
+        SelectionFragment.OnItemSelectedListener {
 
     private void openCompetitionSelection() {
         CompetitionSelectionFragment fragment = new CompetitionSelectionFragment();
@@ -117,13 +116,15 @@ public class MainActivity
     }
 
     @Override
-    public void onCompetitionSelected(Integer competitionId) {
-        openSquadSelection(competitionId);
-    }
-
-    @Override
-    public void onSquadSelected(Integer squadId) {
-        Snackbar.make(findViewById(R.id.main_content), "Squad " + squadId + " selected", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
+    public void onItemSelected(String tag, Integer itemId) {
+        switch (tag) {
+            case SelectionFragment.TAG_COMPETITION:
+                openSquadSelection(itemId);
+                break;
+            case SelectionFragment.TAG_SQUAD:
+                Snackbar.make(findViewById(R.id.main_content), "Squad " + itemId + " selected", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+                break;
+        }
     }
 }

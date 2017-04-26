@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Sagittarius Mobile</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="competitions_title">Select a competition</string>
+    <string name="action_settings">Settings</string>
+    <string name="label_competition_name">Tävling</string>
+    <string name="label_competition_date">Datum</string>
+
+    <array name="navigation" >
+        <item>Tävlingar</item>
+        <item>Resultat</item>
+    </array>
+</resources>

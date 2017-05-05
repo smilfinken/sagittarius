@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/common_label_settings"
+        android:title="@string/label_heading_settings"
         app:showAsAction="never"/>
 </menu>

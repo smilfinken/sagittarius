@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.swing.InternalFrameFocusTraversalPolicy;
 
 import play.data.validation.*;
+import play.i18n.Messages;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
@@ -58,11 +59,20 @@ public class Stage {
     }
 
     public ObjectNode toJson() {
+        StringBuilder brief = new StringBuilder();
+
+        brief
+            .append(Messages.get("description.stagebrief.standing") + Messages.get("description.stagebrief.nosupportinghand") + Messages.get("description.stagebrief.startingangle"));
+        if (points) {
+            brief.append(System.lineSeparator() + Messages.get("description.stagebrief.points"));
+        }
+
         return Json.newObject()
             .put("id", this.id)
             .put("index", this.index)
             .put("label", this.label)
             .put("targetCount", this.targetCount)
-            .put("points", this.points);
+            .put("points", this.points)
+            .put("brief", brief.toString());
     }
 }

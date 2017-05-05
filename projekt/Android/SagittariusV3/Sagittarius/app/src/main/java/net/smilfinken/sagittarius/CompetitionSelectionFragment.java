@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CompetitionSelectionFragment
     extends SelectionFragment
     implements AdapterView.OnItemClickListener {
@@ -18,7 +21,7 @@ public class CompetitionSelectionFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        ((TextView)view.findViewById(R.id.list_header)).setText(getString(R.string.common_label_competitions));
+        ((TextView)view.findViewById(R.id.list_header)).setText(getString(R.string.label_heading_competitions));
 
         createApiRequest("competitions");
 
@@ -26,7 +29,17 @@ public class CompetitionSelectionFragment
     }
 
     @Override
-    protected Integer getItemId(Integer position) {
-        return 26;
+    protected JSONObject convertItem(JSONObject item) {
+        JSONObject result = super.convertItem(item);
+
+        try {
+            result.put(JSONAdapter.LABEL_TITLE, item.getString("label"));
+        } catch (JSONException exception) { }
+
+        try {
+            result.put(JSONAdapter.LABEL_SUBTITLE, item.getString("competitionDate"));
+        } catch (JSONException exception) { }
+
+        return result;
     }
 }

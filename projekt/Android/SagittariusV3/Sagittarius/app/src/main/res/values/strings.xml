@@ -3,11 +3,15 @@
     <string name="app_author_name">Johan Lindquist</string>
     <string name="app_author_contact">johan.x.lindquist@gmail.com</string>
 
-    <string name="common_label_competitions">Competitions</string>
-    <string name="common_label_settings">Settings</string>
-    <string name="common_label_squads">Squads</string>
+    <string name="label_heading_competitions">Competitions</string>
+    <string name="label_heading_competitors">Competitors</string>
+    <string name="label_heading_scoring">Scoring</string>
+    <string name="label_heading_settings">Settings</string>
+    <string name="label_heading_stage_number">Stage %1$d</string>
+    <string name="label_heading_squads">Squads</string>
 
-    <string name="navigation_action_configuration">Configuration</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="label_action_configuration">Configuration</string>
+    <string name="label_action_selectcompetition">Select competition</string>
+    <string name="label_action_drawer_open">Open navigation drawer</string>
+    <string name="label_action_drawer_close">Close navigation drawer</string>
 </resources>

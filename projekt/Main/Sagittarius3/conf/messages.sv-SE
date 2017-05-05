@@ -19,6 +19,11 @@ button.scoresquad.title=Mata in resultat
 button.selectfile.title=Välj fil
 button.show.title=Visa
 
+description.stagebrief.nosupportinghand=' utan stödhand
+description.stagebrief.points=Poängräkning
+description.stagebrief.standing=Stående
+description.stagebrief.startingangle=, 45°
+
 heading.common.addobject=Lägg till {0}
 heading.common.editobject=Redigera {0}
 heading.common.moveobject=Flytta {0}

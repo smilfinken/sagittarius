@@ -1,7 +1,7 @@
 package net.smilfinken.sagittarius;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,17 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static android.R.attr.id;
 
 public class MainActivity
     extends AppCompatActivity
     implements
         NavigationView.OnNavigationItemSelectedListener,
         SelectionFragment.OnItemSelectedListener {
+
+    private Integer selectedCompetitionId = -1;
+    private Integer selectedSquadId = -1;
 
     private void openCompetitionSelection() {
         CompetitionSelectionFragment fragment = new CompetitionSelectionFragment();
@@ -30,17 +33,25 @@ public class MainActivity
         fragmentTransaction.commit();
     }
 
-    private void openSquadSelection(Integer competitionId) {
-        SquadSelectionFragment fragment = SquadSelectionFragment.newInstance(competitionId);
+    private void openSquadSelection() {
+        SquadSelectionFragment fragment = SquadSelectionFragment.newInstance(selectedCompetitionId);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_content, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void startScoringActivity() {
+        Intent intent = new Intent(this, ScoringActivity.class);
+        intent.putExtra(ScoringActivity.ARG_COMPETITIONID, selectedCompetitionId);
+        intent.putExtra(ScoringActivity.ARG_SQUADID, selectedSquadId);
+        startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,9 +67,8 @@ public class MainActivity
         */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawer, toolbar, R.string.label_action_drawer_open, R.string.label_action_drawer_close);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -112,6 +122,7 @@ public class MainActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
@@ -119,11 +130,12 @@ public class MainActivity
     public void onItemSelected(String tag, Integer itemId) {
         switch (tag) {
             case SelectionFragment.TAG_COMPETITION:
-                openSquadSelection(itemId);
+                selectedCompetitionId = itemId;
+                openSquadSelection();
                 break;
             case SelectionFragment.TAG_SQUAD:
-                Snackbar.make(findViewById(R.id.main_content), "Squad " + itemId + " selected", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                selectedSquadId = itemId;
+                startScoringActivity();
                 break;
         }
     }

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class SquadSelectionFragment
     extends SelectionFragment
     implements AdapterView.OnItemClickListener {
@@ -37,7 +40,7 @@ public class SquadSelectionFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        ((TextView)view.findViewById(R.id.list_header)).setText(getString(R.string.common_label_squads));
+        ((TextView)view.findViewById(R.id.list_header)).setText(getString(R.string.label_heading_squads));
 
         createApiRequest("competition/" + competitionId + "/squads");
 
@@ -45,7 +48,17 @@ public class SquadSelectionFragment
     }
 
     @Override
-    protected Integer getItemId(Integer position) {
-        return 64;
+    protected JSONObject convertItem(JSONObject item) {
+        JSONObject result = super.convertItem(item);
+
+        try {
+            result.put(JSONAdapter.LABEL_TITLE, item.getString("label"));
+        } catch (JSONException exception) { }
+
+        try {
+            result.put(JSONAdapter.LABEL_SUBTITLE, item.getString("rollcall"));
+        } catch (JSONException exception) { }
+
+        return result;
     }
 }

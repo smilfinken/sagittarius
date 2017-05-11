@@ -1,6 +1,5 @@
 package controllers;
 
-//import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
 
@@ -26,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Users extends Controller {
     @Inject
@@ -33,8 +33,24 @@ public class Users extends Controller {
 
     @Transactional(readOnly = true)
     public Result list() {
-        ArrayList<User> users = (ArrayList<User>)JPA.em().createQuery("SELECT c FROM User c ORDER BY club, lastName, firstName", User.class).getResultList();
-        return ok(userlist.render(users));
+        ArrayList<User> users = (ArrayList<User>)JPA.em().createQuery("SELECT u FROM User u ORDER BY club, lastName, firstName", User.class).getResultList();
+
+        TreeMap<String, ArrayList<User>> usersByClub = new TreeMap<>();
+        if (!users.isEmpty()) {
+            String currentClub = users.get(0).club;
+            ArrayList<User> clubUsers = new ArrayList<>();
+            for (User user : users) {
+                if (user.club.compareTo(currentClub) != 0) {
+                    usersByClub.put(currentClub, clubUsers);
+                    clubUsers = new ArrayList<>();
+                    currentClub = user.club;
+                }
+                clubUsers.add(user);
+            }
+            usersByClub.put(currentClub, clubUsers);
+        }
+
+        return ok(userlist.render(usersByClub, users.size()));
     }
 
     @Transactional

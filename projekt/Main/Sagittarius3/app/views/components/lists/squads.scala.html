@@ -1,12 +1,13 @@
-@(squads: Set[Squad])
+@(competitionId: Long, squads: Set[Squad])
 <span class='menu-container action-menu'>
     <a class='menu-link' href='/squad/edit/0'>@Messages("button.add.title")</a>
+    <a class='menu-link' href='/competition/@competitionId/compactSquads'>@Messages("button.compactsquads.title")</a>
+    <a class='menu-link' href='/competition/@competitionId/expandSquads'>@Messages("button.expandsquads.title")</a>
     @if(squads.size() == 0) {
     @helper.form(action = routes.Competitions.generateSquads()) {
         <button type='submit' name='action' value='add'>@Messages("button.generatesquads.title")</button>
     }
     }
-</span>
 @if(squads.size() > 0) {
 <table>
     <thead>

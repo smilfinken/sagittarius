@@ -1,0 +1,9 @@
+* Att göra
+!!!!!Startlista!!!!!
+
+
+
+* Bra-att-ha-funktioner
+
+- Summering per klubb (starter/deltagare)
+- Sortering deltagare/användare

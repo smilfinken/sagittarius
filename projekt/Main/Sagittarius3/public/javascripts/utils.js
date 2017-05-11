@@ -6,7 +6,15 @@
         }
     }
 
+    function toggleFoldedSection(section) {
+        var element = document.getElementById(section)
+        if (!!element) {
+            element.classList.toggle("folded");
+        }
+    }
+
 	window.utils = {
-		addCompetitor: addCompetitor
+		addCompetitor: addCompetitor,
+		toggleFoldedSection: toggleFoldedSection
 	};
 })(window);

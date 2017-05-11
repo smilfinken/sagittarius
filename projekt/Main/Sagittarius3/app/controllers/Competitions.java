@@ -591,6 +591,20 @@ public class Competitions extends Controller {
         return redirect(routes.Competitions.show(competitionId, "teams"));
     }
 
+    @Transactional()
+    public Result compactSquads(Long competitionId) {
+        Competition competition = JPA.em().find(Competition.class, competitionId);
+
+        return redirect(routes.Competitions.show(competitionId, "squads"));
+    }
+
+    @Transactional()
+    public Result expandSquads(Long competitionId) {
+        Competition competition = JPA.em().find(Competition.class, competitionId);
+
+        return redirect(routes.Competitions.show(competitionId, "squads"));
+    }
+
     @Transactional(readOnly = true)
     public Result export(Long competitionId) {
         Competition competition = JPA.em().find(Competition.class, competitionId);

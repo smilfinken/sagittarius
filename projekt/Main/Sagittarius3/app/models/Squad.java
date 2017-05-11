@@ -82,7 +82,11 @@ public class Squad implements Comparable {
     }
 
     public String rollcallString() {
-        return rollcall.toString("HH:mm");
+        try {
+            return rollcall.toString("HH:mm");
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public String allowedClassesString() {

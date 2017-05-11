@@ -12,8 +12,10 @@ GET     /stage/edit/:stageId                            controllers.Competitions
 POST    /stage/save                                     controllers.Competitions.saveStage
 GET     /stage/delete/:stageId                          controllers.Competitions.deleteStage(stageId: Long)
 
-# auto-generate squads
+# bulk-edit squads
 POST    /competition/generateSquads                     controllers.Competitions.generateSquads
+GET     /competition/:competitionId/compactSquads       controllers.Competitions.compactSquads(competitionId: Long)
+GET     /competition/:competitionId/expandSquads        controllers.Competitions.expandSquads(competitionId: Long)
 
 # squads
 GET     /squad/edit/:squadId                            controllers.Competitions.editSquad(squadId: Long)

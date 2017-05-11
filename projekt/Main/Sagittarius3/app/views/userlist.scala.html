@@ -1,37 +1,46 @@
-@(users: List[User])
+@(usersByClub: TreeMap[String, ArrayList[User]], count: Integer)
 @head(Messages("heading.user.title")) {
-    <span class='menu-container action-menu'>
-        <a class='menu-link' href='/user/edit/0'>@Messages("button.add.title")</a>
+    <span class="page-subheading">@Messages("heading.user.count", usersByClub.size(), count)</span>
+    <span class="menu-container action-menu">
+        <a class="menu-link" href="/user/edit/0">@Messages("button.add.title")</a>
         @helper.form(action = routes.Users.importUsers, 'id -> "fileselection", 'enctype -> "multipart/form-data") {
-            <label class='fileupload'><input type='file' name='users' onchange='form.submit()'>@Messages("button.import.title")</label>
+            <label class="fileupload"><input type="file" name="users" onchange="form.submit()">@Messages("button.import.title")</label>
         }
-        @if(users.size() != 0) {
-        <a class='menu-link' href='/user/export'>@Messages("button.export.title")</a>
+        @if(usersByClub.size() != 0) {
+        <a class="menu-link" href="/user/export">@Messages("button.export.title")</a>
         }
     </span>
-    @if(users.size() != 0) {
-    <table>
+    @if(usersByClub.size() != 0) {
+    <table class="table-fullwidth">
         <thead>
+            <th>@Messages("label.user.club")</th>
             <th>@Messages("label.user.fullname")</th>
             <th>@Messages("label.user.email")</th>
             <th>@Messages("label.user.cardid")</th>
-            <th>@Messages("label.user.club")</th>
             <th></th>
         </thead>
+        @for((club, users) <- usersByClub) {
         <tbody>
-        @for(user <- users) {
             <tr>
+                <td colspan="5"><button class="folding-section-heading" onclick="utils.toggleFoldedSection('section-@club')">@club (@users.size())</button></td>
+            </tr>
+        </tbody>
+        <tbody class="folding-section folded" id="section-@club">
+            @for(user <- users) {
+            <tr>
+                <td/>
                 <td>@user.fullName()</td>
                 <td>@user.email</td>
                 <td>@user.cardId</td>
-                <td>@user.club</td>
                 <td>
-                    <span class='menu-container action-menu'>
-                        <a class='menu-link' href='/user/edit/@user.id'>@Messages("button.edit.title")</a>
-                        <a class='menu-link' href='/user/delete/@user.id'>@Messages("button.delete.title")</a>
+                    <span class="menu-container action-menu">
+                        <a class="menu-link" href="/user/edit/@user.id">@Messages("button.edit.title")</a>
+                        <a class="menu-link" href="/user/delete/@user.id">@Messages("button.delete.title")</a>
                     </span>
                 </td>
             </tr>
+            }
+        </tbody>
         }
         </tbody>
     </table>

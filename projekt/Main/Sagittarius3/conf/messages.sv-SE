@@ -1,10 +1,12 @@
 button.add.title=Lägg till
 button.addobject.title=Lägg till {0}
 button.cancel.title=Avbryt
+button.compactsquads.title=Minska intervaller
 button.createpdf.title=Skapa PDF
 button.delete.title=Ta bort
 button.displayresults.title=Presentera resultat
 button.edit.title=Redigera
+button.expandsquads.title=Öka intervaller
 button.export.title=Exportera
 button.generatesquads.title=Generera patruller
 button.generatetestdata.title=Generera testdata
@@ -62,6 +64,7 @@ heading.startlist.squad=Patrull
 heading.startlist.startlist=Startlista
 
 heading.user.title=Användare
+heading.user.count={0} föreningar, {1} personer
 
 label.common.competition=Tävling
 label.common.competitiondate=Tävlingsdatum
@@ -132,11 +135,13 @@ marker.qualifying.silver=S
 menu.link.competitions=Tävlingar
 menu.link.users=Användare
 
+menu.tab.clubs=Föreningar
 menu.tab.competitors=Deltagare
 menu.tab.information=Information
 menu.tab.squads=Patruller
 menu.tab.stages=Stationer
 menu.tab.teams=Lag
+menu.tab.users=Användare
 
 message.error.bookingtooclose=Uppropet för vald patrull är för nära en annan bokning
 message.error.classnotallowed=Fel vapengrupp för patrull eller lag

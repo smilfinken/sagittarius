@@ -4,7 +4,7 @@
         <label for='squad'>@Messages("label.squad.squad")</label>
         <select id='squad' name='squadId'>
             @for(squad <- squads) {
-                <option value='@squad.id' @if(flash.get("squadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcall@if(squad.allowedClasses.size() != 0){ - @squad.allowedClassesString()}</option>
+                <option value='@squad.id' @if(flash.get("squadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcallString()@if(squad.allowedClasses.size() != 0){ - @squad.allowedClassesString()}</option>
             }
         </select>
         <label for='user'>@Messages("label.user.user")</label>

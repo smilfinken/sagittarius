@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static android.R.attr.tag;
+
 public class MainActivity
     extends AppCompatActivity
     implements
@@ -109,15 +111,21 @@ public class MainActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_competitions) {
-            openCompetitionSelection();
-        } else if (id == R.id.nav_configuration) {
-            Logger.getGlobal().log(Level.INFO, "opening configuration");
+        switch(item.getItemId()) {
+            case R.id.nav_competitions:
+                openCompetitionSelection();
+                break;
+            case R.id.nav_configuration:
+                Logger.getGlobal().log(Level.INFO, "opening configuration");
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                Logger.getGlobal().log(Level.WARNING, "unhandled click on navigation item " + item.toString());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

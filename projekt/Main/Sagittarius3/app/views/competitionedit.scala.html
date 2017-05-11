@@ -10,7 +10,11 @@
     <input id='championship' type='checkbox' name='championship' @if(competition.championship) { checked } />
     <span class='menu-container action-menu'>
         <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+        @if(competition.id != null){
         <a class='menu-link' href='/competition/show/@competition.id/information'>@Messages("button.cancel.title")</a>
+        } else {
+        <a class='menu-link' href='/competition/list'>@Messages("button.cancel.title")</a>
+        }
     </span>
 }
 }

@@ -147,6 +147,7 @@ message.error.bookingtooclose=Uppropet för vald patrull är för nära en annan
 message.error.classnotallowed=Fel vapengrupp för patrull eller lag
 message.error.failedtoparsejson=Misslyckades med att analysera JSON-data
 message.error.failedtoregisterfor=Misslyckades med att registrera {0}
+message.error.failedtosave=Misslyckades med att spara
 message.error.invalididfor=Ogiltigt ID för {0}
 message.error.invalidclass=Ingen vapengrupp angiven
 message.error.invalidinput=Ogiltigt val

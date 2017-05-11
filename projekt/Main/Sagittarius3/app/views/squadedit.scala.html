@@ -8,7 +8,7 @@
             <label for='slots'>@Messages("label.squad.slots")</label>
             <input id='slots' type='number' name='slots' value='@squad.slots' size='3' min='1' max='99' />
             <label for='rollcall'>@Messages("label.squad.rollcall")</label>
-            <input id='rollcall' type='text' name='rollcallRaw' value='@squad.rollcallString()' size='6' />
+            <input id='rollcall' type='text' name='rollcalltime' value='@squad.rollcallString()' size='6' />
         </div>
         <div>
             @components.selectors.selectclasses(competitionClasses, squad.allowedClasses)

@@ -22,10 +22,12 @@ import play.mvc.Result;
 import javax.inject.Inject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import it.innove.play.pdf.PdfGenerator;
@@ -287,20 +289,21 @@ public class Competitions extends Controller {
             Logger.error("no squad data found in request");
         }
 
-        /*
-        Squad requestData = new Squad();
-        requestData.id = Long.valueOf(dynamicData.get("id"));
-        requestData.label = dynamicData.get("label");
-        requestData.slots = Integer.valueOf(dynamicData.get("slots"));
-        //requestData.rollcall = dynamicData.get("rollcall");
-        */
-
         // the following is a completely ridiculous solution, but it's the only one I can get to work properly
         for (String key: dynamicData.data().keySet()) {
             if (key.startsWith("classIds")) {
                 CompetitionClass competitionClass = JPA.em().find(CompetitionClass.class, new Long(dynamicData.data().get(key)));
                 requestData.allowedClasses.add(competitionClass);
             }
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            requestData.rollcall = new DateTime(sdf.parse(dynamicData.data().get("rollcalltime")));
+        } catch (ParseException pe){
+            Logger.error("error parsing rollcall string");
+            flash().put("error", "message.error.failedtosave");
+            return redirect(routes.Competitions.show(competitionId, "squads"));
         }
 
         if (requestData.id != 0) {
@@ -593,14 +596,28 @@ public class Competitions extends Controller {
 
     @Transactional()
     public Result compactSquads(Long competitionId) {
-        Competition competition = JPA.em().find(Competition.class, competitionId);
+        ArrayList<Squad> squads = (ArrayList<Squad>)JPA.em().createQuery("SELECT s FROM Squad s ORDER BY rollcall", Squad.class).getResultList();
+
+        Integer i = 0;
+        for(Squad squad: squads) {
+            if (squad.rollcall != null) {
+                squad.rollcall = squad.rollcall.minusMinutes(i++);
+            }
+        }
 
         return redirect(routes.Competitions.show(competitionId, "squads"));
     }
 
     @Transactional()
     public Result expandSquads(Long competitionId) {
-        Competition competition = JPA.em().find(Competition.class, competitionId);
+        ArrayList<Squad> squads = (ArrayList<Squad>)JPA.em().createQuery("SELECT s FROM Squad s ORDER BY rollcall", Squad.class).getResultList();
+
+        Integer i = 0;
+        for(Squad squad: squads) {
+            if (squad.rollcall != null) {
+                squad.rollcall = squad.rollcall.plusMinutes(i++);
+            }
+        }
 
         return redirect(routes.Competitions.show(competitionId, "squads"));
     }

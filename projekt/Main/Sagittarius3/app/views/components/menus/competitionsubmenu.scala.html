@@ -8,5 +8,6 @@
     <a class='menu-link@if(!competition.hasResults()){-disabled}' href='/results/list/@competition.id' target='_blank'>@Messages("button.listresults.title")</a>
     <a class='menu-link@if(!competition.hasResults()){-disabled}' href='/results/display/@competition.id' target='_blank'>@Messages("button.displayresults.title")</a>
     <a class='menu-link@if(!competition.hasResults()){-disabled}' href='/results/print/@competition.id' target='_blank'>@Messages("button.printresults.title")</a>
+    <a class='menu-link@if(!competition.hasCompetitors()){-disabled}' href='/competition/printStartlist/@competition.id' target='_blank'>@Messages("button.printstartlist.title")</a>
 </span>
 <hr />

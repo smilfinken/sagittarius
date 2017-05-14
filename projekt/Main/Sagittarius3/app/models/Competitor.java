@@ -64,11 +64,23 @@ public class Competitor implements Comparable {
     }
 
     public String combinedClass() {
+        return combinedClass(false);
+    }
+
+    public String combinedClass(boolean championship) {
         if (competitionClass != null) {
-            if (competitionSubclass != null) {
-                return (String.format("%s%s%d", competitionClass.label, competitionSubclass.label, user.ranking.ranking));
+            if (championship) {
+                if (competitionSubclass != null) {
+                    return (String.format("%s%s", competitionClass.label, competitionSubclass.label));
+                } else {
+                    return (String.format("%s", competitionClass.label));
+                }
             } else {
-                return (String.format("%s%d", competitionClass.label, user.ranking.ranking));
+                if (competitionSubclass != null) {
+                    return (String.format("%s%s%d", competitionClass.label, competitionSubclass.label, user.ranking.ranking));
+                } else {
+                    return (String.format("%s%d", competitionClass.label, user.ranking.ranking));
+                }
             }
         } else {
             return "";

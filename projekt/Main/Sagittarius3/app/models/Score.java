@@ -12,23 +12,23 @@ public class Score {
     public String competitorCategory;
     public List<StageScore> scores;
 
-    public Score(Long competitionId, Competitor competitor) {
+    public Score(Long competitionId, Competitor competitor, boolean championship) {
         this.competitionId = competitionId;
         this.competitorId = competitor.id;
         this.competitorName = competitor.fullName();
         this.competitorClub = competitor.clubName();
-        this.competitorClass = competitor.combinedClass();
-        switch (competitor.combinedClass()) {
-            case "C1": case "C2": case "C3": case "D1": case "D2": case "D3": case "VY": case "VÄ": case "J":
+        this.competitorClass = competitor.combinedClass(championship);
+        switch (competitorClass) {
+            case "C": case "C1": case "C2": case "C3": case "D": case "D1": case "D2": case "D3": case "VY": case "VÄ": case "J":
                 this.competitorCategory = "C";
                 break;
-            case "B1": case "B2": case "B3":
+            case "B": case "B1": case "B2": case "B3":
                 this.competitorCategory = "B";
                 break;
-            case "A1": case "A2": case "A3":
+            case "A": case "A1": case "A2": case "A3":
                 this.competitorCategory = "A";
                 break;
-            case "R1": case "R2": case "R3":
+            case "R": case "R1": case "R2": case "R3":
                 this.competitorCategory = "R";
                 break;
             default:

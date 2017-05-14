@@ -1,4 +1,4 @@
-@(squads: Set[Squad], competitors: Integer)
+@(squads: SortedSet[Squad], competitors: Integer, championship: Boolean)
 @if(squads.size() != 0) {
 <span class='menu-container action-menu'>
     <a class='menu-link' href='/competitor/add'>@Messages("button.add.title")</a>
@@ -20,7 +20,7 @@
         <tr>
             <td>@competitor.fullName()</td>
             <td>@competitor.clubName()</td>
-            <td>@competitor.combinedClass()</td>
+            <td>@competitor.combinedClass(championship)</td>
             <td>@squad.label @if(squad.allowedClasses.size() != 0){(@squad.allowedClassesString())}</td>
             <td>@squad.rollcallString()</td>
             <td>

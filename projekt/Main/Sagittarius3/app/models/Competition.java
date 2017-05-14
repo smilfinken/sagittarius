@@ -139,6 +139,16 @@ public class Competition {
         return result;
     }
 
+    public boolean hasCompetitors() {
+        for (Squad squad: squads) {
+            if (squad.competitors.size() != 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean hasResults() {
         for (Squad squad: squads) {
             if (squad.scored()) {
@@ -168,7 +178,7 @@ public class Competition {
 
         for (Squad squad: squads) {
             for (Competitor competitor: squad.competitors) {
-                result.add(new StartlistEntry(competitor.fullName(), competitor.clubName(), competitor.combinedClass(), squad.label, squad.rollcallString()));
+                result.add(new StartlistEntry(competitor.fullName(), competitor.clubName(), competitor.combinedClass(championship), squad.label, squad.rollcallString()));
             }
         }
         Collections.sort(result, new StartlistSorter());
@@ -217,7 +227,7 @@ public class Competition {
         for (Squad squad: squads) {
             for (Competitor competitor: squad.competitors) {
                 if (competitor.scored()) {
-                    scores.add(new Score(id, competitor));
+                    scores.add(new Score(id, competitor, championship));
                 }
             }
         }

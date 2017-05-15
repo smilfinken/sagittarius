@@ -46,9 +46,28 @@ public class Competition {
         }
     }
 
-    private static class StartlistSorter implements Comparator<StartlistEntry> {
+    private static class StartlistSorterBySquad implements Comparator<StartlistEntry> {
         @Override
         public int compare(StartlistEntry a, StartlistEntry b) {
+            try {
+                Integer numericalSquadA = Integer.parseInt(a.squad);
+                Integer numericalSquadB = Integer.parseInt(b.squad);
+                return numericalSquadA.compareTo(numericalSquadB);
+            } catch (NumberFormatException exception) {
+                return a.squad.compareTo(b.squad);
+            }
+        }
+    }
+
+    private static class StartlistSorterByCompetitor implements Comparator<StartlistEntry> {
+        @Override
+        public int compare(StartlistEntry a, StartlistEntry b) {
+            if (a.competitor.equals(b.competitor)) {
+                return a.rollcall.compareTo(b.rollcall);
+            }
+            if (a.club.equals(b.club)) {
+                return a.competitor.compareTo(b.competitor);
+            }
             return a.club.compareTo(b.club);
         }
     }
@@ -93,12 +112,12 @@ public class Competition {
         this.competitionDate = source.competitionDate;
         this.squadSize = source.squadSize;
         this.championship = source.championship;
-        this.stages = new ArrayList<>();
-        this.stages.addAll(source.stages);
-        this.squads = new TreeSet<>();
-        this.squads.addAll(source.squads);
-        this.teams = new ArrayList<>();
-        this.teams.addAll(source.teams);
+        //this.stages = new ArrayList<>();
+        //this.stages.addAll(source.stages);
+        //this.squads = new TreeSet<>();
+        //this.squads.addAll(source.squads);
+        //this.teams = new ArrayList<>();
+        //this.teams.addAll(source.teams);
     }
 
     public String dateString() {
@@ -173,7 +192,7 @@ public class Competition {
         return result;
     }
 
-    public ArrayList<StartlistEntry> startlistEntries() {
+    public ArrayList<StartlistEntry> startlistEntries(boolean sortBySquad) {
         ArrayList<StartlistEntry> result = new ArrayList<>();
 
         for (Squad squad: squads) {
@@ -181,7 +200,11 @@ public class Competition {
                 result.add(new StartlistEntry(competitor.fullName(), competitor.clubName(), competitor.combinedClass(championship), squad.label, squad.rollcallString()));
             }
         }
-        Collections.sort(result, new StartlistSorter());
+        if (sortBySquad) {
+            Collections.sort(result, new StartlistSorterBySquad());
+        } else {
+            Collections.sort(result, new StartlistSorterByCompetitor());
+        }
 
         return result;
     }

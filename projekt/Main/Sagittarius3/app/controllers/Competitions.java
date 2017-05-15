@@ -219,7 +219,8 @@ public class Competitions extends Controller {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String printDate = dateFormat.format(Calendar.getInstance().getTime());
         String httpRequest = String.format("http://%s", request().host());
-        return pdfGenerator.ok(startlistprint.render(competition.startlistEntries(), competition.label, competition.dateString(), printDate), httpRequest);
+        boolean sortBySquad = true;
+        return pdfGenerator.ok(startlistprint.render(competition.startlistEntries(sortBySquad), competition.label, "2017-05-21", printDate, sortBySquad), httpRequest);
     }
 
     @Transactional(readOnly = true)

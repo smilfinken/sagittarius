@@ -1,4 +1,4 @@
-@(entries: List[StartlistEntry], competitionTitle: String, competitionDate: String, printDate: String)
+@(entries: List[StartlistEntry], competitionTitle: String, competitionDate: String, printDate: String, bySquad: Boolean)
 <html lang='en'>
     <head>
         <meta charset="UTF-8">
@@ -9,6 +9,30 @@
     </head>
     <body>
         <div class='startlist-header'><span class='startlist-header-title'>@Messages("heading.startlist.startlist") @competitionTitle</span> <span class='startlist-header-date'>@competitionDate</span></div>
+        @if(bySquad) {
+        <table class='startlist-fixed-table'>
+            <thead>
+            <tr>
+                <th class='startlist-squad'>@Messages("heading.startlist.squad")</th>
+                <th class='startlist-rollcall'>@Messages("heading.startlist.rollcall")</th>
+                <th class='startlist-competitorname'>@Messages("heading.startlist.competitor")</th>
+                <th class='startlist-clubname'>@Messages("heading.startlist.club")</th>
+                <th class='startlist-class'>@Messages("heading.startlist.class")</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for(entry <- entries) {
+                <tr>
+                    <td class='startlist-squad'>@entry.squad</td>
+                    <td class='startlist-rollcall'>@entry.rollcall</td>
+                    <td class='startlist-competitorname'>@entry.competitor</td>
+                    <td class='startlist-clubname'>@entry.club</td>
+                    <td class='startlist-class'>@entry.competitionClass</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        } else {
         <table class='startlist-fixed-table'>
             <thead>
             <tr>
@@ -31,6 +55,7 @@
                 }
             </tbody>
         </table>
+        }
         <div class='startlist-footer'><span class='startlist-footer-stats'>@entries.size() @Messages("heading.startlist.entries")</span><span class='startlist-footer-date'>@Messages("heading.startlist.printedat", printDate)</span></div>
     </body>
 </html>

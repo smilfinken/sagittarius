@@ -84,8 +84,8 @@
 
     /* Column widths are based on these cells */
     .result-fixed-table .result-competitorname { text-align: left; width: 30%; }
-    .result-fixed-table .result-clubname { text-align: left; width: 25%; }
+    .result-fixed-table .result-clubname { text-align: left; width: 20%; }
     .result-fixed-table .result-division { text-align: left; width: 15%; }
-    .result-fixed-table .result-score-detail { font-size: 11pt; text-align: left; width: 15%; }
+    .result-fixed-table .result-score-detail { font-size: 11pt; text-align: left; width: 20%; }
     .result-fixed-table .result-score-sum { text-align: right; width: 15%; }
 }

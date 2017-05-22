@@ -28,8 +28,11 @@ public class Score {
             case "CD":
                 this.competitorCategory = "D";
                 break;
-            case "CVY": case "CVÄ":
-                this.competitorCategory = "V";
+            case "CVY":
+                this.competitorCategory = "VY";
+                break;
+            case "CVÄ":
+                this.competitorCategory = "VÄ";
                 break;
             case "B": case "B1": case "B2": case "B3":
                 this.competitorCategory = "B";

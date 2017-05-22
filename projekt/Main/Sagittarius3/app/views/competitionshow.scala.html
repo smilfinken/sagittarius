@@ -11,7 +11,7 @@
 }
 
 @if(tab == "squads") {
-@components.lists.squads(competition.id, competition.squads)
+@components.lists.squads(competition.id, competition.squads, competition.firstUnscoredSquadId())
 }
 
 @if(tab == "competitors") {

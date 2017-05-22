@@ -371,6 +371,15 @@ public class Competition {
         return result;
     }
 
+    public Long firstUnscoredSquadId() {
+        for (Squad squad: squads) {
+            if (!squad.scored() && squad.competitors() > 0) {
+                return squad.id;
+            }
+        }
+        return null;
+    }
+
     public ObjectNode toJson() {
         return Json.newObject()
             .put("id", this.id)

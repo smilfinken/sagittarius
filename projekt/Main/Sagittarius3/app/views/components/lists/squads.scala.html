@@ -1,6 +1,12 @@
-@(competitionId: Long, squads: Set[Squad])
+@(competitionId: Long, squads: Set[Squad], firstUnscoredSquadId: Long)
 <span class='menu-container action-menu'>
     <a class='menu-link' href='/squad/edit/0'>@Messages("button.add.title")</a>
+    @if(firstUnscoredSquadId != null) {
+    @helper.form(action = routes.Results.scoreSquad()) {
+        <input type='hidden' name='squadId' value='@firstUnscoredSquadId' />
+        <button type='submit' name='action' value='show'>@Messages("button.scorenextsquad.title")</button>
+    }
+    }
     <a class='menu-link' href='/competition/@competitionId/compactSquads'>@Messages("button.compactsquads.title")</a>
     <a class='menu-link' href='/competition/@competitionId/expandSquads'>@Messages("button.expandsquads.title")</a>
     @if(squads.size() == 0) {
@@ -36,7 +42,7 @@
                     } else {
                     <a class='menu-link' href='/squad/print/@squad.id' target='_blank'>@Messages("button.printsquad.title")</a>
                     }
-                    @if(!squad.scored && squad.competitors.size() != 0) {
+                    @if(!squad.scored() && squad.competitors() > 0) {
                     @helper.form(action = routes.Results.scoreSquad()) {
                         <input type='hidden' name='squadId' value='@squad.id' />
                         <button type='submit' name='action' value='show'>@Messages("button.scoresquad.title")</button>

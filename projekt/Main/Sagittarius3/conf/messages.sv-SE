@@ -35,13 +35,14 @@ heading.competition.title=Tävlingar
 
 heading.main.title=Sagittarius
 
-heading.result.competitor=Namn
 heading.result.class=Klass
 heading.result.club=Förening
+heading.result.division=Vapengrupp
 heading.result.entries=Deltagare
 heading.result.points=Poäng
 heading.result.printedat=Utskrivet {0}
 heading.result.maxscore=Maxpoäng
+heading.result.name=Namn
 heading.result.results=Resultat
 heading.result.score=Resultat
 heading.result.scoringforobject=Resultat för patrull {0}
@@ -86,7 +87,7 @@ label.common.total=Totalt
 label.competition.squadsize=Patrullstorlek
 label.competition.championship=Mästerskap
 
-label.competitor.class=Vapengrupp
+label.competitor.division=Vapengrupp
 label.competitor.club=Klubb
 label.competitor.competitor=Deltagare
 label.competitor.score=Resultat

@@ -201,7 +201,6 @@ public class Competitions extends Controller {
     @Transactional
     public Result save() {
         Competition requestData = formFactory.form(Competition.class).bindFromRequest().get();
-        Logger.debug("requestData.id = " + requestData.id);
         Competition competition = JPA.em().find(Competition.class, requestData.id);
 
         if (competition != null) {
@@ -360,7 +359,7 @@ public class Competitions extends Controller {
         Competition competition = JPA.em().find(Competition.class, competitionId);
         Squad squad = JPA.em().find(Squad.class, squadId);
 
-        return ok(squadprint.render(squad, competition.stages));
+        return ok(squadprint.render(squad, competition.stages, competition.championship));
     }
 
     @Transactional(readOnly = true)
@@ -568,10 +567,11 @@ public class Competitions extends Controller {
                 }
             } else {
                 Competition competition = JPA.em().find(Competition.class, competitionId);
-                List<Competitor> competitors = new ArrayList<>(competition.allCompetitors());
-                competitors.removeAll(team.competitors);
+                ArrayList<Competitor> competitors = new ArrayList<>(competition.allCompetitorsMatchingClasses(team.allowedClasses));
+                Logger.debug(competitors.size() + " competitors");
+                //competitors.removeAll(team.competitors);
                 if (competitors.size() != 0) {
-                    Collections.sort(competitors);
+                    //Collections.sort(competitors);
                     return ok(competitorselection.render(teamId, competitors));
                 } else {
                     flash().put("error", "message.error.noavailablecompetitors");

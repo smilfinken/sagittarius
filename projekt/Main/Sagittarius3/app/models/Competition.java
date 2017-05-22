@@ -151,9 +151,42 @@ public class Competition {
     public Set<Competitor> allCompetitors() {
         Set result = new TreeSet<Competitor>();
 
-        for (Squad squad: squads) {
+        int i = 0;
+        for (Squad squad : squads) {
             result.addAll(squad.competitors);
+            i += squad.competitors.size();
         }
+        Logger.debug("added " + i + " competitors");
+
+        return result;
+    }
+
+    private boolean matchClass(List<CompetitionClass> allowedClasses, String competitorClass) {
+        for (CompetitionClass competitionClass: allowedClasses) {
+            if (competitorClass.contains(competitionClass.label)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<Competitor> allCompetitorsMatchingClasses(List<CompetitionClass> classes) {
+        List result = new ArrayList<Competitor>();
+
+        int i = 0;
+        for (Squad squad: squads) {
+            for (Competitor competitor: squad.competitors) {
+                if (matchClass(classes, competitor.combinedClass(true))) {
+                    //if (result.contains(competitor)) {
+                        //Logger.debug("competitor " + competitor.fullName() + " already added as " + result.get(competitor).fullName() + "!");
+                    //} else {
+                        //Logger.debug("adding competitor " + competitor.fullName());
+                        result.add(competitor);
+                        i++;
+                    //}
+                }
+            }
+        }
+        Logger.debug("added " + i + " competitors");
 
         return result;
     }
@@ -232,7 +265,7 @@ public class Competition {
 
         for (Squad squad: squads) {
             for (Competitor competitor: squad.competitors) {
-                String combinedClass = competitor.combinedClass();
+                String combinedClass = competitor.combinedClass(championship);
                 if (totals.containsKey(combinedClass)) {
                     totals.replace(combinedClass, totals.get(combinedClass) + 1);
                 } else {
@@ -242,6 +275,16 @@ public class Competition {
         }
 
         return totals;
+    }
+
+    private void calculateClassResults(HashMap<String, Integer> top, HashMap<String, Integer> limit, ArrayList<Integer> scores, String label) {
+        Collections.sort(scores, Collections.reverseOrder());
+        if (scores.size() / 9 > 0) {
+            top.put(label, scores.get((scores.size() / 9) - 1));
+        }
+        if (scores.size() / 3 > 0) {
+            limit.put(label, scores.get((scores.size() / 3) - 1));
+        }
     }
 
     public ArrayList<ClassResults> calculateIndividualResults(HashMap<String, Integer> top, HashMap<String, Integer> limit) {
@@ -256,30 +299,17 @@ public class Competition {
         }
 
         // ugly-as-all-feck solution
-        ArrayList<Integer> scores_C = new ArrayList<Integer>();
-        ArrayList<Integer> scores_B = new ArrayList<Integer>();
-        ArrayList<Integer> scores_A = new ArrayList<Integer>();
-        ArrayList<Integer> scores_R = new ArrayList<Integer>();
+        HashMap<String, ArrayList<Integer>> scoreMap = new HashMap<>();
 
         Collections.sort(scores, new ScoreSorter());
         String currentClassName = "";
         ArrayList<ClassResults> results = new ArrayList<ClassResults>();
         ClassResults classResults = new ClassResults(currentClassName);
         for (Score score: scores) {
-            switch (score.competitorCategory) {
-                case "C":
-                    scores_C.add(score.scoreTotal());
-                    break;
-                case "B":
-                    scores_B.add(score.scoreTotal());
-                    break;
-                case "A":
-                    scores_A.add(score.scoreTotal());
-                    break;
-                case "R":
-                    scores_R.add(score.scoreTotal());
-                    break;
+            if (!scoreMap.containsKey(score.competitorCategory)) {
+                scoreMap.put(score.competitorCategory, new ArrayList<>());
             }
+            scoreMap.get(score.competitorCategory).add(score.scoreTotal());
             if (!score.competitorClass.equals(currentClassName)) {
                 if (classResults.scores.size() != 0) {
                     results.add(classResults);
@@ -293,36 +323,8 @@ public class Competition {
             results.add(classResults);
         }
 
-        Collections.sort(scores_C, Collections.reverseOrder());
-        if (scores_C.size() / 9 > 0) {
-            top.put("C", scores_C.get((scores_C.size() / 9) - 1));
-        }
-        if (scores_C.size() / 3 > 0) {
-            limit.put("C", scores_C.get((scores_C.size() / 3) - 1));
-        }
-
-        Collections.sort(scores_B, Collections.reverseOrder());
-        if (scores_B.size() / 9 > 0) {
-            top.put("B", scores_B.get((scores_B.size() / 9) - 1));
-        }
-        if (scores_B.size() / 3 > 0) {
-            limit.put("B", scores_B.get((scores_B.size() / 3) - 1));
-        }
-
-        Collections.sort(scores_A, Collections.reverseOrder());
-        if (scores_A.size() / 9 > 0) {
-            top.put("A", scores_A.get((scores_A.size() / 9) - 1));
-        }
-        if (scores_A.size() / 3 > 0) {
-            limit.put("A", scores_A.get((scores_A.size() / 3) - 1));
-        }
-
-        Collections.sort(scores_R, Collections.reverseOrder());
-        if (scores_R.size() / 9 > 0) {
-            top.put("R", scores_R.get((scores_R.size() / 9) - 1));
-        }
-        if (scores_R.size() / 3 > 0) {
-            limit.put("R", scores_R.get((scores_R.size() / 3) - 1));
+        for (String competitorCategory: scoreMap.keySet()) {
+            calculateClassResults(top, limit, scoreMap.get(competitorCategory), competitorCategory);
         }
 
         return results;

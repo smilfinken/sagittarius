@@ -12,7 +12,7 @@
     <table class='result-table'>
         <thead>
             <tr>
-                <th>@Messages("heading.result.competitor")</th>
+                <th>@Messages("heading.result.name")</th>
                 <th>@Messages("heading.result.club")</th>
                 <th>@Messages("heading.result.class")</th>
                 <th>@Messages("heading.result.score")</th>
@@ -62,7 +62,8 @@
             <tr>
                 <th>@Messages("heading.result.team")</th>
                 <th>@Messages("heading.result.club")</th>
-                <th class='result-sum' colspan='3'>@Messages("heading.result.score")</th>
+                <th>@Messages("heading.result.division")</th>
+                <th class='result-sum' colspan='2'>@Messages("heading.result.score")</th>
                 <th></th>
             </tr>
         </thead>
@@ -71,7 +72,8 @@
             <tr>
                 <td class='result-place bold'>@(item + 1). @team.teamLabel</td>
                 <td>@team.teamClub</td>
-                <td class='result-sum bold' colspan='3'>@team.resultString()</td>
+                <td>@team.teamClasses</td>
+                <td class='result-sum bold' colspan='2'>@team.resultString()</td>
                 <td></td>
             </tr>
             @for(score <- team.scores) {

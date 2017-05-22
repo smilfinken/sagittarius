@@ -14,7 +14,7 @@
         <table class='result-fixed-table'>
             <thead>
                 <tr>
-                    <th class='result-competitorname'>@Messages("heading.result.competitor")</th>
+                    <th class='result-competitorname'>@Messages("heading.result.name")</th>
                     <th class='result-clubname'>@Messages("heading.result.club")</th>
                     <th class='result-score-detail'>@Messages("heading.result.score")</th>
                     <th class='result-score-sum'>@Messages("heading.result.sum")</th>
@@ -52,8 +52,9 @@
         <table class='result-fixed-table'>
             <thead>
             <tr>
-                <th class='result-competitorname'>@Messages("heading.result.competitor")</th>
+                <th class='result-competitorname'>@Messages("heading.result.name")</th>
                 <th class='result-clubname'>@Messages("heading.result.club")</th>
+                <th class='result-division'>@Messages("heading.result.division")</th>
                 <th class='result-score-detail'>@Messages("heading.result.score")</th>
                 <th class='result-score-sum'>@Messages("heading.result.sum")</th>
             </tr>
@@ -61,8 +62,10 @@
             <tbody>
             @for((team, item) <- teams.zipWithIndex) {
             <tr>
-                <td class='result-competitorname'>@(item + 1). @team.teamLabel</td>
+                <!-- <td class='result-competitorname'>@(item + 1). @team.teamLabel</td> -->
+                <td class='result-competitorname'>@team.teamLabel</td>
                 <td class='result-clubname'>@team.teamClub</td>
+                <td class='result-division'>@team.teamClasses</td>
                 <td class='result-score-detail'></td>
                 <td class='result-score-sum'>@team.resultString()</td>
             </tr>
@@ -70,6 +73,7 @@
             <tr>
                 <td><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>@score.competitorName</td>
                 <td class='result-clubname'></td>
+                <td class='result-division'>&nbsp;</td>
                 <td class='result-score-detail'>@score.resultString()</td>
                 <td class='result-score-sum'></td>
             </tr>

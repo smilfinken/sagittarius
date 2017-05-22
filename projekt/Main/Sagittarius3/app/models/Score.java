@@ -19,8 +19,17 @@ public class Score {
         this.competitorClub = competitor.clubName();
         this.competitorClass = competitor.combinedClass(championship);
         switch (competitorClass) {
-            case "C": case "C1": case "C2": case "C3": case "D": case "D1": case "D2": case "D3": case "VY": case "VÄ": case "J":
+            case "C": case "C1": case "C2": case "C3": case "J": case "D": case "D1": case "D2": case "D3": case "VY": case "VÄ":
                 this.competitorCategory = "C";
+                break;
+            case "CJ":
+                this.competitorCategory = "J";
+                break;
+            case "CD":
+                this.competitorCategory = "D";
+                break;
+            case "CVY": case "CVÄ":
+                this.competitorCategory = "V";
                 break;
             case "B": case "B1": case "B2": case "B3":
                 this.competitorCategory = "B";

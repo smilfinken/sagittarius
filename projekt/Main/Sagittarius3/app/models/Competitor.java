@@ -49,7 +49,7 @@ public class Competitor implements Comparable {
         if (this.clubName() != competitor.clubName()) {
             return competitor.clubName().compareTo(this.clubName());
         } else if (this.fullName() != competitor.fullName()) {
-                return competitor.fullName().compareTo(this.clubName());
+                return competitor.fullName().compareTo(this.fullName());
         } else {
             return competitor.combinedClass().compareTo(this.combinedClass());
         }
@@ -70,7 +70,7 @@ public class Competitor implements Comparable {
     public String combinedClass(boolean championship) {
         if (competitionClass != null) {
             if (championship) {
-                if (competitionSubclass != null) {
+                if (competitionSubclass != null && competitionClass.label.equals("C")) {
                     return (String.format("%s%s", competitionClass.label, competitionSubclass.label));
                 } else {
                     return (String.format("%s", competitionClass.label));

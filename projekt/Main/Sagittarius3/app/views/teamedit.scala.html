@@ -4,7 +4,7 @@
         <div>
             <input type='hidden' name='id' value='@if(team.id == null){0}else{@team.id}' />
             <label for='label'>@Messages("label.common.label")</label>
-            <input type='text' name='label' value='@team.label' />
+            <input type='text' name='label' value='@team.label' autofocus/>
             <label for='slots'>@Messages("label.team.club")</label>
             <input type='text' name='club' value='@team.club' />
         </div>
@@ -21,7 +21,7 @@
         <thead>
             <th>@Messages("label.competitor.competitor")</th>
             <th>@Messages("label.competitor.club")</th>
-            <th>@Messages("label.competitor.class")</th>
+            <th>@Messages("label.competitor.division")</th>
             <th>@Messages("label.competitor.score")</th>
             <th></th>
         </thead>

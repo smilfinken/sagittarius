@@ -1,4 +1,4 @@
-@(squad: Squad, stages: List[Stage])
+@(squad: Squad, stages: List[Stage], championship: Boolean)
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -10,7 +10,7 @@
     </head>
 
     <body onload="window.print()">
-        <div class='squad-page-heading'>@Messages("heading.squad.squadobject", squad.label) @squad.rollcall</div>
+        <div class='squad-page-heading'>@Messages("heading.squad.squadobject", squad.label) @squad.rollcallString()</div>
         <table class='squad-fixed-table'>
             <tr style='height: 32%'>
                 @for((competitor, item) <- squad.competitors.zipWithIndex) {
@@ -23,7 +23,7 @@
                             <tr>
                                 <td>
                                     <span class='squad-competitor-slot'>@{item + 1}</span>
-                                    <span class='squad-competitor-class'>@competitor.combinedClass()</span>
+                                    <span class='squad-competitor-class'>@competitor.combinedClass(championship)</span>
                                 </td>
                             </tr>
                             <tr>

@@ -32,6 +32,7 @@ GET     /team/removeCompetitor/:teamId/:competitorId    controllers.Competitions
 
 # competitors
 GET     /competitor/add                                 controllers.Competitions.addCompetitor
+GET     /competitor/add/:squadId                        controllers.Competitions.addCompetitorToSquad(squadId: Long)
 POST    /competitor/save                                controllers.Competitions.saveCompetitor
 POST    /competitor/move                                controllers.Competitions.moveCompetitor
 GET     /competitor/remove/:squadId/:competitorId       controllers.Competitions.removeCompetitor(squadId: Long, competitorId: Long)

@@ -21,7 +21,10 @@
                             @for(targetIndex <- 0 to stage.targetCount - 1) {
                                 <span class='scoring-stage-scores'>
                                     <label for='hits'>@Messages("label.scoring.target", targetIndex + 1)</label>
-                                    <input id='hits' type='number' name='hits[@targetIndex]' min='0' max='6' @if(stage.index != stageIndex) { disabled } @if(competitor.getStageScore(stage.index).scored()) { value='@competitor.getStageScore(stage.index).targetScores.get(targetIndex).value'} />
+                                    <input
+                                        id='hits' type='number' name='hits[@targetIndex]' min='0' max='6' @if(stage.index != stageIndex) { disabled }
+                                        @if(competitor.getStageScore(stage.index).scored()) { value='@competitor.getStageScore(stage.index).targetScores.get(targetIndex).value'} else { if (targetIndex == 0) { autofocus } }
+                                    />
                                 </span>
                             }
                             @if(stage.points) {

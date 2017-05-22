@@ -2,7 +2,7 @@
 @head(Messages("heading.common.addobject", Messages("label.competitor.competitor").toLowerCase())) {
     @helper.form(action = routes.Competitions.saveCompetitor()) {
         <label for='squad'>@Messages("label.squad.squad")</label>
-        <select id='squad' name='squadId'>
+        <select id='squad' name='squadId' autofocus>
             @for(squad <- squads) {
                 <option value='@squad.id' @if(flash.get("squadId") == squad.id.toString()){selected}>@squad.label - @squad.rollcallString()@if(squad.allowedClasses.size() != 0){ - @squad.allowedClassesString()}</option>
             }
@@ -17,7 +17,7 @@
         @components.selectors.selectsubclass(competitionSubclasses)
         <span class='menu-container action-menu'>
             <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
-            <a class='menu-link' href='/competition/show/@session.get("competitionId")/competitors'>@Messages("button.cancel.title")</a>
+            <a class='menu-link' href='/competition/show/@session.get("competitionId")/@session.get("tab")'>@Messages("button.cancel.title")</a>
         </span>
     }
 }

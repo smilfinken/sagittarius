@@ -153,9 +153,16 @@ public class Results extends Controller {
                 }
 
                 for (Competitor competitor: squad.competitors) {
-                    for (Stage stage: competition.stages) {
-                        if (!competitor.getStageScore(stage.index).scored()) {
-                            return ok(squadscoring.render(competition, squad, competitor, stage.index));
+                    if (!competitor.scored()) {
+                        if (competitor.scores.isEmpty()) {
+                            for (Stage stage : competition.stages) {
+                                competitor.scores.add(JPA.em().merge(new StageScore(stage.index)));
+                            }
+                        }
+                        for (Stage stage : competition.stages) {
+                            if (!competitor.getStageScore(stage.index).scored()) {
+                                return ok(squadscoring.render(competition, squad, competitor, stage.index));
+                            }
                         }
                     }
                 }

@@ -42,6 +42,9 @@
                         <button type='submit' name='action' value='show'>@Messages("button.scoresquad.title")</button>
                     }
                     }
+                    @if(squad.available()) {
+                    <a class='menu-link' href='/competitor/add/@squad.id'>@Messages("button.addobject.title", Messages("label.common.competitor").toLowerCase())</a>
+                    }
                 </span>
             </td>
         </tr>

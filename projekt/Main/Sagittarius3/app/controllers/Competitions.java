@@ -39,11 +39,11 @@ public class Competitions extends Controller {
     @Inject
     private PdfGenerator pdfGenerator;
 
-    private boolean ValidateBookingTime(Competition competition, Squad selectedSquad,  User user) {
+    private boolean ValidateBookingTime(Competition competition, Squad selectedSquad, User user) {
         return ValidateBookingTime(competition, selectedSquad, user, null);
     }
 
-    private boolean ValidateBookingTime(Competition competition, Squad selectedSquad,  User user, Squad ignoreSquad) {
+    private boolean ValidateBookingTime(Competition competition, Squad selectedSquad, User user, Squad ignoreSquad) {
         for (Squad squad : competition.squads) {
             if (!squad.equals(ignoreSquad)) {
                 for (Competitor competitor : squad.competitors) {
@@ -290,7 +290,7 @@ public class Competitions extends Controller {
         }
 
         // the following is a completely ridiculous solution, but it's the only one I can get to work properly
-        for (String key: dynamicData.data().keySet()) {
+        for (String key : dynamicData.data().keySet()) {
             if (key.startsWith("classIds")) {
                 CompetitionClass competitionClass = JPA.em().find(CompetitionClass.class, new Long(dynamicData.data().get(key)));
                 requestData.allowedClasses.add(competitionClass);
@@ -300,7 +300,7 @@ public class Competitions extends Controller {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             requestData.rollcall = new DateTime(sdf.parse(dynamicData.data().get("rollcalltime")));
-        } catch (ParseException pe){
+        } catch (ParseException pe) {
             Logger.error("error parsing rollcall string");
             flash().put("error", "message.error.failedtosave");
             return redirect(routes.Competitions.show(competitionId, "squads"));
@@ -369,11 +369,24 @@ public class Competitions extends Controller {
         Long competitionId = Long.valueOf(session().get("competitionId"));
         Competition competition = JPA.em().find(Competition.class, competitionId);
         ArrayList<Squad> squads = new ArrayList<>();
-        for (Squad squad: competition.squads) {
-            if (squad.competitors() < squad.slots) {
+        for (Squad squad : competition.squads) {
+            if (squad.available()) {
                 squads.add(squad);
             }
         }
+        List<CompetitionClass> competitionClasses = JPA.em().createQuery("SELECT c FROM CompetitionClass c ORDER BY c.label", CompetitionClass.class).getResultList();
+        List<CompetitionSubclass> competitionSubclasses = JPA.em().createQuery("SELECT c FROM CompetitionSubclass c ORDER BY c.label", CompetitionSubclass.class).getResultList();
+
+        return ok(competitoradd.render(squads, users, competitionClasses, competitionSubclasses));
+    }
+
+    @Transactional(readOnly = true)
+    public Result addCompetitorToSquad(Long squadId) {
+        List<User> users = JPA.em().createQuery("SELECT u FROM User u ORDER BY u.firstName, u.lastName", User.class).getResultList();
+
+        Long competitionId = Long.valueOf(session().get("competitionId"));
+        ArrayList<Squad> squads = new ArrayList<>();
+        squads.add(JPA.em().find(Squad.class, squadId));
         List<CompetitionClass> competitionClasses = JPA.em().createQuery("SELECT c FROM CompetitionClass c ORDER BY c.label", CompetitionClass.class).getResultList();
         List<CompetitionSubclass> competitionSubclasses = JPA.em().createQuery("SELECT c FROM CompetitionSubclass c ORDER BY c.label", CompetitionSubclass.class).getResultList();
 
@@ -432,7 +445,7 @@ public class Competitions extends Controller {
         competitor.user = user;
         squad.competitors.add(JPA.em().merge(competitor));
 
-        return redirect(routes.Competitions.show(competitionId, "competitors"));
+        return redirect(routes.Competitions.show(competitionId, session().get("tab")));
     }
 
     @Transactional
@@ -494,7 +507,11 @@ public class Competitions extends Controller {
         Competitor competitor = JPA.em().find(Competitor.class, competitorId);
         squad.competitors.remove(competitor);
 
-        return redirect(routes.Competitions.show(Long.valueOf(session().get("competitionId")), "competitors"));
+        if (session().get("tab").equals("squads")) {
+            return redirect(routes.Competitions.editSquad(squad.id));
+        } else {
+            return redirect(routes.Competitions.show(Long.valueOf(session().get("competitionId")), session().get("tab")));
+        }
     }
 
     @Transactional(readOnly = true)

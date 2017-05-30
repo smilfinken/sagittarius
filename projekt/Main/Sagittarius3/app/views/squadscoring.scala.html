@@ -1,6 +1,6 @@
 @(competition: Competition, squad: Squad, competitor: Competitor, stageIndex: Integer)
 @head(Messages("heading.result.scoringforobject", squad.label)) {
-    @helper.form(action = routes.Results.scoreSquad()) {
+    @helper.form(action = routes.Results.scoreSquad(), 'id -> "resultform") {
         <input type='hidden' name='competitionId' value='@competition.id' />
         <input type='hidden' name='squadId' value='@squad.id' />
         <input type='hidden' name='competitorId' value='@competitor.id' />
@@ -22,8 +22,11 @@
                                 <span class='scoring-stage-scores'>
                                     <label for='hits'>@Messages("label.scoring.target", targetIndex + 1)</label>
                                     <input
-                                        id='hits' type='number' name='hits[@targetIndex]' min='0' max='6' @if(stage.index != stageIndex) { disabled }
-                                        @if(competitor.getStageScore(stage.index).scored()) { value='@competitor.getStageScore(stage.index).targetScores.get(targetIndex).value'} else { if (targetIndex == 0) { autofocus } }
+                                        id='hits' type='number' name='hits[@targetIndex]' min='0' max='6'
+                                        @if(stage.index != stageIndex) {disabled} else { @if(targetIndex == 0) {autofocus} }
+                                        @if(competitor.getStageScore(stage.index).scored()) {value='@competitor.getStageScore(stage.index).targetScores.get(targetIndex).value'}
+                                        onkeypress='if (this.value.length > 0) { return false; }'
+                                        onkeyup='if (this.value.length > 0) { var next = Array.prototype.slice.call(document.getElementById("resultform").getElementsByTagName("input"), 0).filter(function(item) { return !item.disabled && (item.name === "hits[@(targetIndex + 1)]" || item.name === "points"); })[0]; if (!!next) { next.focus(); } else { var button = document.getElementById("submitbutton"); if (!!button) { button.focus(); } } }'
                                     />
                                 </span>
                             }
@@ -40,7 +43,7 @@
         </table>
 
         <span class='menu-container action-menu'>
-            <button type='submit' name='action' value='save'>@Messages("button.save.title")</button>
+            <button id='submitbutton' type='submit' name='action' value='save'>@Messages("button.save.title")</button>
             <a class='menu-link' href='/competition/show/@competition.id/squads'>@Messages("button.cancel.title")</a>
         </span>
     }

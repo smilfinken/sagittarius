@@ -51,6 +51,10 @@
         margin-top: 1.3em;
     }
 
+    .result-individual-tiebreaker {
+        font-style: italic;
+    }
+
     /* table layout for lists */
     .result-fixed-table {
         table-layout: fixed;
@@ -83,9 +87,14 @@
     }
 
     /* Column widths are based on these cells */
-    .result-fixed-table .result-competitorname { text-align: left; width: 30%; }
-    .result-fixed-table .result-clubname { text-align: left; width: 20%; }
-    .result-fixed-table .result-division { text-align: left; width: 15%; }
-    .result-fixed-table .result-score-detail { font-size: 11pt; text-align: left; width: 20%; }
-    .result-fixed-table .result-score-sum { text-align: right; width: 15%; }
+    .result-fixed-table .result-individual-competitorname { text-align: left; width: 35%; }
+    .result-fixed-table .result-individual-clubname { text-align: left; width: 20%; }
+    .result-fixed-table .result-individual-score-detail { font-size: 10pt; text-align: left; width: 30%; }
+    .result-fixed-table .result-individual-score-sum { text-align: right; width: 15%; }
+
+    .result-fixed-table .result-team-teamname { text-align: left; width: 30%; }
+    .result-fixed-table .result-team-division { text-align: left; width: 10%; }
+    .result-fixed-table .result-team-clubname { text-align: left; width: 25%; }
+    .result-fixed-table .result-team-score-detail { font-size: 10pt; text-align: left; width: 20%; }
+    .result-fixed-table .result-team-score-sum { text-align: right; width: 15%; }
 }

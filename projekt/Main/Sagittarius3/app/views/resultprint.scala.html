@@ -14,29 +14,36 @@
         <table class='result-fixed-table'>
             <thead>
                 <tr>
-                    <th class='result-competitorname'>@Messages("heading.result.name")</th>
-                    <th class='result-clubname'>@Messages("heading.result.club")</th>
-                    <th class='result-score-detail'>@Messages("heading.result.score")</th>
-                    <th class='result-score-sum'>@Messages("heading.result.sum")</th>
+                    <th class='result-individual-competitorname'>@Messages("heading.result.name")</th>
+                    <th class='result-individual-clubname'>@Messages("heading.result.club")</th>
+                    <th class='result-individual-score-detail'>@Messages("heading.result.score")</th>
+                    <th class='result-individual-score-sum'>@Messages("heading.result.sum")</th>
                 </tr>
             </thead>
             <tbody>
                 @for((score, item) <- classResults.scores.zipWithIndex) {
                     <tr>
-                        <td class='result-competitorname'>@(item + 1) @score.competitorName</td>
-                        <td class='result-clubname'>@score.competitorClub</td>
-                        <td class='result-score-detail'>
-                            @for(stageScore <- score.scores) {
-                                <span>@stageScore.scoreString()</span>
-                                @if(flags.get(stageScore.index)) {<span>(@stageScore.points)</span>}
+                        <td class='result-individual-competitorname'>@(item + 1) @score.competitorName</td>
+                        <td class='result-individual-clubname'>@score.competitorClub</td>
+                        <td class='result-individual-score-detail'>
+                            @for((stageScore, item) <- score.scores.zipWithIndex) {
+                            @if(item >= score.stagecount){
+                            <span class='result-individual-tiebreaker'>
+                                @if(item == score.stagecount) {&nbsp;@Messages("label.result.tiebreaker")}
+                            } else {
+                            <span>
+                                @stageScore.scoreString()
+                            }
+                            </span>
+                            @if(flags.containsKey(stageScore.index) && flags.get(stageScore.index)) {<span>(@stageScore.points)</span>}
                             }
                         </td>
-                        <td class='result-score-sum'>
+                        <td class='result-individual-score-sum'>
                             @if(top.containsKey(score.competitorCategory) && top.get(score.competitorCategory) <= score.scoreTotal()) {
-                                <span>S</span>
+                            <span>S</span>
                             } else {
                                 @if(limit.containsKey(score.competitorCategory) && limit.get(score.competitorCategory) <= score.scoreTotal()) {
-                                    <span>B</span>
+                            <span>B</span>
                                 }
                             }
                             <span>@score.scoreString()</span> <span>@score.scoreTotal()</span> <span>(@score.points())</span>
@@ -52,30 +59,29 @@
         <table class='result-fixed-table'>
             <thead>
             <tr>
-                <th class='result-competitorname'>@Messages("heading.result.name")</th>
-                <th class='result-clubname'>@Messages("heading.result.club")</th>
-                <th class='result-division'>@Messages("heading.result.division")</th>
-                <th class='result-score-detail'>@Messages("heading.result.score")</th>
-                <th class='result-score-sum'>@Messages("heading.result.sum")</th>
+                <th class='result-team-teamname'>@Messages("heading.result.name")</th>
+                <th class='result-team-division'>@Messages("heading.result.division")</th>
+                <th class='result-team-clubname'>@Messages("heading.result.club")</th>
+                <th class='result-team-score-detail'>@Messages("heading.result.score")</th>
+                <th class='result-team-score-sum'>@Messages("heading.result.sum")</th>
             </tr>
             </thead>
             <tbody>
             @for((team, item) <- teams.zipWithIndex) {
             <tr>
-                <!-- <td class='result-competitorname'>@(item + 1). @team.teamLabel</td> -->
-                <td class='result-competitorname'>@team.teamLabel</td>
-                <td class='result-clubname'>@team.teamClub</td>
-                <td class='result-division'>@team.teamClasses</td>
-                <td class='result-score-detail'></td>
-                <td class='result-score-sum'>@team.resultString()</td>
+                <!-- <td class='result-team-teamname'>@(item + 1). @team.teamLabel</td> -->
+                <td class='result-team-teamname'>@team.teamLabel</td>
+                <td class='result-team-division'>@team.teamClasses</td>
+                <td class='result-team-clubname'>@team.teamClub</td>
+                <td class='result-team-score-detail'></td>
+                <td class='result-team-score-sum'>@team.resultString()</td>
             </tr>
             @for(score <- team.scores) {
             <tr>
-                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>@score.competitorName</td>
-                <td class='result-clubname'></td>
-                <td class='result-division'>&nbsp;</td>
-                <td class='result-score-detail'>@score.resultString()</td>
-                <td class='result-score-sum'></td>
+                <td class='result-team-competitorname' colspan='2'><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>@score.competitorName</td>
+                <td class='result-team-clubname'></td>
+                <td class='result-team-score-detail'>@score.resultString()</td>
+                <td class='result-team-score-sum'></td>
             </tr>
             }
             }
@@ -83,6 +89,6 @@
         </table>
         }
 
-        <div class='result-footer'><span class='result-footer-stats'>@entries @Messages("heading.result.entries"), @Messages("heading.result.maxscore") @maxScore</span><span class='result-footer-date'>@Messages("heading.result.printedat", printDate)</span></div>
+        <div class='result-footer'><span class='result-footer-stats'>@entries @Messages("heading.result.entries").toLowerCase(), @Messages("heading.result.maxscore").toLowerCase() @maxScore</span><span class='result-footer-date'>@Messages("heading.result.printedat", printDate)</span></div>
     </body>
 </html>

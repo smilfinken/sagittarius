@@ -38,7 +38,7 @@ heading.main.title=Sagittarius
 
 heading.result.class=Klass
 heading.result.club=Förening
-heading.result.division=Vapengrupp
+heading.result.division=Vgrp
 heading.result.entries=Deltagare
 heading.result.points=Poäng
 heading.result.printedat=Utskrivet {0}
@@ -95,6 +95,8 @@ label.competitor.score=Resultat
 label.competitor.squad=Patrull
 label.competitor.subclass=Kategori
 label.competitor.rollcall=Starttid
+
+label.result.tiebreaker=särskjutning
 
 label.scoring.hits=Träffar
 label.scoring.points=Poäng

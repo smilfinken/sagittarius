@@ -53,7 +53,7 @@ public class Results extends Controller {
         for (Squad squad : competition.squads) {
             for (Competitor competitor : squad.competitors) {
                 if (competitor.scored()) {
-                    scores.add(new Score(competitionId, competitor, competition.championship));
+                    scores.add(new Score(competitionId, competitor, competition.championship, competition.stages.size()));
                 }
             }
         }
@@ -78,7 +78,7 @@ public class Results extends Controller {
         for (Squad squad : competition.squads) {
             for (Competitor competitor : squad.competitors) {
                 if (competitor.scored()) {
-                    scores.add(new Score(competitionId, competitor, competition.championship));
+                    scores.add(new Score(competitionId, competitor, competition.championship, competition.stages.size()));
                 }
             }
         }

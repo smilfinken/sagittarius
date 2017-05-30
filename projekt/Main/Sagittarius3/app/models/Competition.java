@@ -31,7 +31,11 @@ public class Competition {
         public int compare(Score a, Score b) {
             if (a.competitorClass.equals(b.competitorClass)) {
                 if (a.scoreTotal() == b.scoreTotal()) {
-                    return b.points() - a.points();
+                    if (a.championship && b.championship) {
+                        return b.tiebreaker() - a.tiebreaker();
+                    } else {
+                        return b.points() - a.points();
+                    }
                 }
                 return b.scoreTotal() - a.scoreTotal();
             }
@@ -293,7 +297,7 @@ public class Competition {
         for (Squad squad: squads) {
             for (Competitor competitor: squad.competitors) {
                 if (competitor.scored()) {
-                    scores.add(new Score(id, competitor, championship));
+                    scores.add(new Score(id, competitor, championship, stages.size()));
                 }
             }
         }

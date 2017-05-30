@@ -1,6 +1,5 @@
 package models;
 
-import java.util.List;
 import java.util.ArrayList;
 
 public class Score {
@@ -10,9 +9,11 @@ public class Score {
     public String competitorClub;
     public String competitorClass;
     public String competitorCategory;
-    public List<StageScore> scores;
+    public ArrayList<StageScore> scores;
+    public Boolean championship;
+    public Integer stagecount;
 
-    public Score(Long competitionId, Competitor competitor, boolean championship) {
+    public Score(Long competitionId, Competitor competitor, boolean championship, Integer stagecount) {
         this.competitionId = competitionId;
         this.competitorId = competitor.id;
         this.competitorName = competitor.fullName();
@@ -46,15 +47,20 @@ public class Score {
             default:
                 this.competitorCategory = "X";
         }
-        this.scores = new ArrayList<StageScore>(competitor.scores);
+        this.scores = new ArrayList<>(competitor.scores);
+        this.championship = championship;
+        this.stagecount = stagecount;
     }
 
     public String scoreString() {
         int shots = 0;
         int targets = 0;
+        int count = 0;
         for (StageScore score : scores) {
-            shots += score.hits();
-            targets += score.targets();
+            if (count++ < stagecount) {
+                shots += score.hits();
+                targets += score.targets();
+            }
         }
         return String.format("%s/%s", shots, targets);
     }
@@ -62,18 +68,37 @@ public class Score {
     public int scoreTotal() {
         int shots = 0;
         int targets = 0;
+        int count = 0;
         for (StageScore score : scores) {
-            shots += score.hits();
-            targets += score.targets();
+            if (count++ < stagecount) {
+                shots += score.hits();
+                targets += score.targets();
+            }
         }
         return shots + targets;
     }
 
     public int points() {
         int points = 0;
+        int count = 0;
         for (StageScore score : scores) {
-            points += score.points;
+            if (count++ < stagecount) {
+                points += score.points;
+            }
         }
         return points;
+    }
+
+    public int tiebreaker() {
+        int shots = 0;
+        int targets = 0;
+        int count = 0;
+        for (StageScore score : scores) {
+            if (count++ >= stagecount) {
+                shots += score.hits();
+                targets += score.targets();
+            }
+        }
+        return shots + targets;
     }
 }
